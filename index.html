@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>트릭컬 스토리 대화창 생성기</title>
+    <link rel="icon" href="./assets/essentials/favicon.svg">
+    <meta property="og:title" content="트릭컬 스토리 대화창 생성기">
+    <meta property="og:description" content="바일 게임 《트릭컬: 리바이브》의 인게임 스토리에서의 대화창 및 CG 씬과 유사한 규격의 이미지를 쉽게 제작하도록 돕는 웹기반 어플리케이션입니다.">
+    <meta property="og:image" content="https://acherium.github.io/trickcal/cg-gen/assets/essentials/thumbnail.png">
+    <meta property="og:url" content="https://acherium.github.io/trickcal/cg-gen/">
+
+    <link rel="stylesheet" href="./stylesheets/main.css">
+
+    <script src="./lyra/main.js"></script>
+    <script src="./scripts/html2canvas-pro.min.js" defer></script>
+    <script src="./scripts/main.js" defer></script>
+</head>
+<body>
+    <input type="file" id="uploader">
+    <div id="top">
+        <div id="logo-area">
+            <img id="logo" src="./assets/essentials/logo.svg">
+            <h2 id="logotype" class="m-hide">트릭컬 스토리 대화창 생성기</h1>
+            <!-- <span id="ver"></span> -->
+        </div>
+        <div class="m-hide flexlist-horizontal">
+            <label for="checkbox-toggle-shortcut" id="toggle-shortcut">
+                <input type="checkbox" id="checkbox-toggle-shortcut">
+                <p>단축키 사용</p>
+            </label>
+            <!-- <button>
+                <div class="i i-menu"></div>
+                <p>단축키 도움말</p>
+            </button> -->
+        </div>
+        <div class="m-show-flex flexlist-horizontal">
+            <button id="m-button-toggle-slide">
+                <div class="i i-slide"></div>
+            </button>
+            <button id="m-button-toggle-layer">
+                <div class="i i-layer"></div>
+            </button>
+        </div>
+    </div>
+    <div id="bottom">
+        <div id="left">
+            <div class="scroll-box-inner">
+                <h4>이미지로 출력</h4>
+                <div class="flexlist-horizontal wf">
+                    <button id="button-download" class="wf fjcc">
+                        <div class="i i-download"></div>
+                        <p>현재</p>
+                    </button>
+                    <button id="button-download-all" class="wf fjcc">
+                        <div class="i i-download"></div>
+                        <p>전체</p>
+                    </button>
+                </div>
+                <div class="flexlist-horizontal fjcc wf">
+                    <span class="desc">Powered by <a href="https://github.com/yorickshan/html2canvas-pro" target="_blank">html2canvas-pro</a></span>
+                </div>
+                <div class="partition-horizontal"></div>
+                <h4>슬라이드</h4>
+                <button id="button-slide-size" class="wf fjcc">
+                    <div class="i i-slide-size"></div>
+                    <p>슬라이드 크기</p>
+                </button>
+                <div class="flexlist-horizontal wf">
+                    <button id="button-add-slide" class="wf fjcc">
+                        <div class="i i-create-slide"></div>
+                        <p>추가</p>
+                    </button>
+                    <button id="button-duplicate-slide" class="wf fjcc">
+                        <div class="i i-duplicate-slide"></div>
+                        <p>복제</p>
+                    </button>
+                </div>
+                <div class="partition-horizontal"></div>
+                <div id="slide-list">
+                </div>
+            </div>
+        </div>
+        <div id="middle">
+            <main>
+                <div id="photo-zone">
+                    <div id="photo-bg-area">
+                        <img src="" id="photo-bg">
+                    </div>
+                    <div id="photo-layer"></div>
+                    <img src="./assets/images/vignetting.svg" id="photo-vignetting">
+                    <img src="./assets/images/sokmaeum.svg" id="photo-button-sokmaeum">
+                    <div id="photo-button-area">
+                        <img src="./assets/images/button-auto.png" class="photo-button">
+                        <img src="./assets/images/button-menu.png" class="photo-button">
+                    </div>
+                    <div id="photo-script-box-area">
+                        <img src="./assets/images/scriptbox-0.svg" id="photo-script-box-backdrop">
+                        <img src="./assets/images/next.svg" id="photo-script-box-arrow">
+                        <div id="photo-script-box-namearea">
+                            <div id="photo-script-box-name-backdrop"></div>
+                            <div id="photo-script-box-namebox">
+                                <span>Lorem ipsum dolor sit amet.</span>
+                                <span>Lorem ipsum dolor sit amet.</span>
+                            </div>
+                        </div>
+                        <span id="script-content">Lorem ipsum dolor sit amet.</span>
+                    </div>
+                    <div id="photo-select-area">
+                        <div id="photo-select">
+                            <div class="photo-select-option">
+                                <img src="./assets/images/select-option.svg">
+                                <p></p>
+                            </div>
+                            <div class="photo-select-option">
+                                <img src="./assets/images/select-option.svg">
+                                <p></p>
+                            </div>
+                            <div class="photo-select-option">
+                                <img src="./assets/images/select-option.svg">
+                                <p></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="photo-title-box-area">
+                        <img src="./assets/images/titlebox.png" id="photo-title-box-backdrop">
+                        <p id="photo-title">
+                            <img src="./assets/images/star.svg">
+                            <span>Lorem ipsum dolor sit amet.</span>
+                        </p>
+                        <div id="photo-title-box-namearea">
+                            <span>Lorem ipsum dolor sit amet.</span>
+                            <span>Lorem ipsum dolor sit amet.</span>
+                        </div>
+                    </div>
+                    <div id="photo-location-box-area">
+                        <div class="shadow"></div>
+                        <div class="backdrop"></div>
+                        <img src="./assets/images/leaf.svg" alt="">
+                        <p id="photo-location">
+                            Loream ipsum dolor sit amet.
+                        </p>
+                    </div>
+                </div>
+                <div id="photo-item-controller-area" data-html2canvas-ignore="true">
+                    <div id="photo-item-controller" style="display: none;">
+                        <div id="resize-point-0" class="resize-point"></div>
+                        <div id="resize-point-1" class="resize-point"></div>
+                        <div id="resize-point-2" class="resize-point"></div>
+                        <div id="resize-point-3" class="resize-point"></div>
+                        <div id="resize-point-4" class="resize-point"></div>
+                        <div id="resize-point-5" class="resize-point"></div>
+                        <div id="resize-point-6" class="resize-point"></div>
+                        <div id="resize-point-7" class="resize-point"></div>
+                    </div>
+                </div>
+                <div id="deadline"></div>
+            </main>
+            <div id="controller-bar">
+                <button id="button-controller-bottommost">
+                    <div class="i i-bottommost"></div>
+                    <div class="tip utip">맨 아래로</div>
+                </button>
+                <button id="button-controller-bottom">
+                    <div class="i i-bottom"></div>
+                    <div class="tip utip">아래로</div>
+                </button>
+                <button id="button-controller-front">
+                    <div class="i i-front"></div>
+                    <div class="tip utip">위로</div>
+                </button>
+                <button id="button-controller-frontmost">
+                    <div class="i i-frontmost"></div>
+                    <div class="tip utip">맨 위로</div>
+                </button>
+                <div class="partition-vertical"></div>
+                <button id="button-controller-flip-horizontal">
+                    <div class="i i-flip-horizontal"></div>
+                    <div class="tip utip">좌우 뒤집기</div>
+                </button>
+                <button id="button-controller-flip-vertical">
+                    <div class="i i-flip-vertical"></div>
+                    <div class="tip utip">상하 뒤집기</div>
+                </button>
+                <input type="checkbox" id="checkbox-toggle-controller-darker">
+                <button id="controller-toggle-darker">
+                    <div class="i i-invert"></div>
+                    <div class="tip utip">어둡게</div>
+                </button>
+                <div class="partition-vertical"></div>
+                <button id="button-controller-reset">
+                    <div class="i i-rescue"></div>
+                    <div class="tip utip">위치 및 크기 초기화</div>
+                </button>
+                <button id="button-controller-remove">
+                    <div class="i i-trash"></div>
+                    <div class="tip utip">삭제</div>
+                </button>
+                <div class="partition-vertical"></div>
+                <button id="button-controller-unselect">
+                    <div class="i i-deny"></div>
+                    <div class="tip utip">선택 취소</div>
+                </button>
+            </div>
+        </div>
+        <div id="right">
+            <div class="scroll-box-inner">
+                <h4>레이어</h4>
+                <div class="partition-horizontal"></div>
+                <p>배경</p>
+                <div class="flexlist-horizontal wf">
+                    <button id="button-set-bg" class="wf fjcc">
+                        <div class="i i-plus"></div>
+                        <p>설정</p>
+                    </button>
+                    <button id="button-remove-bg" class="wf fjcc">
+                        <div class="i i-trash"></div>
+                        <p>제거</p>
+                    </button>
+                </div>
+                <button id="button-config-bg" class="wf fjcc">
+                    <div class="i i-config"></div>
+                    <p>기타 배경 설정</p>
+                </button>
+                <div id="preview-bg">
+                    <img src="">
+                </div>
+                <div class="partition-horizontal"></div>
+                <p>요소 제어</p>
+                <div class="flexlist-horizontal wf">
+                    <button id="button-content" class="wf fjcc">
+                        <div class="i i-content"></div>
+                        <p>대화창</p>
+                    </button>
+                    <button id="button-select-box" class="wf fjcc">
+                        <div class="i i-content"></div>
+                        <p>선택지</p>
+                    </button>
+                </div>
+                <button id="button-config-indicators" class="wf fjcc">
+                    <div class="i i-config"></div>
+                    <p>기타 요소 설정</p>
+                </button>
+                <div class="partition-horizontal"></div>
+                <p>이미지</p>
+                <div class="flexlist-horizontal wf">
+                    <button id="button-add-image" class="wfix hfix">
+                        <div class="i i-plus"></div>
+                    </button>
+                    <button id="button-reset-image" class="wf fjcc">
+                        <div class="i i-trash"></div>
+                        <p>전체 삭제</p>
+                    </button>
+                </div>
+                <div id="image-item-list">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="modal-name" class="modal">
+        <div class="bg bg-acrylic"></div>
+        <div class="body">
+            <div class="title">
+                <div class="icon il i-content"></div>
+                <h1>이름</h1>
+            </div>
+            <div class="content"></div>
+            <div class="controller">
+                <button class="close"></button>
+            </div>
+        </div>
+    </div>
+    <div id="modal-content" class="modal">
+        <div class="bg bg-acrylic"></div>
+        <div class="body">
+            <div class="title">
+                <div class="icon il i-content"></div>
+                <h1>대화창</h1>
+            </div>
+            <div class="content">
+                <h3>이름</h3>
+                <label class="wf f1">
+                    <p>이름</p>
+                    <input type="text" id="name" class="modal-input-text wf f1">
+                </label>
+                <label>
+                    <input type="checkbox" id="checkbox-toggle-namearea">
+                    <p>이름표 표시</p>
+                </label>
+                <div id="colorpicker-namearea" class="colorpicker-area">
+                    <div class="left colorpicker-preview">
+                        <p class="colorpicker-preview-value">#FFFFFF<br>255, 255, 255</p>
+                    </div>
+                    <div class="right">
+                        <p>R</p>
+                        <div class="colorpicker-bar colorpicker-bar-r">
+                            <div>
+                                <div class="colorpicker-pointer"></div>
+                            </div>
+                        </div>
+                        <input type="number" class="colorpicker-input colorpicker-input-r">
+                        <p>G</p>
+                        <div class="colorpicker-bar colorpicker-bar-g">
+                            <div>
+                                <div class="colorpicker-pointer"></div>
+                            </div>
+                        </div>
+                        <input type="number" class="colorpicker-input colorpicker-input-g">
+                        <p>B</p>
+                        <div class="colorpicker-bar colorpicker-bar-b">
+                            <div>
+                                <div class="colorpicker-pointer"></div>
+                            </div>
+                        </div>
+                        <input type="number" class="colorpicker-input colorpicker-input-b">
+                    </div>
+                </div>
+                <div class="flexlist-horizontal wf">
+                    <p>프리셋</p>
+                    <select id="name-color" class="f1"></select>
+                </div>
+                <div class="partition-horizontal"></div>
+                <label>
+                    <input type="checkbox" id="checkbox-toggle-auto-change-name">
+                    <p>이름도 같이 변경</p>
+                </label>
+                <h3>내용</h3>
+                <textarea id="content" class="wf"></textarea>
+                <button id="button-markdown-help" class="wfc">
+                    <div class="i i-notification"></div>
+                    <p>마크다운 문법 도움말</p>
+                </button>
+                <div class="partition-horizontal"></div>
+                <h3>형태</h3>
+                <select id="content-box-style" class="wf">
+                    <option value="0">기본</option>
+                    <option value="1">기본 (속마음 있음)</option>
+                    <option value="2">속마음</option>
+                    <option value="3">생각</option>
+                    <option value="4">사각형</option>
+                    <option value="5">놀람</option>
+                </select>
+                <label>
+                    <input type="checkbox" id="checkbox-toggle-content">
+                    <p>표시</p>
+                </label>
+                <label>
+                    <input type="checkbox" id="checkbox-toggle-box-position-center">
+                    <p>대화창을 중앙에 표시</p>
+                </label>
+            </div>
+            <div class="controller">
+                <button id="button-download-scriptbox">
+                    <div class="i i-download"></div>
+                    <p>출력</p>
+                </button>
+                <button class="close"></button>
+            </div>
+        </div>
+    </div>
+    <div id="modal-slide-size" class="modal">
+        <div class="bg bg-acrylic"></div>
+        <div class="body">
+            <div class="title">
+                <div class="icon il i-slide-size"></div>
+                <h1>슬라이드 크기</h1>
+            </div>
+            <div class="content">
+                <div class="flexlist-horizontal wf">
+                    <input type="number" id="input-slide-size-width" class="wf"><span>×</span><input type="number" id="input-slide-size-height" class="wf">
+                </div>
+                <h4>프리셋</h4>
+                <div class="flexlist wf">
+                    <button class="button-slide-size wf" data-width="1280" data-height="720">
+                        <p>1280×720 (16:9)</p>
+                    </button>
+                    <button class="button-slide-size wf" data-width="1788" data-height="700">
+                        <p>1788×700 (23:9)</p>
+                    </button>
+                    <button class="button-slide-size wf" data-width="1280" data-height="1066">
+                        <p>1280×1066 (6:5)</p>
+                    </button>
+                </div>
+            </div>
+            <div class="controller">
+                <button class="close"></button>
+            </div>
+        </div>
+    </div>
+    <div id="modal-select" class="modal">
+        <div class="bg bg-acrylic"></div>
+        <div class="body">
+            <div class="title">
+                <div class="icon il i-content"></div>
+                <h1>선택지 목록</h1>
+            </div>
+            <div class="content">
+                <input type="text" id="select-option-0" class="select-option modal-input-text f1">
+                <input type="text" id="select-option-1" class="select-option modal-input-text f1">
+                <input type="text" id="select-option-2" class="select-option modal-input-text f1">
+                <label>
+                    <input type="checkbox" id="checkbox-toggle-select">
+                    <p>선택 목록 표시</p>
+                </label>
+            </div>
+            <div class="controller">
+                <button class="close"></button>
+            </div>
+        </div>
+    </div>
+    <div id="modal-config-bg" class="modal">
+        <div class="bg bg-acrylic"></div>
+        <div class="body">
+            <div class="title">
+                <div class="icon il i-config"></div>
+                <h1>기타 배경 설정</h1>
+            </div>
+            <div class="content">
+                <h4>배경 기본 색상</h4>
+                <div id="colorpicker-bg" class="colorpicker-area">
+                    <div class="left colorpicker-preview">
+                        <p class="colorpicker-preview-value">#FFFFFF<br>255, 255, 255</p>
+                    </div>
+                    <div class="right">
+                        <p>R</p>
+                        <div class="colorpicker-bar colorpicker-bar-r">
+                            <div>
+                                <div class="colorpicker-pointer"></div>
+                            </div>
+                        </div>
+                        <input type="number" class="colorpicker-input colorpicker-input-r">
+                        <p>G</p>
+                        <div class="colorpicker-bar colorpicker-bar-g">
+                            <div>
+                                <div class="colorpicker-pointer"></div>
+                            </div>
+                        </div>
+                        <input type="number" class="colorpicker-input colorpicker-input-g">
+                        <p>B</p>
+                        <div class="colorpicker-bar colorpicker-bar-b">
+                            <div>
+                                <div class="colorpicker-pointer"></div>
+                            </div>
+                        </div>
+                        <input type="number" class="colorpicker-input colorpicker-input-b">
+                    </div>
+                </div>
+                <h4>배경 이미지 맞춤</h4>
+                <select id="select-bg-fit" class="wf">
+                    <option value="fit-height">슬라이드 높이에 맞춤</option>
+                    <option value="fit-width">슬라이드 폭에 맞춤</option>
+                    <!-- <option value="stretch-height">슬라이드 높이에 맞춰 늘림</option>
+                    <option value="stretch-width">슬라이드 폭에 맞춰 늘림</option> -->
+                    <option value="fill">슬라이드 채움</option>
+                </select>
+            </div>
+            <div class="controller">
+                <button class="close"></button>
+            </div>
+        </div>
+    </div>
+    <div id="modal-config-indicators" class="modal">
+        <div class="bg bg-acrylic"></div>
+        <div class="body">
+            <div class="title">
+                <div class="icon il i-config"></div>
+                <h1>기타 요소 설정</h1>
+            </div>
+            <div class="content">
+                <div class="partition-horizontal"></div>
+                <h4>타이틀 표시기</h4>
+                <label class="f1 wf">
+                    <p>제목</p>
+                    <input type="text" id="input-title-name" class="f1 wf">
+                </label>
+                <label class="f1 wf">
+                    <p>내용</p>
+                    <input type="text" id="input-title-content" class="f1 wf">
+                </label>
+                <label id="toggle-title">
+                    <input type="checkbox" id="checkbox-toggle-title">
+                    <p>표시</p>
+                </label>
+                <div class="partition-horizontal"></div>
+                <h4>위치 표시기</h4>
+                <label class="f1 wf">
+                    <p>위치</p>
+                    <input type="text" id="input-location" class="f1 wf">
+                </label>
+                <label id="toggle-location">
+                    <input type="checkbox" id="checkbox-toggle-location">
+                    <p>표시</p>
+                </label>
+                <div class="partition-horizontal"></div>
+                <h4>조작기 표시기</h4>
+                <label id="toggle-photo-button">
+                    <input type="checkbox" id="checkbox-toggle-photo-button">
+                    <p>표시</p>
+                </label>
+            </div>
+            <div class="controller">
+                <button class="close"></button>
+            </div>
+        </div>
+    </div>
+    <div id="modal-about" class="modal">
+        <div class="bg bg-acrylic"></div>
+        <div class="body">
+            <div class="title">
+                <h1>정보</h1>
+            </div>
+            <div class="content">
+                <img id="banner" src="./assets/essentials/banner.svg" alt="Project Pictor Logo">
+                <p id="ver"></p><br>
+                <p>모바일 게임 《트릭컬: 리바이브》의 인게임 스토리에서의 대화창 및 CG 씬과 유사한 규격의 이미지를 쉽게 제작하도록 돕는 웹기반 어플리케이션입니다.</p>
+            </div>
+            <div class="controller">
+                <button class="close"></button>
+            </div>
+        </div>
+    </div>
+    <div id="modal-markdown" class="modal">
+        <div class="bg bg-acrylic"></div>
+        <div class="body">
+            <div class="title">
+                <div class="icon il i-notification"></div>
+                <h1>마크다운 문법 도움말</h1>
+            </div>
+            <div class="content">
+                <p>내용 입력칸에 다음과 같은 규칙을 적용하여 작성하면 영역 내 글자의 크기나 색상을 조절할 수 있습니다.<br>한 단어에 여러 종류의 규칙을 적용할 수 있으며, 줄바꿈도 가능합니다.</p>
+                <div class="partition-horizontal"></div>
+                <pre>(((가나다:::&#09;&#09;→ 작은 글자</pre>
+                <pre>{{{가나다:::&#09;&#09;→ 중간 글자(기본)</pre>
+                <pre>[[[가나다:::&#09;&#09;→ 큰 글자</pre>
+                <pre>>>>가나다:::&#09;→ 기본 강조색(초록)</pre>
+                <pre>>>r>>가나다:::&#09;→ 강조색(빨강)</pre>
+                <pre>>>g>>가나다:::&#09;→ 강조색(초록)</pre>
+                <pre>>>b>>가나다:::&#09;→ 강조색(파랑)</pre>
+                <pre>>>y>>가나다:::&#09;→ 강조색(노랑)</pre>
+                <pre>>>p>>가나다:::&#09;→ 강조색(보라)</pre>
+            </div>
+            <div class="controller">
+                <button class="close"></button>
+            </div>
+        </div>
+    </div>
+    <div id="alert-downloading" class="alert" style="display: none;">
+        <h3>저장중입니다</h3>
+    </div>
+    <div id="beta-alert" class="notification bg-acrylic" lyra-autoShow="false">
+        <div class="icon i i-warning"></div>
+        <p>개발 중인 빌드입니다. 성능 저하나 오류가 있을 수 있습니다.<br>자세한 빌드 정보는 정보 창을 확인하세요.</p>
+    </div>
+</body>
+</html>

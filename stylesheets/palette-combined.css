@@ -1,0 +1,40 @@
+@charset "UTF-8";
+:root {
+    --c-lyra: rgb(177, 0, 255);
+    --c-white: rgb(255, 255, 255);
+    --c-black: rgb(0, 0, 0);
+    --c-green: rgb(117, 153, 45);
+    --c-lightgreen: rgb(219, 237, 167);
+    --c-backgroundgreen: rgb(239, 245, 219);
+    --c-main: rgb(255, 255, 255);
+    --c-sub: rgb(239, 233, 241);
+    --c-font: rgb(0, 0, 0);
+    --c-font-sub: rgb(150, 150, 150);
+    --c-border: rgb(239, 233, 241);
+    --c-button: rgb(239, 233, 241);
+    --c-button-hover-main: rgb(177, 0, 255);
+    --c-button-hover-font: rgb(255, 255, 255);
+    --c-button-active-main: rgb(112, 0, 160);
+    --c-button-active-font: rgb(255, 255, 255);
+    --c-shadow: rgba(0, 0, 0, 0.2);
+    --c-trickcal-font: rgb(52, 51, 52);
+    --f-button: brightness(0);
+    --f-button-hover: brightness(0) invert(1);
+    --f-button-active: brightness(0.9);
+    --v-radius-tiny: 1px;
+    --v-radius-small: 4px;
+    --v-radius-medium: 8px;
+    --v-radius-large: 20px;
+}
+@media (prefers-color-scheme: dark) {
+    :root {
+        --c-main: rgb(0, 0, 0);
+        --c-sub: rgb(24, 23, 24);
+        --c-font: rgb(255, 255, 255);
+        --c-border: rgb(30, 30, 30);
+        --c-button: rgb(24, 23, 24);
+        --c-shadow: rgba(255, 255, 255, 0.2);
+        --f-button: brightness(0) invert(1);
+        --f-icon: brightness(0) invert(1);
+    }
+}

@@ -1,0 +1,312 @@
+@charset "UTF-8";
+@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
+@keyframes ani-pop-up {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+@keyframes ani-pop-out {
+    to {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+}
+
+html {
+    overflow: hidden;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+    color: var(--c-font);
+    font-family: "Spoqa Han Sans Neo";
+    user-select: none;
+}
+
+p, span, a, button, input, textarea {
+    font-size: 12pt;
+}
+
+.flexlist {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: flex-start;
+
+    width: max-content;
+    height: max-content;
+
+    background-color: var(--c-main);
+}
+.flexlist > *:not(:last-child) {
+    margin-right: 8px;
+}
+.flexlist > input[type=checkbox], .flexlist > input[type=radio] {
+    display: none;
+}
+.flexlist-horizontal {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: flex-start;
+
+    width: max-content;
+    height: max-content;
+
+    background-color: var(--c-main);
+}
+.flexlist-horizontal > *:not(:last-child) {
+    margin-right: 8px;
+}
+.flexlist-horizontal > input[type=checkbox], .flexlist-horizontal > input[type=radio] {
+    display: none;
+}
+.fjcs {
+    justify-content: flex-start;
+}
+.fjcc {
+    justify-content: center;
+}
+.fjce {
+    justify-content: flex-end;
+}
+.fjcb {
+    justify-content: space-between;
+}
+.wf {
+    width: 100%;
+}
+.hf {
+    height: 100%;
+}
+.f1 {
+    flex: 1;
+}
+.wfix {
+    min-width: max-content;
+}
+.hfix { 
+    min-height: max-content;
+}
+.wm50 {
+    max-width: 100%;
+    width: 50px;
+}
+.wm400 {
+    max-width: 100%;
+    width: 400px;
+}
+.wm600 {
+    max-width: 100%;
+    width: 600px;
+}
+.hm200 {
+    max-height: 100%;
+    height: 200px;
+}
+.hm300 {
+    max-height: 100%;
+    height: 300px;
+}
+.oh {
+    overflow: hidden !important;
+}
+
+input[type=text], input[type=number], textarea {
+    padding: 10px;
+    overflow: scroll;
+
+    min-height: 48px;
+
+    font-size: 12pt;
+    color: var(--c-font);
+    border: 0;
+    border-radius: var(--v-radius-small);
+    background-color: var(--c-button);
+    resize: none;
+
+    transition: all 0.1s;
+}
+input[type=text]:focus, input[type=number]:focus, textarea:focus {
+    outline: solid 3px var(--c-lyra);
+}
+input[type=number] {
+    appearance: textfield;
+}
+input[type=file] {
+    display: none;
+}
+input[type=checkbox]:checked+label, input[type=radio]:checked+label {
+    background-color: var(--c-button-active-main);
+}
+select {
+    padding: 10px;
+
+    font-size: 12pt;
+    border: 0;
+    border-radius: 4px;
+    background-color: var(--c-button);
+    cursor: pointer;
+    
+    transition: all 0.1s;
+}
+select:focus {
+    outline: solid 3px var(--c-lyra);
+}
+option:not(:disabled) {
+    color: var(--c-font);
+}
+
+button, label {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+
+    width: max-content;
+    height: 48px;
+
+    border: 0;
+    border-radius: var(--v-radius-small);
+    background-color: var(--c-button);
+    cursor: pointer;
+
+    transition: all 0.1s;
+}
+button > *, label > * {
+    transition: all 0.1s;
+}
+button > p, label > p {
+    margin: 0 4px;
+}
+button > .i, label > .i {
+    margin: 2px;
+}
+button > .i+p, label > .i+p {
+    margin-left: 8px;
+}
+button > p, button > .i, label > p, label > .i {
+    filter: var(--f-button);
+}
+button:hover, label:hover {
+    background-color: var(--c-button-hover-main);
+}
+button:hover > p, button:hover > .i, button:hover::before,
+label:hover > p, label:hover > .i, label:hover::before {
+    filter: var(--f-button-hover) !important;
+}
+button:active, label:active {
+    background-color: var(--c-button-active-main);
+}
+button:active > p, button:active > .i, button:active::before,
+label:active > p, label:active > .i, label:active::before {
+    filter: var(--f-button-hover) !important;
+}
+input[type=checkbox]:checked+label, input[type=checkbox]:checked+label, input[type=radio]:checked+label, input[type=radio]:checked+label {
+    background-color: var(--c-lyra);
+}
+input[type=checkbox]:checked+label > p, input[type=checkbox]:checked+label > .i, input[type=checkbox]:checked+label::before,
+input[type=radio]:checked+label > p, input[type=radio]:checked+label > .i, input[type=radio]:checked+label::before {
+    filter: var(--f-button-hover) !important;
+}
+input[type=checkbox]:empty+label:not(.image-item)::before {
+    width: 20px;
+    height: 20px;
+
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgdmlld0JveD0iMCAwIDAuMiAwLjIiPjxnIHRyYW5zZm9ybT0icm90YXRlKC0xMzUgLjEgLjEpIj48cmVjdCB3aWR0aD0iLjIiIGhlaWdodD0iLjAyIiB5PSIuMDkiIHJ5PSIuMDEiIHN0eWxlPSJmaWxsOiMwMDA7ZmlsbC1vcGFjaXR5OjE7c3Ryb2tlOm5vbmU7c3Ryb2tlLXdpZHRoOi4wMjU3MjtzdHJva2UtbGluZWNhcDpyb3VuZDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlLW9wYWNpdHk6MSIvPjxyZWN0IHdpZHRoPSIuMiIgaGVpZ2h0PSIuMDIiIHg9Ii0uMiIgeT0iLjA5IiByeT0iLjAxIiBzdHlsZT0iZmlsbDojMDAwO2ZpbGwtb3BhY2l0eToxO3N0cm9rZTpub25lO3N0cm9rZS13aWR0aDouMDI1NzI7c3Ryb2tlLWxpbmVjYXA6cm91bmQ7c3Ryb2tlLWxpbmVqb2luOnJvdW5kO3N0cm9rZS1vcGFjaXR5OjEiIHRyYW5zZm9ybT0icm90YXRlKC05MCkiLz48L2c+PC9zdmc+");
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+    filter: var(--f-icon);
+    content: "";
+}
+input[type=checkbox]:checked+label:not(.image-item)::before {
+    width: 20px;
+    height: 20px;
+
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgdmlld0JveD0iMCAwIDAuMiAwLjIiPjxnIHRyYW5zZm9ybT0icm90YXRlKDQ1IC4wOTkgLjE0NikiPjxyZWN0IHdpZHRoPSIuMTEiIGhlaWdodD0iLjAyIiB4PSItLjAxIiB5PSIuMTYiIHJ5PSIuMDEiIHN0eWxlPSJmaWxsOiMwMDA7ZmlsbC1vcGFjaXR5OjE7c3Ryb2tlOm5vbmU7c3Ryb2tlLXdpZHRoOi4wMjY5NzU0O3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2Utb3BhY2l0eToxIi8+PHJlY3Qgd2lkdGg9Ii4wMiIgaGVpZ2h0PSIuMTgiIHg9Ii4wOCIgcnk9Ii4wMTEiIHN0eWxlPSJmaWxsOiMwMDA7ZmlsbC1vcGFjaXR5OjE7c3Ryb2tlOm5vbmU7c3Ryb2tlLXdpZHRoOi4wMjcyODAyO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2Utb3BhY2l0eToxIi8+PC9nPjwvc3ZnPg==");
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+    filter: var(--f-icon);
+    content: "";
+}
+
+.tip {
+    display: none;
+    position: absolute;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 8px;
+    top: 5px;
+    z-index: 10;
+
+    width: max-content;
+    height: max-content;
+
+    color: var(--c-white);
+    border-radius: 4px;
+    background-color: var(--c-lyra);
+    pointer-events: none;
+
+    animation-name: ani-pop-up;
+    animation-duration: 0.1s;
+}
+.rtip {
+    left: calc(100% + 15px);
+}
+.ltip {
+    right: calc(100% + 6px);
+}
+.utip {
+    top: -45px;
+}
+*:has(.tip):hover > .tip, *:has(.tip):active > .tip {
+    display: flex;
+}
+*:has(.tip):not(:hover) > .tip {
+    animation-name: ani-pop-out;
+}
+
+#watermark {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    padding: 6px;
+    z-index: 9999;
+
+    font-size: 10pt;
+    color: white;
+    border-radius: 4px;
+    background-color: black;
+    text-align: right;
+    opacity: 1;
+    pointer-events: none;
+}
+
+@media screen and (min-width: 900px) {
+    .m-show-flex {
+        display: none !important;
+    }
+}
+@media screen and (max-width: 900px) {
+    .m-hide {
+        display: none !important;
+    }
+
+    .m-show-flex {
+        display: flex;
+    }
+
+    .m-menu-expand {
+        display: block !important;
+    }
+}

@@ -3,8 +3,8 @@
         name: "Project Pictor",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1110",
-        date: "24-07-11",
+        version: "1111",
+        date: "24-07-18",
         watermark: false,
         isBeta: false
     };
@@ -93,6 +93,7 @@
         "beni": [ "beni", "베니", "64443E" ],
         "mago": [ "mago", "마고", "B6BBCB" ],
         "bana": [ "bana", "바나", "EDB983" ],
+        "momo": [ "momo", "모모", "D6D084" ],
     
         "partition2": [ "partition", "엘프" ],
         "ed": [ "ed", "이드", "808191" ],
@@ -149,7 +150,8 @@
         "posher": [ "posher", "포셔", "D67B8F" ],
         "rollett": [ "rollett", "롤렛", "C65A66" ],
         "picora": [ "picora", "피코라", "8DC9CA" ],
-        "levi": [ "levi", "레비", "A0385A" ]
+        "levi": [ "levi", "레비", "A0385A" ],
+        "varie": [ "varie", "바리에", "973B58" ]
     };
     const BOXES = {
         0: {

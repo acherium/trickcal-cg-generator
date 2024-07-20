@@ -1,0 +1,38 @@
+{
+  "theme_color": "#FFFFFF",
+  "background_color": "#FFFFFF",
+  "display": "standalone",
+  "scope": "/trickcal-cg-generator/",
+  "start_url": "/trickcal-cg-generator/",
+  "name": "트릭컬 스토리 대화창 생성기",
+  "short_name": "트릭컬 CG 생성기",
+  "description": "모바일 게임 《트릭컬: 리바이브》의 인게임 스토리에서의 대화창 및 CG 씬과 유사한 규격의 이미지를 쉽게 제작하도록 돕는 웹기반 어플리케이션입니다.",
+  "icons": [
+    {
+      "src": "/trickcal-cg-generator/pwa/icons/icon-144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/trickcal-cg-generator/pwa/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/trickcal-cg-generator/pwa/icons/icon-256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "/trickcal-cg-generator/pwa/icons/icon-384.png",
+      "sizes": "384x384",
+      "type": "image/png"
+    },
+    {
+      "src": "/trickcal-cg-generator/pwa/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

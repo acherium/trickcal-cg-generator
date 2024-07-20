@@ -10,6 +10,59 @@
     <meta property="og:image" content="https://acherium.github.io/trickcal/cg-gen/assets/essentials/thumbnail.png">
     <meta property="og:url" content="https://acherium.github.io/trickcal/cg-gen/">
 
+    <style>
+        :root {
+            --c-splash-bg: oklch(100% 0 0);
+        }
+        #splash-screen {
+            display: flex;
+            position: fixed;
+            gap: 36px;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: var(--c-splash-bg);
+            opacity: 1;
+            pointer-events: none;
+            will-change: opacity;
+        }
+        #splash-logo {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        #splash-logo > img {
+            width: 56px;
+            border-radius: 4px;
+        }
+        #splash-logo > p {
+            font-size: 24pt;
+            font-weight: 600;
+        }
+        @media screen and (max-width: 900px) {
+            #splash-logo {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            #splash-logo > p {
+                font-size: 20pt;
+            }
+        }
+        .splash-out {
+            animation: 0.5s linear ani-splash-fade-out both;
+        }
+        @keyframes ani-splash-fade-out {
+            to {
+                opacity: 0;
+            }
+        }
+    </style>
     <link rel="stylesheet" href="./stylesheets/main.css">
 
     <script src="./lyra/main.js"></script>
@@ -17,6 +70,12 @@
     <script src="./scripts/main.js" defer></script>
 </head>
 <body>
+    <div id="splash-screen">
+        <div id="splash-logo">
+            <img src="./assets/essentials/logo.svg">
+            <p>트릭컬 스토리 대화창 생성기</p>
+        </div>
+    </div>
     <input type="file" id="uploader">
     <div id="top">
         <div id="logo-area">
@@ -372,13 +431,13 @@
                 <div class="partition-horizontal"></div>
                 <h4>프리셋</h4>
                 <div class="flexlist wf">
-                    <button class="button-slide-size wf" data-width="1280" data-height="720">
+                    <button class="button-slide-size f1" data-width="1280" data-height="720">
                         <p>1280×720 (16:9)</p>
                     </button>
-                    <button class="button-slide-size wf" data-width="1788" data-height="700">
+                    <button class="button-slide-size f1" data-width="1788" data-height="700">
                         <p>1788×700 (23:9)</p>
                     </button>
-                    <button class="button-slide-size wf" data-width="1280" data-height="1066">
+                    <button class="button-slide-size f1" data-width="1280" data-height="1066">
                         <p>1280×1066 (6:5)</p>
                     </button>
                 </div>

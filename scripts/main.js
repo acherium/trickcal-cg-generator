@@ -3,8 +3,8 @@
         name: "Project Pictor",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1111",
-        date: "24-07-18",
+        version: "1112",
+        date: "24-07-20",
         watermark: false,
         isBeta: false
     };
@@ -338,6 +338,7 @@
     const $thumbQueueArea = $("#thumbnail-queue-area");
     const $alertDownload = $("#alert-downloading");
     const $btnOutputAll = $("#button-download-all");
+    const $splash = $("#splash-screen");
 
     const INTtoHEX = (i) => {
         let res = i.toString(16).toUpperCase();
@@ -1549,4 +1550,11 @@
     $logo.onclick = () => {
         __manager.modal.reserve["modal-about"].show();
     };
+
+    setTimeout(() => {
+        $splash.classList.add("splash-out");
+        setTimeout(() => {
+            $splash.remove();
+        }, 1000 + __lyra.env["ANIMATION-INTERVAL"]);
+    }, __lyra.env["ANIMATION-INTERVAL"]);
 })();

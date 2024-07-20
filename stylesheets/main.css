@@ -142,7 +142,7 @@ footer a {
     overflow-y: scroll;
 
     width: 233px;
-    height: calc(100% - 8px);
+    height: 100%;
 
     background-color: var(--c-main);
 }

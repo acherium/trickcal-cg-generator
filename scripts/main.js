@@ -3,7 +3,7 @@
         name: "Project Pictor",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1112",
+        version: "1113",
         date: "24-07-20",
         watermark: false,
         isBeta: false
@@ -153,6 +153,117 @@
         "levi": [ "levi", "레비", "A0385A" ],
         "varie": [ "varie", "바리에", "973B58" ]
     };
+    const PALETTE_ENHANCED = {
+        "fairy": {
+            "name": "요정",
+            "char": [
+                [ "클로에", "BB3626" ],
+                [ "에르핀", "F09D7D" ],
+                [ "네르", "847592" ],
+                [ "에슈르", "E6838D" ],
+                [ "캬롯", "F49C62" ],
+                [ "슈팡", "FFE182" ],
+                [ "마리", "E7BBBB" ],
+                [ "마요", "A0B5D5" ]
+            ]
+        },
+        "furry": {
+            "name": "수인",
+            "char": [
+                [ "에피카", "BDD2F0" ],
+                [ "디아나", "C19079" ],
+                [ "티그", "9AAABF" ],
+                [ "루포", "F69E72" ],
+                [ "코미", "FFA8A7" ],
+                [ "버터", "EEC375" ],
+                [ "베니", "64443E" ],
+                [ "마고", "B6BBCB" ],
+                [ "바나", "EDB983" ],
+                [ "모모", "D6D084" ]
+            ]
+        },
+        "elf": {
+            "name": "엘프",
+            "char": [
+                [ "이드", "808191" ],
+                [ "나타", "635966" ],
+                [ "엘레나", "DA9798" ],
+                [ "아멜리아", "926F6E" ],
+                [ "힐데", "CCE993" ],
+                [ "리스티", "AE6D7F" ],
+                [ "글러브", "A1AD88"],
+                [ "칸나", "B77148" ],
+                [ "로네", "C1B4B7" ],
+                [ "마에스트로 2호", "35B7AE" ],
+                [ "페스타", "EC7A84" ],
+                [ "리뉴아", "E8D7B7" ],
+                [ "리뉴아", "43475D" ],
+                [ "헤일리", "E83B92" ]
+            ]
+        },
+        "spirit": {
+            "name": "정령",
+            "char": [
+                [ "우이", "FFDB5B" ],
+                [ "실라", "C9DBBA" ],
+                [ "나이아", "91D2EB" ],
+                [ "멜루나", "BCD190" ],
+                [ "블랑셰", "2660E1" ],
+                [ "이프리트", "EE5C3A" ],
+                [ "가비아", "8A5350" ],
+                [ "쥬비", "D89E5A" ],
+                [ "빅우드", "97A262" ]
+            ]
+        },
+        "ghost": {
+            "name": "유령",
+            "char": [
+                [ "시온 더 다크불릿", "4C76AD" ],
+                [ "셰이디", "9DBAC1" ],
+                [ "림", "AB474A" ],
+                [ "엘리스", "CAA4DD" ],
+                [ "셀리네", "F7AFBB" ],
+                [ "스피키", "71566C" ],
+                [ "에스피", "D4B9BA" ],
+                [ "lethe", "레테", "A8BCC7" ]
+            ]
+        },
+        "dragon": {
+            "name": "용족",
+            "char": [
+                [ "비비", "B8AFB1" ],
+                [ "다야", "A8BBC8" ],
+                [ "루드", "C75B5C" ],
+                [ "키디언", "604E65" ],
+                [ "리츠", "8F868A" ],
+                [ "시스트", "BD8CB7" ],
+                [ "제이드", "85A491" ],
+                [ "실피르", "8AA9CF" ]
+            ]
+        },
+        "witch": {
+            "name": "마녀",
+            "char": [
+                [ "아야", "F1F8FF" ],
+                [ "벨리타", "D3A9A9" ],
+                [ "프리클", "675359" ],
+                [ "벨벳", "5C4F62" ],
+                [ "포셔", "D67B8F" ],
+                [ "롤렛", "C65A66" ],
+                [ "피코라", "8DC9CA" ],
+                [ "레비", "A0385A" ],
+                [ "바리에", "973B58" ]
+            ]
+        },
+        "others": {
+            "name": "기타",
+            "char": [
+                [ "교주", "FBAC26" ],
+                [ "영춘", "768964" ],
+                [ "게스트", "A1AD88" ]
+            ]
+        }
+    }
     const BOXES = {
         0: {
             src: "./assets/images/scriptbox-0.svg",
@@ -339,6 +450,9 @@
     const $alertDownload = $("#alert-downloading");
     const $btnOutputAll = $("#button-download-all");
     const $splash = $("#splash-screen");
+    const $btnModalColPreset = $("#button-color-preset");
+    const $modalColPreset = $("#modal-color-preset");
+    const $colPresetList = $("#color-preset-list");
 
     const INTtoHEX = (i) => {
         let res = i.toString(16).toUpperCase();
@@ -820,23 +934,23 @@
         };
     });
 
-    Object.values(PALETTE).forEach((x, i) => {
-        const $op = document.createElement("option");
-        if (x[0] === "partition") {
-            $op.innerText = `===== ${x[1]} ====`;
-            $op.setAttribute("disabled", "true");
-        } else {
-            $op.value = `${x[1]}::${x[2]}`;
-            $op.innerText = `${x[1]}`;
-            $op.style["background-color"] = `#${x[2]}`;
-        };
-        $selNameBgCol.append($op);
-    });
-    $selNameBgCol.onchange = (c) => {
-        const d = c.target.value.split("::");
-        setNameColor(d[1]);
-        if ($chkAutoName.checked) setName(d[0]);
-    };
+    // Object.values(PALETTE).forEach((x, i) => {
+    //     const $op = document.createElement("option");
+    //     if (x[0] === "partition") {
+    //         $op.innerText = `===== ${x[1]} ====`;
+    //         $op.setAttribute("disabled", "true");
+    //     } else {
+    //         $op.value = `${x[1]}::${x[2]}`;
+    //         $op.innerText = `${x[1]}`;
+    //         $op.style["background-color"] = `#${x[2]}`;
+    //     };
+    //     $selNameBgCol.append($op);
+    // });
+    // $selNameBgCol.onchange = (c) => {
+    //     const d = c.target.value.split("::");
+    //     setNameColor(d[1]);
+    //     if ($chkAutoName.checked) setName(d[0]);
+    // };
 
     createSlide();
 
@@ -1450,6 +1564,26 @@
     $btnConfigIndi.onclick = () => {
         __manager.modal.reserve["modal-config-indicators"].show();
     };
+
+    $btnModalColPreset.onclick = () => {
+        __manager.modal.reserve["modal-color-preset"].show();
+    };
+    for (const _race of Object.values(PALETTE_ENHANCED)) {
+        const _$subdiv = new LyraElement("div", { class: [ "color-preset-subdiv" ] }).into($colPresetList);
+        new LyraElement("p", { text: _race.name }).into(_$subdiv);
+        for (const _char of _race.char) {
+            const _$item = new LyraElement("div", {
+                class: [ "color-preset-item" ],
+                style: `border-color: #${_char[1]}`,
+                html: `${_char[0]}<br><span>#${_char[1]}</span>`
+            }).into(_$subdiv);
+            _$item.$.onclick = () => {
+                setNameColor(_char[1]);
+                if ($chkAutoName.checked) setName(_char[0]);
+                __manager.modal.reserve["modal-color-preset"].close();
+            };
+        };
+    };
     
     Array.from($pickerBgPointers).forEach(($n, i) => {
         $n.onpointerdown = (p) => {
@@ -1556,5 +1690,5 @@
         setTimeout(() => {
             $splash.remove();
         }, 1000 + __lyra.env["ANIMATION-INTERVAL"]);
-    }, __lyra.env["ANIMATION-INTERVAL"]);
+    }, 1000 + __lyra.env["ANIMATION-INTERVAL"]);
 })();

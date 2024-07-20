@@ -630,6 +630,7 @@ select {
 .modal > .body > .controller {
     grid-area: controller;
     display: flex;
+    align-items: center;
     justify-content: flex-end;
     flex-wrap: wrap;
     gap: var(--m);

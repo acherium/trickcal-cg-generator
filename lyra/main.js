@@ -14,8 +14,8 @@ const __lyra = {
         name: "Lyra Engine",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1001",
-        date: "24-06-30"
+        version: "1002",
+        date: "24-07-20"
     }
 };
 const __manager = {
@@ -220,6 +220,7 @@ class LyraModal {
             };
             if (typeof params.bg === "undefined") this.$bg.addClass("bg-acrylic");
         };
+        if (params && params["z"]) this.$.style["z-index"] = `${params["z"]}`;
         for (const $btn of this.$buttons) {
             $btn.into(this.$controller);
         };
@@ -366,7 +367,7 @@ class LyraNotification {
     };
 })();
 window.addEventListener("error", (e, s) => {
-    new LyraModal({ title: "Error", content: new LyraElement("p", { text: `${e.message}\n${e.filename}@${e.lineno}:${e.colno}` }).$, closeButton: true }).show();
+    new LyraModal({ title: "Error", content: new LyraElement("p", { text: `${e.message}\n${e.filename}@${e.lineno}:${e.colno}` }).$, closeButton: true, z: 10001 }).show();
 });
 document.addEventListener("DOMContentLoaded", () => {
     __manager.modal.area = $append($create("div", { id: "lyra-modal-area" }));

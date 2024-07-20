@@ -31,6 +31,7 @@
             top: 0;
             width: 100vw;
             height: 100vh;
+            border-bottom: solid 6px oklch(59% 0.3 309);
             background-color: var(--c-splash-bg);
             opacity: 1;
             pointer-events: none;
@@ -153,125 +154,131 @@
             </div>
         </div>
         <div id="middle">
-            <main>
-                <div id="photo-zone">
-                    <div id="photo-bg-area">
-                        <img src="" id="photo-bg">
-                    </div>
-                    <div id="photo-layer"></div>
-                    <img src="./assets/images/vignetting.svg" id="photo-vignetting">
-                    <img src="./assets/images/sokmaeum.svg" id="photo-button-sokmaeum">
-                    <div id="photo-button-area">
-                        <img src="./assets/images/button-auto.png" class="photo-button">
-                        <img src="./assets/images/button-menu.png" class="photo-button">
-                    </div>
-                    <div id="photo-script-box-area">
-                        <img src="./assets/images/scriptbox-0.svg" id="photo-script-box-backdrop">
-                        <img src="./assets/images/next.svg" id="photo-script-box-arrow">
-                        <div id="photo-script-box-namearea">
-                            <div id="photo-script-box-name-backdrop"></div>
-                            <div id="photo-script-box-namebox">
+            <div id="middle-top">
+                <main>
+                    <div id="photo-zone">
+                        <div id="photo-bg-area">
+                            <img src="" id="photo-bg">
+                        </div>
+                        <div id="photo-layer"></div>
+                        <img src="./assets/images/vignetting.svg" id="photo-vignetting">
+                        <img src="./assets/images/sokmaeum.svg" id="photo-button-sokmaeum">
+                        <div id="photo-button-area">
+                            <img src="./assets/images/button-auto.png" class="photo-button">
+                            <img src="./assets/images/button-menu.png" class="photo-button">
+                        </div>
+                        <div id="photo-script-box-area">
+                            <img src="./assets/images/scriptbox-0.svg" id="photo-script-box-backdrop">
+                            <img src="./assets/images/next.svg" id="photo-script-box-arrow">
+                            <div id="photo-script-box-namearea">
+                                <div id="photo-script-box-name-backdrop"></div>
+                                <div id="photo-script-box-namebox">
+                                    <span>Lorem ipsum dolor sit amet.</span>
+                                    <span>Lorem ipsum dolor sit amet.</span>
+                                </div>
+                            </div>
+                            <span id="script-content">Lorem ipsum dolor sit amet.</span>
+                        </div>
+                        <div id="photo-select-area">
+                            <div id="photo-select">
+                                <div class="photo-select-option">
+                                    <img src="./assets/images/select-option.svg">
+                                    <p></p>
+                                </div>
+                                <div class="photo-select-option">
+                                    <img src="./assets/images/select-option.svg">
+                                    <p></p>
+                                </div>
+                                <div class="photo-select-option">
+                                    <img src="./assets/images/select-option.svg">
+                                    <p></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="photo-title-box-area">
+                            <img src="./assets/images/titlebox.png" id="photo-title-box-backdrop">
+                            <p id="photo-title">
+                                <img src="./assets/images/star.svg">
+                                <span>Lorem ipsum dolor sit amet.</span>
+                            </p>
+                            <div id="photo-title-box-namearea">
                                 <span>Lorem ipsum dolor sit amet.</span>
                                 <span>Lorem ipsum dolor sit amet.</span>
                             </div>
                         </div>
-                        <span id="script-content">Lorem ipsum dolor sit amet.</span>
-                    </div>
-                    <div id="photo-select-area">
-                        <div id="photo-select">
-                            <div class="photo-select-option">
-                                <img src="./assets/images/select-option.svg">
-                                <p></p>
-                            </div>
-                            <div class="photo-select-option">
-                                <img src="./assets/images/select-option.svg">
-                                <p></p>
-                            </div>
-                            <div class="photo-select-option">
-                                <img src="./assets/images/select-option.svg">
-                                <p></p>
-                            </div>
+                        <div id="photo-location-box-area">
+                            <div class="shadow"></div>
+                            <div class="backdrop"></div>
+                            <img src="./assets/images/leaf.svg" alt="">
+                            <p id="photo-location">
+                                Loream ipsum dolor sit amet.
+                            </p>
                         </div>
                     </div>
-                    <div id="photo-title-box-area">
-                        <img src="./assets/images/titlebox.png" id="photo-title-box-backdrop">
-                        <p id="photo-title">
-                            <img src="./assets/images/star.svg">
-                            <span>Lorem ipsum dolor sit amet.</span>
-                        </p>
-                        <div id="photo-title-box-namearea">
-                            <span>Lorem ipsum dolor sit amet.</span>
-                            <span>Lorem ipsum dolor sit amet.</span>
+                    <div id="photo-item-controller-area" data-html2canvas-ignore="true">
+                        <div id="photo-item-controller" style="display: none;">
+                            <div id="resize-point-0" class="resize-point"></div>
+                            <div id="resize-point-1" class="resize-point"></div>
+                            <div id="resize-point-2" class="resize-point"></div>
+                            <div id="resize-point-3" class="resize-point"></div>
+                            <div id="resize-point-4" class="resize-point"></div>
+                            <div id="resize-point-5" class="resize-point"></div>
+                            <div id="resize-point-6" class="resize-point"></div>
+                            <div id="resize-point-7" class="resize-point"></div>
                         </div>
                     </div>
-                    <div id="photo-location-box-area">
-                        <div class="shadow"></div>
-                        <div class="backdrop"></div>
-                        <img src="./assets/images/leaf.svg" alt="">
-                        <p id="photo-location">
-                            Loream ipsum dolor sit amet.
-                        </p>
-                    </div>
+                    <div id="deadline"></div>
+                </main>
+            </div>
+            <div id="middle-bottom">
+                <div id="controller-bar">
+                    <div class="partition-vertical"></div>
+                    <button id="button-controller-bottommost">
+                        <div class="i i-bottommost"></div>
+                        <div class="tip utip">맨 아래로</div>
+                    </button>
+                    <button id="button-controller-bottom">
+                        <div class="i i-bottom"></div>
+                        <div class="tip utip">아래로</div>
+                    </button>
+                    <button id="button-controller-front">
+                        <div class="i i-front"></div>
+                        <div class="tip utip">위로</div>
+                    </button>
+                    <button id="button-controller-frontmost">
+                        <div class="i i-frontmost"></div>
+                        <div class="tip utip">맨 위로</div>
+                    </button>
+                    <div class="partition-vertical"></div>
+                    <button id="button-controller-flip-horizontal">
+                        <div class="i i-flip-horizontal"></div>
+                        <div class="tip utip">좌우 뒤집기</div>
+                    </button>
+                    <button id="button-controller-flip-vertical">
+                        <div class="i i-flip-vertical"></div>
+                        <div class="tip utip">상하 뒤집기</div>
+                    </button>
+                    <input type="checkbox" id="checkbox-toggle-controller-darker">
+                    <button id="controller-toggle-darker">
+                        <div class="i i-invert"></div>
+                        <div class="tip utip">어둡게</div>
+                    </button>
+                    <div class="partition-vertical"></div>
+                    <button id="button-controller-reset">
+                        <div class="i i-rescue"></div>
+                        <div class="tip utip">위치 및 크기 초기화</div>
+                    </button>
+                    <button id="button-controller-remove">
+                        <div class="i i-trash"></div>
+                        <div class="tip utip">삭제</div>
+                    </button>
+                    <div class="partition-vertical"></div>
+                    <button id="button-controller-unselect">
+                        <div class="i i-deny"></div>
+                        <div class="tip utip">선택 취소</div>
+                    </button>
+                    <div class="partition-vertical"></div>
                 </div>
-                <div id="photo-item-controller-area" data-html2canvas-ignore="true">
-                    <div id="photo-item-controller" style="display: none;">
-                        <div id="resize-point-0" class="resize-point"></div>
-                        <div id="resize-point-1" class="resize-point"></div>
-                        <div id="resize-point-2" class="resize-point"></div>
-                        <div id="resize-point-3" class="resize-point"></div>
-                        <div id="resize-point-4" class="resize-point"></div>
-                        <div id="resize-point-5" class="resize-point"></div>
-                        <div id="resize-point-6" class="resize-point"></div>
-                        <div id="resize-point-7" class="resize-point"></div>
-                    </div>
-                </div>
-                <div id="deadline"></div>
-            </main>
-            <div id="controller-bar">
-                <button id="button-controller-bottommost">
-                    <div class="i i-bottommost"></div>
-                    <div class="tip utip">맨 아래로</div>
-                </button>
-                <button id="button-controller-bottom">
-                    <div class="i i-bottom"></div>
-                    <div class="tip utip">아래로</div>
-                </button>
-                <button id="button-controller-front">
-                    <div class="i i-front"></div>
-                    <div class="tip utip">위로</div>
-                </button>
-                <button id="button-controller-frontmost">
-                    <div class="i i-frontmost"></div>
-                    <div class="tip utip">맨 위로</div>
-                </button>
-                <div class="partition-vertical"></div>
-                <button id="button-controller-flip-horizontal">
-                    <div class="i i-flip-horizontal"></div>
-                    <div class="tip utip">좌우 뒤집기</div>
-                </button>
-                <button id="button-controller-flip-vertical">
-                    <div class="i i-flip-vertical"></div>
-                    <div class="tip utip">상하 뒤집기</div>
-                </button>
-                <input type="checkbox" id="checkbox-toggle-controller-darker">
-                <button id="controller-toggle-darker">
-                    <div class="i i-invert"></div>
-                    <div class="tip utip">어둡게</div>
-                </button>
-                <div class="partition-vertical"></div>
-                <button id="button-controller-reset">
-                    <div class="i i-rescue"></div>
-                    <div class="tip utip">위치 및 크기 초기화</div>
-                </button>
-                <button id="button-controller-remove">
-                    <div class="i i-trash"></div>
-                    <div class="tip utip">삭제</div>
-                </button>
-                <div class="partition-vertical"></div>
-                <button id="button-controller-unselect">
-                    <div class="i i-deny"></div>
-                    <div class="tip utip">선택 취소</div>
-                </button>
             </div>
         </div>
         <div id="right">
@@ -638,7 +645,7 @@
     <div id="alert-downloading" class="alert" style="display: none;">
         <h3>저장중입니다</h3>
     </div>
-    <div id="beta-alert" class="notification bg-acrylic" lyra-autoShow="true" lyra-duration="2000">
+    <div id="beta-alert" class="notification bg-acrylic" lyra-autoShow="false" lyra-duration="2000">
         <div class="icon i i-warning"></div>
         <p>개발 중인 빌드입니다. 성능 저하나 오류가 있을 수 있습니다.<br>자세한 빌드 정보는 정보 창을 확인하세요.</p>
     </div>

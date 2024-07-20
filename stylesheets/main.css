@@ -173,6 +173,19 @@ footer a {
     position: relative;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+    z-index: 0;
+    overflow: hidden;
+
+    flex: 1;
+    width: 100%;
+    height: 100%;
+}
+#middle-top {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
     z-index: 0;
     overflow: hidden;
 
@@ -180,11 +193,20 @@ footer a {
     width: 100%;
     height: 100%;
 
-    border-radius: var(--r-large) var(--r-large) 0 0;
+    border-radius: var(--r-large);
     background-color: var(--c-sub);
 }
-#middle:active {
+#middle-top:active {
     cursor: grab;
+}
+#middle-bottom {
+    position: relative;
+    margin: 8px 0;
+    z-index: 0;
+    overflow-x: scroll;
+
+    width: 100%;
+    height: 44px;
 }
 
 main {
@@ -337,7 +359,7 @@ input[type=checkbox] {
 #photo-layer > * {
     position: absolute;
 
-    border-radius: var(--r-small);
+    /* border-radius: var(--r-small); */
     cursor: pointer;
 
     pointer-events: all;
@@ -779,15 +801,13 @@ input[type=checkbox] {
 
 #controller-bar {
     display: flex;
-    position: absolute;
+    position: relative;
     align-items: center;
     justify-content: center;
-    padding: 8px;
-    bottom: 5px;
-    z-index: 6;
+    margin: 0 auto;
 
     width: max-content;
-    height: 60px;
+    height: 44px;
 
     border-radius: 8px;
     background-color: var(--c-main);
@@ -836,10 +856,12 @@ input[type=checkbox] {
 
     border-right: solid 1px var(--c-border);
     background-color: var(--c-black);
+    pointer-events: none;
 }
 .image-item > .thumb > img {
     max-width: 48px;
     max-height: 48px;
+    pointer-events: none;
 }
 .image-item > p {
     padding: 0 4px;
@@ -851,6 +873,7 @@ input[type=checkbox] {
     font-size: 10pt;
     text-wrap: nowrap;
     text-overflow: ellipsis;
+    pointer-events: none;
 }
 .image-item-darker {
     filter: brightness(0.3);
@@ -1302,7 +1325,10 @@ button {
         cursor: ew-resize;
     }
 
-    #controller-bar {
+    /* #middle-bottom {
+
+    } */
+    /* #controller-bar {
         position: fixed;
         flex-direction: column-reverse;
         padding: 8px 0;
@@ -1315,7 +1341,7 @@ button {
     #controller-bar > .partition-vertical {
         width: 48px;
         height: 2px;
-    }
+    } */
 
     .colorpicker-area {
         flex-direction: column;

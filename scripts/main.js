@@ -3,7 +3,7 @@
         name: "Project Pictor",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1113",
+        version: "1114",
         date: "24-07-20",
         watermark: false,
         isBeta: false
@@ -351,7 +351,7 @@
     const $ver = $("#ver");
     const $main = $("main");
     const $left = $("#left");
-    const $middle = $("#middle");
+    const $middle = $("#middle-top");
     const $right = $("#right");
     const $mBtnTglLeft = $("#m-button-toggle-slide");
     const $mBtnTglRight = $("#m-button-toggle-layer");
@@ -646,9 +646,10 @@
             delete slide[current].imageLayer.attachments[slide[current].imageLayer.attachments.findIndex((x) => x.id === item.id)];
             slide[current].imageLayer.attachments = slide[current].imageLayer.attachments.filter((x) => x);
             unselectItem();
+            refreshThumbnail(current, $photozone);
         };
-        $lab.onclick = () => {
-            if (imageController.selected !== item.id) {
+        $lab.onclick = (c) => {
+            if (c.target === $lab && imageController.selected !== item.id) {
                 selectItem(item.id);
             } else {
                 unselectItem();
@@ -677,13 +678,13 @@
         setControllerSize(0, 0, t.rect.width, t.rect.height);
 
         $controller.style["display"] = "flex";
-        $controllerBar.style["display"] = "flex";
+        for (const _$item of $controllerBar.querySelectorAll("button, input")) _$item.removeAttribute("disabled");
         $chkTglDarker.checked = t.darker ? "checked" : null;
     };
     const unselectItem = () => {
         imageController.selected = null;
         $controller.style["display"] = "none";
-        $controllerBar.style["display"] = "none";
+        for (const _$item of $controllerBar.querySelectorAll("button, input")) _$item.setAttribute("disabled", "true");
         Array.from($a(".active-image-item")).forEach(($n) => $n.classList.remove("active-image-item"));
     };
     const addImagePos = (n, x, y) => {

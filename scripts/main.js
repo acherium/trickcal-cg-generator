@@ -3,8 +3,8 @@
         name: "Project Pictor",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1114",
-        date: "24-07-20",
+        version: "1115",
+        date: "24-07-21",
         watermark: false,
         isBeta: false
     };
@@ -225,7 +225,7 @@
                 [ "셀리네", "F7AFBB" ],
                 [ "스피키", "71566C" ],
                 [ "에스피", "D4B9BA" ],
-                [ "lethe", "레테", "A8BCC7" ]
+                [ "레테", "A8BCC7" ]
             ]
         },
         "dragon": {

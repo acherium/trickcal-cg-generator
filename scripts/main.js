@@ -3,8 +3,8 @@
         name: "Project Pictor",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1115",
-        date: "24-07-21",
+        version: "1116",
+        date: "24-07-22",
         watermark: false,
         isBeta: false
     };
@@ -1569,22 +1569,30 @@
     $btnModalColPreset.onclick = () => {
         __manager.modal.reserve["modal-color-preset"].show();
     };
-    for (const _race of Object.values(PALETTE_ENHANCED)) {
-        const _$subdiv = new LyraElement("div", { class: [ "color-preset-subdiv" ] }).into($colPresetList);
-        new LyraElement("p", { text: _race.name }).into(_$subdiv);
-        for (const _char of _race.char) {
-            const _$item = new LyraElement("div", {
-                class: [ "color-preset-item" ],
-                style: `border-color: #${_char[1]}`,
-                html: `${_char[0]}<br><span>#${_char[1]}</span>`
-            }).into(_$subdiv);
-            _$item.$.onclick = () => {
-                setNameColor(_char[1]);
-                if ($chkAutoName.checked) setName(_char[0]);
-                __manager.modal.reserve["modal-color-preset"].close();
+    (async() => {
+        const RACEDATA = await fetch("https://acherium.github.io/trickcal-chardata/trace-all.json").then((res) => res.ok ? res.json() : {});
+        if (Object.values(RACEDATA).length === 0) new LyraNotification({ icon: "critical", text: "RACEDATA 파일을 불러오지 못했습니다." }).show();
+        const CHARDATA = await fetch("https://acherium.github.io/trickcal-chardata/tchar-race-min.json").then((res) => res.ok ? res.json() : {});
+        if (Object.values(CHARDATA).length === 0) new LyraNotification({ icon: "critical", text: "CHARDATA 파일을 불러오지 못했습니다." }).show();
+        const PALETTE_FROMREP = await Object.fromEntries(Object.values(RACEDATA).map((x) => [ x.id, { name: x.name.ko, char: Object.values(CHARDATA[x.id] || {}).map((y) => [ y.name.ko, y.data.color ]).filter((y) => y[1]) } ]));
+    
+        for (const _race of Object.values(PALETTE_FROMREP)) {
+            const _$subdiv = new LyraElement("div", { class: [ "color-preset-subdiv" ] }).into($colPresetList);
+            new LyraElement("p", { text: _race.name }).into(_$subdiv);
+            for (const _char of _race.char) {
+                const _$item = new LyraElement("div", {
+                    class: [ "color-preset-item" ],
+                    style: `border-color: #${_char[1]}`,
+                    html: `${_char[0]}<br><span>#${_char[1]}</span>`
+                }).into(_$subdiv);
+                _$item.$.onclick = () => {
+                    setNameColor(_char[1]);
+                    if ($chkAutoName.checked) setName(_char[0]);
+                    __manager.modal.reserve["modal-color-preset"].close();
+                };
             };
         };
-    };
+    })();
     
     Array.from($pickerBgPointers).forEach(($n, i) => {
         $n.onpointerdown = (p) => {

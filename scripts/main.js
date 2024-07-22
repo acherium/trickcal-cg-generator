@@ -3,7 +3,7 @@
         name: "Project Pictor",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1116",
+        version: "1117",
         date: "24-07-22",
         watermark: false,
         isBeta: false
@@ -68,202 +68,6 @@
         thumbnail: ""
     };
     THUMBNAIL_QUEUE_INTERVAL = 3000;
-    const PALETTE = {
-        "player": [ "player", "교주", "FBAC26" ],
-        "youngchun": [ "youngchun", "영춘", "768964" ],
-        "sub": [ "sub", "게스트", "A1AD88" ],
-        
-        "partition0": [ "partition", "요정" ],
-        "chloe": [ "chloe", "클로에", "BB3626" ],
-        "erpin": [ "erpin", "에르핀", "F09D7D" ],
-        "ner": [ "ner", "네르", "847592" ],
-        "ashur": [ "ashur", "에슈르", "E6838D" ],
-        "kyarot": ["kyarot",  "캬롯", "F49C62" ],
-        "shoupan": [ "shoupan", "슈팡", "FFE182" ],
-        "marie": [ "marie", "마리", "E7BBBB" ],
-        "mayo": [ "mayo", "마요", "A0B5D5" ],
-    
-        "partition1": [ "partition", "수인" ],
-        "epica": [ "epica", "에피카", "BDD2F0" ],
-        "diana": [ "diana", "디아나", "C19079" ],
-        "tig": [ "tig", "티그", "9AAABF" ],
-        "rufo": [ "rufo", "루포", "F69E72" ],
-        "kommy": [ "kommy", "코미", "FFA8A7" ],
-        "butter": [ "butter", "버터", "EEC375" ],
-        "beni": [ "beni", "베니", "64443E" ],
-        "mago": [ "mago", "마고", "B6BBCB" ],
-        "bana": [ "bana", "바나", "EDB983" ],
-        "momo": [ "momo", "모모", "D6D084" ],
-    
-        "partition2": [ "partition", "엘프" ],
-        "ed": [ "ed", "이드", "808191" ],
-        "llels": [ "llels", "나타", "635966" ],
-        "elena": ["elena",  "엘레나", "DA9798" ],
-        "amelia": [ "amelia", "아멜리아", "926F6E" ],
-        "hilde": [ "hilde", "힐데", "CCE993" ],
-        "risty": [ "risty", "리스티", "AE6D7F" ],
-        "risty.glove": [ "risty.glove", "글러브", "A1AD88" ],
-        "canna": [ "canna", "칸나", "B77148" ],
-        "rohne": [ "rohne", "로네", "C1B4B7" ],
-        "maestro": [ "maestro", "마에스트로 2호", "35B7AE" ],
-        "festa": [ "festa", "페스타", "EC7A84" ],
-        "renewa": [ "renewa", "리뉴아", "E8D7B7" ],
-        "renewa2": [ "renewa2", "리뉴아", "43475D" ],
-        "haley": [ "haley", "헤일리", "E83B92" ],
-        
-        "partition3": [ "partition", "정령" ],
-        "ui": [ "ui", "우이", "FFDB5B" ],
-        "sylla": [ "sylla", "실라", "C9DBBA" ],
-        "naia": [ "naia", "나이아", "91D2EB" ],
-        "meluna": [ "meluna", "멜루나", "BCD190" ],
-        "blanchet": [ "blanchet", "블랑셰", "2660E1" ],
-        "ifrit": ["ifrit",  "이프리트", "EE5C3A" ],
-        "gabia": [ "gabia", "가비아", "8A5350" ],
-        "jubee": [ "jubee", "쥬비", "D89E5A" ],
-        "bigwood": [ "bigwood", "빅우드", "97A262" ],
-    
-        "partition4": [ "partition", "유령" ],
-        "xion": [ "xion", "시온 더 다크불릿", "4C76AD" ],
-        "shady": [ "shady", "셰이디", "9DBAC1" ],
-        "rim": [ "rim", "림", "AB474A" ],
-        "elice": [ "elice", "엘리스", "CAA4DD" ],
-        "selline": [ "selline", "셀리네", "F7AFBB" ],
-        "speaki": [ "speaki", "스피키", "71566C" ],
-        "espi": [ "espi",  "에스피", "D4B9BA" ],
-        "lethe": [ "lethe", "레테", "A8BCC7" ],
-    
-        "partition5": [ "partition", "용족" ],
-        "vivi": [ "vivi", "비비", "B8AFB1" ],
-        "daya": [ "daya", "다야", "A8BBC8" ],
-        "rude": [ "rude", "루드", "C75B5C" ],
-        "kidian": [ "kidian", "키디언", "604E65" ],
-        "leets": [ "leets", "리츠", "8F868A" ],
-        "sist": [ "sist", "시스트", "BD8CB7" ],
-        "jade": [ "jade", "제이드", "85A491" ],
-        "silphir": [ "silphir", "실피르", "8AA9CF" ],
-    
-        "partition6": [ "partition", "마녀" ],
-        "aya": [ "aya", "아야", "F1F8FF" ],
-        "belita": [ "belita", "벨리타", "D3A9A9" ],
-        "fricle": [ "fricle", "프리클", "675359" ],
-        "velvet": [ "velvet", "벨벳", "5C4F62" ],
-        "posher": [ "posher", "포셔", "D67B8F" ],
-        "rollett": [ "rollett", "롤렛", "C65A66" ],
-        "picora": [ "picora", "피코라", "8DC9CA" ],
-        "levi": [ "levi", "레비", "A0385A" ],
-        "varie": [ "varie", "바리에", "973B58" ]
-    };
-    const PALETTE_ENHANCED = {
-        "fairy": {
-            "name": "요정",
-            "char": [
-                [ "클로에", "BB3626" ],
-                [ "에르핀", "F09D7D" ],
-                [ "네르", "847592" ],
-                [ "에슈르", "E6838D" ],
-                [ "캬롯", "F49C62" ],
-                [ "슈팡", "FFE182" ],
-                [ "마리", "E7BBBB" ],
-                [ "마요", "A0B5D5" ]
-            ]
-        },
-        "furry": {
-            "name": "수인",
-            "char": [
-                [ "에피카", "BDD2F0" ],
-                [ "디아나", "C19079" ],
-                [ "티그", "9AAABF" ],
-                [ "루포", "F69E72" ],
-                [ "코미", "FFA8A7" ],
-                [ "버터", "EEC375" ],
-                [ "베니", "64443E" ],
-                [ "마고", "B6BBCB" ],
-                [ "바나", "EDB983" ],
-                [ "모모", "D6D084" ]
-            ]
-        },
-        "elf": {
-            "name": "엘프",
-            "char": [
-                [ "이드", "808191" ],
-                [ "나타", "635966" ],
-                [ "엘레나", "DA9798" ],
-                [ "아멜리아", "926F6E" ],
-                [ "힐데", "CCE993" ],
-                [ "리스티", "AE6D7F" ],
-                [ "글러브", "A1AD88"],
-                [ "칸나", "B77148" ],
-                [ "로네", "C1B4B7" ],
-                [ "마에스트로 2호", "35B7AE" ],
-                [ "페스타", "EC7A84" ],
-                [ "리뉴아", "E8D7B7" ],
-                [ "리뉴아", "43475D" ],
-                [ "헤일리", "E83B92" ]
-            ]
-        },
-        "spirit": {
-            "name": "정령",
-            "char": [
-                [ "우이", "FFDB5B" ],
-                [ "실라", "C9DBBA" ],
-                [ "나이아", "91D2EB" ],
-                [ "멜루나", "BCD190" ],
-                [ "블랑셰", "2660E1" ],
-                [ "이프리트", "EE5C3A" ],
-                [ "가비아", "8A5350" ],
-                [ "쥬비", "D89E5A" ],
-                [ "빅우드", "97A262" ]
-            ]
-        },
-        "ghost": {
-            "name": "유령",
-            "char": [
-                [ "시온 더 다크불릿", "4C76AD" ],
-                [ "셰이디", "9DBAC1" ],
-                [ "림", "AB474A" ],
-                [ "엘리스", "CAA4DD" ],
-                [ "셀리네", "F7AFBB" ],
-                [ "스피키", "71566C" ],
-                [ "에스피", "D4B9BA" ],
-                [ "레테", "A8BCC7" ]
-            ]
-        },
-        "dragon": {
-            "name": "용족",
-            "char": [
-                [ "비비", "B8AFB1" ],
-                [ "다야", "A8BBC8" ],
-                [ "루드", "C75B5C" ],
-                [ "키디언", "604E65" ],
-                [ "리츠", "8F868A" ],
-                [ "시스트", "BD8CB7" ],
-                [ "제이드", "85A491" ],
-                [ "실피르", "8AA9CF" ]
-            ]
-        },
-        "witch": {
-            "name": "마녀",
-            "char": [
-                [ "아야", "F1F8FF" ],
-                [ "벨리타", "D3A9A9" ],
-                [ "프리클", "675359" ],
-                [ "벨벳", "5C4F62" ],
-                [ "포셔", "D67B8F" ],
-                [ "롤렛", "C65A66" ],
-                [ "피코라", "8DC9CA" ],
-                [ "레비", "A0385A" ],
-                [ "바리에", "973B58" ]
-            ]
-        },
-        "others": {
-            "name": "기타",
-            "char": [
-                [ "교주", "FBAC26" ],
-                [ "영춘", "768964" ],
-                [ "게스트", "A1AD88" ]
-            ]
-        }
-    }
     const BOXES = {
         0: {
             src: "./assets/images/scriptbox-0.svg",
@@ -324,7 +128,6 @@
     const $a = (x) => document.querySelectorAll(x);
 
     let slide = [];
-    let thumbnailQueue = {};
     let current = 0;
     let imageItemIdInt = 0;
     let flagMobileMenu = null;
@@ -355,21 +158,16 @@
     const $right = $("#right");
     const $mBtnTglLeft = $("#m-button-toggle-slide");
     const $mBtnTglRight = $("#m-button-toggle-layer");
-    const $namearea = $("#photo-script-box-namearea");
     const $nameOutline = $("#photo-script-box-namebox > span:nth-child(1)");
     const $name = $("#photo-script-box-namebox > span:nth-child(2)");
     const $nameBg = $("#photo-script-box-name-backdrop");
     const $inputName = $("#name");
-    const $selNameBgCol = $("#name-color");
-    const $pickerName = $("#colorpicker-namearea");
     const $pickerNamePrev = $("#colorpicker-namearea .colorpicker-preview");
     const $pickerNamePrevValue = $("#colorpicker-namearea .colorpicker-preview-value");
-    const $pickerNameBars = $a("#colorpicker-namearea .colorpicker-bar");
     const $pickerNamePointers = $a("#colorpicker-namearea .colorpicker-pointer");
     const $pickerNameInputs = $a("#colorpicker-namearea .colorpicker-input");
     const $chkAutoName = $("#checkbox-toggle-auto-change-name");
     const $chkTglName = $("#checkbox-toggle-namearea");
-    const $btnName = $("#photo-script-box-namebox > span:last-child");
     const $titleArea = $("#photo-title-box-area");
     const $title = $("#photo-title > span");
     const $titleOutline = $("#photo-title-box-namearea > span:nth-child(1)");
@@ -387,7 +185,6 @@
     const $btnContent = $("#button-content");
     const $chkTglContentCenter = $("#checkbox-toggle-box-position-center");
     const $inputContent = $("#content");
-    const $modalContent = $("#modal-content");
     const $chkTglContent = $("#checkbox-toggle-content");
     const $btnMdHelp = $("#button-markdown-help");
     const $box = $("#photo-script-box-backdrop");
@@ -399,10 +196,8 @@
     const $prevBg = $("#preview-bg > img");
     const $btnConfigBg = $("#button-config-bg");
     const $selectBgFit = $("#select-bg-fit");
-    const $pickerBg = $("#colorpicker-bg");
     const $pickerBgPrev = $("#colorpicker-bg .colorpicker-preview");
     const $pickerBgPrevValue = $("#colorpicker-bg .colorpicker-preview-value");
-    const $pickerBgBars = $a("#colorpicker-bg .colorpicker-bar");
     const $pickerBgPointers = $a("#colorpicker-bg .colorpicker-pointer");
     const $pickerBgInputs = $a("#colorpicker-bg .colorpicker-input");
     const $btnConfigIndi = $("#button-config-indicators");
@@ -428,7 +223,6 @@
     const $btnAddImage = $("#button-add-image");
     const $imageList = $("#image-item-list");
     const $controller = $("#photo-item-controller");
-    const $controllerLayer = $("#photo-item-controller-area");
     const $controllerBar = $("#controller-bar");
     const $resizePoints = $a("#photo-item-controller > .resize-point");
     const $btnBottommost = $("#button-controller-bottommost");
@@ -446,12 +240,10 @@
     const $slideList = $("#slide-list");
     const $btnAddSlide = $("#button-add-slide");
     const $btnDuplicateSlide = $("#button-duplicate-slide");
-    const $thumbQueueArea = $("#thumbnail-queue-area");
     const $alertDownload = $("#alert-downloading");
     const $btnOutputAll = $("#button-download-all");
     const $splash = $("#splash-screen");
     const $btnModalColPreset = $("#button-color-preset");
-    const $modalColPreset = $("#modal-color-preset");
     const $colPresetList = $("#color-preset-list");
 
     const INTtoHEX = (i) => {
@@ -877,19 +669,6 @@
             $n.value = Object.values(rgb)[i];
         });
     };
-    const showModal = (t, c) => {
-        const $m = document.createElement("div");
-        $m.classList.add("modal-area");
-        $m.innerHTML = `<div class="modal wm600"><div class="scroll-box-inner>` +
-            `<div class="modal-title"><h1>${t}</h1></div>` +
-            `<p style="user-select: text;">${c}</p>` +
-            `<div class="flexlist-horizontal fjce wf"><button class="close"><div class="i i-accept"></div><p>확인</p></button></div>` +
-            `</div></div>`;
-        $m.querySelector("button.close").onclick = () => {
-            $m.remove();
-        };
-        document.body.append($m);
-    };
 
     document.addEventListener("keydown", (k) => {
         if (!Number.isNaN(parseInt(slide[current].imageLayer.selectedImageItem)) && k.shiftKey && k.keyCode === 82) {
@@ -934,24 +713,6 @@
             $btnOutputAll.click();
         };
     });
-
-    // Object.values(PALETTE).forEach((x, i) => {
-    //     const $op = document.createElement("option");
-    //     if (x[0] === "partition") {
-    //         $op.innerText = `===== ${x[1]} ====`;
-    //         $op.setAttribute("disabled", "true");
-    //     } else {
-    //         $op.value = `${x[1]}::${x[2]}`;
-    //         $op.innerText = `${x[1]}`;
-    //         $op.style["background-color"] = `#${x[2]}`;
-    //     };
-    //     $selNameBgCol.append($op);
-    // });
-    // $selNameBgCol.onchange = (c) => {
-    //     const d = c.target.value.split("::");
-    //     setNameColor(d[1]);
-    //     if ($chkAutoName.checked) setName(d[0]);
-    // };
 
     createSlide();
 
@@ -1255,7 +1016,6 @@
     };
     $btnControllerRemove.onclick = () => {
         imageLayer[imageController.selected].lab.querySelector("button.remove").click();
-        // slide[current].imageLayer.attachments.find((x) => x.id === imageController.selected).nodes.lab.querySelector("button.remove").click();
     };
     $btnControllerUnselect.onclick = () => {
         unselectItem();

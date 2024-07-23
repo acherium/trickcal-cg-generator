@@ -3,8 +3,8 @@
         name: "Project Pictor",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1117",
-        date: "24-07-22",
+        version: "1118",
+        date: "24-07-23",
         watermark: false,
         isBeta: false
     };
@@ -132,6 +132,7 @@
     let imageItemIdInt = 0;
     let flagMobileMenu = null;
     let imageLayer = {};
+    let multiplier = 1;
     const areaRect = {
         x: 0,
         y: 0
@@ -245,6 +246,8 @@
     const $splash = $("#splash-screen");
     const $btnModalColPreset = $("#button-color-preset");
     const $colPresetList = $("#color-preset-list");
+    const $btnModalConfigExport = $("#button-config-export");
+    const $inputMultiplier = $("#export-multiplier");
 
     const INTtoHEX = (i) => {
         let res = i.toString(16).toUpperCase();
@@ -669,6 +672,23 @@
             $n.value = Object.values(rgb)[i];
         });
     };
+    const exportPNG = ($node) => {
+        html2canvas($node, {
+            scale: multiplier,
+            backgroundColor: null,
+            logging: false
+        }).then((c) => {
+            const l = document.createElement("a");
+            const d = Date.now();
+            const filename = `TCAG-${d}.png`;
+            document.body.append(l);
+            l.href = c.toDataURL("image/png");
+            l.download = filename;
+            l.click();
+            l.remove();
+            $alertDownload.style["display"] = "none";
+        });
+    };
 
     document.addEventListener("keydown", (k) => {
         if (!Number.isNaN(parseInt(slide[current].imageLayer.selectedImageItem)) && k.shiftKey && k.keyCode === 82) {
@@ -1089,17 +1109,7 @@
 
     $btnOutput.onclick = () => {
         $alertDownload.style["display"] = "flex";
-        html2canvas($photozone, { logging: false }).then((c) => {
-            const l = document.createElement("a");
-            const d = Date.now();
-            const filename = `TCAG-${d}.png`;
-            document.body.append(l);
-            l.href = c.toDataURL("image/png");
-            l.download = filename;
-            l.click();
-            l.remove();
-            $alertDownload.style["display"] = "none";
-        });
+        exportPNG($photozone);
     };
     $btnOutputContent.onclick = () => {
         $alertDownload.style["display"] = "flex";
@@ -1353,6 +1363,36 @@
             };
         };
     })();
+
+    const debug1 = () => {
+        if ($("#config-export-debug") === null) return;
+        $("#config-export-debug").innerText = `viewportWidth: ${window.visualViewport.width}\n` +
+            `viewportHeight: ${window.visualViewport.height}\n` +
+            `photozoneWidth: ${slide[current].area.width}\n` +
+            `photozoneHeight: ${slide[current].area.height}\n` +
+            `devicePixelRatio: ${window.devicePixelRatio}\n` +
+            `exportWidth: ${slide[current].area.width * window.devicePixelRatio}\n` +
+            `exportHeight: ${slide[current].area.height * window.devicePixelRatio}\n` +
+            `exportMultiplier: ${multiplier}\n` +
+            `finalWidth: ${slide[current].area.width * window.devicePixelRatio * multiplier}\n` +
+            `finalHeight: ${slide[current].area.height * window.devicePixelRatio * multiplier}`;
+    };
+    $btnModalConfigExport.onclick = () => {
+        __manager.modal.reserve["modal-config-export"].show();
+    };
+    $inputMultiplier.onchange = (c) => {
+        const _i = Number(c.target.value);
+        multiplier = Number.isNaN(_i) ? multiplier : _i;
+        debug1();
+    };
+    $inputMultiplier.value = multiplier;
+    debug1();
+    window.addEventListener("resize", (s) => {
+        debug1();
+    });
+    $("#debug-refresh-info").onclick = () => {
+        debug1();
+    };
     
     Array.from($pickerBgPointers).forEach(($n, i) => {
         $n.onpointerdown = (p) => {

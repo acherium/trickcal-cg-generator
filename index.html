@@ -130,6 +130,10 @@
                         <p>전체</p>
                     </button>
                 </div>
+                <button id="button-config-export" class="wf fjcc">
+                    <div class="i i-config"></div>
+                    <p>출력 설정</p>
+                </button>
                 <div class="flexlist-horizontal fjcc wf">
                     <span class="desc">Powered by <a href="https://github.com/yorickshan/html2canvas-pro" target="_blank">html2canvas-pro</a></span>
                 </div>
@@ -637,6 +641,35 @@
                 <pre>>>b>>가나다:::&#09;→ 강조색(파랑)</pre>
                 <pre>>>y>>가나다:::&#09;→ 강조색(노랑)</pre>
                 <pre>>>p>>가나다:::&#09;→ 강조색(보라)</pre>
+            </div>
+            <div class="controller">
+                <button class="close"></button>
+            </div>
+        </div>
+    </div>
+    <div id="modal-config-export" class="modal">
+        <div class="bg bg-acrylic"></div>
+        <div class="body">
+            <div class="title">
+                <div class="icon il i-config"></div>
+                <h1>출력 설정</h1>
+            </div>
+            <div class="content">
+                <h3>출력물 크기 배율 설정</h3>
+                <p>출력할 이미지의 크기 배율을 조절합니다.</p>
+                <label class="wf f1">
+                    <div class="i i-export"></div>
+                    <p>배율</p>
+                    <input type="number" id="export-multiplier" class="wf f1" value="1">
+                </label>
+                <p>배율이 커질수록 브라우저 또는 기기에 가해지는 부하가 커집니다. 브라우저와 기기의 작동 중지 또는 데이터 손실로부터 보호하기 위해 값을 2 이상으로 올리지 않는 것을 권장합니다.</p>
+                <div class="partition-horizontal"></div>
+                <h3>디버그</h3>
+                <p id="config-export-debug"></p>
+                <button id="debug-refresh-info" class="wfc">
+                    <div class="i i-clockwise"></div>
+                    <p>디버그 정보 새로고침</p>
+                </button>
             </div>
             <div class="controller">
                 <button class="close"></button>

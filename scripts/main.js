@@ -3,8 +3,8 @@
         name: "Project Pictor",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1118",
-        date: "24-07-23",
+        version: "1119",
+        date: "24-07-25",
         watermark: false,
         isBeta: false
     };
@@ -36,7 +36,7 @@
         },
         values: {
             style: 0,
-            backgroundFit: "fit-height",
+            backgroundFit: "align-center",
             color: "EEC375",
             colorId: 18
         },
@@ -106,7 +106,7 @@
             color: "dark"
         }
     };
-    const BG_FIT_OPTIONS = [ "fit-height", "fit-width", "stretch-height", "stretch-width", "fill" ];
+    const BG_FIT_OPTIONS = [ "align-center", "fit-height", "fit-width", "fill" ];
     const SCRIPT_MARKDOWN = [
         [ /([\n\r]){1,2}/g, "<br>" ],
         [ /\\/g, "" ],
@@ -1364,35 +1364,14 @@
         };
     })();
 
-    const debug1 = () => {
-        if ($("#config-export-debug") === null) return;
-        $("#config-export-debug").innerText = `viewportWidth: ${window.visualViewport.width}\n` +
-            `viewportHeight: ${window.visualViewport.height}\n` +
-            `photozoneWidth: ${slide[current].area.width}\n` +
-            `photozoneHeight: ${slide[current].area.height}\n` +
-            `devicePixelRatio: ${window.devicePixelRatio}\n` +
-            `exportWidth: ${slide[current].area.width * window.devicePixelRatio}\n` +
-            `exportHeight: ${slide[current].area.height * window.devicePixelRatio}\n` +
-            `exportMultiplier: ${multiplier}\n` +
-            `finalWidth: ${slide[current].area.width * window.devicePixelRatio * multiplier}\n` +
-            `finalHeight: ${slide[current].area.height * window.devicePixelRatio * multiplier}`;
-    };
     $btnModalConfigExport.onclick = () => {
         __manager.modal.reserve["modal-config-export"].show();
     };
     $inputMultiplier.onchange = (c) => {
         const _i = Number(c.target.value);
         multiplier = Number.isNaN(_i) ? multiplier : _i;
-        debug1();
     };
     $inputMultiplier.value = multiplier;
-    debug1();
-    window.addEventListener("resize", (s) => {
-        debug1();
-    });
-    $("#debug-refresh-info").onclick = () => {
-        debug1();
-    };
     
     Array.from($pickerBgPointers).forEach(($n, i) => {
         $n.onpointerdown = (p) => {

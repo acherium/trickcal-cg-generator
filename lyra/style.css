@@ -638,7 +638,7 @@ select {
 
 .notification {
     display: grid;
-    grid-template-columns: 20px minmax(0, auto) 36px;
+    grid-template-columns: 20px minmax(0, auto) 44px;
     grid-template-rows: minmax(36px, auto);
     gap: var(--m);
     place-items: center;
@@ -669,9 +669,13 @@ select {
 }
 .notification > button {
     grid-column: 3;
+    justify-content: center;
     padding: var(--p);
 
-    border-radius: 18px;
+    width: 44px;
+    height: 44px;
+
+    border-radius: 50%;
     background-color: transparent;
 }
 .notification > .gauge {

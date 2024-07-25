@@ -330,17 +330,15 @@ input[type=checkbox] {
     width: inherit;
     height: inherit;
 }
+.photo-bg-align-center {
+    width: max-content;
+    height: max-content;
+}
 .photo-bg-fit-height {
-    max-height: 100%;
+    height: 100%;
 }
 .photo-bg-fit-width {
-    max-width: 100%;
-}
-.photo-bg-stretch-height {
-    min-height: 100%;
-}
-.photo-bg-stretch-width {
-    min-width: 100%;
+    width: 100%;
 }
 .photo-bg-fill {
     width: 100%;

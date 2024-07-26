@@ -14,8 +14,8 @@ const __lyra = {
         name: "Lyra Engine",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1002",
-        date: "24-07-20"
+        version: "1003",
+        date: "24-07-27"
     }
 };
 const __manager = {
@@ -258,6 +258,8 @@ class LyraNotification {
         this.$icon = null;
         this.$text = null;
         this.$gauge = new LyraElement("div", { class: [ "gauge" ] });
+        this.$buttonArea = new LyraElement("div", { class: [ "button-area" ]});
+        this.buttons = [];
         this.$closeButton = new LyraButton({ icon: "deny", onclick: () => this.close() });
         this.options = {
             duration: typeof params["duration"] !== "undefined" ? parseInt(params["duration"]) : parseInt(__lyra.env["DEFAULT-NOTIFICATION-DURATION"]),
@@ -307,10 +309,20 @@ class LyraNotification {
             for (const _i in params) {
                 if (_i === "icon") this.$icon = new LyraElement("div", { class: [ "icon", "i", `i-${params[_i]}` ] }).into(this.$);
                 if (_i === "text") this.$text = new LyraElement("p", { text: params[_i] }).into(this.$);
+                if (_i === "buttons") {
+                    this.buttons = params[_i];
+                };
             };
         };
         if (typeof params["duration"] !== "undefined") this.options["duration"] = parseInt(params["duration"]);
-        if (this.options["closeButton"]) this.$closeButton.into(this.$);
+        if (this.options["closeButton"]) this.buttons.push(this.$closeButton);
+        if (this.buttons.length > 0) this.$buttonArea.into(this.$);
+        for (const $btn of this.buttons) {
+            $btn.into(this.$buttonArea);
+            $btn.$.addEventListener("click", () => {
+                this.close();
+            });
+        };
         this.$gauge.into(this.$);
         if (this.options["autoShow"]) {
             setTimeout(() => {

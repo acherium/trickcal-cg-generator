@@ -638,8 +638,8 @@ select {
 
 .notification {
     display: grid;
-    grid-template-columns: 20px minmax(0, auto) 44px;
-    grid-template-rows: minmax(36px, auto);
+    grid-template-columns: 20px minmax(0, auto) auto;
+    grid-template-rows: auto;
     gap: var(--m);
     place-items: center;
     padding: var(--p-modal);
@@ -667,16 +667,30 @@ select {
 .notification > .icon+p {
     grid-column: auto;
 }
-.notification > button {
-    grid-column: 3;
+.notification > .button-area {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    gap: var(--m);
+
+    width: fit-content;
+    height: fit-content;
+}
+.notification > .button-area > button {
     justify-content: center;
     padding: var(--p);
 
-    width: 44px;
-    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+    width: fit-content;
+    height: fit-content;
 
-    border-radius: 50%;
+    border-radius: 22px;
     background-color: transparent;
+}
+.notification > .button-area > button:has(p) {
+    padding: var(--p) var(--p-large);
 }
 .notification > .gauge {
     grid-column: none;

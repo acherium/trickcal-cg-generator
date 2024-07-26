@@ -3,8 +3,8 @@
         name: "Project Pictor",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1120",
-        date: "24-07-26",
+        version: "1121",
+        date: "24-07-27",
         watermark: false,
         isBeta: false
     };
@@ -13,6 +13,7 @@
     const HEIGHTMIN = 600;
     const WIDTHMAX = 2000;
     const HEIGHTMAX = 2000;
+    const RATIOCHECKER = 1000;
     const DATATEMPLATE = {
         version: 3,
         strings: {
@@ -422,6 +423,50 @@
         $bg.src = f;
         $prevBg.src = f;
         refreshThumbnail(current, $photozone);
+        if (f) {
+            const _$res = new Image();
+            _$res.src = f;
+            _$res.onload = () => {
+                const ratioRes = Math.floor(_$res.width / _$res.height * RATIOCHECKER) / RATIOCHECKER;
+                const ratioArea = Math.floor(slide[current].area.width / slide[current].area.height * RATIOCHECKER) / RATIOCHECKER;
+                if (ratioRes !== ratioArea) {
+                    new LyraNotification({
+                        icon: "notification",
+                        text: "슬라이드의 비율과 배경으로 설정한 이미지의 비율이 맞지 않습니다.\n배경 설정으로 이동하여 이미지 맞춤 설정을 조정하시겠습니까?",
+                        buttons: [
+                            new LyraButton({
+                                icon: "arrow-e",
+                                text: "이동",
+                                onclick: () => {
+                                    __manager.modal.reserve["modal-config-bg"].show();
+                                    setTimeout(() => {
+                                        $selectBgFit.focus();
+                                    });
+                                }
+                            })
+                        ]
+                    }).show();
+                } else if (ratioRes === ratioArea || _$res.width !== slide[current].area.width) {
+                    new LyraNotification({
+                        icon: "notification",
+                        text: "슬라이드의 크기와 배경으로 설정한 이미지의 크기가 맞지 않습니다.\n배경 설정으로 이동하여 이미지 맞춤 설정을 조정하시겠습니까?",
+                        buttons: [
+                            new LyraButton({
+                                icon: "arrow-e",
+                                text: "이동",
+                                onclick: () => {
+                                    __manager.modal.reserve["modal-config-bg"].show();
+                                    setTimeout(() => {
+                                        $selectBgFit.focus();
+                                    });
+                                }
+                            })
+                        ]
+                    }).show();
+                };
+            };
+        };
+        return f;
     };
     const addImageItem = (d) => {
         const item = JSON.parse(JSON.stringify(d));

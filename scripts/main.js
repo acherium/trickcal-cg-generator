@@ -3,8 +3,8 @@
         name: "Project Pictor",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1119",
-        date: "24-07-25",
+        version: "1120",
+        date: "24-07-26",
         watermark: false,
         isBeta: false
     };
@@ -248,6 +248,9 @@
     const $colPresetList = $("#color-preset-list");
     const $btnModalConfigExport = $("#button-config-export");
     const $inputMultiplier = $("#export-multiplier");
+    const $pExportSizeMenu = $("#export-size-onmenu");
+    const $pExportSizeModal = $("#export-size-onmodal");
+    const $btnSearch = $("#button-search");
 
     const INTtoHEX = (i) => {
         let res = i.toString(16).toUpperCase();
@@ -281,6 +284,7 @@
         slide[current].area.width = w;
         $inputSlideWidth.value = w;
         $photozone.style["width"] = `${w}px`;
+        refreshSize();
     };
     const setAreaHeight = (h) => {
         if (Number.isNaN(h) || h < HEIGHTMIN) h = HEIGHTMIN;
@@ -288,6 +292,12 @@
         slide[current].area.height = h;
         $inputSlideHeight.value = h;
         $photozone.style["height"] = `${h}px`;
+        refreshSize();
+    };
+    const refreshSize = () => {
+        const _res = `${slide[current].area.width * multiplier}×${slide[current].area.height * multiplier}px`;
+        $pExportSizeMenu.value = _res;
+        $pExportSizeModal.value = _res;
     };
     const setAreaSize = (w, h) => {
         setAreaWidth(w);
@@ -1370,8 +1380,10 @@
     $inputMultiplier.onchange = (c) => {
         const _i = Number(c.target.value);
         multiplier = Number.isNaN(_i) ? multiplier : _i;
+        refreshSize();
     };
     $inputMultiplier.value = multiplier;
+    refreshSize();
     
     Array.from($pickerBgPointers).forEach(($n, i) => {
         $n.onpointerdown = (p) => {
@@ -1471,6 +1483,10 @@
     $ver.innerText = `${app.name}\nBuild ${app.version}@${app.date}\n\nPowered by ${__lyra.meta.name}\nBuild ${__lyra.meta.version}@${__lyra.meta.date}`;
     $logo.onclick = () => {
         __manager.modal.reserve["modal-about"].show();
+    };
+
+    $btnSearch.onclick = () => {
+        __manager.modal.reserve["modal-search"].show();
     };
 
     setTimeout(() => {

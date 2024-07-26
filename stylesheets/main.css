@@ -102,6 +102,17 @@ body {
     background-color: var(--c-lyra);
 } */
 
+#button-search {
+    position: absolute;
+    justify-content: center;
+    left: calc(50% - 65px);
+
+    width: 130px;
+    height: 44px;
+
+    border-radius: 22px;
+}
+
 #bottom {
     display: flex;
     position: relative;

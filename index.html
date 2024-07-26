@@ -96,6 +96,10 @@
             <h2 id="logotype" class="m-hide">트릭컬 스토리 대화창 생성기</h1>
             <!-- <span id="ver"></span> -->
         </div>
+        <button id="button-search">
+            <div class="i i-search"></div>
+            <p class="m-hide">리소스 검색</p>
+        </button>
         <div class="m-hide flexlist-horizontal">
             <label for="checkbox-toggle-shortcut" id="toggle-shortcut">
                 <input type="checkbox" id="checkbox-toggle-shortcut">
@@ -119,6 +123,26 @@
         <div id="left">
             <div class="scroll-box-inner">
                 <div class="partition-horizontal"></div>
+                <h4>저장</h4>
+                <label class="wf f1">
+                    <p>제목</p>
+                    <input type="text" id="slide-name" class="wf f1" value="" disabled>
+                </label>
+                <div class="flexlist-horizontal wf">
+                    <button id="button-save" class="wf fjcc" disabled>
+                        <div class="i i-square"></div>
+                        <p>저장</p>
+                    </button>
+                    <button id="button-load" class="wf fjcc" disabled>
+                        <div class="i i-square"></div>
+                        <p>열기</p>
+                    </button>
+                </div>
+                <button id="button-save" class="wf fjcc" disabled>
+                    <div class="i i-square"></div>
+                    <p>다른 이름으로 저장</p>
+                </button>
+                <div class="partition-horizontal"></div>
                 <h4>이미지로 출력</h4>
                 <div class="flexlist-horizontal wf">
                     <button id="button-download" class="wf fjcc">
@@ -130,10 +154,15 @@
                         <p>전체</p>
                     </button>
                 </div>
-                <button id="button-config-export" class="wf fjcc">
-                    <div class="i i-config"></div>
-                    <p>출력 설정</p>
-                </button>
+                <div class="flexlist-horizontal wf">
+                    <label class="wf f1">
+                        <div class="i i-slide-size"></div>
+                        <input type="text" id="export-size-onmenu" class="wf f1" disabled>
+                    </label>
+                    <button id="button-config-export">
+                        <div class="i i-config"></div>
+                    </button>
+                </div>
                 <div class="flexlist-horizontal fjcc wf">
                     <span class="desc">Powered by <a href="https://github.com/yorickshan/html2canvas-pro" target="_blank">html2canvas-pro</a></span>
                 </div>
@@ -661,8 +690,23 @@
                     <p>배율</p>
                     <input type="number" id="export-multiplier" class="wf f1" value="1">
                 </label>
+                <label class="wf f1">
+                    <div class="i i-slide-size"></div>
+                    <p>출력물 크기</p>
+                    <input type="text" id="export-size-onmodal" class="wf f1" disabled>
+                </label>
                 <p>배율을 과도하게 큰 값으로 설정할 경우 브라우저 또는 기기의 작동 중지나 데이터 손실을 일으킬 수 있습니다.</p>
             </div>
+            <div class="controller">
+                <button class="close"></button>
+            </div>
+        </div>
+    </div>
+    <div id="modal-search" class="modal">
+        <div class="bg bg-acrylic"></div>
+        <div class="body">
+            <div class="title"></div>
+            <div class="content"></div>
             <div class="controller">
                 <button class="close"></button>
             </div>

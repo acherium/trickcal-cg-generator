@@ -3,7 +3,7 @@
         name: "Project Pictor",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1123",
+        version: "1124",
         date: "24-07-30",
         watermark: false,
         isBeta: false
@@ -50,9 +50,9 @@
                 b: 117
             },
             background: {
-                r: 140,
-                g: 140,
-                b: 140
+                r: 0,
+                g: 0,
+                b: 0
             }
         },
         toggles: {

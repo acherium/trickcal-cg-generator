@@ -3,8 +3,8 @@
         name: "Project Pictor",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1121",
-        date: "24-07-27",
+        version: "1122",
+        date: "24-07-30",
         watermark: false,
         isBeta: false
     };
@@ -15,7 +15,7 @@
     const HEIGHTMAX = 2000;
     const RATIOCHECKER = 1000;
     const DATATEMPLATE = {
-        version: 3,
+        version: 5,
         strings: {
             name: "버터",
             content: "나오라고.",
@@ -35,11 +35,13 @@
             width: 1280,
             height: 720
         },
-        values: {
+        scriptbox: {
             style: 0,
-            backgroundFit: "align-center",
-            color: "EEC375",
-            colorId: 18
+            sokmaeum: 0,
+            pos: 7
+        },
+        values: {
+            backgroundFit: "align-center"
         },
         color: {
             namearea: {
@@ -69,44 +71,6 @@
         thumbnail: ""
     };
     THUMBNAIL_QUEUE_INTERVAL = 3000;
-    const BOXES = {
-        0: {
-            src: "./assets/images/scriptbox-0.svg",
-            vignetting: false,
-            sokmaeum: false,
-            color: "dark"
-        },
-        1: {
-            src: "./assets/images/scriptbox-1.svg",
-            vignetting: false,
-            sokmaeum: true,
-            color: "dark"
-        },
-        2: {
-            src: "./assets/images/scriptbox-2.svg",
-            vignetting: true,
-            sokmaeum: false,
-            color: "light"
-        },
-        3: {
-            src: "./assets/images/scriptbox-3.svg",
-            vignetting: false,
-            sokmaeum: false,
-            color: "dark"
-        },
-        4: {
-            src: "./assets/images/scriptbox-4.svg",
-            vignetting: false,
-            sokmaeum: false,
-            color: "dark"
-        },
-        5: {
-            src: "./assets/images/scriptbox-5.svg",
-            vignetting: false,
-            sokmaeum: false,
-            color: "dark"
-        }
-    };
     const BG_FIT_OPTIONS = [ "align-center", "fit-height", "fit-width", "fill" ];
     const SCRIPT_MARKDOWN = [
         [ /([\n\r]){1,2}/g, "<br>" ],
@@ -183,16 +147,22 @@
     const $chkTglLoc = $("#checkbox-toggle-location");
     const $contentArea = $("#photo-script-box-area");
     const $content = $("#script-content");
-    const $contentBox = $("#photo-script-box-backdrop");
+    const $scriptBoxes = {
+        0: $("#photo-script-box-0"),
+        1: $("#photo-script-box-1"),
+        2: $("#photo-script-box-2"),
+        3: $("#photo-script-box-3")
+    };
+    const $selContentBoxPos = $("#content-box-position");
+    const $selContentBoxStyle = $("#content-box-style");
+    const $selSokmaeumStyle = $("#sokmaeum-style");
     const $btnContent = $("#button-content");
-    const $chkTglContentCenter = $("#checkbox-toggle-box-position-center");
     const $inputContent = $("#content");
     const $chkTglContent = $("#checkbox-toggle-content");
     const $btnMdHelp = $("#button-markdown-help");
     const $box = $("#photo-script-box-backdrop");
     const $vignetting = $("#photo-vignetting");
     const $sokmaeum = $("#photo-button-sokmaeum");
-    const $selectBoxStyle = $("#content-box-style");
     const $photozone = $("#photo-zone");
     const $bg = $("#photo-bg");
     const $prevBg = $("#preview-bg > img");
@@ -349,17 +319,42 @@
         $content.innerHTML = res;
         $inputContent.value = x;
     };
+    const setBoxPos = (i) => {
+        if (i < 0 && i > 8) return;
+        slide[current].scriptbox.pos = i;
+        $selContentBoxPos.options[i].selected = true;
+        $contentArea.className = `photo-script-box-pos-${i} photo-script-box-sokmaeum-${slide[current].scriptbox.sokmaeum}`;
+    };
     const setBoxStyle = (i) => {
-        const d = BOXES[i];
-        if (!d) return;
-        slide[current].values.style = i;
-        $content.classList.remove("script-content-font-dark");
-        $content.classList.remove("script-content-font-light");
-        $content.classList.add(`script-content-font-${d.color}`);
-        $box.src = d.src;
-        $vignetting.style["display"] = d.vignetting ? "block" : "none";
-        $sokmaeum.style["display"] = d.sokmaeum ? "block" : "none";
-        $selectBoxStyle.querySelectorAll("option")[i].selected = true;
+        if (!$scriptBoxes[i]) return;
+        for (const $box of Object.values($scriptBoxes)) {
+            $box.className = "photo-script-box";
+            $box.style["display"] = "none";
+        };
+        slide[current].scriptbox.style = i;
+        $selContentBoxStyle.options[i].selected = true;
+        $scriptBoxes[i].style["display"] = "block";
+    };
+    const setSokmaeumStyle = (i) => {
+        if (i === 0) {
+            slide[current].scriptbox.sokmaeum = i;
+            $selSokmaeumStyle.options[i].selected = true;
+            $vignetting.style["display"] = "none";
+            $sokmaeum.style["display"] = "none";
+            $contentArea.className = `photo-script-box-pos-${slide[current].scriptbox.pos} photo-script-box-sokmaeum-${i}`;
+        } else if (i === 1) {
+            slide[current].scriptbox.sokmaeum = i;
+            $selSokmaeumStyle.options[i].selected = true;
+            $vignetting.style["display"] = "none";
+            $sokmaeum.style["display"] = "block";
+            $contentArea.className = `photo-script-box-pos-${slide[current].scriptbox.pos} photo-script-box-sokmaeum-${i}`;
+        } else if (i === 2) {
+            slide[current].scriptbox.sokmaeum = i;
+            $selSokmaeumStyle.options[i].selected = true;
+            $vignetting.style["display"] = "block";
+            $sokmaeum.style["display"] = "none";
+            $contentArea.className = `photo-script-box-pos-${slide[current].scriptbox.pos} photo-script-box-sokmaeum-${i}`;
+        };
     };
     const setTitleName = (s) => {
         slide[current].strings.title.name = s;
@@ -393,15 +388,6 @@
         slide[current].toggles.photoButtons = b;
         $chkPhotoBtn.checked = b;
         $photoBtn.style["display"] = b ? "flex" : "none";
-    };
-    const toggleContentBoxCenter = (b) => {
-        slide[current].toggles.boxCenter = b;
-        $chkTglContentCenter.checked = b;
-        if (b) {
-            $contentArea.classList.add("content-box-center");
-        } else {
-            $contentArea.classList.remove("content-box-center");
-        };
     };
     const toggleTitle = (b) => {
         slide[current].toggles.title = b;
@@ -659,14 +645,15 @@
         setName(x.strings.name);
         setNameColorRGB(x.color.namearea);
         setContent(x.strings.content);
-        setBoxStyle(x.values.style);
+        setBoxPos(x.scriptbox.pos);
+        setBoxStyle(x.scriptbox.style);
+        setSokmaeumStyle(x.scriptbox.sokmaeum);
         setTitleName(x.strings.title.name);
         setTitle(x.strings.title.content);
         setLocation(x.strings.location);
         toggleNamearea(x.toggles.namearea);
         toggleSelectBox(x.toggles.select);
         togglePhotoButtons(x.toggles.photoButtons);
-        toggleContentBoxCenter(x.toggles.boxCenter);
         toggleTitle(x.toggles.title);
         toggleLocation(x.toggles.location);
         toggleContent(x.toggles.content);
@@ -766,7 +753,7 @@
         } else if (k.keyCode === 54) {
             setBoxStyle(5);
         } else if (k.keyCode === 65) {
-            $contentBox.click();
+            $contentArea.click();
             setTimeout(() => {
                 $inputContent.focus();
             }, 30);
@@ -1117,7 +1104,7 @@
         refreshThumbnail(current, $photozone);
     };
 
-    $contentBox.onclick = () => {
+    $contentArea.onclick = () => {
         __manager.modal.reserve["modal-content"].show();
     };
     $btnContent.onclick = () => {
@@ -1132,12 +1119,16 @@
     $inputContent.onchange = () => {
         refreshThumbnail(current, $photozone);
     };
-    $selectBoxStyle.onchange = (c) => {
+    $selContentBoxPos.onchange = (c) => {
+        setBoxPos(parseInt(c.target.value));
+        refreshThumbnail(current, $photozone);
+    };
+    $selContentBoxStyle.onchange = (c) => {
         setBoxStyle(parseInt(c.target.value));
         refreshThumbnail(current, $photozone);
     };
-    $chkTglContentCenter.onchange = (c) => {
-        toggleContentBoxCenter(c.target.checked);
+    $selSokmaeumStyle.onchange = (c) => {
+        setSokmaeumStyle(parseInt(c.target.value));
         refreshThumbnail(current, $photozone);
     };
 

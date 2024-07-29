@@ -195,15 +195,31 @@
                             <img src="" id="photo-bg">
                         </div>
                         <div id="photo-layer"></div>
-                        <img src="./assets/images/vignetting.svg" id="photo-vignetting">
-                        <img src="./assets/images/sokmaeum.svg" id="photo-button-sokmaeum">
+                        <div id="photo-sokmaeum">
+                            <img src="./assets/images/vignetting.svg" id="photo-vignetting">
+                            <img src="./assets/images/sokmaeum.svg" id="photo-button-sokmaeum">
+                        </div>
                         <div id="photo-button-area">
                             <img src="./assets/images/button-auto.png" class="photo-button">
                             <img src="./assets/images/button-menu.png" class="photo-button">
                         </div>
                         <div id="photo-script-box-area">
-                            <img src="./assets/images/scriptbox-0.svg" id="photo-script-box-backdrop">
-                            <img src="./assets/images/next.svg" id="photo-script-box-arrow">
+                            <div id="photo-script-box-0" class="photo-script-box">
+                                <img src="./assets/images/scriptbox0.png" class="script-box">
+                                <img src="./assets/images/next.png" class="arrow">
+                            </div>
+                            <div id="photo-script-box-1" class="photo-script-box">
+                                <img src="./assets/images/scriptbox1.png" class="script-box">
+                                <img src="./assets/images/next.png" class="arrow">
+                            </div>
+                            <div id="photo-script-box-2" class="photo-script-box">
+                                <img src="./assets/images/scriptbox2.png" class="script-box">
+                                <img src="./assets/images/next.png" class="arrow">
+                            </div>
+                            <div id="photo-script-box-3" class="photo-script-box">
+                                <img src="./assets/images/scriptbox3.png" class="script-box">
+                                <img src="./assets/images/next.png" class="arrow">
+                            </div>
                             <div id="photo-script-box-namearea">
                                 <div id="photo-script-box-name-backdrop"></div>
                                 <div id="photo-script-box-namebox">
@@ -443,22 +459,38 @@
                 </button>
                 <div class="partition-horizontal"></div>
                 <h3>형태</h3>
-                <select id="content-box-style" class="wf">
-                    <option value="0">기본</option>
-                    <option value="1">기본 (속마음 있음)</option>
-                    <option value="2">속마음</option>
-                    <option value="3">생각</option>
-                    <option value="4">사각형</option>
-                    <option value="5">놀람</option>
-                </select>
+                <div class="flexlist-horizontal wf">
+                    <select id="content-box-position" class="">
+                        <option value="0">상단 좌측</option>
+                        <option value="1">상단 중앙</option>
+                        <option value="2">상단 우측</option>
+                        <option value="3">중앙 좌측</option>
+                        <option value="4">중앙</option>
+                        <option value="5">중앙 우측</option>
+                        <option value="6">하단 좌측</option>
+                        <option value="7">하단 중앙</option>
+                        <option value="8">하단 우측</option>
+                    </select>
+                    <select id="content-box-style" class="wf">
+                        <option value="0">기본</option>
+                        <option value="1">생각</option>
+                        <option value="2">놀람</option>
+                        <option value="3">사각형</option>
+                    </select>
+                    <select id="sokmaeum-style" class="wf">
+                        <option value="0">속마음 없음</option>
+                        <option value="1">속마음 있음</option>
+                        <option value="2">속마음 활성화</option>
+                    </select>
+                </div>
                 <label>
                     <input type="checkbox" id="checkbox-toggle-content">
                     <p>표시</p>
                 </label>
-                <label>
+                <!-- <label>
                     <input type="checkbox" id="checkbox-toggle-box-position-center">
                     <p>대화창을 중앙에 표시</p>
-                </label>
+                </label> -->
             </div>
             <div class="controller">
                 <button id="button-download-scriptbox">

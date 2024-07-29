@@ -475,18 +475,39 @@ input[type=checkbox] {
     bottom: 0;
 }
 
-.photo-script-box-sokmaeum-0 .script-box {
-    opacity: 0.9;
-    filter: drop-shadow(3px 3px 0 var(--c-trickcal-shadow));
+.photo-script-box > .shadow, .photo-script-box > .script-box {
+    width: 100%;
+    height: 100%;
 }
-.photo-script-box-sokmaeum-1 .script-box {
+.photo-script-box > .script-box {
     opacity: 0.9;
-    filter: drop-shadow(-10px 10px 0 var(--c-trickcal-shadow));
 }
-.photo-script-box-sokmaeum-2 .script-box {
-    opacity: 0.9;
-    filter: drop-shadow(-10px 10px 0 var(--c-trickcal-shadow)) invert(1);
+.photo-script-box > .shadow {
+    opacity: 0.3;
 }
+#photo-script-box-0 > .shadow { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox0-dark.png"); }
+#photo-script-box-0 > .script-box { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox0-light.png"); }
+#photo-script-box-1 > .shadow { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox1-dark.png"); }
+#photo-script-box-1 > .script-box { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox1-light.png"); }
+#photo-script-box-2 > .shadow { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox2-dark.png"); }
+#photo-script-box-2 > .script-box { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox2-light.png"); }
+#photo-script-box-3 > .shadow { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox3-dark.png"); }
+#photo-script-box-3 > .script-box { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox3-light.png"); }
+
+.photo-script-box-sokmaeum-0 .shadow {
+    transform: translate(3px, 3px);
+}
+.photo-script-box-sokmaeum-1 .shadow, .photo-script-box-sokmaeum-2 .shadow {
+    transform: translate(-10px, 10px);
+}
+.photo-script-box-sokmaeum-2 > #photo-script-box-0 > .shadow { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox0-light.png"); }
+.photo-script-box-sokmaeum-2 > #photo-script-box-0 > .script-box { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox0-dark.png"); }
+.photo-script-box-sokmaeum-2 > #photo-script-box-1 > .shadow { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox1-light.png"); }
+.photo-script-box-sokmaeum-2 > #photo-script-box-1 > .script-box { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox1-dark.png"); }
+.photo-script-box-sokmaeum-2 > #photo-script-box-2 > .shadow { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox2-light.png"); }
+.photo-script-box-sokmaeum-2 > #photo-script-box-2 > .script-box { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox2-dark.png"); }
+.photo-script-box-sokmaeum-2 > #photo-script-box-3 > .shadow { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox3-light.png"); }
+.photo-script-box-sokmaeum-2 > #photo-script-box-3 > .script-box { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox3-dark.png"); }
 .photo-script-box-sokmaeum-2 .arrow {
     filter: invert(1);
 }
@@ -497,11 +518,13 @@ input[type=checkbox] {
 .photo-script-box {
     position: absolute;
 
-    width: 1000px;
+    width: 100%;
+    height: 100%;
 
     opacity: 1;
 }
-.photo-script-box > .script-box {
+.photo-script-box > .script-box, .photo-script-box > .shadow {
+    position: absolute;
     width: 100%;
 }
 .photo-script-box > .arrow {

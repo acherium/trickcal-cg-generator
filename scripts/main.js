@@ -3,7 +3,7 @@
         name: "Project Pictor",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1127",
+        version: "1128",
         date: "24-07-30",
         watermark: false,
         isBeta: false
@@ -440,7 +440,7 @@
                             })
                         ]
                     }).show();
-                } else if (ratioRes === ratioArea || _$res.width !== slide[current].area.width) {
+                } else if ((ratioRes === ratioArea || _$res.width !== slide[current].area.width) && slide[current].values.backgroundFit !== "fill") {
                     new LyraNotification({
                         icon: "notification",
                         text: "슬라이드의 크기와 배경으로 설정한 이미지의 크기가 맞지 않습니다.\n배경 설정으로 이동하여 이미지 맞춤 설정을 조정하거나 슬라이드 크기를 이미지에 맞추시겠습니까?",

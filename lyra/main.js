@@ -14,8 +14,8 @@ const __lyra = {
         name: "Lyra Engine",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1004",
-        date: "24-07-30"
+        version: "1005",
+        date: "24-07-31"
     }
 };
 const __manager = {
@@ -222,6 +222,7 @@ class LyraModal {
         };
         if (params && params["z"]) this.$.style["z-index"] = `${params["z"]}`;
         for (const $btn of this.$buttons) {
+            if ($btn.hasClass("close")) $btn.$.addEventListener("click", () => { this.close(); });
             $btn.into(this.$controller);
         };
         return this;

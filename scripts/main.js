@@ -3,8 +3,8 @@
         name: "Project Pictor",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1129",
-        date: "24-07-30",
+        version: "1131",
+        date: "24-07-31",
         watermark: false,
         isBeta: false
     };
@@ -92,6 +92,12 @@
     const $ = (x) => document.querySelector(x);
     const $a = (x) => document.querySelectorAll(x);
 
+    let show = {
+        version: 5,
+        name: "무제",
+        lastSlide: 0,
+        lastUpdate: null
+    };
     let slide = [];
     let current = 0;
     let imageItemIdInt = 0;
@@ -221,6 +227,9 @@
     const $pExportSizeMenu = $("#export-size-onmenu");
     const $pExportSizeModal = $("#export-size-onmodal");
     const $btnSearch = $("#button-search");
+    const $inputShowName = $("#show-name");
+    const $btnSave = $("#button-save");
+    const $btnLoad = $("#button-load");
 
     const INTtoHEX = (i) => {
         let res = i.toString(16).toUpperCase();
@@ -535,13 +544,20 @@
 
         $controller.style["display"] = "flex";
         for (const _$item of $controllerBar.querySelectorAll("button, input")) _$item.removeAttribute("disabled");
-        $chkTglDarker.checked = t.darker ? "checked" : null;
+        if (t.darker) {
+            $chkTglDarker.checked = true;
+            $btnTglDarker.classList.add("controller-active");
+        } else {
+            $chkTglDarker.checked = false;
+            $btnTglDarker.classList.remove("controller-active");
+        };
     };
     const unselectItem = () => {
         imageController.selected = null;
         $controller.style["display"] = "none";
         for (const _$item of $controllerBar.querySelectorAll("button, input")) _$item.setAttribute("disabled", "true");
         Array.from($a(".active-image-item")).forEach(($n) => $n.classList.remove("active-image-item"));
+        $btnTglDarker.classList.remove("controller-active");
     };
     const addImagePos = (n, x, y) => {
         const d = imageLayer[n];
@@ -751,6 +767,111 @@
             $alertDownload.style["display"] = "none";
         });
     };
+    const setShowName = (s) => {
+        show.name = s;
+        $inputShowName.value = s;
+    };
+    const initStore = () => {
+        if (window.localStorage.getItem("show") === null ||
+            window.localStorage.getItem("slide") === null) {
+            window.localStorage.setItem("show", "{}");
+            window.localStorage.setItem("slide", "[]");
+            new LyraNotification({
+                icon: "notification",
+                text: "로컬 저장소가 초기화되었습니다."
+            }).show();
+        };
+    };
+    const saveCurrent = () => {
+        show.lastUpdate = Date.now();
+        const showData = JSON.stringify(show);
+        const slideData = JSON.stringify(slide);
+        window.localStorage.setItem("show", showData);
+        window.localStorage.setItem("slide", slideData);
+        new LyraNotification({
+            icon: "export",
+            text: "문서 정보를 로컬 저장소에 성공적으로 저장했습니다."
+        }).show();
+    };
+    const loadLast = () => {
+        const showRaw = window.localStorage.getItem("show");
+        const slideRaw = window.localStorage.getItem("slide");
+        if (!showRaw || !slideRaw) {
+            initStore();
+            new LyraNotification({
+                icon: "critical",
+                text: "로컬 저장소가 손상되었습니다. 초기값으로 복원합니다."
+            }).show();
+            return;
+        };
+        const showData = JSON.parse(showRaw);
+        const slideData = JSON.parse(slideRaw);
+        if (typeof showData === "object" &&
+            typeof showData.version === "number" &&
+            typeof showData.name === "string" &&
+            typeof showData.lastSlide === "number") {
+            show = showData;
+            setShowName(show.name);
+            new LyraNotification({
+                icon: "import",
+                text: "문서 정보를 성공적으로 불러왔습니다."
+            }).show();
+            if (typeof slideData === "object" || slideData.constructor === Array) {
+                slide = slideData;
+                setSlide(show.lastSlide);
+                new LyraNotification({
+                    icon: "import",
+                    text: "슬라이드 정보를 성공적으로 불러왔습니다."
+                }).show();
+            };
+        } else {
+            new LyraNotification({
+                icon: "warning",
+                text: "불러올 문서가 없습니다."
+            }).show();
+        };
+    };
+
+    initStore();
+    $btnSave.onclick = () => {
+        const showRaw = window.localStorage.getItem("show");
+        if (!showRaw) initStore();
+        const oldShowData = JSON.parse(showRaw);
+        if (oldShowData.name) {
+            new LyraModal({
+                icon: "export",
+                title: "덮어쓰기 경고",
+                content: $create("p", {
+                    html: `이미 저장된 문서가 있습니다.<br><br>` +
+                        `<b>제목: ${oldShowData.name}<br>` +
+                        `마지막 수정: ${new Intl.DateTimeFormat("kr", { dateStyle: "full", timeStyle: "full" }).format(oldShowData.lastUpdate)}</b><br><br>` +
+                        `이 문서의 내용을 무시하고 현재 내용을 덮어쓰시겠습니까? 이전 내용이 삭제됩니다.`
+                }),
+                buttons: [
+                    new LyraButton({
+                        class: [ "close" ],
+                        icon: "export",
+                        text: "덮어쓰기",
+                        onclick: () => {
+                            saveCurrent();
+                        }
+                    }),
+                    new LyraButton({
+                        class: [ "close" ],
+                        icon: "deny",
+                        text: "취소"
+                    })
+                ]
+            }).show();
+        } else {
+            saveCurrent();
+        };
+    };
+    $btnLoad.onclick = loadLast;
+    $inputShowName.onchange = (c) => {
+        setShowName(c.target.value);
+    };
+    setShowName(show.name);
 
     document.addEventListener("keydown", (k) => {
         if (!Number.isNaN(parseInt(slide[current].imageLayer.selectedImageItem)) && k.shiftKey && k.keyCode === 82) {
@@ -1066,27 +1187,29 @@
         const d = imageLayer[imageController.selected];
         const $img = d.img;
         d.flip.horizontal = !d.flip.horizontal;
-        slide[current].imageLayer.attachments[slide[current].imageLayer.attachments.findIndex((x) => x.id === imageController.selected)] = d;
-        
-        // slide[current].imageLayer.attachments[slide[current].imageLayer.attachments.findIndex((x) => x.id === imageController.selected)].flip = d.flip;
+        slide[current].imageLayer.attachments.find((x) => x.id === imageController.selected).flip = d.flip;
         $img.style["transform"] = `${d.flip.horizontal ? "scaleX(-1)" : ""}${d.flip.vertical ? "scaleY(-1)" : ""}`;
+        refreshThumbnail(current, $photozone);
     };
     $btnFlipVertical.onclick = () => {
         const d = imageLayer[imageController.selected];
         const $img = d.img;
         d.flip.vertical = !d.flip.vertical;
-        slide[current].imageLayer.attachments[slide[current].imageLayer.attachments.findIndex((x) => x.id === imageController.selected)].flip = d.flip;
+        slide[current].imageLayer.attachments.find((x) => x.id === imageController.selected).flip = d.flip;
         $img.style["transform"] = `${d.flip.horizontal ? "scaleX(-1)" : ""}${d.flip.vertical ? "scaleY(-1)" : ""}`;
+        refreshThumbnail(current, $photozone);
     };
     $chkTglDarker.onchange = (c) => {
-        slide[current].imageLayer.attachments[slide[current].imageLayer.attachments.findIndex((x) => x.id === imageController.selected)].darker = c.target.checked;
+        slide[current].imageLayer.attachments.find((x) => x.id === imageController.selected).darker = c.target.checked;
         if (c.target.checked) {
             imageLayer[imageController.selected].img.classList.add("image-item-darker");
-            // slide[current].imageLayer.attachments[slide[current].imageLayer.attachments.findIndex((x) => x.id === imageController.selected)].nodes.img.classList.add("image-item-darker");
+            $btnTglDarker.classList.add("controller-active");
+            console.log(slide[current].imageLayer.attachments.find((x) => x.id === imageController.selected));
         } else {
             imageLayer[imageController.selected].img.classList.remove("image-item-darker");
-            // slide[current].imageLayer.attachments[slide[current].imageLayer.attachments.findIndex((x) => x.id === imageController.selected)].nodes.img.classList.remove("image-item-darker");
+            $btnTglDarker.classList.remove("controller-active");
         };
+        // refreshThumbnail(current, $photozone);
     };
     $btnTglDarker.onclick = () => {
         $chkTglDarker.click();

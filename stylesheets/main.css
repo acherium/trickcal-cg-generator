@@ -216,9 +216,13 @@ footer a {
     margin: 8px 0;
     z-index: 0;
     overflow-x: scroll;
+    overflow-y: hidden;
 
     width: 100%;
     height: 44px;
+}
+#middle-bottom::-webkit-scrollbar {
+    display: none;
 }
 
 main {
@@ -485,14 +489,14 @@ input[type=checkbox] {
 .photo-script-box > .shadow {
     opacity: 0.3;
 }
-#photo-script-box-0 > .shadow { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox0-dark.png"); }
-#photo-script-box-0 > .script-box { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox0-light.png"); }
-#photo-script-box-1 > .shadow { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox1-dark.png"); }
-#photo-script-box-1 > .script-box { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox1-light.png"); }
-#photo-script-box-2 > .shadow { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox2-dark.png"); }
-#photo-script-box-2 > .script-box { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox2-light.png"); }
-#photo-script-box-3 > .shadow { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox3-dark.png"); }
-#photo-script-box-3 > .script-box { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox3-light.png"); }
+#photo-script-box-0 > .shadow { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox0-dark.svg"); }
+#photo-script-box-0 > .script-box { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox0-light.svg"); }
+#photo-script-box-1 > .shadow { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox1-dark.svg"); }
+#photo-script-box-1 > .script-box { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox1-light.svg"); }
+#photo-script-box-2 > .shadow { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox2-dark.svg"); }
+#photo-script-box-2 > .script-box { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox2-light.svg"); }
+#photo-script-box-3 > .shadow { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox3-dark.svg"); }
+#photo-script-box-3 > .script-box { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox3-light.svg"); }
 
 .photo-script-box-sokmaeum-0 .shadow {
     transform: translate(3px, 3px);
@@ -500,14 +504,14 @@ input[type=checkbox] {
 .photo-script-box-sokmaeum-1 .shadow, .photo-script-box-sokmaeum-2 .shadow {
     transform: translate(-10px, 10px);
 }
-.photo-script-box-sokmaeum-2 > #photo-script-box-0 > .shadow { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox0-light.png"); }
-.photo-script-box-sokmaeum-2 > #photo-script-box-0 > .script-box { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox0-dark.png"); }
-.photo-script-box-sokmaeum-2 > #photo-script-box-1 > .shadow { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox1-light.png"); }
-.photo-script-box-sokmaeum-2 > #photo-script-box-1 > .script-box { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox1-dark.png"); }
-.photo-script-box-sokmaeum-2 > #photo-script-box-2 > .shadow { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox2-light.png"); }
-.photo-script-box-sokmaeum-2 > #photo-script-box-2 > .script-box { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox2-dark.png"); }
-.photo-script-box-sokmaeum-2 > #photo-script-box-3 > .shadow { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox3-light.png"); }
-.photo-script-box-sokmaeum-2 > #photo-script-box-3 > .script-box { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox3-dark.png"); }
+.photo-script-box-sokmaeum-2 > #photo-script-box-0 > .shadow { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox0-light.svg"); }
+.photo-script-box-sokmaeum-2 > #photo-script-box-0 > .script-box { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox0-dark.svg"); }
+.photo-script-box-sokmaeum-2 > #photo-script-box-1 > .shadow { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox1-light.svg"); }
+.photo-script-box-sokmaeum-2 > #photo-script-box-1 > .script-box { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox1-dark.svg"); }
+.photo-script-box-sokmaeum-2 > #photo-script-box-2 > .shadow { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox2-light.svg"); }
+.photo-script-box-sokmaeum-2 > #photo-script-box-2 > .script-box { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox2-dark.svg"); }
+.photo-script-box-sokmaeum-2 > #photo-script-box-3 > .shadow { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox3-light.svg"); }
+.photo-script-box-sokmaeum-2 > #photo-script-box-3 > .script-box { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox3-dark.svg"); }
 .photo-script-box-sokmaeum-2 .arrow {
     filter: invert(1);
 }
@@ -1220,6 +1224,44 @@ input[type=checkbox] {
     font-size: 8pt;
 }
 
+#script-box-config {
+    display: grid;
+    grid-template-columns: minmax(0, 200px) minmax(0, auto);
+    grid-template-rows: repeat(2, minmax(0, 80px));
+    gap: var(--p);
+}
+#script-box-config > * {
+    padding: var(--p-small);
+
+    border: solid 2px var(--c-button);
+    border-radius: var(--r-medium);
+}
+#script-box-position {
+    grid-row: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 33%));
+    grid-template-rows: repeat(4, minmax(0, auto));
+}
+#script-box-style {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 25%));
+    grid-template-rows: repeat(2, minmax(0, auto));
+}
+#script-sokmaeum-style {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 33%));
+    grid-template-rows: repeat(2, minmax(0, auto));
+}
+#script-box-position > *, #script-box-style > *, #script-sokmaeum-style > * {
+    justify-content: center;
+
+    width: 100%;
+    height: 100%;
+}
+#script-box-position > p, #script-box-style > p, #script-sokmaeum-style > p {
+    grid-column: 1 / -1;
+}
+
 .alert {
     display: flex;
     position: absolute;
@@ -1447,6 +1489,13 @@ button {
 
     .color-preset-subdiv {
         grid-template-columns: repeat(2, 50%);
+    }
+
+    #script-box-config {
+        display: grid;
+        grid-template-columns: minmax(0, auto);
+        grid-template-rows: repeat(3, minmax(0, 50px));
+        gap: var(--p);
     }
 
     .modal-area {

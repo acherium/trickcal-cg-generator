@@ -193,11 +193,15 @@ body {
     overflow: hidden !important;
 }
 
-a:focus, button:focus, input:focus, select:focus, textarea:focus {
+button p, button span, a p, a span, input p, input span, label p, label span {
+    color: inherit;
+}
+
+a:focus, button:focus, input:focus, select:focus, textarea:focus, .radio-toggle-list label:has(input[type=radio]):focus {
     border-radius: var(--r);
     outline: solid 2px var(--c-lyra);
 }
-button:disabled, input:disabled, select:disabled, textarea:disabled {
+button:disabled, input:disabled, select:disabled, textarea:disabled, .radio-toggle-list label:has(input[type=radio]:disabled) {
     /* pointer-events: none; */
     cursor: no-drop;
 }
@@ -372,6 +376,81 @@ label:has(input[type=checkbox]:disabled), label:has(input[type=radio]:disabled) 
 }
 label:has(input[type=checkbox]:disabled)::before, label:has(input[type=radio]:disabled)::before {
     background-color: var(--c-checkbox-border);
+}
+
+.radio-toggle-list {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: var(--p);
+}
+.radio-toggle-list label:has(input[type=radio]) {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: flex-start;
+    gap: var(--m);
+    padding: var(--p-large);
+    overflow: hidden;
+
+    color: var(--c-font);
+    border: none;
+    border-radius: var(--r);
+    background-color: var(--c-button);
+}
+.radio-toggle-list label:has(input[type=radio]:checked) {
+    color: var(--c-white);
+    background-color: var(--c-lyra);
+}
+.radio-toggle-list label:has(input[type=radio]:checked)::before {
+    border: none;
+}
+.radio-toggle-list label:has(input[type=radio])::before {
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    width: 100%;
+    height: 100%;
+
+    border: none;
+    border-radius: inherit;
+    background-color: var(--c-button-cover);
+    opacity: 0;
+    content: "";
+
+    transition: opacity var(--t-transition) linear;
+    will-change: opacity;
+}
+.radio-toggle-list label:has(input[type=radio]:not(:disabled)) {
+    cursor: pointer;
+}
+.radio-toggle-list label:has(input[type=radio]:not(:disabled))::after {
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    width: 50px;
+    height: 100%;
+
+    background: linear-gradient(90deg, transparent, oklch(0% 0 0 / 0.05), oklch(0% 0 0 / 0.05), transparent);
+    content: "";
+
+    transform: translateX(-50px);
+    will-change: transform;
+}
+.radio-toggle-list label:has(input[type=radio]:not(:disabled)):hover::before, .radio-toggle-list label:has(input[type=radio]:not(:disabled)):focus::before {
+    opacity: 0.1;
+}
+.radio-toggle-list label:has(input[type=radio]:not(:disabled)):hover::after, .radio-toggle-list label:has(input[type=radio]:not(:disabled)):focus::after {
+    animation: 4s linear 0.25s ani-button-cover-effect;
+}
+.radio-toggle-list label:has(input[type=radio]:not(:disabled)):active::before {
+    opacity: 0.2;
+}
+.radio-toggle-list label:has(input[type=radio]:disabled) {
+    opacity: 0.5;
+    cursor: no-drop;
 }
 
 input[type=text], input[type=number] {

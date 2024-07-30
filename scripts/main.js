@@ -3,7 +3,7 @@
         name: "Project Pictor",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1124",
+        version: "1125",
         date: "24-07-30",
         watermark: false,
         isBeta: false
@@ -153,9 +153,9 @@
         2: $("#photo-script-box-2"),
         3: $("#photo-script-box-3")
     };
-    const $selContentBoxPos = $("#content-box-position");
-    const $selContentBoxStyle = $("#content-box-style");
-    const $selSokmaeumStyle = $("#sokmaeum-style");
+    const $rblScriptBoxPos = $a("#script-box-position input[type=radio]");
+    const $rblScriptBoxStyle = $a("#script-box-style input[type=radio]");
+    const $rblSokmaeumStyle = $a("#script-sokmaeum-style input[type=radio]");
     const $btnContent = $("#button-content");
     const $inputContent = $("#content");
     const $chkTglContent = $("#checkbox-toggle-content");
@@ -322,7 +322,7 @@
     const setBoxPos = (i) => {
         if (i < 0 && i > 8) return;
         slide[current].scriptbox.pos = i;
-        $selContentBoxPos.options[i].selected = true;
+        $rblScriptBoxPos[i].click();
         $contentArea.className = `photo-script-box-pos-${i} photo-script-box-sokmaeum-${slide[current].scriptbox.sokmaeum}`;
     };
     const setBoxStyle = (i) => {
@@ -332,25 +332,25 @@
             $box.style["display"] = "none";
         };
         slide[current].scriptbox.style = i;
-        $selContentBoxStyle.options[i].selected = true;
+        $rblScriptBoxStyle[i].click();
         $scriptBoxes[i].style["display"] = "block";
     };
     const setSokmaeumStyle = (i) => {
         if (i === 0) {
             slide[current].scriptbox.sokmaeum = i;
-            $selSokmaeumStyle.options[i].selected = true;
+            $rblSokmaeumStyle[i].click();
             $vignetting.style["display"] = "none";
             $sokmaeum.style["display"] = "none";
             $contentArea.className = `photo-script-box-pos-${slide[current].scriptbox.pos} photo-script-box-sokmaeum-${i}`;
         } else if (i === 1) {
             slide[current].scriptbox.sokmaeum = i;
-            $selSokmaeumStyle.options[i].selected = true;
+            $rblSokmaeumStyle[i].click();
             $vignetting.style["display"] = "none";
             $sokmaeum.style["display"] = "block";
             $contentArea.className = `photo-script-box-pos-${slide[current].scriptbox.pos} photo-script-box-sokmaeum-${i}`;
         } else if (i === 2) {
             slide[current].scriptbox.sokmaeum = i;
-            $selSokmaeumStyle.options[i].selected = true;
+            $rblSokmaeumStyle[i].click();
             $vignetting.style["display"] = "block";
             $sokmaeum.style["display"] = "none";
             $contentArea.className = `photo-script-box-pos-${slide[current].scriptbox.pos} photo-script-box-sokmaeum-${i}`;
@@ -452,7 +452,6 @@
                 };
             };
         };
-        return f;
     };
     const addImageItem = (d) => {
         const item = JSON.parse(JSON.stringify(d));
@@ -776,6 +775,8 @@
         };
     });
 
+    $bg.onerror = (e) => e.target.style["display"] = "none";
+    $bg.onload = (e) => e.target.style["display"] = "block";
     createSlide();
 
     $btnAddSlide.onclick = () => {
@@ -1119,17 +1120,35 @@
     $inputContent.onchange = () => {
         refreshThumbnail(current, $photozone);
     };
-    $selContentBoxPos.onchange = (c) => {
-        setBoxPos(parseInt(c.target.value));
-        refreshThumbnail(current, $photozone);
+    // $selContentBoxPos.onchange = (c) => {
+    //     setBoxPos(parseInt(c.target.value));
+    //     refreshThumbnail(current, $photozone);
+    // };
+    // $selContentBoxStyle.onchange = (c) => {
+    //     setBoxStyle(parseInt(c.target.value));
+    //     refreshThumbnail(current, $photozone);
+    // };
+    // $selSokmaeumStyle.onchange = (c) => {
+    //     setSokmaeumStyle(parseInt(c.target.value));
+    //     refreshThumbnail(current, $photozone);
+    // };
+    for (const _$r of Array.from($rblScriptBoxPos)) {
+        _$r.onclick = () => {
+            setBoxPos(parseInt(_$r.value));
+            refreshThumbnail(current, $photozone);
+        };
     };
-    $selContentBoxStyle.onchange = (c) => {
-        setBoxStyle(parseInt(c.target.value));
-        refreshThumbnail(current, $photozone);
+    for (const _$r of Array.from($rblScriptBoxStyle)) {
+        _$r.onclick = () => {
+            setBoxStyle(parseInt(_$r.value));
+            refreshThumbnail(current, $photozone);
+        };
     };
-    $selSokmaeumStyle.onchange = (c) => {
-        setSokmaeumStyle(parseInt(c.target.value));
-        refreshThumbnail(current, $photozone);
+    for (const _$r of Array.from($rblSokmaeumStyle)) {
+        _$r.onclick = () => {
+            setSokmaeumStyle(parseInt(_$r.value));
+            refreshThumbnail(current, $photozone);
+        };
     };
 
     $btnPhotoSet.onclick = () => {

@@ -3,7 +3,7 @@
         name: "Project Pictor",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1128",
+        version: "1129",
         date: "24-07-30",
         watermark: false,
         isBeta: false
@@ -147,11 +147,9 @@
     const $chkTglLoc = $("#checkbox-toggle-location");
     const $contentArea = $("#photo-script-box-area");
     const $content = $("#script-content");
-    const $scriptBoxes = {
-        0: $("#photo-script-box-0"),
-        1: $("#photo-script-box-1"),
-        2: $("#photo-script-box-2"),
-        3: $("#photo-script-box-3")
+    const $scriptBox = {
+        shadow: $("#photo-script-box > .shadow"),
+        bg: $("#photo-script-box > .bg")
     };
     const $rblScriptBoxPos = $a("#script-box-position input[type=radio]");
     const $rblScriptBoxStyle = $a("#script-box-style input[type=radio]");
@@ -327,14 +325,16 @@
         $contentArea.className = `photo-script-box-pos-${i} photo-script-box-sokmaeum-${slide[current].scriptbox.sokmaeum}`;
     };
     const setBoxStyle = (i) => {
-        if (!$scriptBoxes[i]) return;
-        for (const $box of Object.values($scriptBoxes)) {
-            $box.className = "photo-script-box";
-            $box.style["display"] = "none";
-        };
+        // if (!$scriptBoxes[i]) return;
+        // for (const $box of Object.values($scriptBoxes)) {
+        //     $box.className = "photo-script-box";
+        //     $box.style["display"] = "none";
+        // };
         slide[current].scriptbox.style = i;
         $rblScriptBoxStyle[i].click();
-        $scriptBoxes[i].style["display"] = "block";
+        $scriptBox.shadow.src = `./assets/images/scriptbox${i}-${slide[current].scriptbox.sokmaeum === 2 ? "light" : "dark"}.svg`;
+        $scriptBox.bg.src = `./assets/images/scriptbox${i}-${slide[current].scriptbox.sokmaeum === 2 ? "dark" : "light"}.svg`;
+        // $scriptBoxes[i].style["display"] = "block";
     };
     const setSokmaeumStyle = (i) => {
         if (i === 0) {
@@ -343,18 +343,24 @@
             $vignetting.style["display"] = "none";
             $sokmaeum.style["display"] = "none";
             $contentArea.className = `photo-script-box-pos-${slide[current].scriptbox.pos} photo-script-box-sokmaeum-${i}`;
+            $scriptBox.shadow.src = `./assets/images/scriptbox${slide[current].scriptbox.style}-dark.svg`;
+            $scriptBox.bg.src = `./assets/images/scriptbox${slide[current].scriptbox.style}-light.svg`;
         } else if (i === 1) {
             slide[current].scriptbox.sokmaeum = i;
             $rblSokmaeumStyle[i].click();
             $vignetting.style["display"] = "none";
             $sokmaeum.style["display"] = "block";
             $contentArea.className = `photo-script-box-pos-${slide[current].scriptbox.pos} photo-script-box-sokmaeum-${i}`;
+            $scriptBox.shadow.src = `./assets/images/scriptbox${slide[current].scriptbox.style}-dark.svg`;
+            $scriptBox.bg.src = `./assets/images/scriptbox${slide[current].scriptbox.style}-light.svg`;
         } else if (i === 2) {
             slide[current].scriptbox.sokmaeum = i;
             $rblSokmaeumStyle[i].click();
             $vignetting.style["display"] = "block";
             $sokmaeum.style["display"] = "none";
             $contentArea.className = `photo-script-box-pos-${slide[current].scriptbox.pos} photo-script-box-sokmaeum-${i}`;
+            $scriptBox.shadow.src = `./assets/images/scriptbox${slide[current].scriptbox.style}-light.svg`;
+            $scriptBox.bg.src = `./assets/images/scriptbox${slide[current].scriptbox.style}-dark.svg`;
         };
     };
     const setTitleName = (s) => {

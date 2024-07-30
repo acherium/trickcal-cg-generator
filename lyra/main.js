@@ -317,6 +317,7 @@ class LyraNotification {
         if (typeof params["duration"] !== "undefined") this.options["duration"] = parseInt(params["duration"]);
         if (this.options["closeButton"]) this.buttons.push(this.$closeButton);
         if (this.buttons.length > 0) this.$buttonArea.into(this.$);
+        if (this.buttons.length > 1) this.$.addClass([ "notification-two-track" ]);
         for (const $btn of this.buttons) {
             $btn.into(this.$buttonArea);
             $btn.$.addEventListener("click", () => {

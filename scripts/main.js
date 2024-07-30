@@ -185,6 +185,7 @@
     const $btnSlideSize = $a(".button-slide-size");
     const $inputSlideWidth = $("#input-slide-size-width");
     const $inputSlideHeight = $("#input-slide-size-height");
+    const $btnFitToBg = $("#button-fit-to-bg-size");
     const $selboxOption = $a(".photo-select-option");
     const $inputSelboxOption = $a(".select-option");
     const $selbox = $("#photo-select");
@@ -418,8 +419,15 @@
                 if (ratioRes !== ratioArea) {
                     new LyraNotification({
                         icon: "notification",
-                        text: "슬라이드의 비율과 배경으로 설정한 이미지의 비율이 맞지 않습니다.\n배경 설정으로 이동하여 이미지 맞춤 설정을 조정하시겠습니까?",
+                        text: "슬라이드의 비율과 배경으로 설정한 이미지의 비율이 맞지 않습니다.\n배경 설정으로 이동하여 이미지 맞춤 설정을 조정하거나 슬라이드 비율을 이미지에 맞추시겠습니까?",
                         buttons: [
+                            new LyraButton({
+                                icon: "arrow-e",
+                                text: "이미지 비율에 맞춤",
+                                onclick: () => {
+                                    $btnFitToBg.click();
+                                }
+                            }),
                             new LyraButton({
                                 icon: "arrow-e",
                                 text: "이동",
@@ -435,11 +443,18 @@
                 } else if (ratioRes === ratioArea || _$res.width !== slide[current].area.width) {
                     new LyraNotification({
                         icon: "notification",
-                        text: "슬라이드의 크기와 배경으로 설정한 이미지의 크기가 맞지 않습니다.\n배경 설정으로 이동하여 이미지 맞춤 설정을 조정하시겠습니까?",
+                        text: "슬라이드의 크기와 배경으로 설정한 이미지의 크기가 맞지 않습니다.\n배경 설정으로 이동하여 이미지 맞춤 설정을 조정하거나 슬라이드 크기를 이미지에 맞추시겠습니까?",
                         buttons: [
                             new LyraButton({
                                 icon: "arrow-e",
-                                text: "이동",
+                                text: "이미지 비율에 맞춤",
+                                onclick: () => {
+                                    $btnFitToBg.click();
+                                }
+                            }),
+                            new LyraButton({
+                                icon: "config",
+                                text: "설정으로 이동",
                                 onclick: () => {
                                     __manager.modal.reserve["modal-config-bg"].show();
                                     setTimeout(() => {
@@ -1248,6 +1263,23 @@
     $inputSlideHeight.onchange = (c) => {
         setAreaHeight(c.target.value);
         refreshThumbnail(current, $photozone);
+    };
+    $btnFitToBg.onclick = () => {
+        if (!slide[current].imageLayer.background) {
+            new LyraNotification({
+                icon: "warning",
+                text: "배경 이미지가 설정되어있지 않습니다.",
+                duration: 2000
+            }).show();
+        } else {
+            const ratio = $bg.height / $bg.width;
+            const width = 1280;
+            setAreaWidth(width);
+            setAreaHeight(Math.floor(width * ratio));
+            setBackgroundFit("fill");
+            __manager.modal.reserve["modal-slide-size"].close();
+            refreshThumbnail(current, $photozone);
+        };
     };
 
     $btnSelbox.onclick = () => {

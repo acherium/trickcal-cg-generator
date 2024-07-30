@@ -3,7 +3,7 @@
         name: "Project Pictor",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1125",
+        version: "1127",
         date: "24-07-30",
         watermark: false,
         isBeta: false
@@ -429,8 +429,8 @@
                                 }
                             }),
                             new LyraButton({
-                                icon: "arrow-e",
-                                text: "이동",
+                                icon: "config",
+                                text: "설정으로 이동",
                                 onclick: () => {
                                     __manager.modal.reserve["modal-config-bg"].show();
                                     setTimeout(() => {

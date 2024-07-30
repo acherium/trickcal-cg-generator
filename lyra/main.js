@@ -14,8 +14,8 @@ const __lyra = {
         name: "Lyra Engine",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1003",
-        date: "24-07-27"
+        version: "1004",
+        date: "24-07-30"
     }
 };
 const __manager = {

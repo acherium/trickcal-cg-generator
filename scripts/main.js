@@ -3,7 +3,7 @@
         name: "Project Pictor",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1131",
+        version: "1132",
         date: "24-07-31",
         watermark: false,
         isBeta: false
@@ -15,7 +15,7 @@
     const HEIGHTMAX = 2000;
     const RATIOCHECKER = 1000;
     const DATATEMPLATE = {
-        version: 5,
+        version: 6,
         strings: {
             name: "버터",
             content: "나오라고.",
@@ -41,7 +41,8 @@
             pos: 7
         },
         values: {
-            backgroundFit: "align-center"
+            backgroundFit: "align-center",
+            type: 0
         },
         color: {
             namearea: {
@@ -93,7 +94,7 @@
     const $a = (x) => document.querySelectorAll(x);
 
     let show = {
-        version: 5,
+        version: 6,
         name: "무제",
         lastSlide: 0,
         lastUpdate: null
@@ -230,6 +231,9 @@
     const $inputShowName = $("#show-name");
     const $btnSave = $("#button-save");
     const $btnLoad = $("#button-load");
+    const $tglType = $a("#script-box-type input[type=radio]");
+    const $type0Conts = $a(".content-type-0");
+    const $type1Conts = $a(".content-type-1");
 
     const INTtoHEX = (i) => {
         let res = i.toString(16).toUpperCase();
@@ -694,6 +698,7 @@
         toggleLocation(x.toggles.location);
         toggleContent(x.toggles.content);
         setBackground(x.imageLayer.background);
+        setType(x.values.type);
         imageLayer = {};
         $imageLayer.innerHTML = "";
         $imageList.innerHTML = "";
@@ -831,6 +836,17 @@
             }).show();
         };
     };
+    const setType = (i) => {
+        if (i === 0) {
+            slide[current].values.type = i;
+            for (const _$n of $type0Conts) _$n.style["visibility"] = "visible";
+            for (const _$n of $type1Conts) _$n.style["visibility"] = "collapse";
+        } else if (i === 1) {
+            slide[current].values.type = i;
+            for (const _$n of $type0Conts) _$n.style["visibility"] = "collapse";
+            for (const _$n of $type1Conts) _$n.style["visibility"] = "visible";
+        };
+    };
 
     initStore();
     $btnSave.onclick = () => {
@@ -872,6 +888,10 @@
         setShowName(c.target.value);
     };
     setShowName(show.name);
+
+    for (const _$radio of $tglType) {
+        _$radio.onclick = () => setType(parseInt(_$radio.value));
+    };
 
     document.addEventListener("keydown", (k) => {
         if (!Number.isNaN(parseInt(slide[current].imageLayer.selectedImageItem)) && k.shiftKey && k.keyCode === 82) {

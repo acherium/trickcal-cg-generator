@@ -113,7 +113,7 @@ body {
 .flexlist {
     display: flex;
     position: relative;
-    gap: var(--m);
+    gap: var(--p);
     flex-wrap: wrap;
 
     max-width: 100%;

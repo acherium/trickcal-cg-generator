@@ -1234,7 +1234,7 @@ input[type=checkbox] {
     grid-template-rows: repeat(2, minmax(0, 80px));
     gap: var(--p);
 }
-#script-box-config > * {
+#script-box-config > *, #script-box-type {
     padding: var(--p-small);
 
     border: solid 2px var(--c-button);
@@ -1256,13 +1256,18 @@ input[type=checkbox] {
     grid-template-columns: repeat(3, minmax(0, 33%));
     grid-template-rows: repeat(2, minmax(0, auto));
 }
-#script-box-position > *, #script-box-style > *, #script-sokmaeum-style > * {
+#script-box-type {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 50%));
+    grid-template-rows: repeat(2, minmax(0, auto));
+}
+#script-box-position > *, #script-box-style > *, #script-sokmaeum-style > *, #script-box-type > * {
     justify-content: center;
 
     width: 100%;
     height: 100%;
 }
-#script-box-position > p, #script-box-style > p, #script-sokmaeum-style > p {
+#script-box-position > p, #script-box-style > p, #script-sokmaeum-style > p, #script-box-type > p {
     grid-column: 1 / -1;
 }
 

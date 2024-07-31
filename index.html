@@ -191,7 +191,7 @@
                             <img src="" id="photo-bg">
                         </div>
                         <div id="photo-layer"></div>
-                        <div id="photo-sokmaeum">
+                        <div id="photo-sokmaeum" class="content-type-0">
                             <img src="./assets/images/vignetting.svg" id="photo-vignetting">
                             <img src="./assets/images/sokmaeum.svg" id="photo-button-sokmaeum">
                         </div>
@@ -199,7 +199,7 @@
                             <img src="./assets/images/button-auto.png" class="photo-button">
                             <img src="./assets/images/button-menu.png" class="photo-button">
                         </div>
-                        <div id="photo-script-box-area">
+                        <div id="photo-script-box-area" class="content-type-0">
                             <div id="photo-script-box" class="photo-script-box">
                                 <img src="" class="shadow">
                                 <img src="" class="bg">
@@ -231,7 +231,7 @@
                             </div>
                             <span id="script-content">Lorem ipsum dolor sit amet.</span>
                         </div>
-                        <div id="photo-select-area">
+                        <div id="photo-select-area" class="content-type-0">
                             <div id="photo-select">
                                 <div class="photo-select-option">
                                     <img src="./assets/images/select-option.svg">
@@ -356,20 +356,49 @@
                 </div>
                 <div class="partition-horizontal"></div>
                 <h4>요소</h4>
-                <div class="flexlist-horizontal wf">
-                    <button id="button-content" class="wf fjcc">
-                        <div class="i i-content"></div>
-                        <p>대화창</p>
-                    </button>
-                    <button id="button-select-box" class="wf fjcc">
-                        <div class="i i-content"></div>
-                        <p>선택지</p>
+                <div id="script-box-type" class="radio-toggle-list wf">
+                    <p>모드</p>
+                    <label>
+                        <input type="radio" name="script-box-type" value="0">
+                        <p>기본</p>
+                    </label>
+                    <label>
+                        <input type="radio" name="script-box-type" value="1">
+                        <p>신규</p>
+                    </label>
+                </div>
+                <div id="content-config-type-0" class="content-type-0 flexlist wf">
+                    <div class="flexlist-horizontal wf">
+                        <button id="button-content" class="wf fjcc">
+                            <div class="i i-content"></div>
+                            <p>대화창</p>
+                        </button>
+                        <button id="button-select-box" class="wf fjcc">
+                            <div class="i i-content"></div>
+                            <p>선택지</p>
+                        </button>
+                    </div>
+                    <button id="button-config-indicators" class="wf fjcc">
+                        <div class="i i-config"></div>
+                        <p>기타 요소 설정</p>
                     </button>
                 </div>
-                <button id="button-config-indicators" class="wf fjcc">
-                    <div class="i i-config"></div>
-                    <p>기타 요소 설정</p>
-                </button>
+                <div id="content-config-type-1" class="content-type-1 flexlist wf">
+                    <div class="flexlist-horizontal wf">
+                        <button id="button-content" class="wf fjcc">
+                            <div class="i i-content"></div>
+                            <p>대화창</p>
+                        </button>
+                        <button id="button-select-box" class="wf fjcc">
+                            <div class="i i-content"></div>
+                            <p>선택지</p>
+                        </button>
+                    </div>
+                    <button id="button-config-indicators" class="wf fjcc">
+                        <div class="i i-config"></div>
+                        <p>기타 요소 설정</p>
+                    </button>
+                </div>
                 <div class="partition-horizontal"></div>
                 <h4>이미지 레이어</h4>
                 <div class="flexlist-horizontal wf">

@@ -3,8 +3,8 @@
         name: "Project Pictor",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "1132",
-        date: "24-07-31",
+        version: "24w31.1",
+        date: "24-08-01",
         watermark: false,
         isBeta: false
     };
@@ -42,7 +42,7 @@
         },
         values: {
             backgroundFit: "align-center",
-            type: 0
+            type: 1
         },
         color: {
             namearea: {
@@ -134,7 +134,6 @@
     const $nameOutline = $("#photo-script-box-namebox > span:nth-child(1)");
     const $name = $("#photo-script-box-namebox > span:nth-child(2)");
     const $nameBg = $("#photo-script-box-name-backdrop");
-    const $inputName = $("#name");
     const $pickerNamePrev = $("#colorpicker-namearea .colorpicker-preview");
     const $pickerNamePrevValue = $("#colorpicker-namearea .colorpicker-preview-value");
     const $pickerNamePointers = $a("#colorpicker-namearea .colorpicker-pointer");
@@ -153,7 +152,6 @@
     const $inputLoc = $("#input-location");
     const $chkTglLoc = $("#checkbox-toggle-location");
     const $contentArea = $("#photo-script-box-area");
-    const $content = $("#script-content");
     const $scriptBox = {
         shadow: $("#photo-script-box > .shadow"),
         bg: $("#photo-script-box > .bg")
@@ -162,9 +160,7 @@
     const $rblScriptBoxStyle = $a("#script-box-style input[type=radio]");
     const $rblSokmaeumStyle = $a("#script-sokmaeum-style input[type=radio]");
     const $btnContent = $("#button-content");
-    const $inputContent = $("#content");
     const $chkTglContent = $("#checkbox-toggle-content");
-    const $btnMdHelp = $("#button-markdown-help");
     const $box = $("#photo-script-box-backdrop");
     const $vignetting = $("#photo-vignetting");
     const $sokmaeum = $("#photo-button-sokmaeum");
@@ -221,7 +217,7 @@
     const $alertDownload = $("#alert-downloading");
     const $btnOutputAll = $("#button-download-all");
     const $splash = $("#splash-screen");
-    const $btnModalColPreset = $("#button-color-preset");
+    // const $btnModalColPreset = $("#button-color-preset");
     const $colPresetList = $("#color-preset-list");
     const $btnModalConfigExport = $("#button-config-export");
     const $inputMultiplier = $("#export-multiplier");
@@ -234,6 +230,66 @@
     const $tglType = $a("#script-box-type input[type=radio]");
     const $type0Conts = $a(".content-type-0");
     const $type1Conts = $a(".content-type-1");
+
+    const $comNames = $a("#photo-script-box-area-revamped .namearea span, #photo-script-box-namebox span");
+    const $comNameBgs = $a("#photo-script-box-area-revamped .namearea .backdrop, #photo-script-box-name-backdrop");
+    const $comNameInputs = $a(".input-name");
+    const $comConts = $a(`#script-content, #photo-script-box-area-revamped .content-area > p`);
+    const $comContInputs = $a(".input-content");
+
+    const $sbox = $("#photo-script-box-area-revamped");
+    const $sboxBgs = $a("#photo-script-box-area-revamped .bg");
+    const $sboxNameareas = $a("#photo-script-box-area-revamped .namearea");
+    const $sboxNames = $a("#photo-script-box-area-revamped .namearea span");
+
+    const eventConn = [
+        [
+            "click", [ $sbox, $("#button-content-revamped") ],
+            () => __manager.modal.reserve["modal-content-revamped"].show()
+        ],
+        [
+            "click", $a(".button-color-preset"),
+            () => __manager.modal.reserve["modal-color-preset"].show()
+        ],
+        [
+            "keydown", $comNameInputs,
+            (k) => {
+                if (k.ctrlKey && k.keyCode === 13 || k.keyCode === 27) {
+                    __manager.modal.reserve["modal-content"].close();
+                    __manager.modal.reserve["modal-content-revamped"].close();
+                }
+            }
+        ],
+        [
+            "input", $comNameInputs,
+            (x) => setName(x.target.value)
+        ],
+        [
+            "change", $comNameInputs,
+            () => refreshThumbnail(current, $photozone)
+        ],
+        [
+            "click", $a(".button-markdown-help"),
+            () => __manager.modal.reserve["modal-markdown"].show()
+        ],
+        [
+            "keydown", $comContInputs,
+            (k) => {
+                if (k.ctrlKey && k.keyCode === 13 || k.keyCode === 27) {
+                    __manager.modal.reserve["modal-content"].close();
+                    __manager.modal.reserve["modal-content-revamped"].close();
+                }
+            }
+        ],
+        [
+            "input", $comContInputs,
+            (x) => setContent(x.target.value)
+        ],
+        [
+            "change", $comContInputs,
+            () => refreshThumbnail(current, $photozone)
+        ]
+    ];
 
     const INTtoHEX = (i) => {
         let res = i.toString(16).toUpperCase();
@@ -288,15 +344,14 @@
     };
     const setName = (x) => {
         slide[current].strings.name = x;
-        $nameOutline.innerText = x;
-        $name.innerText = x;
-        $inputName.value = x;
+        for (const _$n of $comNames) _$n.innerText = x;
+        for (const _$n of $comNameInputs) _$n.value = x;
     };
     const setNameColor = (hex) => {
         const rgb = HEXtoRGB(hex);
         slide[current].color.namearea = rgb;
         const posper = Object.values(rgb).map((i) => i / 255 * 100);
-        $nameBg.style["background-color"] = `#${hex}`;
+        for (const _$n of $comNameBgs) _$n.style["background-color"] = `#${hex}`;
         $pickerNamePrev.style["background-color"] = `#${hex}`;
         $pickerNamePrev.style["border-color"] = `#${hex}`;
         $pickerNamePrevValue.innerText = `#${hex}\n${Object.values(rgb).join(", ")}`;
@@ -311,7 +366,7 @@
         slide[current].color.namearea = rgb;
         const posper = Object.values(rgb).map((i) => i / 255 * 100);
         const hex = RGBtoHEX(rgb);
-        $nameBg.style["background-color"] = `#${hex}`;
+        for (const _$n of $comNameBgs) _$n.style["background-color"] = `#${hex}`;
         $pickerNamePrev.style["background-color"] = `#${hex}`;
         $pickerNamePrev.style["border-color"] = `#${hex}`;
         $pickerNamePrevValue.innerText = `#${hex}\n${Object.values(rgb).join(", ")}`;
@@ -328,8 +383,8 @@
         for (const regxp of SCRIPT_MARKDOWN) res = res.replace(regxp[0], regxp[1]);
         slide[current].strings.contentRaw = x;
         slide[current].strings.content = res;
-        $content.innerHTML = res;
-        $inputContent.value = x;
+        for (const _$n of $comConts) _$n.innerHTML = res;
+        for (const _$n of $comContInputs) _$n.value = x;
     };
     const setBoxPos = (i) => {
         if (i < 0 && i > 8) return;
@@ -841,10 +896,12 @@
             slide[current].values.type = i;
             for (const _$n of $type0Conts) _$n.style["visibility"] = "visible";
             for (const _$n of $type1Conts) _$n.style["visibility"] = "collapse";
+            $tglType[0].checked = true;
         } else if (i === 1) {
             slide[current].values.type = i;
             for (const _$n of $type0Conts) _$n.style["visibility"] = "collapse";
             for (const _$n of $type1Conts) _$n.style["visibility"] = "visible";
+            $tglType[1].checked = true;
         };
     };
 
@@ -901,40 +958,6 @@
         };
         if (!$chkKeyShortcut.checked) return;
         if (k.target !== document.body) return;
-        if (k.keyCode === 49) {
-            setBoxStyle(0);
-        } else if (k.keyCode === 50) {
-            setBoxStyle(1);
-        } else if (k.keyCode === 51) {
-            setBoxStyle(2);
-        } else if (k.keyCode === 52) {
-            setBoxStyle(3);
-        } else if (k.keyCode === 53) {
-            setBoxStyle(4);
-        } else if (k.keyCode === 54) {
-            setBoxStyle(5);
-        } else if (k.keyCode === 65) {
-            $contentArea.click();
-            setTimeout(() => {
-                $inputContent.focus();
-            }, 30);
-        } else if (k.keyCode === 83) {
-            $btnSelbox.click();
-        } else if (k.keyCode === 68) {
-            $btnModalSlideSize.click();
-        } else if (k.keyCode === 90) {
-            $btnAddSlide.click();
-        } else if (k.keyCode === 88) {
-            $btnDuplicateSlide.click();
-        } else if (k.keyCode === 81) {
-            $btnPhotoSet.click();
-        } else if (k.keyCode === 87) {
-            $btnAddImage.click();
-        } else if (k.keyCode === 219) {
-            $btnOutput.click();
-        } else if (k.keyCode === 221) {
-            $btnOutputAll.click();
-        };
     });
 
     $bg.onerror = (e) => e.target.style["display"] = "none";
@@ -1254,16 +1277,6 @@
         refreshThumbnail(current, $photozone);
     };
 
-    $inputName.onkeydown = (k) => {
-        console.log(true);
-        if (k.keyCode === 13 && k.ctrlKey || k.keyCode === 27) __manager.modal.reserve["modal-content"].close();
-    };
-    $inputName.oninput = (x) => {
-        setName(x.target.value);
-    };
-    $inputName.onchange = () => {
-        refreshThumbnail(current, $photozone);
-    };
     $chkTglName.onchange = (c) => {
         toggleNamearea(c.target.checked);
         refreshThumbnail(current, $photozone);
@@ -1275,27 +1288,6 @@
     $btnContent.onclick = () => {
         __manager.modal.reserve["modal-content"].show();
     };
-    $inputContent.onkeydown = (k) => {
-        if (k.keyCode === 13 && k.ctrlKey || k.keyCode === 27) __manager.modal.reserve["modal-content"].close();
-    };
-    $inputContent.oninput = (x) => {
-        setContent(x.target.value);
-    };
-    $inputContent.onchange = () => {
-        refreshThumbnail(current, $photozone);
-    };
-    // $selContentBoxPos.onchange = (c) => {
-    //     setBoxPos(parseInt(c.target.value));
-    //     refreshThumbnail(current, $photozone);
-    // };
-    // $selContentBoxStyle.onchange = (c) => {
-    //     setBoxStyle(parseInt(c.target.value));
-    //     refreshThumbnail(current, $photozone);
-    // };
-    // $selSokmaeumStyle.onchange = (c) => {
-    //     setSokmaeumStyle(parseInt(c.target.value));
-    //     refreshThumbnail(current, $photozone);
-    // };
     for (const _$r of Array.from($rblScriptBoxPos)) {
         _$r.onclick = () => {
             setBoxPos(parseInt(_$r.value));
@@ -1388,10 +1380,6 @@
     $chkPhotoBtn.onchange = (c) => {
         togglePhotoButtons(c.target.checked);
         refreshThumbnail(current, $photozone);
-    };
-
-    $btnMdHelp.onclick = () => {
-        __manager.modal.reserve["modal-markdown"].show();
     };
 
     $btnModalSlideSize.onclick = () => {
@@ -1582,9 +1570,9 @@
         __manager.modal.reserve["modal-config-indicators"].show();
     };
 
-    $btnModalColPreset.onclick = () => {
-        __manager.modal.reserve["modal-color-preset"].show();
-    };
+    // $btnModalColPreset.onclick = () => {
+    //     __manager.modal.reserve["modal-color-preset"].show();
+    // };
     (async() => {
         const RACEDATA = await fetch("https://acherium.github.io/trickcal-chardata/trace-all.json").then((res) => res.ok ? res.json() : {});
         if (Object.values(RACEDATA).length === 0) new LyraNotification({ icon: "critical", text: "RACEDATA 파일을 불러오지 못했습니다." }).show();
@@ -1723,6 +1711,11 @@
 
     $btnSearch.onclick = () => {
         __manager.modal.reserve["modal-search"].show();
+    };
+
+    for (const x of eventConn) {
+        if (typeof x[1][Symbol.iterator] === "function") for (const y of x[1]) y.addEventListener(x[0], x[2]);
+        else x[1].addEventListener(x[0], x[2]);
     };
 
     setTimeout(() => {

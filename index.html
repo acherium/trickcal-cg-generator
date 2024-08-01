@@ -190,8 +190,8 @@
                         <div id="photo-bg-area">
                             <img src="" id="photo-bg">
                         </div>
-                        <div id="photo-layer"></div>
-                        <div id="photo-sokmaeum" class="content-type-0">
+                        <div id="photo-layer" class="content-type-0"></div>
+                        <div id="photo-sokmaeum">
                             <img src="./assets/images/vignetting.svg" id="photo-vignetting">
                             <img src="./assets/images/sokmaeum.svg" id="photo-button-sokmaeum">
                         </div>
@@ -204,24 +204,7 @@
                                 <img src="" class="shadow">
                                 <img src="" class="bg">
                                 <img src="./assets/images/next.png" class="arrow">
-                                <!-- <div class="shadow"></div>
-                                <div class="script-box"></div> -->
                             </div>
-                            <!-- <div id="photo-script-box-1" class="photo-script-box">
-                                <div class="shadow"></div>
-                                <div class="script-box"></div>
-                                <img src="./assets/images/next.png" class="arrow">
-                            </div>
-                            <div id="photo-script-box-2" class="photo-script-box">
-                                <div class="shadow"></div>
-                                <div class="script-box"></div>
-                                <img src="./assets/images/next.png" class="arrow">
-                            </div>
-                            <div id="photo-script-box-3" class="photo-script-box">
-                                <div class="shadow"></div>
-                                <div class="script-box"></div>
-                                <img src="./assets/images/next.png" class="arrow">
-                            </div> -->
                             <div id="photo-script-box-namearea">
                                 <div id="photo-script-box-name-backdrop"></div>
                                 <div id="photo-script-box-namebox">
@@ -230,6 +213,21 @@
                                 </div>
                             </div>
                             <span id="script-content">Lorem ipsum dolor sit amet.</span>
+                        </div>
+                        <div id="photo-script-box-area-revamped" class="content-type-1 photo-script-box-pos-7">
+                            <div class="bg bg-theme-0">
+                                <img src="./assets/images/scriptbox-theme-00.svg">
+                            </div>
+                            <div class="namearea namearea-0">
+                                <div class="backdrop"></div>
+                                <div class="text">
+                                    <span>Character</span>
+                                    <span>Character</span>
+                                </div>
+                            </div>
+                            <div class="content-area">
+                                <p>Lorem ipsum dolor sit amet.</p>
+                            </div>
                         </div>
                         <div id="photo-select-area" class="content-type-0">
                             <div id="photo-select">
@@ -385,19 +383,11 @@
                 </div>
                 <div id="content-config-type-1" class="content-type-1 flexlist wf">
                     <div class="flexlist-horizontal wf">
-                        <button id="button-content" class="wf fjcc">
+                        <button id="button-content-revamped" class="wf fjcc">
                             <div class="i i-content"></div>
                             <p>대화창</p>
                         </button>
-                        <button id="button-select-box" class="wf fjcc">
-                            <div class="i i-content"></div>
-                            <p>선택지</p>
-                        </button>
                     </div>
-                    <button id="button-config-indicators" class="wf fjcc">
-                        <div class="i i-config"></div>
-                        <p>기타 요소 설정</p>
-                    </button>
                 </div>
                 <div class="partition-horizontal"></div>
                 <h4>이미지 레이어</h4>
@@ -439,7 +429,7 @@
                 <h3>이름</h3>
                 <label class="wf f1">
                     <p>이름</p>
-                    <input type="text" id="name" class="modal-input-text wf f1">
+                    <input type="text" class="input-name wf f1">
                 </label>
                 <label>
                     <input type="checkbox" id="checkbox-toggle-namearea">
@@ -473,18 +463,14 @@
                         <input type="number" class="colorpicker-input colorpicker-input-b">
                     </div>
                 </div>
-                <!-- <div class="flexlist-horizontal wf">
-                    <p>프리셋</p>
-                    <select id="name-color" class="f1"></select>
-                </div> -->
-                <button id="button-color-preset" class="wfc">
+                <button class="button-color-preset wfc">
                     <div class="i i-palette"></div>
                     <p>색상 프리셋</p>
                 </button>
                 <div class="partition-horizontal"></div>
                 <h3>내용</h3>
-                <textarea id="content" class="wf"></textarea>
-                <button id="button-markdown-help" class="wfc">
+                <textarea id="content" class="input-content wf"></textarea>
+                <button class="button-markdown-help wfc">
                     <div class="i i-notification"></div>
                     <p>마크다운 문법 도움말</p>
                 </button>
@@ -575,6 +561,36 @@
                     <div class="i i-download"></div>
                     <p>출력</p>
                 </button>
+                <button class="close"></button>
+            </div>
+        </div>
+    </div>
+    <div id="modal-content-revamped" class="modal">
+        <div class="bg bg-acrylic"></div>
+        <div class="body">
+            <div class="title">
+                <div class="icon il i-config"></div>
+                <h1>대화창</h1>
+            </div>
+            <div class="content">
+                <h3>이름</h3>
+                <label class="wf f1">
+                    <p>이름</p>
+                    <input type="text" class="input-name wf f1">
+                </label>
+                <button class="button-color-preset wfc">
+                    <div class="i i-palette"></div>
+                    <p>색상 프리셋</p>
+                </button>
+                <div class="partition-horizontal"></div>
+                <h3>내용</h3>
+                <textarea class="input-content wf"></textarea>
+                <button class="button-markdown-help wfc">
+                    <div class="i i-notification"></div>
+                    <p>마크다운 문법 도움말</p>
+                </button>
+            </div>
+            <div class="controller">
                 <button class="close"></button>
             </div>
         </div>

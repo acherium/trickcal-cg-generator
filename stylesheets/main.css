@@ -1086,7 +1086,8 @@ span.tm-b {
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-#photo-select-area {
+#photo-select-area,
+#photo-select-area-revamped {
     display: flex;
     position: absolute;
     align-items: center;
@@ -1098,10 +1099,11 @@ span.tm-b {
     width: 100%;
     height: calc(100% - 224px);
     
-    pointer-events: none;
+    /* pointer-events: none; */
 }
 
-#photo-select {
+#photo-select,
+#photo-select-revamped {
     display: flex;
     position: relative;
     align-items: center;
@@ -1110,12 +1112,11 @@ span.tm-b {
     padding-top: 50px;
 
     width: 650px;
-    height: 284px;
 
     border-radius: 4px;
 }
 
-.photo-select-option {
+#photo-select > .photo-select-option {
     display: flex;
     position: relative;
     align-items: center;
@@ -1125,13 +1126,38 @@ span.tm-b {
     width: 650px;
     height: 58px;
 }
-.photo-select-option > img {
+#photo-select > .photo-select-option > img {
     position: absolute;
 
     width: 100%;
     height: 100%;
 }
-.photo-select-option > p {
+#photo-select > .photo-select-option > p {
+    position: absolute;
+
+    width: 100%;
+    
+    font-size: 14pt;
+    text-align: center;
+}
+
+#photo-select-revamped > .photo-select-option {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+
+    width: 650px;
+    height: 75px;
+}
+#photo-select-revamped > .photo-select-option > img {
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+}
+#photo-select-revamped > .photo-select-option > p {
     position: absolute;
 
     width: 100%;

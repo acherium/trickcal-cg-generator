@@ -3,7 +3,7 @@
         name: "Project Pictor",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "24w31.7",
+        version: "24w31.9",
         date: "24-08-02",
         watermark: false,
         isBeta: false
@@ -37,6 +37,9 @@
             },
             namearea: {
                 pos: 1
+            },
+            select: {
+                theme: 0
             }
         },
         area: {
@@ -247,6 +250,7 @@
     const $comNameBgs = $a("#photo-script-box-area-revamped .namearea > div,#photo-script-box-name-backdrop");
     const $comContAreas = $a("#photo-script-box-area-revamped > .area, #photo-script-box-area");
     const $comConts = $a(`#script-content, #photo-script-box-area-revamped .content-area .main, #photo-script-box-area-revamped .content-area .outline`);
+    const $comSelboxes = $a("#photo-select-area, #photo-select-area-revamped");
 
     const $sbox = $("#photo-script-box-area-revamped");
     const $sboxAreas = $a("#photo-script-box-area-revamped .area");
@@ -255,6 +259,13 @@
     const $sboxNamePosSel = $("#select-namearea-position");
     const $sboxNamePosOps = $a("#select-namearea-position option");
     const $sboxThemeSel = $("#select-theme");
+    const $selboxOps = [
+        $a("#photo-select > .photo-select-option"),
+        $a("#photo-select-revamped > .photo-select-option")
+    ];
+    const $selboxBgs = $a("#photo-select-revamped img");
+    const $selboxThemeSel = $a("#select-theme");
+    const $selboxThemeOps = $a("#select-theme option");
 
     const eventConn = [
         [
@@ -314,6 +325,14 @@
                 setTheme(parseInt(c.target.value));
                 refreshThumbnail(current, $photozone);
             }
+        ],
+        [
+            "change", $selboxThemeSel,
+            (c) => {
+                console.log(true);
+                setSelboxTheme(parseInt(c.target.value));
+                refreshThumbnail(current, $photozone);
+            }
         ]
     ];
 
@@ -338,6 +357,14 @@
             for (const $n of $outsiders) $n.style["display"] = "none";
             $target.style["display"] = "grid";
             Array.from($sboxThemeSel.querySelectorAll("option")).find(($n) => $n.value === `${i}`).selected = true;
+        };
+    };
+    const setSelboxTheme = (i) => {
+        i = parseInt(i);
+        if (i >= 0 && i < 2) {
+            slide[current].assetOptions.select.theme = i;
+            for (const $n of $selboxBgs) $n.src= `./assets/images/option-${i}.svg`;
+            Array.from($selboxThemeOps).find(($n) => $n.value === `${i}`).selected = true;
         };
     };
 
@@ -505,7 +532,7 @@
     const toggleSelectBox = (b) => {
         slide[current].toggles.select = b;
         $chkSelbox.checked = b;
-        $selbox.style["display"] = b ? "flex" : "none";
+        for (const $n of $comSelboxes) $n.style["display"] = b ? "flex" : "none";
     };
     const togglePhotoButtons = (b) => {
         slide[current].toggles.photoButtons = b;
@@ -804,6 +831,7 @@
         setType(x.values.type);
         setNamePos(x.assetOptions.namearea.pos);
         setTheme(x.assetOptions.scriptbox.theme);
+        setSelboxTheme(x.assetOptions.select.theme);
         imageLayer = {};
         $imageLayer.innerHTML = "";
         $imageList.innerHTML = "";
@@ -1477,17 +1505,20 @@
         __manager.modal.reserve["modal-select"].show();
     };
     Array.from($inputSelboxOption).forEach(($n, i) => {
-        const $t = $selboxOption[i];
-        const $p = $t.querySelector("p");
+        const $t = [ $selboxOps[0][i], $selboxOps[1][i] ];
+        const $p = [ $t[0].querySelector("p"), $t[1].querySelector("p") ];
         $n.value = slide[current].strings.select[i];
-        $p.innerText = slide[current].strings.select[i];
+        for (const $n of $p) $n.innerText = slide[current].strings.select[i];
         $n.oninput = (c) => {
             if (!c.target.value.length) {
-                $t.style["display"] = "none";
+                for (const $n of $t) $n.style["display"] = "none";
             } else {
-                $t.style["display"] = "flex";
-                $p.innerText = c.target.value;
+                for (const $n of $t) $n.style["display"] = "flex";
+                for (const $n of $p) $n.innerText = c.target.value;
             };
+        };
+        $n.onchange = () => {
+            refreshThumbnail(current, $photozone);
         };
         $n.onkeydown = (k) => {
             if (k.keyCode === 13 && k.ctrlKey || k.keyCode === 27) __manager.modal.reserve["modal-select"].close();

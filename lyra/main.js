@@ -1,6 +1,7 @@
 const __lyra = {
     dir: document.currentScript.src.split("/").slice(0, -1).join("/"),
     env: {
+        "COMMON-INTERVAL": 30,
         "ANIMATION-INTERVAL": 30,
         "WINDOW-ANIMATION-DURATION": 250,
         "DEFAULT-NOTIFICATION-DURATION": 5000,

@@ -3,7 +3,7 @@
         name: "Project Pictor",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "24w31.11",
+        version: "24w31.12",
         date: "24-08-02",
         watermark: false,
         isBeta: false
@@ -862,12 +862,14 @@
         $(`#slide-item-${current}`)?.classList.add("active-slide");
     };
     const refreshThumbnail = (i, $n) => {
-        html2canvas($n, { logging: false, scale: 0.3 }).then((c) => {
-            const src = `${c.toDataURL("image/png")}`;
-            slide[current].thumbnail = src;
-            const $thumb = $(`#slide-item-${i} div.thumb > img`);
-            $thumb.src = src;
-        });
+        setTimeout(() => {
+            html2canvas($n, { logging: false, scale: 0.3 }).then((c) => {
+                const src = `${c.toDataURL("image/png")}`;
+                slide[current].thumbnail = src;
+                const $thumb = $(`#slide-item-${i} div.thumb > img`);
+                $thumb.src = src;
+            });
+        }, __lyra.env["INTERVAL"]);
     };
     const setAreaPos = (x, y) => {
         areaRect.x = x;

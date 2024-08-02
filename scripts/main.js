@@ -3,7 +3,7 @@
         name: "Project Pictor",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "24w31.9",
+        version: "24w31.10",
         date: "24-08-02",
         watermark: false,
         isBeta: false
@@ -245,6 +245,7 @@
     const $nameInput = $("#input-name");
     const $contInput = $("#input-content");
 
+    // const $comSbox = $a("#photo-script-box-area, #photo-script-box-area-revamped");
     const $comNameareas = $a("#photo-script-box-namearea, #photo-script-box-area-revamped .namearea")
     const $comNames = $a("#photo-script-box-area-revamped .namearea .name, #photo-script-box-area-revamped .namearea .outline, #photo-script-box-namebox span");
     const $comNameBgs = $a("#photo-script-box-area-revamped .namearea > div,#photo-script-box-name-backdrop");
@@ -1416,7 +1417,7 @@
     };
     $btnOutputContent.onclick = () => {
         $alertDownload.style["display"] = "flex";
-        html2canvas($contentArea, { scale: 2, backgroundColor: null, logging: false }).then((c) => {
+        html2canvas((slide[current].values.type === 0 ? $contentArea : $sbox), { scale: 2, backgroundColor: null, logging: false }).then((c) => {
             const l = document.createElement("a");
             const d = Date.now();
             const filename = `TCAG-${d}.png`;

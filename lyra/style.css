@@ -659,6 +659,9 @@ select {
     animation: 0.25s ease-in-out ani-fade-in both;
     will-change: opacity;
 }
+.modal > .bg-none {
+    background-color: transparent;
+}
 .modal > .body {
     grid-area: modal;
     display: grid;

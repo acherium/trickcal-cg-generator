@@ -678,6 +678,7 @@ input[type=checkbox] {
     padding: 10px 22px 13px 22px;
 
     min-width: 77px;
+    width: max-content;
 
     color: var(--c-white);
     font-size: 14pt;

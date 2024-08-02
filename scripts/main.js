@@ -3,7 +3,7 @@
         name: "Project Pictor",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "24w31.6",
+        version: "24w31.7",
         date: "24-08-02",
         watermark: false,
         isBeta: false
@@ -36,8 +36,7 @@
                 theme: 0
             },
             namearea: {
-                pos: 1,
-                visible: true
+                pos: 1
             }
         },
         area: {
@@ -87,15 +86,15 @@
         [ /\\/g, "" ],
         [ /</g, "&lt;" ],
         [ />/g, "&gt;" ],
-        [ /(\(\(\()/g, "<span class=\"s\">" ],
-        [ /({{{)/g, "<span class=\"m\">" ],
-        [ /(\[\[\[)/g, "<span class=\"b\">" ],
-        [ /(>>>)/g, "<span class=\"cg\">" ],
-        [ /(>>r>>)/g, "<span class=\"cr\">" ],
-        [ /(>>g>>)/g, "<span class=\"cg\">" ],
-        [ /(>>b>>)/g, "<span class=\"cb\">" ],
-        [ /(>>y>>)/g, "<span class=\"cy\">" ],
-        [ /(>>p>>)/g, "<span class=\"cp\">" ],
+        [ /(\(\(\()/g, "<span class=\"tm-s\">" ],
+        [ /({{{)/g, "<span class=\"tm-m\">" ],
+        [ /(\[\[\[)/g, "<span class=\"tm-b\">" ],
+        [ /(&gt;&gt;&gt;)/g, "<span class=\"tm-cg\">" ],
+        [ /(&gt;&gt;r&gt;&gt;)/g, "<span class=\"tm-cr\">" ],
+        [ /(&gt;&gt;g&gt;&gt;)/g, "<span class=\"tm-cg\">" ],
+        [ /(&gt;&gt;b&gt;&gt;)/g, "<span class=\"tm-cb\">" ],
+        [ /(&gt;&gt;y&gt;&gt;)/g, "<span class=\"tm-cy\">" ],
+        [ /(&gt;&gt;p&gt;&gt;)/g, "<span class=\"tm-cp\">" ],
         [ /(\:\:\:)/g, "</span>" ]
     ];
 
@@ -243,8 +242,10 @@
     const $nameInput = $("#input-name");
     const $contInput = $("#input-content");
 
+    const $comNameareas = $a("#photo-script-box-namearea, #photo-script-box-area-revamped .namearea")
     const $comNames = $a("#photo-script-box-area-revamped .namearea .name, #photo-script-box-area-revamped .namearea .outline, #photo-script-box-namebox span");
     const $comNameBgs = $a("#photo-script-box-area-revamped .namearea > div,#photo-script-box-name-backdrop");
+    const $comContAreas = $a("#photo-script-box-area-revamped > .area, #photo-script-box-area");
     const $comConts = $a(`#script-content, #photo-script-box-area-revamped .content-area .main, #photo-script-box-area-revamped .content-area .outline`);
 
     const $sbox = $("#photo-script-box-area-revamped");
@@ -269,7 +270,6 @@
             (k) => {
                 if (k.ctrlKey && k.keyCode === 13 || k.keyCode === 27) {
                     __manager.modal.reserve["modal-content"].close();
-                    __manager.modal.reserve["modal-content-revamped"].close();
                 }
             }
         ],
@@ -290,7 +290,6 @@
             (k) => {
                 if (k.ctrlKey && k.keyCode === 13 || k.keyCode === 27) {
                     __manager.modal.reserve["modal-content"].close();
-                    __manager.modal.reserve["modal-content-revamped"].close();
                 }
             }
         ],
@@ -501,9 +500,7 @@
     const toggleNamearea = (b) => {
         slide[current].toggles.namearea = b;
         $chkTglName.checked = b;
-        $name.style["display"] = b ? "inline" : "none";
-        $nameOutline.style["display"] = b ? "inline" : "none";
-        $nameBg.style["display"] = b ? "block" : "none";
+        for (const $n of $comNameareas) $n.style["display"] = b ? "flex" : "none";
     };
     const toggleSelectBox = (b) => {
         slide[current].toggles.select = b;
@@ -528,7 +525,7 @@
     const toggleContent = (b) => {
         slide[current].toggles.content = b;
         $chkTglContent.checked = b;
-        $contentArea.style["display"] = b ? "flex" : "none";
+        for (const $n of $comContAreas) $n.style["visibility"] = b ? "visible" : "hidden";
     };
     const setBackground = (f) => {
         slide[current].imageLayer.background = f;
@@ -1000,7 +997,7 @@
     setShowName(show.name);
 
     for (const $radio of $tglType) {
-        $radio.onclick = () => setType(parseInt(_$radio.value));
+        $radio.onclick = () => setType(parseInt($radio.value));
     };
 
     for (const i in Array.from($sboxAreas)) {

@@ -130,16 +130,28 @@ body {
     position: relative;
     align-items: center;
     justify-content: flex-start;
+    gap: var(--p);
 
     width: max-content;
     height: max-content;
 
     background-color: var(--c-main);
 }
-.flexlist-horizontal > *:not(:last-child) {
-    margin-right: 8px;
-}
 .flexlist-horizontal > input[type=checkbox], .flexlist-horizontal > input[type=radio] {
+    display: none;
+}
+.flexlist-vertical {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    gap: var(--p);
+
+    width: max-content;
+    height: max-content;
+
+    background-color: var(--c-main);
+}
+.flexlist-vertical > input[type=checkbox], .flexlist-vertical > input[type=radio] {
     display: none;
 }
 .fjcs {

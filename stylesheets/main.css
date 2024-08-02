@@ -696,6 +696,51 @@ input[type=checkbox] {
     width: 24px;
 }
 
+#theme-7 {
+    display: grid;
+    place-items: center;
+    place-self: end;
+
+    width: 100%;
+    height: 70%;
+}
+#theme-7 > .bg {
+    position: absolute;
+
+    width: calc(100% + 30px);
+    height: calc(100% + 30px);
+
+    border: solid 8px oklch(70% 0 0 / 1);
+    border-radius: 100px 100px 0 0;
+    background-color: oklch(0% 0 0 / 0.7);
+}
+#theme-7 > .content-area {
+    display: grid;
+    position: relative;
+    place-items: center;
+
+    width: 700px;
+    height: 100px;
+
+    color: var(--c-white);
+}
+#theme-7 > .content-area > .arrow {
+    position: absolute;
+    right: -50px;
+    bottom: 0;
+
+    width: 16px;
+
+    opacity: 0.9;
+}
+#theme-7 > .content-area > p {
+    padding: var(--p);
+    overflow: hidden;
+
+    max-width: 100%;
+    max-height: 100%;
+}
+
 .namearea-pos-0 {
     justify-content: flex-start;
 }
@@ -882,35 +927,35 @@ input[type=checkbox] {
 .script-content-font-light {
     color: white;
 }
-#script-content span.cr {
+span.tm-cr {
     font-size: inherit;
     color: var(--c-trickcal-font-red) !important;
 }
-#script-content span.cg {
+span.tm-cg {
     font-size: inherit;
     color: var(--c-trickcal-font-green) !important;
 }
-#script-content span.cb {
+span.tm-cb {
     font-size: inherit;
     color: var(--c-trickcal-font-blue) !important;
 }
-#script-content span.cy {
+span.tm-cy {
     font-size: inherit;
     color: var(--c-trickcal-font-yellow) !important;
 }
-#script-content span.cp {
+span.tm-cp {
     font-size: inherit;
     color: var(--c-trickcal-font-purple) !important;
 }
-#script-content span.s {
+span.tm-s {
     font-size: 12pt !important;
     color: inherit;
 }
-#script-content span.m {
+span.tm-m {
     font-size: 16pt !important;
     color: inherit;
 }
-#script-content span.b {
+span.tm-b {
     font-size: 24pt !important;
     color: inherit;
 }

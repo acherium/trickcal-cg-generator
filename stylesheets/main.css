@@ -10,6 +10,8 @@
     --c-sub: rgb(239, 233, 241);
     --c-trickcal-font: rgb(52, 51, 52);
     --c-trickcal-font-main: rgb(52, 51, 52);
+    --c-trickcal-font-sokmaeum: rgb(167, 98, 178);
+    --c-trickcal-font-gray: rgb(212, 212, 212);
     --c-trickcal-font-red: rgb(245, 84, 113);
     --c-trickcal-font-green: rgb(110, 160, 9);
     --c-trickcal-font-blue: rgb(30, 119, 228);
@@ -448,59 +450,143 @@ input[type=checkbox] {
     outline: solid 2px var(--c-lyra);
 }
 
-#photo-script-box-area-revamped > .bg-theme-0 {
+#photo-script-box-area-revamped > .area {
+    position: relative;
+}
+/* #photo-script-box-area-revamped > .area .namearea .name {
+    color: inherit;
+} */
+#photo-script-box-area-revamped > .area > .content-area {
+    font-size: 16pt;
+}
+#photo-script-box-area-revamped > .area > .content-area > .main {
+    position: absolute;
+
+    color: inherit;
+    font-size: inherit;
+    text-align: center;
+    vertical-align: center;
+    word-break: keep-all;
+    word-wrap: unset;
+    text-overflow: ellipsis;
+    border-radius: 4px;
+    pointer-events: none;
+}
+#photo-script-box-area-revamped > .area > .content-area > .outline {
+    color: var(--c-black);
+    -webkit-text-stroke: 6px var(--c-black);
+    font-size: inherit;
+    text-align: center;
+    vertical-align: center;
+    word-break: keep-all;
+    word-wrap: unset;
+    text-overflow: ellipsis;
+    border-radius: 4px;
+    pointer-events: none;
+}
+
+#theme-0,
+#theme-1,
+#theme-2,
+#theme-3,
+#theme-4,
+#theme-5 {
+    display: grid;
+    place-items: center;
+
     width: 1000px;
     height: 100%;
 }
-#photo-script-box-area-revamped > .bg-theme-0 > img {
+#theme-0 > .bg,
+#theme-1 > .bg,
+#theme-2 > .bg,
+#theme-3 > .bg,
+#theme-4 > .bg,
+#theme-5 > .bg {
     width: 100%;
 }
+#theme-0 > .arrow,
+#theme-1 > .arrow,
+#theme-2 > .arrow,
+#theme-3 > .arrow,
+#theme-4 > .arrow,
+#theme-5 > .arrow {
+    position: absolute;
+    right: 120px;
+    bottom: 40px;
 
-#photo-script-box-area-revamped > .namearea-0 {
+    width: 16px;
+}
+#theme-0 > .namearea,
+#theme-1 > .namearea,
+#theme-2 > .namearea,
+#theme-3 > .namearea,
+#theme-4 > .namearea,
+#theme-5 > .namearea {
     display: flex;
     position: absolute;
     align-items: flex-end;
-    justify-content: center;
     top: 29px;
-    left: 0;
 
-    width: 100%;
+    width: 700px;
     height: 28px;
 }
-#photo-script-box-area-revamped > .namearea-0 > .backdrop {
+#theme-0 > .namearea > div,
+#theme-1 > .namearea > div,
+#theme-2 > .namearea > div,
+#theme-3 > .namearea > div,
+#theme-4 > .namearea > div,
+#theme-5 > .namearea > div {
+    display: grid;
+    position: relative;
+    place-items: center;
     width: 240px;
     height: 100%;
 
     border-radius: 8px;
 }
-#photo-script-box-area-revamped > .namearea-0 > .text {
+#theme-0 > .namearea > div > p,
+#theme-1 > .namearea > div > p,
+#theme-2 > .namearea > div > p,
+#theme-3 > .namearea > div > p,
+#theme-4 > .namearea > div > p,
+#theme-5 > .namearea > div > p {
     display: flex;
     align-items: center;
     justify-content: center;
     position: absolute;
     top: -10px;
 
-    width: 100%;
+    width: max-content;
     height: 100%;
-}
-#photo-script-box-area-revamped > .namearea-0 > .text > span {
-    position: absolute;
-
-    width: 100%;
 
     font-size: 22pt;
     text-align: center;
     border-radius: 4px;
 }
-#photo-script-box-area-revamped > .namearea-0 > .text > span:nth-child(1) {
+#theme-0 > .namearea > div > .name,
+#theme-1 > .namearea > div > .name,
+#theme-2 > .namearea > div > .name,
+#theme-3 > .namearea > div > .name,
+#theme-4 > .namearea > div > .name,
+#theme-5 > .namearea > div > .name {
     color: var(--c-white);
-    -webkit-text-stroke: 6px white;
+    -webkit-text-stroke: 6px var(--c-white);
 }
-#photo-script-box-area-revamped > .namearea-0 > .text > span:nth-child(2) {
+#theme-0 > .namearea > div > .ouline,
+#theme-1 > .namearea > div > .ouline,
+#theme-2 > .namearea > div > .ouline,
+#theme-3 > .namearea > div > .ouline,
+#theme-4 > .namearea > div > .ouline,
+#theme-5 > .namearea > div > .ouline {
     color: var(--c-trickcal-font);
 }
-
-#photo-script-box-area-revamped > .content-area {
+#theme-0 > .content-area,
+#theme-1 > .content-area,
+#theme-2 > .content-area,
+#theme-3 > .content-area,
+#theme-4 > .content-area,
+#theme-5 > .content-area {
     display: flex;
     position: absolute;
     align-items: center;
@@ -511,16 +597,113 @@ input[type=checkbox] {
     width: 700px;
     height: 100px;
 }
-#photo-script-box-area-revamped > .content-area > p {
+#theme-0 > .content-area,
+#theme-2 > .content-area,
+#theme-4 > .content-area {
     color: var(--c-trickcal-font);
-    font-size: 16pt;
-    text-align: center;
-    vertical-align: center;
-    word-break: keep-all;
-    word-wrap: unset;
-    text-overflow: ellipsis;
-    border-radius: 4px;
-    pointer-events: none;
+}
+#theme-1 > .content-area,
+#theme-3 > .content-area,
+#theme-5 > .content-area {
+    color: var(--c-trickcal-font-sokmaeum);
+}
+
+#theme-6 {
+    display: grid;
+    place-items: center;
+    place-self: end;
+
+    width: 100%;
+    height: 90%;
+}
+#theme-6 > .bg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -1;
+
+    width: 100%;
+    height: 100%;
+
+    background-image: linear-gradient(oklch(0% 0 0 / 0), oklch(0% 0 0 / 0.5));
+}
+#theme-6 > .content-area {
+    display: grid;
+    position: relative;
+    place-items: center;
+
+    width: 700px;
+    height: 100px;
+
+    color: var(--c-white);
+}
+#theme-6 > .content-area > .arrow {
+    position: absolute;
+    right: -50px;
+    bottom: -20px;
+
+    width: 16px;
+
+    opacity: 0.9;
+}
+#theme-6 > .content-area > p {
+    padding: var(--p);
+    overflow: hidden;
+
+    max-width: 100%;
+    max-height: 100%;
+}
+#theme-6 .namearea-wrap {
+    padding: var(--p);
+    position: absolute;
+
+    width: fit-content;
+    height: fit-content;
+}
+#theme-6 .namearea-wrap > .main {
+    visibility: hidden;
+}
+#theme-6 .namearea {
+    display: grid;
+    position: absolute;
+    place-items: center;
+    top: -50px;
+    left: -60px;
+    
+    width: fit-content;
+    height: fit-content;
+}
+#theme-6 .namearea > .name {
+    position: relative;
+    padding: 10px 22px 13px 22px;
+
+    min-width: 77px;
+
+    color: var(--c-white);
+    font-size: 14pt;
+}
+#theme-6 .namearea > .bg {
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+}
+#theme-6 .namearea > .tail {
+    position: absolute;
+    left: 20px;
+    bottom: -13px;
+
+    width: 24px;
+}
+
+.namearea-pos-0 {
+    justify-content: flex-start;
+}
+.namearea-pos-1 {
+    justify-content: center;
+}
+.namearea-pos-2 {
+    justify-content: flex-end;
 }
 
 #photo-script-box-area {

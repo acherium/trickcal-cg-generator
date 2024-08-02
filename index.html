@@ -122,13 +122,13 @@
     <div id="bottom">
         <div id="left">
             <div class="scroll-box-inner">
-                <div class="partition-horizontal"></div>
-                <h4>문서</h4>
-                <label class="wf f1">
+                <div class="partition-horizontal" style="display: none;"></div>
+                <h4 style="display: none;">문서</h4>
+                <label class="wf f1" style="display: none;">
                     <p>제목</p>
                     <input type="text" id="show-name" class="wf f1" value="">
                 </label>
-                <div class="flexlist-horizontal wf">
+                <div class="flexlist-horizontal wf" style="display: none;">
                     <button id="button-save" class="wf fjcc">
                         <div class="i i-export"></div>
                         <p>저장</p>
@@ -208,25 +208,109 @@
                             <div id="photo-script-box-namearea">
                                 <div id="photo-script-box-name-backdrop"></div>
                                 <div id="photo-script-box-namebox">
-                                    <span>Lorem ipsum dolor sit amet.</span>
-                                    <span>Lorem ipsum dolor sit amet.</span>
+                                    <span></span>
+                                    <span></span>
                                 </div>
                             </div>
-                            <span id="script-content">Lorem ipsum dolor sit amet.</span>
+                            <span id="script-content"></span>
                         </div>
                         <div id="photo-script-box-area-revamped" class="content-type-1 photo-script-box-pos-7">
-                            <div class="bg bg-theme-0">
-                                <img src="./assets/images/scriptbox-theme-00.svg">
-                            </div>
-                            <div class="namearea namearea-0">
-                                <div class="backdrop"></div>
-                                <div class="text">
-                                    <span>Character</span>
-                                    <span>Character</span>
+                            <div id="theme-0" class="area" data-theme-name="기본">
+                                <img src="./assets/images/scriptbox-theme-00.svg" class="bg">
+                                <img src="./assets/images/next-green.svg" class="arrow">
+                                <div class="namearea">
+                                    <div>
+                                        <p class="name"></p>
+                                        <p class="outline"></p>
+                                    </div>
+                                </div>
+                                <div class="content-area">
+                                    <p class="main"></p>
                                 </div>
                             </div>
-                            <div class="content-area">
-                                <p>Lorem ipsum dolor sit amet.</p>
+                            <div id="theme-1" class="area" data-theme-name="기본(속마음)">
+                                <img src="./assets/images/scriptbox-theme-01.svg" class="bg">
+                                <img src="./assets/images/next-purple.svg" class="arrow">
+                                <div class="namearea">
+                                    <div>
+                                        <p class="name"></p>
+                                        <p class="outline"></p>
+                                    </div>
+                                </div>
+                                <div class="content-area">
+                                    <p class="main"></p>
+                                    <p class="outline"></p>
+                                </div>
+                            </div>
+                            <div id="theme-2" class="area" data-theme-name="생각">
+                                <img src="./assets/images/scriptbox-theme-10.svg" class="bg">
+                                <img src="./assets/images/next-green.svg" class="arrow">
+                                <div class="namearea">
+                                    <div>
+                                        <p class="name"></p>
+                                        <p class="outline"></p>
+                                    </div>
+                                </div>
+                                <div class="content-area">
+                                    <p class="main"></p>
+                                </div>
+                            </div>
+                            <div id="theme-3" class="area" data-theme-name="생각(속마음)">
+                                <img src="./assets/images/scriptbox-theme-11.svg" class="bg">
+                                <img src="./assets/images/next-purple.svg" class="arrow">
+                                <div class="namearea">
+                                    <div>
+                                        <p class="name"></p>
+                                        <p class="outline"></p>
+                                    </div>
+                                </div>
+                                <div class="content-area">
+                                    <p class="main"></p>
+                                    <p class="outline"></p>
+                                </div>
+                            </div>
+                            <div id="theme-4" class="area" data-theme-name="놀람">
+                                <img src="./assets/images/scriptbox-theme-20.svg" class="bg">
+                                <img src="./assets/images/next-green.svg" class="arrow">
+                                <div class="namearea">
+                                    <div>
+                                        <p class="name"></p>
+                                        <p class="outline"></p>
+                                    </div>
+                                </div>
+                                <div class="content-area">
+                                    <p class="main"></p>
+                                </div>
+                            </div>
+                            <div id="theme-5" class="area" data-theme-name="놀람(속마음)">
+                                <img src="./assets/images/scriptbox-theme-21.svg" class="bg">
+                                <img src="./assets/images/next-purple.svg" class="arrow">
+                                <div class="namearea">
+                                    <div>
+                                        <p class="name"></p>
+                                        <p class="outline"></p>
+                                    </div>
+                                </div>
+                                <div class="content-area">
+                                    <p class="main"></p>
+                                    <p class="outline"></p>
+                                </div>
+                            </div>
+                            <div id="theme-6" class="area" data-theme-name="그라데이션 박스">
+                                <div class="bg"></div>
+                                <div class="content-area">
+                                    <img src="./assets/images/next-white.svg" class="arrow">
+                                    <p class="main"></p>
+                                    <p class="outline"></p>
+                                    <div class="namearea-wrap">
+                                        <div class="namearea">
+                                            <img src="./assets/images/namebubble-body.svg" class="bg">
+                                            <img src="./assets/images/namebubble-tail.svg" class="tail">
+                                            <p class="name"></p>
+                                        </div>
+                                        <p class="main"></p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div id="photo-select-area" class="content-type-0">
@@ -249,11 +333,11 @@
                             <img src="./assets/images/titlebox.png" id="photo-title-box-backdrop">
                             <p id="photo-title">
                                 <img src="./assets/images/star.svg">
-                                <span>Lorem ipsum dolor sit amet.</span>
+                                <span></span>
                             </p>
                             <div id="photo-title-box-namearea">
-                                <span>Lorem ipsum dolor sit amet.</span>
-                                <span>Lorem ipsum dolor sit amet.</span>
+                                <span></span>
+                                <span></span>
                             </div>
                         </div>
                         <div id="photo-location-box-area">
@@ -453,6 +537,14 @@
                         <input type="number" class="colorpicker-input colorpicker-input-b">
                     </div>
                 </div>
+                <div class="flexlist-horizontal content-type-1 wf">
+                    <p>위치</p>
+                    <select id="select-namearea-position" class="f1">
+                        <option value="0">좌측</option>
+                        <option value="1">중앙</option>
+                        <option value="2">우측</option>
+                    </select>
+                </div>
                 <button id="button-color-preset" class="wfc">
                     <div class="i i-palette"></div>
                     <p>색상 프리셋</p>
@@ -465,8 +557,8 @@
                     <p>마크다운 문법 도움말</p>
                 </button>
                 <div class="partition-horizontal"></div>
+                <h3>형태</h3>
                 <div class="flexlist-vertical content-type-0">
-                    <h3>형태</h3>
                     <div id="script-box-config">
                         <div id="script-box-position" class="radio-toggle-list wf">
                             <p>위치</p>
@@ -546,6 +638,12 @@
                         <input type="checkbox" id="checkbox-toggle-content">
                         <p>표시</p>
                     </label>
+                </div>
+                <div class="flexlist-vertical content-type-1">
+                    <div class="flexlist-horizontal wf">
+                        <p>테마</p>
+                        <select id="select-theme" class="f1"></select>
+                    </div>
                 </div>
             </div>
             <div class="controller">

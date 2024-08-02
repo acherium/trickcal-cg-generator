@@ -3,7 +3,7 @@
         name: "Project Pictor",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "24w31.4",
+        version: "24w31.6",
         date: "24-08-02",
         watermark: false,
         isBeta: false
@@ -29,6 +29,15 @@
             title: {
                 name: "에피소드 1",
                 content: "에피소드 제목"
+            }
+        },
+        assetOptions: {
+            scriptbox: {
+                theme: 0
+            },
+            namearea: {
+                pos: 1,
+                visible: true
             }
         },
         area: {
@@ -234,14 +243,17 @@
     const $nameInput = $("#input-name");
     const $contInput = $("#input-content");
 
-    const $comNames = $a("#photo-script-box-area-revamped .namearea span, #photo-script-box-namebox span");
-    const $comNameBgs = $a("#photo-script-box-area-revamped .namearea .backdrop, #photo-script-box-name-backdrop");
-    const $comConts = $a(`#script-content, #photo-script-box-area-revamped .content-area > p`);
+    const $comNames = $a("#photo-script-box-area-revamped .namearea .name, #photo-script-box-area-revamped .namearea .outline, #photo-script-box-namebox span");
+    const $comNameBgs = $a("#photo-script-box-area-revamped .namearea > div,#photo-script-box-name-backdrop");
+    const $comConts = $a(`#script-content, #photo-script-box-area-revamped .content-area .main, #photo-script-box-area-revamped .content-area .outline`);
 
     const $sbox = $("#photo-script-box-area-revamped");
-    const $sboxBgs = $a("#photo-script-box-area-revamped .bg");
+    const $sboxAreas = $a("#photo-script-box-area-revamped .area");
     const $sboxNameareas = $a("#photo-script-box-area-revamped .namearea");
     const $sboxNames = $a("#photo-script-box-area-revamped .namearea span");
+    const $sboxNamePosSel = $("#select-namearea-position");
+    const $sboxNamePosOps = $a("#select-namearea-position option");
+    const $sboxThemeSel = $("#select-theme");
 
     const eventConn = [
         [
@@ -289,8 +301,46 @@
         [
             "change", $contInput,
             () => refreshThumbnail(current, $photozone)
+        ],
+        [
+            "change", $sboxNamePosSel,
+            (c) => {
+                setNamePos(parseInt(c.target.value));
+                refreshThumbnail(current, $photozone);
+            }
+        ],
+        [
+            "change", $sboxThemeSel,
+            (c) => {
+                setTheme(parseInt(c.target.value));
+                refreshThumbnail(current, $photozone);
+            }
         ]
     ];
+
+    const setNamePos = (i) => {
+        i = parseInt(i);
+        if (i >= 0 && i < 3) {
+            slide[current].assetOptions.namearea.pos = i;
+            for (const $n of $sboxNameareas) {
+                const classes = Array.from($n.classList).filter((x) => x.startsWith("namearea-pos"));
+                $n.classList.remove(classes.length ? classes : null);
+                $n.classList.add(`namearea-pos-${i}`);
+                $sboxNamePosOps[i].selected = true;
+            };
+        };
+    };
+    const setTheme = (i) => {
+        i = parseInt(i);
+        if (i >= 0 && i < $sboxAreas.length) {
+            slide[current].assetOptions.scriptbox.theme = i;
+            const $target = Array.from($sboxAreas).find(($n) => $n.id === `theme-${i}`);
+            const $outsiders = Array.from($sboxAreas).filter(($n) => $n !== $target);
+            for (const $n of $outsiders) $n.style["display"] = "none";
+            $target.style["display"] = "grid";
+            Array.from($sboxThemeSel.querySelectorAll("option")).find(($n) => $n.value === `${i}`).selected = true;
+        };
+    };
 
     const INTtoHEX = (i) => {
         let res = i.toString(16).toUpperCase();
@@ -755,6 +805,8 @@
         toggleContent(x.toggles.content);
         setBackground(x.imageLayer.background);
         setType(x.values.type);
+        setNamePos(x.assetOptions.namearea.pos);
+        setTheme(x.assetOptions.scriptbox.theme);
         imageLayer = {};
         $imageLayer.innerHTML = "";
         $imageList.innerHTML = "";
@@ -947,8 +999,12 @@
     };
     setShowName(show.name);
 
-    for (const _$radio of $tglType) {
-        _$radio.onclick = () => setType(parseInt(_$radio.value));
+    for (const $radio of $tglType) {
+        $radio.onclick = () => setType(parseInt(_$radio.value));
+    };
+
+    for (const i in Array.from($sboxAreas)) {
+        $sboxThemeSel.append($create("option", { value: `${i}`, text: $sboxAreas[i].dataset.themeName }));
     };
 
     document.addEventListener("keydown", (k) => {
@@ -1705,7 +1761,7 @@
         };
     });
 
-    $ver.innerText = `${app.name}\nBuild ${app.version}@${app.date}\n\nPowered by ${__lyra.meta.name}\nBuild ${__lyra.meta.version}@${__lyra.meta.date}`;
+    $ver.innerText = `${app.name}\nVersion ${app.version}@${app.date}\n\nPowered by ${__lyra.meta.name}\nBuild ${__lyra.meta.version}@${__lyra.meta.date}`;
     $logo.onclick = () => {
         __manager.modal.reserve["modal-about"].show();
     };
@@ -1715,7 +1771,10 @@
     };
 
     for (const x of eventConn) {
-        if (typeof x[1][Symbol.iterator] === "function") for (const y of x[1]) y.addEventListener(x[0], x[2]);
+        if (
+            typeof x[1][Symbol.iterator] === "function" &&
+            x[1].constructor !== HTMLSelectElement
+        ) for (const y of x[1]) y.addEventListener(x[0], x[2]);
         else x[1].addEventListener(x[0], x[2]);
     };
 

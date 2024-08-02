@@ -560,6 +560,7 @@ input[type=checkbox] {
     width: max-content;
     height: 100%;
 
+    color: var(--c-trickcal-font);
     font-size: 22pt;
     text-align: center;
     border-radius: 4px;
@@ -916,6 +917,7 @@ input[type=checkbox] {
     max-width: 800px;
     max-height: 130px;
 
+    color: var(--c-trickcal-font);
     font-size: 16pt;
     text-align: center;
     text-overflow: ellipsis;

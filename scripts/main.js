@@ -3,8 +3,8 @@
         name: "Project Pictor",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "24w31.2",
-        date: "24-08-01",
+        version: "24w31.4",
+        date: "24-08-02",
         watermark: false,
         isBeta: false
     };
@@ -231,11 +231,12 @@
     const $type0Conts = $a(".content-type-0");
     const $type1Conts = $a(".content-type-1");
 
+    const $nameInput = $("#input-name");
+    const $contInput = $("#input-content");
+
     const $comNames = $a("#photo-script-box-area-revamped .namearea span, #photo-script-box-namebox span");
     const $comNameBgs = $a("#photo-script-box-area-revamped .namearea .backdrop, #photo-script-box-name-backdrop");
-    const $comNameInputs = $a(".input-name");
     const $comConts = $a(`#script-content, #photo-script-box-area-revamped .content-area > p`);
-    const $comContInputs = $a(".input-content");
 
     const $sbox = $("#photo-script-box-area-revamped");
     const $sboxBgs = $a("#photo-script-box-area-revamped .bg");
@@ -244,15 +245,15 @@
 
     const eventConn = [
         [
-            "click", [ $sbox, $("#button-content-revamped") ],
-            () => __manager.modal.reserve["modal-content-revamped"].show()
+            "click", $sbox,
+            () => __manager.modal.reserve["modal-content"].show()
         ],
         [
-            "click", $a(".button-color-preset"),
+            "click", $("#button-color-preset"),
             () => __manager.modal.reserve["modal-color-preset"].show()
         ],
         [
-            "keydown", $comNameInputs,
+            "keydown", $nameInput,
             (k) => {
                 if (k.ctrlKey && k.keyCode === 13 || k.keyCode === 27) {
                     __manager.modal.reserve["modal-content"].close();
@@ -261,19 +262,19 @@
             }
         ],
         [
-            "input", $comNameInputs,
+            "input", $nameInput,
             (x) => setName(x.target.value)
         ],
         [
-            "change", $comNameInputs,
+            "change", $nameInput,
             () => refreshThumbnail(current, $photozone)
         ],
         [
-            "click", $a(".button-markdown-help"),
+            "click", $("#button-markdown-help"),
             () => __manager.modal.reserve["modal-markdown"].show()
         ],
         [
-            "keydown", $comContInputs,
+            "keydown", $contInput,
             (k) => {
                 if (k.ctrlKey && k.keyCode === 13 || k.keyCode === 27) {
                     __manager.modal.reserve["modal-content"].close();
@@ -282,11 +283,11 @@
             }
         ],
         [
-            "input", $comContInputs,
+            "input", $contInput,
             (x) => setContent(x.target.value)
         ],
         [
-            "change", $comContInputs,
+            "change", $contInput,
             () => refreshThumbnail(current, $photozone)
         ]
     ];
@@ -345,7 +346,7 @@
     const setName = (x) => {
         slide[current].strings.name = x;
         for (const _$n of $comNames) _$n.innerText = x;
-        for (const _$n of $comNameInputs) _$n.value = x;
+        $nameInput.value = x;
     };
     const setNameColor = (hex) => {
         const rgb = HEXtoRGB(hex);
@@ -384,7 +385,7 @@
         slide[current].strings.contentRaw = x;
         slide[current].strings.content = res;
         for (const _$n of $comConts) _$n.innerHTML = res;
-        for (const _$n of $comContInputs) _$n.value = x;
+        $contInput.value = x;
     };
     const setBoxPos = (i) => {
         if (i < 0 && i > 8) return;
@@ -894,13 +895,13 @@
     const setType = (i) => {
         if (i === 0) {
             slide[current].values.type = i;
-            for (const _$n of $type0Conts) _$n.style["visibility"] = "visible";
-            for (const _$n of $type1Conts) _$n.style["visibility"] = "collapse";
+            for (const _$n of $type0Conts) _$n.classList.remove("force-hide");
+            for (const _$n of $type1Conts) _$n.classList.add("force-hide");
             $tglType[0].checked = true;
         } else if (i === 1) {
             slide[current].values.type = i;
-            for (const _$n of $type0Conts) _$n.style["visibility"] = "collapse";
-            for (const _$n of $type1Conts) _$n.style["visibility"] = "visible";
+            for (const _$n of $type0Conts) _$n.classList.add("force-hide");
+            for (const _$n of $type1Conts) _$n.classList.remove("force-hide");
             $tglType[1].checked = true;
         };
     };

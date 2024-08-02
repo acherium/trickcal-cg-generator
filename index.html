@@ -365,30 +365,20 @@
                         <p>신규</p>
                     </label>
                 </div>
-                <div id="content-config-type-0" class="content-type-0 flexlist wf">
-                    <div class="flexlist-horizontal wf">
-                        <button id="button-content" class="wf fjcc">
-                            <div class="i i-content"></div>
-                            <p>대화창</p>
-                        </button>
-                        <button id="button-select-box" class="wf fjcc">
-                            <div class="i i-content"></div>
-                            <p>선택지</p>
-                        </button>
-                    </div>
-                    <button id="button-config-indicators" class="wf fjcc">
-                        <div class="i i-config"></div>
-                        <p>기타 요소 설정</p>
+                <div class="flexlist-horizontal wf">
+                    <button id="button-content" class="wf fjcc">
+                        <div class="i i-content"></div>
+                        <p>대화창</p>
+                    </button>
+                    <button id="button-select-box" class="wf fjcc">
+                        <div class="i i-content"></div>
+                        <p>선택지</p>
                     </button>
                 </div>
-                <div id="content-config-type-1" class="content-type-1 flexlist wf">
-                    <div class="flexlist-horizontal wf">
-                        <button id="button-content-revamped" class="wf fjcc">
-                            <div class="i i-content"></div>
-                            <p>대화창</p>
-                        </button>
-                    </div>
-                </div>
+                <button id="button-config-indicators" class="wf fjcc">
+                    <div class="i i-config"></div>
+                    <p>기타 요소 설정</p>
+                </button>
                 <div class="partition-horizontal"></div>
                 <h4>이미지 레이어</h4>
                 <div class="flexlist-horizontal wf">
@@ -429,7 +419,7 @@
                 <h3>이름</h3>
                 <label class="wf f1">
                     <p>이름</p>
-                    <input type="text" class="input-name wf f1">
+                    <input type="text" id="input-name" class="wf f1">
                 </label>
                 <label>
                     <input type="checkbox" id="checkbox-toggle-namearea">
@@ -463,134 +453,106 @@
                         <input type="number" class="colorpicker-input colorpicker-input-b">
                     </div>
                 </div>
-                <button class="button-color-preset wfc">
+                <button id="button-color-preset" class="wfc">
                     <div class="i i-palette"></div>
                     <p>색상 프리셋</p>
                 </button>
                 <div class="partition-horizontal"></div>
                 <h3>내용</h3>
-                <textarea id="content" class="input-content wf"></textarea>
-                <button class="button-markdown-help wfc">
+                <textarea id="input-content" class="wf"></textarea>
+                <button id="button-markdown-help" class="wfc">
                     <div class="i i-notification"></div>
                     <p>마크다운 문법 도움말</p>
                 </button>
                 <div class="partition-horizontal"></div>
-                <h3>형태</h3>
-                <div id="script-box-config">
-                    <div id="script-box-position" class="radio-toggle-list wf">
-                        <p>위치</p>
-                        <label>
-                            <input type="radio" name="script-box-position" value="0">
-                            <p>↖</p>
-                        </label>
-                        <label>
-                            <input type="radio" name="script-box-position" value="1">
-                            <p>↑</p>
-                        </label>
-                        <label>
-                            <input type="radio" name="script-box-position" value="2">
-                            <p>↗</p>
-                        </label>
-                        <label>
-                            <input type="radio" name="script-box-position" value="3">
-                            <p>←</p>
-                        </label>
-                        <label>
-                            <input type="radio" name="script-box-position" value="4">
-                            <p>+</p>
-                        </label>
-                        <label>
-                            <input type="radio" name="script-box-position" value="5">
-                            <p>→</p>
-                        </label>
-                        <label>
-                            <input type="radio" name="script-box-position" value="6">
-                            <p>↙</p>
-                        </label>
-                        <label>
-                            <input type="radio" name="script-box-position" value="7">
-                            <p>↓</p>
-                        </label>
-                        <label>
-                            <input type="radio" name="script-box-position" value="8">
-                            <p>↘</p>
-                        </label>
+                <div class="flexlist-vertical content-type-0">
+                    <h3>형태</h3>
+                    <div id="script-box-config">
+                        <div id="script-box-position" class="radio-toggle-list wf">
+                            <p>위치</p>
+                            <label>
+                                <input type="radio" name="script-box-position" value="0">
+                                <p>↖</p>
+                            </label>
+                            <label>
+                                <input type="radio" name="script-box-position" value="1">
+                                <p>↑</p>
+                            </label>
+                            <label>
+                                <input type="radio" name="script-box-position" value="2">
+                                <p>↗</p>
+                            </label>
+                            <label>
+                                <input type="radio" name="script-box-position" value="3">
+                                <p>←</p>
+                            </label>
+                            <label>
+                                <input type="radio" name="script-box-position" value="4">
+                                <p>+</p>
+                            </label>
+                            <label>
+                                <input type="radio" name="script-box-position" value="5">
+                                <p>→</p>
+                            </label>
+                            <label>
+                                <input type="radio" name="script-box-position" value="6">
+                                <p>↙</p>
+                            </label>
+                            <label>
+                                <input type="radio" name="script-box-position" value="7">
+                                <p>↓</p>
+                            </label>
+                            <label>
+                                <input type="radio" name="script-box-position" value="8">
+                                <p>↘</p>
+                            </label>
+                        </div>
+                        <div id="script-box-style" class="radio-toggle-list wf">
+                            <p>모양</p>
+                            <label>
+                                <input type="radio" name="script-box-style" value="0">
+                                <p>기본</p>
+                            </label>
+                            <label>
+                                <input type="radio" name="script-box-style" value="1">
+                                <p>생각</p>
+                            </label>
+                            <label>
+                                <input type="radio" name="script-box-style" value="2">
+                                <p>놀람</p>
+                            </label>
+                            <label>
+                                <input type="radio" name="script-box-style" value="3">
+                                <p>사각형</p>
+                            </label>
+                        </div>
+                        <div id="script-sokmaeum-style" class="radio-toggle-list wf">
+                            <p>속마음</p>
+                            <label>
+                                <input type="radio" name="script-sokmaeum-style" value="0">
+                                <p>없음</p>
+                            </label>
+                            <label>
+                                <input type="radio" name="script-sokmaeum-style" value="1">
+                                <p>있음</p>
+                            </label>
+                            <label>
+                                <input type="radio" name="script-sokmaeum-style" value="2">
+                                <p>활성화</p>
+                            </label>
+                        </div>
                     </div>
-                    <div id="script-box-style" class="radio-toggle-list wf">
-                        <p>모양</p>
-                        <label>
-                            <input type="radio" name="script-box-style" value="0">
-                            <p>기본</p>
-                        </label>
-                        <label>
-                            <input type="radio" name="script-box-style" value="1">
-                            <p>생각</p>
-                        </label>
-                        <label>
-                            <input type="radio" name="script-box-style" value="2">
-                            <p>놀람</p>
-                        </label>
-                        <label>
-                            <input type="radio" name="script-box-style" value="3">
-                            <p>사각형</p>
-                        </label>
-                    </div>
-                    <div id="script-sokmaeum-style" class="radio-toggle-list wf">
-                        <p>속마음</p>
-                        <label>
-                            <input type="radio" name="script-sokmaeum-style" value="0">
-                            <p>없음</p>
-                        </label>
-                        <label>
-                            <input type="radio" name="script-sokmaeum-style" value="1">
-                            <p>있음</p>
-                        </label>
-                        <label>
-                            <input type="radio" name="script-sokmaeum-style" value="2">
-                            <p>활성화</p>
-                        </label>
-                    </div>
+                    <label>
+                        <input type="checkbox" id="checkbox-toggle-content">
+                        <p>표시</p>
+                    </label>
                 </div>
-                <label>
-                    <input type="checkbox" id="checkbox-toggle-content">
-                    <p>표시</p>
-                </label>
             </div>
             <div class="controller">
                 <button id="button-download-scriptbox">
                     <div class="i i-download"></div>
                     <p>출력</p>
                 </button>
-                <button class="close"></button>
-            </div>
-        </div>
-    </div>
-    <div id="modal-content-revamped" class="modal">
-        <div class="bg bg-acrylic"></div>
-        <div class="body">
-            <div class="title">
-                <div class="icon il i-config"></div>
-                <h1>대화창</h1>
-            </div>
-            <div class="content">
-                <h3>이름</h3>
-                <label class="wf f1">
-                    <p>이름</p>
-                    <input type="text" class="input-name wf f1">
-                </label>
-                <button class="button-color-preset wfc">
-                    <div class="i i-palette"></div>
-                    <p>색상 프리셋</p>
-                </button>
-                <div class="partition-horizontal"></div>
-                <h3>내용</h3>
-                <textarea class="input-content wf"></textarea>
-                <button class="button-markdown-help wfc">
-                    <div class="i i-notification"></div>
-                    <p>마크다운 문법 도움말</p>
-                </button>
-            </div>
-            <div class="controller">
                 <button class="close"></button>
             </div>
         </div>

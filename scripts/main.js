@@ -3,7 +3,7 @@
         name: "Project Pictor",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "24w31.17",
+        version: "24w31.18",
         date: "24-08-04",
         watermark: false,
         isBeta: false
@@ -1335,11 +1335,11 @@
         if (!item) return null;
         item.flags.darker = !item.flags.darker;
         if (item.flags.darker) {
-            item.classes.push("image-item-darker");
+            item.class.push("image-item-darker");
             item.assets.body.classList.add("image-item-darker");
             if (objManager.selected !== null) $btnTglDarker.classList.add("controller-active");
         } else {
-            item.classes = item.classes.filter((x) => x !== "image-item-darker");
+            item.class = item.class.filter((x) => x !== "image-item-darker");
             item.assets.body.classList.remove("image-item-darker");
             if (objManager.selected !== null) $btnTglDarker.classList.remove("controller-active");
         };

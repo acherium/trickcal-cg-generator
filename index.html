@@ -82,7 +82,7 @@
     <script src="./scripts/main.js" defer></script>
 </head>
 <body>
-    <div id="splash-screen">
+    <div id="splash-screen" style="display: none;">
         <div id="splash-logo">
             <img src="./assets/essentials/logo.svg">
             <p>트릭컬 스토리 대화창 생성기</p>
@@ -93,7 +93,7 @@
     <div id="top">
         <div id="logo-area">
             <img id="logo" src="./assets/essentials/logo.svg">
-            <h2 id="logotype" class="m-hide">트릭컬 스토리 대화창 생성기</h1>
+            <!-- <h2 id="logotype" class="m-hide">트릭컬 스토리 대화창 생성기</h1> -->
             <!-- <span id="ver"></span> -->
         </div>
         <button id="button-search">
@@ -487,10 +487,11 @@
                     <p>기타 요소 설정</p>
                 </button>
                 <div class="partition-horizontal"></div>
-                <h4>이미지 레이어</h4>
+                <h4>개체</h4>
                 <div class="flexlist-horizontal wf">
                     <button id="button-add-image" class="wfix hfix">
                         <div class="i i-plus"></div>
+                        <p>사진</p>
                     </button>
                     <button id="button-reset-image" class="wf fjcc">
                         <div class="i i-trash"></div>

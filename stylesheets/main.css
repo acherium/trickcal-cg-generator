@@ -1279,12 +1279,10 @@ span.tm-b {
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
-    flex-direction: column;
+    flex-direction: column-reverse;
+    gap: var(--p);
 
     width: 100%;
-}
-#image-item-list > *:not(:last-child) {
-    margin-bottom: 8px;
 }
 
 .image-item {

@@ -3,8 +3,8 @@
         name: "Project Pictor",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "24w31.13",
-        date: "24-08-02",
+        version: "24w31.14",
+        date: "24-08-04",
         watermark: false,
         isBeta: false
     };
@@ -14,7 +14,7 @@
     const WIDTHMAX = 2000;
     const HEIGHTMAX = 2000;
     const RATIOCHECKER = 1000;
-    const DATATEMPLATE = {
+    const SLIDE_TEMPLATE = {
         version: 6,
         strings: {
             name: "버터",
@@ -30,6 +30,11 @@
                 name: "에피소드 1",
                 content: "에피소드 제목"
             }
+        },
+        assets: {
+            background: null,
+            thumbnail: null,
+            objects: []
         },
         assetOptions: {
             scriptbox: {
@@ -76,11 +81,49 @@
             photoButtons: true,
             boxCenter: false
         },
-        imageLayer: {
-            background: "",
-            attachments: []
-        },
         thumbnail: ""
+    };
+    const OBJECT_TEMPLATE = {
+        version: 7,
+        uid: null,
+        name: null,
+        type: null,
+        id: null,
+        classes: [],
+        sort: null,
+        assets: {
+            body: null,
+            label: null,
+            image: null,
+            data: {}
+        },
+        rect: {
+            x: null,
+            y: null,
+            width: null,
+            height: null,
+            rotate: null,
+            flip: {
+                horizontal: null,
+                vertical: null
+            }
+        },
+        rectOrigin: {
+            x: null,
+            y: null,
+            width: null,
+            height: null,
+            rotate: null,
+            flip: {
+                horizontal: null,
+                vertical: null
+            }
+        },
+        flags: {
+            visible: null,
+            darker: null,
+            sizeAdjustable: null
+        }
     };
     THUMBNAIL_QUEUE_INTERVAL = 3000;
     const BG_FIT_OPTIONS = [ "align-center", "fit-height", "fit-width", "fill" ];
@@ -112,22 +155,22 @@
     };
     let slide = [];
     let current = 0;
-    let imageItemIdInt = 0;
+    let uniqueInt = 0;
     let flagMobileMenu = null;
-    let imageLayer = {};
     let multiplier = 1;
     const areaRect = {
         x: 0,
         y: 0
     };
-    const imageController = {
+    const objManager = {
         rect: {
             x: 0,
             y: 0,
             width: 0,
             height: 0
         },
-        selected: null
+        selected: null,
+        current: {}
     };
     const touchManager = {
         x: 0,
@@ -204,23 +247,22 @@
     const $chkSelbox = $("#checkbox-toggle-select");
     const $btnSelbox = $("#button-select-box");
     const $modalBgs = $a(".modal-area");
-    const $imageLayer = $("#photo-layer");
+    const $objLayer = $("#photo-layer");
     const $btnAddImage = $("#button-add-image");
-    const $imageList = $("#image-item-list");
+    const $objList = $("#image-item-list");
     const $controller = $("#photo-item-controller");
     const $controllerBar = $("#controller-bar");
     const $resizePoints = $a("#photo-item-controller > .resize-point");
-    const $btnBottommost = $("#button-controller-bottommost");
-    const $btnBottom = $("#button-controller-bottom");
-    const $btnFront = $("#button-controller-front");
-    const $btnFrontmost = $("#button-controller-frontmost");
-    const $btnFlipHorizontal = $("#button-controller-flip-horizontal");
-    const $btnFlipVertical = $("#button-controller-flip-vertical");
-    const $chkTglDarker = $("#checkbox-toggle-controller-darker");
+    // const $btnBottommost = $("#button-controller-bottommost");
+    // const $btnBottom = $("#button-controller-bottom");
+    // const $btnFront = $("#button-controller-front");
+    // const $btnFrontmost = $("#button-controller-frontmost");
+    // const $btnFlipHorizontal = $("#button-controller-flip-horizontal");
+    // const $btnFlipVertical = $("#button-controller-flip-vertical");
     const $btnTglDarker = $("#controller-toggle-darker");
-    const $btnControllerReset = $("#button-controller-reset");
-    const $btnControllerRemove = $("#button-controller-remove");
-    const $btnControllerUnselect = $("#button-controller-unselect");
+    // const $btnControllerReset = $("#button-controller-reset");
+    // const $btnControllerRemove = $("#button-controller-remove");
+    // const $btnControllerUnselect = $("#button-controller-unselect");
     const $btnResetImage = $("#button-reset-image");
     const $slideList = $("#slide-list");
     const $btnAddSlide = $("#button-add-slide");
@@ -334,7 +376,78 @@
                 setSelboxTheme(parseInt(c.target.value));
                 refreshThumbnail(current, $photozone);
             }
-        ]
+        ],
+        [
+            "click", $("#button-controller-bottommost"),
+            () => {
+                moveToBottommost(current, objManager.selected);
+                refreshThumbnail(current, $photozone);
+            }
+        ],
+        [
+            "click", $("#button-controller-bottom"),
+            () => {
+                moveToBottom(current, objManager.selected);
+                refreshThumbnail(current, $photozone);
+            }
+        ],
+        [
+            "click", $("#button-controller-front"),
+            () => {
+                moveToFront(current, objManager.selected);
+                refreshThumbnail(current, $photozone);
+            }
+        ],
+        [
+            "click", $("#button-controller-frontmost"),
+            () => {
+                moveToFrontmost(current, objManager.selected);
+                refreshThumbnail(current, $photozone);
+            }
+        ],
+        [
+            "click", $("#button-controller-frontmost"),
+            () => {
+                moveToFrontmost(current, objManager.selected);
+                refreshThumbnail(current, $photozone);
+            }
+        ],
+        [
+            "click", $("#button-controller-flip-horizontal"),
+            () => {
+                flipHorizontal(current, objManager.selected);
+                refreshThumbnail(current, $photozone);
+            }
+        ],
+        [
+            "click", $("#button-controller-flip-vertical"),
+            () => {
+                flipVertical(current, objManager.selected);
+                refreshThumbnail(current, $photozone);
+            }
+        ],
+        [
+            "click", $btnTglDarker,
+            () => {
+                toggleObjectDarker(current, objManager.selected);
+                refreshThumbnail(current, $photozone);
+            }
+        ],
+        [
+            "click", $("#button-controller-reset"),
+            () => {
+                rescueObject(current, objManager.selected);
+                refreshThumbnail(current, $photozone);
+            }
+        ],
+        [
+            "click", $("#button-controller-remove"),
+            () => {
+                removeObject(current, objManager.selected);
+                refreshThumbnail(current, $photozone);
+            }
+        ],
+        [ "click", $("#button-controller-unselect"), () => unselectItem() ]
     ];
 
     const setNamePos = (i) => {
@@ -556,9 +669,9 @@
         for (const $n of $comContAreas) $n.style["visibility"] = b ? "visible" : "hidden";
     };
     const setBackground = (f) => {
-        slide[current].imageLayer.background = f;
-        $bg.src = f;
-        $prevBg.src = f;
+        slide[current].assets.background = f;
+        $bg.src = f || "";
+        $prevBg.src = f || "";
         refreshThumbnail(current, $photozone);
         if (f) {
             const _$res = new Image();
@@ -618,162 +731,8 @@
             };
         };
     };
-    const addImageItem = (d) => {
-        const item = JSON.parse(JSON.stringify(d));
-        const $img = new Image();
-        $img.src = item.data;
-        $img.style["top"] = `${item.rect.y}px`;
-        $img.style["left"] = `${item.rect.x}px`;
-        $img.style["width"] = `${item.rect.width}px`;
-        $img.style["height"] = `${item.rect.height}px`;
-        $img.dataset.id = `${item.id}`;
-        $img.onclick = () => {
-            selectItem(item.id);
-        };
-        $img.style["transform"] = `${item.flip.horizontal ? "scaleX(-1)" : ""}${item.flip.vertical ? "scaleY(-1)" : ""}`;
-        if (item.darker) {
-            $img.classList.add("image-item-darker");
-        };
-        const $lab = document.createElement("div");
-        $lab.classList.add("image-item");
-        $lab.innerHTML += `<div class="thumb"><img src="${item.data}"></div>` +
-            `<p>${item.name}</p>` +
-            `<button class="remove"><div class="i i-trash"></div></button>`;
-        $lab.querySelector("button.remove").onclick = () => {
-            $img.remove();
-            $lab.remove();
-            delete imageLayer[imageController.selected];
-            delete slide[current].imageLayer.attachments[slide[current].imageLayer.attachments.findIndex((x) => x.id === item.id)];
-            slide[current].imageLayer.attachments = slide[current].imageLayer.attachments.filter((x) => x);
-            unselectItem();
-            refreshThumbnail(current, $photozone);
-        };
-        $lab.onclick = (c) => {
-            if (c.target === $lab && imageController.selected !== item.id) {
-                selectItem(item.id);
-            } else {
-                unselectItem();
-            };
-        };
-        item.lab = $lab;
-        item.img = $img;
-        imageLayer[item.id] = item;
-        $imageList.append($lab);
-        $imageLayer.append($img);
-        refreshThumbnail(current, $photozone);
-    };
-    const addImageItemIterable = (x) => {
-        x.forEach((d) => {
-            addImageItem(d);
-        });
-    };
-    const selectItem = (i) => {
-        Array.from($a(".active-image-item")).forEach(($n) => $n.classList.remove("active-image-item"));
-        const t = imageLayer[i];
-        if (!t) return;
-        imageController.selected = i;
-        t.lab.classList.add("active-image-item");
-
-        setControllerPos(t.rect.x, t.rect.y);
-        setControllerSize(0, 0, t.rect.width, t.rect.height);
-
-        $controller.style["display"] = "flex";
-        for (const _$item of $controllerBar.querySelectorAll("button, input")) _$item.removeAttribute("disabled");
-        if (t.darker) {
-            $chkTglDarker.checked = true;
-            $btnTglDarker.classList.add("controller-active");
-        } else {
-            $chkTglDarker.checked = false;
-            $btnTglDarker.classList.remove("controller-active");
-        };
-    };
-    const unselectItem = () => {
-        imageController.selected = null;
-        $controller.style["display"] = "none";
-        for (const _$item of $controllerBar.querySelectorAll("button, input")) _$item.setAttribute("disabled", "true");
-        Array.from($a(".active-image-item")).forEach(($n) => $n.classList.remove("active-image-item"));
-        $btnTglDarker.classList.remove("controller-active");
-    };
-    const addImagePos = (n, x, y) => {
-        const d = imageLayer[n];
-        if (!d) return;
-        const $img = d.img;
-        // if (d.rect.x + x > slide[current].area.width - d.rect.width + 400 || d.rect.x + x < -400) return;
-        // if (d.rect.y + y > slide[current].area.height - d.rect.height + 400 || d.rect.y + y < -400) return;
-        d.rect.x += x;
-        d.rect.y += y;
-        $img.style["top"] = `${d.rect.y + y}px`;
-        $img.style["left"] = `${d.rect.x + x}px`;
-        slide[current].imageLayer.attachments[slide[current].imageLayer.attachments.findIndex((x) => x.id === n)] = d;
-    };
-    const setImagePos = (n, x, y) => {
-        const d = imageLayer[n];
-        if (!d) return;
-        const $img = d.img;
-        // if (x > slide[current].area.width - d.rect.width + 400 || x < -400) return;
-        // if (y > slide[current].area.height - d.rect.height + 400 || y < -400) return;
-        d.rect.x = x;
-        d.rect.y = y;
-        $img.style["top"] = `${d.rect.y}px`;
-        $img.style["left"] = `${d.rect.x}px`;
-        slide[current].imageLayer.attachments[slide[current].imageLayer.attachments.findIndex((x) => x.id === n)] = d;
-    };
-    const addControllerPos = (x, y) => {
-        const originX = parseInt($controller.style["left"]);
-        const originY = parseInt($controller.style["top"]);
-        // if (originX + x > slide[current].area.width - imageController.rect.width + 400 || originX + x < -400) return;
-        // if (originY + y > slide[current].area.height - imageController.rect.height + 400 || originY + y < -400) return;
-        $controller.style["top"] = `${originY + y}px`;
-        $controller.style["left"] = `${originX + x}px`;
-    };
-    const setControllerPos = (x, y) => {
-        // if (x > slide[current].area.width - imageController.rect.width + 400 || x < -400) return;
-        // if (y > slide[current].area.height - imageController.rect.height + 400 || y < -400) return;
-        imageController.rect.x = x;
-        imageController.rect.y = y;
-        $controller.style["top"] = `${y}px`;
-        $controller.style["left"] = `${x}px`;
-    };
-    const addImageSize = (n, x, y, w, h) => {
-        const d = imageLayer[n];
-        if (!d) return;
-        const $img = d.img;
-        // if (d.rect.x + x + d.rect.width + w > slide[current].area.width + 400 || d.rect.x + x + d.rect.width + w < -400) return;
-        // if (d.rect.y + y + d.rect.height + h > slide[current].area.height + 400 || d.rect.y + y + d.rect.height + h < -400) return;
-        d.rect.width += w;
-        d.rect.height += h;
-        addImagePos(n, x, y);
-        $img.style["width"] = `${d.rect.width}px`;
-        $img.style["height"] = `${d.rect.height}px`;
-        slide[current].imageLayer.attachments[slide[current].imageLayer.attachments.findIndex((x) => x.id === n)] = d;
-    };
-    const setImageSize = (n, x, y, w, h) => {
-        const d = imageLayer[n];
-        if (!d) return;
-        const $img = d.img;
-        addImagePos(n, x, y);
-        d.rect.width = w;
-        d.rect.height = h;
-        $img.style["width"] = `${w}px`;
-        $img.style["height"] = `${h}px`;
-        slide[current].imageLayer.attachments[slide[current].imageLayer.attachments.findIndex((x) => x.id === n)] = d;
-    };
-    const addControllerSize = (x, y, w, h) => {
-        imageController.rect.width += w;
-        imageController.rect.height += h;
-        addControllerPos(x, y);
-        $controller.style["width"] = `${imageController.rect.width}px`;
-        $controller.style["height"] = `${imageController.rect.height}px`;
-    };
-    const setControllerSize = (x, y, w, h) => {
-        imageController.rect.width = w;
-        imageController.rect.height = h;
-        addControllerPos(x, y);
-        $controller.style["width"] = `${w}px`;
-        $controller.style["height"] = `${h}px`;
-    };
     const createSlide = () => {
-        const d = JSON.parse(JSON.stringify(Object.assign({}, DATATEMPLATE)));
+        const d = JSON.parse(JSON.stringify(Object.assign({}, SLIDE_TEMPLATE)));
         slide.push(d);
         current = slide.length - 1
         unselectItem();
@@ -828,22 +787,22 @@
         toggleTitle(x.toggles.title);
         toggleLocation(x.toggles.location);
         toggleContent(x.toggles.content);
-        setBackground(x.imageLayer.background);
+        setBackground(x.assets.background);
         setType(x.values.type);
         setNamePos(x.assetOptions.namearea.pos);
         setTheme(x.assetOptions.scriptbox.theme);
         setSelboxTheme(x.assetOptions.select.theme);
-        imageLayer = {};
-        $imageLayer.innerHTML = "";
-        $imageList.innerHTML = "";
-        addImageItemIterable(x.imageLayer.attachments);
+        objManager.current = {};
+        $objLayer.innerHTML = "";
+        $objList.innerHTML = "";
+        addObjectIterable(x.assets.objects);
         refreshSlideList();
         refreshThumbnail(current, $photozone);
     };
     const refreshSlideList = () => {
         $slideList.innerHTML = "";
         $slideList.innerHTML = slide.map((d, i) => {
-            return `<div id="slide-item-${i}" class="slide-item"><div class="thumb"><img src="${d.thumbnail}"></div>` +
+            return `<div id="slide-item-${i}" class="slide-item"><div class="thumb"><img src="${d.assets.thumbnail}"></div>` +
                 `<div class="slide-item-menu"><p>${i+1}</p><button class="remove"><div class="i i-deny"></div></button></div></div>`;
         }).join("");
         Array.from($slideList.querySelectorAll(".slide-item")).forEach(($n, i) => {
@@ -865,7 +824,7 @@
         setTimeout(() => {
             html2canvas($n, { logging: false, scale: 0.3 }).then((c) => {
                 const src = `${c.toDataURL("image/png")}`;
-                slide[current].thumbnail = src;
+                slide[current].assets.thumbnail = src;
                 const $thumb = $(`#slide-item-${i} div.thumb > img`);
                 $thumb.src = src;
             });
@@ -986,6 +945,265 @@
         };
     };
 
+    // 개체 조작용 함수
+    const addObject = (sid, t, params = {}) => {
+        const tslide = slide[sid];
+        if (!tslide) return null;
+        if (typeof t === "undefined" || t.constructor !== String) return null;
+        const uid = uniqueInt++;
+        const res = JSON.parse(JSON.stringify(OBJECT_TEMPLATE));
+        res.uid = uid;
+        for (const k in params) {
+            if (k === "id") res.id = params[k];
+            else if (k === "classes") res.classes = params[k];
+        };
+
+        if (t === "image") {
+            if (typeof params.name === "undefined" || params.name.constructor !== String ||
+                typeof params.image === "undefined" || params.image.constructor !== HTMLImageElement) return null;
+            res.name = params.name;
+            res.type = "image";
+            res.sort = tslide.assets.objects.length;
+
+            res.assets.image = params.image.src;
+            res.assets.data.fileName = params.name;
+            res.rectOrigin.x = 0;
+            res.rectOrigin.y = 0;
+            res.rectOrigin.width = params.image.width;
+            res.rectOrigin.height = params.image.height;
+            res.rectOrigin.rotate = 0;
+            res.rectOrigin.flip.horizontal = false;
+            res.rectOrigin.flip.vertical = false;
+            res.rect = JSON.parse(JSON.stringify(res.rectOrigin));
+            res.flags.visible = true;
+            res.flags.darker = false;
+            res.flags.sizeAdjustable = true;
+
+            res.assets.body = $create("img", { id: res.id || "", classes: res.classes });
+            res.assets.body.style["left"] = res.rectOrigin.x;
+            res.assets.body.style["top"] = res.rectOrigin.y;
+            res.assets.body.style["width"] = res.rect.width;
+            res.assets.body.style["height"] = res.rect.height;
+            res.assets.body.src = res.assets.image;
+            res.assets.body.addEventListener("click", () => selectItem(res.uid));
+
+            res.doRefresh = () => {
+                res.assets.body.style["transform"] = `translate(${res.rect.x}px, ${res.rect.y}px) ` +
+                    `rotate(${res.rect.rotate}deg) ` +
+                    `scale(${res.rect.flip.horizontal ? -1 : 1}, ${res.rect.flip.vertical ? -1 : 1})`;
+            };
+            res.doRefresh();
+
+            res.assets.label = $create("div", {
+                class: [ "image-item" ],
+                html: `<div class="thumb"><img src="${res.assets.image}"></div>` +
+                    `<p>#${res.uid}: ${res.name}</p>` +
+                    `<button class="remove"><div class="i i-trash"></div></button>`
+            });
+            res.assets.label.addEventListener("click", (e) => {
+                if (e.target === res.assets.label && objManager.selected !== res.uid) selectItem(res.uid);
+                else unselectItem();
+            });
+            res.assets.label.querySelector("button.remove").addEventListener("click", () => removeObject(sid, uid));
+
+            tslide.assets.objects.push(res);
+            $objLayer.append(res.assets.body);
+            $objList.append(res.assets.label);
+        } else if (t === "dialogue") {
+
+        };
+        return res;
+    };
+    const addObjectDirect = (obj) => {
+        $objLayer.append(obj.assets.body);
+        $objList.append(obj.assets.label);
+    };
+    const addObjectIterable = (a) => {
+        for (const obj of a) addObjectDirect(obj);
+    };
+    const removeObject = (sid, oid) => {
+        const tslide = slide[sid];
+        if (!tslide) return null;
+        const item = tslide.assets.objects.find((x) => x.uid === oid);
+        if (!item) return null;
+        unselectItem();
+        item.assets.body.remove();
+        item.assets.label.remove();
+        tslide.assets.objects = tslide.assets.objects.filter((x) => x.uid !== item.uid);
+        return item;
+    };
+    const selectItem = (i) => {
+        Array.from($a(".active-image-item")).forEach(($n) => $n.classList.remove("active-image-item"));
+        const item = slide[current].assets.objects.find((x) => x.uid === i);
+        if (!item) return null;
+
+        objManager.selected = i;
+        setControllerPos(item.rect.x, item.rect.y);
+        setControllerSize(0, 0, item.rect.width, item.rect.height);
+        $controller.style["display"] = "flex";
+        item.assets.label.classList.add("active-image-item");
+        
+        for (const _$item of $controllerBar.querySelectorAll("button, input")) _$item.removeAttribute("disabled");
+        if (item.flags.darker) $btnTglDarker.classList.add("controller-active");
+        else $btnTglDarker.classList.remove("controller-active");
+    };
+    const unselectItem = () => {
+        objManager.selected = null;
+        $controller.style["display"] = "none";
+        for (const _$item of $controllerBar.querySelectorAll("button, input")) _$item.setAttribute("disabled", "true");
+        Array.from($a(".active-image-item")).forEach(($n) => $n.classList.remove("active-image-item"));
+        $btnTglDarker.classList.remove("controller-active");
+    };
+    const addImagePos = (i, x, y) => {
+        const item = slide[current].assets.objects.find((x) => x.uid === objManager.selected);
+        if (!item) return;
+        item.rect.x += x;
+        item.rect.y += y;
+        item.doRefresh();
+    };
+    const setImagePos = (i, x, y) => {
+        const item = slide[current].assets.objects.find((x) => x.uid === objManager.selected);
+        if (!item) return;
+        item.rect.x = x;
+        item.rect.y = y;
+        item.doRefresh();
+    };
+    const addControllerPos = (x, y) => {
+        const originX = parseInt($controller.style["left"]);
+        const originY = parseInt($controller.style["top"]);
+        // $controller.style["transform"] = `translate(${originX + x}px, ${originY + y}px)`;
+        $controller.style["top"] = `${originY + y}px`;
+        $controller.style["left"] = `${originX + x}px`;
+    };
+    const setControllerPos = (x, y) => {
+        objManager.rect.x = x;
+        objManager.rect.y = y;
+        // $controller.style["transform"] = `translate(${x}px, ${y}px)`;
+        $controller.style["top"] = `${y}px`;
+        $controller.style["left"] = `${x}px`;
+    };
+    const addImageSize = (i, x, y, w, h) => {
+        const item = slide[current].assets.objects.find((x) => x.uid === objManager.selected);
+        if (!item || !item.flags.sizeAdjustable) return;
+        item.rect.width += w;
+        item.rect.height += h;
+        addImagePos(i, x, y);
+        item.assets.body.style["width"] = `${item.rect.width}px`;
+        item.assets.body.style["height"] = `${item.rect.height}px`;
+    };
+    const setImageSize = (i, x, y, w, h) => {
+        const item = slide[current].assets.objects.find((x) => x.uid === objManager.selected);
+        if (!item || !item.flags.sizeAdjustable) return;
+        addImagePos(i, x, y);
+        item.rect.width = w;
+        item.rect.height = h;
+        item.assets.body.style["width"] = `${w}px`;
+        item.assets.body.style["height"] = `${h}px`;
+    };
+    const addControllerSize = (x, y, w, h) => {
+        objManager.rect.width += w;
+        objManager.rect.height += h;
+        addControllerPos(x, y);
+        $controller.style["width"] = `${objManager.rect.width}px`;
+        $controller.style["height"] = `${objManager.rect.height}px`;
+    };
+    const setControllerSize = (x, y, w, h) => {
+        objManager.rect.width = w;
+        objManager.rect.height = h;
+        addControllerPos(x, y);
+        $controller.style["width"] = `${w}px`;
+        $controller.style["height"] = `${h}px`;
+    };
+    const moveToBottommost = (sid, oid) => {
+        const list = slide[sid].assets.objects;
+        const tobj = list.find((x) => x.uid === oid);
+        if (!tobj) return null;
+
+        const i = list.findIndex((x) => x.uid === oid);
+        list.unshift(list.splice(i, 1)[0]);
+        list.forEach((x, i) => x.sort = i);
+        $objLayer.insertAdjacentElement("afterbegin", tobj.assets.body);
+        $objList.insertAdjacentElement("afterbegin", tobj.assets.label);
+    };
+    const moveToBottom = (sid, oid) => {
+        const list = slide[sid].assets.objects;
+        const tobj = list.find((x) => x.uid === oid);
+        if (!tobj) return null;
+
+        const i = list.findIndex((x) => x.uid === oid);
+        const $prevBody = tobj.assets.body.previousSibling;
+        if (!$prevBody) return;
+        list.splice(i - 1, 0, list.splice(i, 1)[0]);
+        list.forEach((x, i) => x.sort = i);
+        const $prevLabel = tobj.assets.label.previousSibling;
+        $objLayer.insertBefore(tobj.assets.body, $prevBody);
+        $objList.insertBefore(tobj.assets.label, $prevLabel);
+    };
+    const moveToFront = (sid, oid) => {
+        const list = slide[sid].assets.objects;
+        const tobj = list.find((x) => x.uid === oid);
+        if (!tobj) return null;
+        
+        const $next1 = tobj.assets.body.nextSibling;
+        const $next2 = $next1?.nextSibling;
+        const i = list.findIndex((x) => x.uid === oid);
+        if ($next1 && !$next2) {
+            $objLayer.insertAdjacentElement("beforeend", tobj.assets.body);
+            $objList.insertAdjacentElement("beforeend", tobj.assets.label);
+        } else if ($next2) {
+            const $next2Label = tobj.assets.label.nextSibling.nextSibling;
+            $objLayer.insertBefore(tobj.assets.body, $next2);
+            $objList.insertBefore(tobj.assets.label, $next2Label);
+        };
+        list.splice(i + 1, 0, list.splice(i, 1)[0]);
+        list.forEach((x, i) => x.sort = i);
+    };
+    const moveToFrontmost = (sid, oid) => {
+        const list = slide[sid].assets.objects;
+        const tobj = list.find((x) => x.uid === oid);
+        if (!tobj) return null;
+
+        const i = list.findIndex((x) => x.uid === oid);
+        list.push(list.splice(i, 1)[0]);
+        list.forEach((x, i) => x.sort = i);
+        $objLayer.insertAdjacentElement("beforeend", tobj.assets.body);
+        $objList.insertAdjacentElement("beforeend", tobj.assets.label);
+    };
+    const flipHorizontal = (sid, oid) => {
+        const item = slide[sid].assets.objects.find((x) => x.uid === oid);
+        if (!item) return null;
+        item.rect.flip.horizontal = !item.rect.flip.horizontal;
+        item.doRefresh();
+    };
+    const flipVertical = (sid, oid) => {
+        const item = slide[sid].assets.objects.find((x) => x.uid === oid);
+        if (!item) return null;
+        item.rect.flip.vertical = !item.rect.flip.vertical;
+        item.doRefresh();
+    };
+    const toggleObjectDarker = (sid, oid) => {
+        const item = slide[sid].assets.objects.find((x) => x.uid === oid);
+        if (!item) return null;
+        item.flags.darker = !item.flags.darker;
+        if (item.flags.darker) {
+            item.classes.push("image-item-darker");
+            item.assets.body.classList.add("image-item-darker");
+            if (objManager.selected !== null) $btnTglDarker.classList.add("controller-active");
+        } else {
+            item.classes = item.classes.filter((x) => x !== "image-item-darker");
+            item.assets.body.classList.remove("image-item-darker");
+            if (objManager.selected !== null) $btnTglDarker.classList.remove("controller-active");
+        };
+    };
+    const rescueObject = (sid, oid) => {
+        const item = slide[sid].assets.objects.find((x) => x.uid === oid);
+        if (!item) return null;
+        setImagePos(oid, item.rectOrigin.x, item.rectOrigin.y);
+        setImageSize(oid, 0, 0, item.rectOrigin.width, item.rectOrigin.height);
+        setControllerPos(item.rectOrigin.x, item.rectOrigin.y);
+        setControllerSize(0, 0, item.rectOrigin.width, item.rectOrigin.height);
+    };
+
     initStore();
     $btnSave.onclick = () => {
         const showRaw = window.localStorage.getItem("show");
@@ -1036,7 +1254,7 @@
     };
 
     document.addEventListener("keydown", (k) => {
-        if (!Number.isNaN(parseInt(slide[current].imageLayer.selectedImageItem)) && k.shiftKey && k.keyCode === 82) {
+        if (!Number.isNaN(parseInt(objManager.selected)) && k.shiftKey && k.keyCode === 82) {
             $btnControllerReset.click();
         } else if (k.target === document.body && k.keyCode === 27) {
             unselectItem();
@@ -1093,12 +1311,12 @@
         let flag = true;
         $controller.onpointermove = (m) => {
             flag = false;
-            const d = slide[current].imageLayer.attachments.find((x) => x.id === imageController.selected);
-            if (!d) return;
-            d.rect.x += m.movementX;
-            d.rect.y += m.movementY;
-            setImagePos(d.id, d.rect.x, d.rect.y);
-            setControllerPos(d.rect.x, d.rect.y);
+            const item = slide[current].assets.objects.find((x) => x.uid === objManager.selected);
+            if (!item) return;
+            item.rect.x += m.movementX;
+            item.rect.y += m.movementY;
+            setImagePos(item.uid, item.rect.x, item.rect.y);
+            setControllerPos(item.rect.x, item.rect.y);
         };
         $controller.onpointerup = () => {
             if (flag) unselectItem();
@@ -1113,18 +1331,18 @@
         let ox = t.touches[0].clientX;
         let oy = t.touches[0].clientY;
         $controller.ontouchmove = (m) => {
-            const d = slide[current].imageLayer.attachments.find((x) => x.id === imageController.selected);
-            if (!d) return;
+            const item = slide[current].assets.objects.find((x) => x.uid === objManager.selected);
+            if (!item) return;
             const x = m.touches[0].clientX;
             const y = m.touches[0].clientY;
             const mx = x - ox;
             const my = y - oy;
             ox = x;
             oy = y;
-            d.rect.x += mx;
-            d.rect.y += my;
-            setImagePos(d.id, d.rect.x, d.rect.y);
-            setControllerPos(d.rect.x, d.rect.y);
+            item.rect.x += mx;
+            item.rect.y += my;
+            setImagePos(item.uid, item.rect.x, item.rect.y);
+            setControllerPos(item.rect.x, item.rect.y);
         };
         $controller.ontouchend = () => {
             refreshThumbnail(current, $photozone);
@@ -1136,64 +1354,64 @@
         $n.onpointerdown = (p) => {
             $n.setPointerCapture(p.pointerId);
             $n.onpointermove = (m) => {
-                const d = slide[current].imageLayer.attachments.find((x) => x.id === imageController.selected);
-                if (!d) return;
+                const item = slide[current].assets.objects.find((x) => x.uid === objManager.selected);
+                if (!item || !item.flags.sizeAdjustable) return;
                 const mx = m.movementX;
                 const my = m.movementY;
                 if (i === 0) {
-                    if (d.rect.width + mx*-1 >= SIZEMIN) {
-                        addImageSize(d.id, mx, 0, mx*-1, 0);
+                    if (item.rect.width + mx*-1 >= SIZEMIN) {
+                        addImageSize(item.uid, mx, 0, mx*-1, 0);
                         addControllerSize(mx, 0, mx*-1, 0);
                     };
-                    if (d.rect.height + my*-1 >= SIZEMIN) {
-                        addImageSize(d.id, 0, my, 0, my*-1);
+                    if (item.rect.height + my*-1 >= SIZEMIN) {
+                        addImageSize(item.uid, 0, my, 0, my*-1);
                         addControllerSize(0, my, 0, my*-1);
                     };
                 } else if (i === 1) {
-                    if (d.rect.width + mx >= SIZEMIN) {
-                        addImageSize(d.id, 0, 0, mx, 0);
+                    if (item.rect.width + mx >= SIZEMIN) {
+                        addImageSize(item.uid, 0, 0, mx, 0);
                         addControllerSize(0, 0, mx, 0);
                     };
-                    if (d.rect.height + my*-1 >= SIZEMIN) {
-                        addImageSize(d.id, 0, my, 0, my*-1);
+                    if (item.rect.height + my*-1 >= SIZEMIN) {
+                        addImageSize(item.uid, 0, my, 0, my*-1);
                         addControllerSize(0, my, 0, my*-1);
                     };
                 } else if (i === 2) {
-                    if (d.rect.width + mx*-1 >= SIZEMIN) {
-                        addImageSize(d.id, mx, 0, mx*-1, 0);
+                    if (item.rect.width + mx*-1 >= SIZEMIN) {
+                        addImageSize(item.uid, mx, 0, mx*-1, 0);
                         addControllerSize(mx, 0, mx*-1, 0);
                     };
-                    if (d.rect.height + my >= SIZEMIN) {
-                        addImageSize(d.id, 0, 0, 0, my);
+                    if (item.rect.height + my >= SIZEMIN) {
+                        addImageSize(item.uid, 0, 0, 0, my);
                         addControllerSize(0, 0, 0, my);
                     };
                 } else if (i === 3) {
-                    if (d.rect.width + mx >= SIZEMIN) {
-                        addImageSize(d.id, 0, 0, mx, 0);
+                    if (item.rect.width + mx >= SIZEMIN) {
+                        addImageSize(item.uid, 0, 0, mx, 0);
                         addControllerSize(0, 0, mx, 0);
                     };
-                    if (d.rect.height + my >= SIZEMIN) {
-                        addImageSize(d.id, 0, 0, 0, my);
+                    if (item.rect.height + my >= SIZEMIN) {
+                        addImageSize(item.uid, 0, 0, 0, my);
                         addControllerSize(0, 0, 0, my);
                     };
                 } else if (i === 4) {
-                    if (d.rect.height + my*-1 >= SIZEMIN) {
-                        addImageSize(d.id, 0, my, 0, my*-1);
+                    if (item.rect.height + my*-1 >= SIZEMIN) {
+                        addImageSize(item.uid, 0, my, 0, my*-1);
                         addControllerSize(0, my, 0, my*-1);
                     };
                 } else if (i === 5) {
-                    if (d.rect.width + mx >= SIZEMIN) {
-                        addImageSize(d.id, 0, 0, mx, 0);
+                    if (item.rect.width + mx >= SIZEMIN) {
+                        addImageSize(item.uid, 0, 0, mx, 0);
                         addControllerSize(0, 0, mx, 0);
                     };
                 } else if (i === 6) {
-                    if (d.rect.height + my >= SIZEMIN) {
-                        addImageSize(d.id, 0, 0, 0, my);
+                    if (item.rect.height + my >= SIZEMIN) {
+                        addImageSize(item.uid, 0, 0, 0, my);
                         addControllerSize(0, 0, 0, my);
                     };
                 } else if (i === 7) {
-                    if (d.rect.width + mx*-1 >= SIZEMIN) {
-                        addImageSize(d.id, mx, 0, mx*-1, 0);
+                    if (item.rect.width + mx*-1 >= SIZEMIN) {
+                        addImageSize(item.uid, mx, 0, mx*-1, 0);
                         addControllerSize(mx, 0, mx*-1, 0);
                     };
                 };
@@ -1210,8 +1428,8 @@
             let ox = t.touches[0].clientX;
             let oy = t.touches[0].clientY;
             $n.ontouchmove = (m) => {
-                const d = slide[current].imageLayer.attachments.find((x) => x.id === imageController.selected);
-                if (!d) return;
+                const item = slide[current].assets.objects.find((x) => x.uid === objManager.selected);
+                if (!item || !item.flags.sizeAdjustable) return;
                 const x = m.touches[0].clientX;
                 const y = m.touches[0].clientY;
                 const mx = x - ox;
@@ -1219,59 +1437,59 @@
                 ox = x;
                 oy = y;
                 if (i === 0) {
-                    if (d.rect.width + mx*-1 >= SIZEMIN) {
-                        addImageSize(d.id, mx, 0, mx*-1, 0);
+                    if (item.rect.width + mx*-1 >= SIZEMIN) {
+                        addImageSize(item.uid, mx, 0, mx*-1, 0);
                         addControllerSize(mx, 0, mx*-1, 0);
                     };
-                    if (d.rect.height + my*-1 >= SIZEMIN) {
-                        addImageSize(d.id, 0, my, 0, my*-1);
+                    if (item.rect.height + my*-1 >= SIZEMIN) {
+                        addImageSize(item.uid, 0, my, 0, my*-1);
                         addControllerSize(0, my, 0, my*-1);
                     };
                 } else if (i === 1) {
-                    if (d.rect.width + mx >= SIZEMIN) {
-                        addImageSize(d.id, 0, 0, mx, 0);
+                    if (item.rect.width + mx >= SIZEMIN) {
+                        addImageSize(item.uid, 0, 0, mx, 0);
                         addControllerSize(0, 0, mx, 0);
                     };
-                    if (d.rect.height + my*-1 >= SIZEMIN) {
-                        addImageSize(d.id, 0, my, 0, my*-1);
+                    if (item.rect.height + my*-1 >= SIZEMIN) {
+                        addImageSize(item.uid, 0, my, 0, my*-1);
                         addControllerSize(0, my, 0, my*-1);
                     };
                 } else if (i === 2) {
-                    if (d.rect.width + mx*-1 >= SIZEMIN) {
-                        addImageSize(d.id, mx, 0, mx*-1, 0);
+                    if (item.rect.width + mx*-1 >= SIZEMIN) {
+                        addImageSize(item.uid, mx, 0, mx*-1, 0);
                         addControllerSize(mx, 0, mx*-1, 0);
                     };
-                    if (d.rect.height + my >= SIZEMIN) {
-                        addImageSize(d.id, 0, 0, 0, my);
+                    if (item.rect.height + my >= SIZEMIN) {
+                        addImageSize(item.uid, 0, 0, 0, my);
                         addControllerSize(0, 0, 0, my);
                     };
                 } else if (i === 3) {
-                    if (d.rect.width + mx >= SIZEMIN) {
-                        addImageSize(d.id, 0, 0, mx, 0);
+                    if (item.rect.width + mx >= SIZEMIN) {
+                        addImageSize(item.uid, 0, 0, mx, 0);
                         addControllerSize(0, 0, mx, 0);
                     };
-                    if (d.rect.height + my >= SIZEMIN) {
-                        addImageSize(d.id, 0, 0, 0, my);
+                    if (item.rect.height + my >= SIZEMIN) {
+                        addImageSize(item.uid, 0, 0, 0, my);
                         addControllerSize(0, 0, 0, my);
                     };
                 } else if (i === 4) {
-                    if (d.rect.height + my*-1 >= SIZEMIN) {
-                        addImageSize(d.id, 0, my, 0, my*-1);
+                    if (item.rect.height + my*-1 >= SIZEMIN) {
+                        addImageSize(item.uid, 0, my, 0, my*-1);
                         addControllerSize(0, my, 0, my*-1);
                     };
                 } else if (i === 5) {
-                    if (d.rect.width + mx >= SIZEMIN) {
-                        addImageSize(d.id, 0, 0, mx, 0);
+                    if (item.rect.width + mx >= SIZEMIN) {
+                        addImageSize(item.uid, 0, 0, mx, 0);
                         addControllerSize(0, 0, mx, 0);
                     };
                 } else if (i === 6) {
-                    if (d.rect.height + my >= SIZEMIN) {
-                        addImageSize(d.id, 0, 0, 0, my);
+                    if (item.rect.height + my >= SIZEMIN) {
+                        addImageSize(item.uid, 0, 0, 0, my);
                         addControllerSize(0, 0, 0, my);
                     };
                 } else if (i === 7) {
-                    if (d.rect.width + mx*-1 >= SIZEMIN) {
-                        addImageSize(d.id, mx, 0, mx*-1, 0);
+                    if (item.rect.width + mx*-1 >= SIZEMIN) {
+                        addImageSize(item.uid, mx, 0, mx*-1, 0);
                         addControllerSize(mx, 0, mx*-1, 0);
                     };
                 };
@@ -1283,80 +1501,51 @@
             };
         };
     });
-    $btnBottommost.onclick = () => {
-        const d = imageLayer[imageController.selected];
-        const $img = d.img;
-        $imageLayer.insertAdjacentElement("afterbegin", $img);
-    };
-    $btnBottom.onclick = () => {
-        const d = imageLayer[imageController.selected];
-        const $img = d.img;
-        const $target = $img.previousSibling;
-        if (!$target) return;
-        $imageLayer.insertBefore($img, $target);
-    };
-    $btnFront.onclick = () => {
-        const d = imageLayer[imageController.selected];
-        const $img = d.img;
-        const $target1 = $img.nextSibling;
-        const $target2 = $target1?.nextSibling;
-        if ($target1 && !$target2) {
-            $imageLayer.insertAdjacentElement("beforeend", $img);
-        } else if ($target2) {
-            $imageLayer.insertBefore($img, $target2);
-        };
-    };
-    $btnFrontmost.onclick = () => {
-        const d = imageLayer[imageController.selected];
-        const $img = d.img;
-        $imageLayer.insertAdjacentElement("beforeend", $img);
-    };
-    $btnFlipHorizontal.onclick = () => {
-        const d = imageLayer[imageController.selected];
-        const $img = d.img;
-        d.flip.horizontal = !d.flip.horizontal;
-        slide[current].imageLayer.attachments.find((x) => x.id === imageController.selected).flip = d.flip;
-        $img.style["transform"] = `${d.flip.horizontal ? "scaleX(-1)" : ""}${d.flip.vertical ? "scaleY(-1)" : ""}`;
-        refreshThumbnail(current, $photozone);
-    };
-    $btnFlipVertical.onclick = () => {
-        const d = imageLayer[imageController.selected];
-        const $img = d.img;
-        d.flip.vertical = !d.flip.vertical;
-        slide[current].imageLayer.attachments.find((x) => x.id === imageController.selected).flip = d.flip;
-        $img.style["transform"] = `${d.flip.horizontal ? "scaleX(-1)" : ""}${d.flip.vertical ? "scaleY(-1)" : ""}`;
-        refreshThumbnail(current, $photozone);
-    };
-    $chkTglDarker.onchange = (c) => {
-        slide[current].imageLayer.attachments.find((x) => x.id === imageController.selected).darker = c.target.checked;
-        if (c.target.checked) {
-            imageLayer[imageController.selected].img.classList.add("image-item-darker");
-            $btnTglDarker.classList.add("controller-active");
-            console.log(slide[current].imageLayer.attachments.find((x) => x.id === imageController.selected));
-        } else {
-            imageLayer[imageController.selected].img.classList.remove("image-item-darker");
-            $btnTglDarker.classList.remove("controller-active");
-        };
-        // refreshThumbnail(current, $photozone);
-    };
-    $btnTglDarker.onclick = () => {
-        $chkTglDarker.click();
-    };
-    $btnControllerReset.onclick = () => {
-        const rect = slide[current].imageLayer.attachments.find((x) => x.id === imageController.selected).rectOrigin;
-        setImagePos(imageController.selected, rect.x, rect.y);
-        setImageSize(imageController.selected, 0, 0, rect.width, rect.height);
-        setControllerPos(rect.x, rect.y);
-        setControllerSize(0, 0, rect.width, rect.height);
-    };
-    $btnControllerRemove.onclick = () => {
-        imageLayer[imageController.selected].lab.querySelector("button.remove").click();
-    };
-    $btnControllerUnselect.onclick = () => {
-        unselectItem();
-    };
+    // $btnBottommost.onclick = () => {
+    //     moveToBottommost(current, objManager.selected);
+    //     refreshThumbnail(current, $photozone);
+    // };
+    // $btnBottom.onclick = () => {
+    //     moveToBottom(current, objManager.selected);
+    //     refreshThumbnail(current, $photozone);
+    // };
+    // $btnFront.onclick = () => {
+    //     moveToFront(current, objManager.selected);
+    //     refreshThumbnail(current, $photozone);
+    // };
+    // $btnFrontmost.onclick = () => {
+    //     moveToFrontmost(current, objManager.selected);
+    //     refreshThumbnail(current, $photozone);
+    // };
+    // $btnFlipHorizontal.onclick = () => {
+    //     flipHorizontal(current, objManager.selected);
+    //     refreshThumbnail(current, $photozone);
+    // };
+    // $btnFlipVertical.onclick = () => {
+    //     flipVertical(current, objManager.selected);
+    //     refreshThumbnail(current, $photozone);
+    // };
+    // $btnTglDarker.onclick = () => {
+    //     toggleObjectDarker(current, objManager.selected);
+    //     refreshThumbnail(current, $photozone);
+    // };
+    // $btnControllerReset.onclick = () => {
+    //     rescueObject(current, objManager.selected);
+    //     refreshThumbnail(current, $photozone);
+    //     // const rect = slide[current].assets.objects.find((x) => x.id === objManager.selected).rectOrigin;
+    //     // setImagePos(objManager.selected, rect.x, rect.y);
+    //     // setImageSize(objManager.selected, 0, 0, rect.width, rect.height);
+    //     // setControllerPos(rect.x, rect.y);
+    //     // setControllerSize(0, 0, rect.width, rect.height);
+    // };
+    // $btnControllerRemove.onclick = () => {
+    //     objManager.current[objManager.selected].lab.querySelector("button.remove").click();
+    // };
+    // $btnControllerUnselect.onclick = () => {
+    //     unselectItem();
+    // };
     $btnResetImage.onclick = () => {
-        Object.values(imageLayer).forEach((x) => {
+        Object.values(objManager.current).forEach((x) => {
             x.lab.querySelector("button.remove").click();
         });
         refreshThumbnail(current, $photozone);
@@ -1406,7 +1595,7 @@
         $uploader.click();
     };
     $btnPhotoRemove.onclick = () => {
-        slide[current].imageLayer.background = "";
+        slide[current].assets.background = "";
         $uploader.value = null;
         $bg.src = "";
         $prevBg.src = "";
@@ -1487,7 +1676,7 @@
         refreshThumbnail(current, $photozone);
     };
     $btnFitToBg.onclick = () => {
-        if (!slide[current].imageLayer.background) {
+        if (!slide[current].assets.background) {
             new LyraNotification({
                 icon: "warning",
                 text: "배경 이미지가 설정되어있지 않습니다.",
@@ -1548,38 +1737,13 @@
                 const reader = new FileReader();
                 reader.readAsDataURL(file);
                 reader.onload = (e) => {
-                    const id = imageItemIdInt++;
+                    // const id = imageItemIdInt++;
                     const $img = new Image();
                     $img.src = reader.result;
-                    setTimeout(() => {
-                        const d = {
-                            id: id,
-                            name: file.name,
-                            visible: true,
-                            data: reader.result,
-                            rect: {
-                                x: 0,
-                                y: 0,
-                                width: $img.width,
-                                height: $img.height
-                            },
-                            rectOrigin: {
-                                x: 0,
-                                y: 0,
-                                width: parseInt($img.width),
-                                height: parseInt($img.height)
-                            },
-                            flip: {
-                                horizontal: false,
-                                vertical: false
-                            },
-                            rotate: 0,
-                            darker: false,
-                            sort: null
-                        };
-                        slide[current].imageLayer.attachments.push(d);
-                        addImageItem(d);
-                    }, 30);
+                    $img.onload = () => {
+                        addObject(current, "image", { name: file.name, image: $img });
+                        refreshThumbnail(current, $photozone);
+                    };
                 };
             });
         };

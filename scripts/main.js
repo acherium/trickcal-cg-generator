@@ -3,7 +3,7 @@
         name: "Project Pictor",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "24w31.14",
+        version: "24w31.15",
         date: "24-08-04",
         watermark: false,
         isBeta: false
@@ -253,16 +253,7 @@
     const $controller = $("#photo-item-controller");
     const $controllerBar = $("#controller-bar");
     const $resizePoints = $a("#photo-item-controller > .resize-point");
-    // const $btnBottommost = $("#button-controller-bottommost");
-    // const $btnBottom = $("#button-controller-bottom");
-    // const $btnFront = $("#button-controller-front");
-    // const $btnFrontmost = $("#button-controller-frontmost");
-    // const $btnFlipHorizontal = $("#button-controller-flip-horizontal");
-    // const $btnFlipVertical = $("#button-controller-flip-vertical");
     const $btnTglDarker = $("#controller-toggle-darker");
-    // const $btnControllerReset = $("#button-controller-reset");
-    // const $btnControllerRemove = $("#button-controller-remove");
-    // const $btnControllerUnselect = $("#button-controller-unselect");
     const $btnResetImage = $("#button-reset-image");
     const $slideList = $("#slide-list");
     const $btnAddSlide = $("#button-add-slide");
@@ -270,7 +261,6 @@
     const $alertDownload = $("#alert-downloading");
     const $btnOutputAll = $("#button-download-all");
     const $splash = $("#splash-screen");
-    // const $btnModalColPreset = $("#button-color-preset");
     const $colPresetList = $("#color-preset-list");
     const $btnModalConfigExport = $("#button-config-export");
     const $inputMultiplier = $("#export-multiplier");
@@ -287,7 +277,6 @@
     const $nameInput = $("#input-name");
     const $contInput = $("#input-content");
 
-    // const $comSbox = $a("#photo-script-box-area, #photo-script-box-area-revamped");
     const $comNameareas = $a("#photo-script-box-namearea, #photo-script-box-area-revamped .namearea")
     const $comNames = $a("#photo-script-box-area-revamped .namearea .name, #photo-script-box-area-revamped .namearea .outline, #photo-script-box-namebox span");
     const $comNameBgs = $a("#photo-script-box-area-revamped .namearea > div,#photo-script-box-name-backdrop");
@@ -1501,49 +1490,6 @@
             };
         };
     });
-    // $btnBottommost.onclick = () => {
-    //     moveToBottommost(current, objManager.selected);
-    //     refreshThumbnail(current, $photozone);
-    // };
-    // $btnBottom.onclick = () => {
-    //     moveToBottom(current, objManager.selected);
-    //     refreshThumbnail(current, $photozone);
-    // };
-    // $btnFront.onclick = () => {
-    //     moveToFront(current, objManager.selected);
-    //     refreshThumbnail(current, $photozone);
-    // };
-    // $btnFrontmost.onclick = () => {
-    //     moveToFrontmost(current, objManager.selected);
-    //     refreshThumbnail(current, $photozone);
-    // };
-    // $btnFlipHorizontal.onclick = () => {
-    //     flipHorizontal(current, objManager.selected);
-    //     refreshThumbnail(current, $photozone);
-    // };
-    // $btnFlipVertical.onclick = () => {
-    //     flipVertical(current, objManager.selected);
-    //     refreshThumbnail(current, $photozone);
-    // };
-    // $btnTglDarker.onclick = () => {
-    //     toggleObjectDarker(current, objManager.selected);
-    //     refreshThumbnail(current, $photozone);
-    // };
-    // $btnControllerReset.onclick = () => {
-    //     rescueObject(current, objManager.selected);
-    //     refreshThumbnail(current, $photozone);
-    //     // const rect = slide[current].assets.objects.find((x) => x.id === objManager.selected).rectOrigin;
-    //     // setImagePos(objManager.selected, rect.x, rect.y);
-    //     // setImageSize(objManager.selected, 0, 0, rect.width, rect.height);
-    //     // setControllerPos(rect.x, rect.y);
-    //     // setControllerSize(0, 0, rect.width, rect.height);
-    // };
-    // $btnControllerRemove.onclick = () => {
-    //     objManager.current[objManager.selected].lab.querySelector("button.remove").click();
-    // };
-    // $btnControllerUnselect.onclick = () => {
-    //     unselectItem();
-    // };
     $btnResetImage.onclick = () => {
         Object.values(objManager.current).forEach((x) => {
             x.lab.querySelector("button.remove").click();

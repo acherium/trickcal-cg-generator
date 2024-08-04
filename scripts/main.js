@@ -3,7 +3,7 @@
         name: "Project Pictor",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "24w31.20",
+        version: "24w31.21",
         date: "24-08-04",
         watermark: false,
         isBeta: false
@@ -1936,11 +1936,11 @@
     (async() => {
         const RACEDATA = await fetch("https://acherium.github.io/trickcal-chardata/trace-all.json").then((res) => res.ok ? res.json() : {});
         if (Object.values(RACEDATA).length === 0) new LyraNotification({ icon: "critical", text: "RACEDATA 파일을 불러오지 못했습니다." }).show();
-        const CHARDATA = await fetch("https://acherium.github.io/trickcal-chardata/tchar-race-min.json").then((res) => res.ok ? res.json() : {});
+        const CHARDATA = await fetch("https://acherium.github.io/trickcal-chardata/tchar-all-min.json").then((res) => res.ok ? res.json() : {});
         if (Object.values(CHARDATA).length === 0) new LyraNotification({ icon: "critical", text: "CHARDATA 파일을 불러오지 못했습니다." }).show();
-        const PALETTE_FROMREP = await Object.fromEntries(Object.values(RACEDATA).map((x) => [ x.id, { name: x.name.ko, char: Object.values(CHARDATA[x.id] || {}).map((y) => [ y.name.ko, y.data.color ]).filter((y) => y[1]) } ]));
+        const PALETTE = await Object.fromEntries(Object.values(RACEDATA).map((x) => [ x.id, { name: x.name.ko, char: Object.values(CHARDATA).filter((y) => y.data.race === x.id).map((y) => [ y.name.ko, y.data.color]).filter((y) => y[1])}]));
     
-        for (const _race of Object.values(PALETTE_FROMREP)) {
+        for (const _race of Object.values(PALETTE)) {
             const _$subdiv = new LyraElement("div", { class: [ "color-preset-subdiv" ] }).into($colPresetList);
             new LyraElement("p", { text: _race.name }).into(_$subdiv);
             for (const _char of _race.char) {

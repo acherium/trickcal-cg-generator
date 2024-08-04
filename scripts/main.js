@@ -3,7 +3,7 @@
         name: "Project Pictor",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "24w31.15",
+        version: "24w31.16",
         date: "24-08-04",
         watermark: false,
         isBeta: false
@@ -89,7 +89,7 @@
         name: null,
         type: null,
         id: null,
-        classes: [],
+        class: [],
         sort: null,
         assets: {
             body: null,
@@ -123,9 +123,10 @@
             visible: null,
             darker: null,
             sizeAdjustable: null
-        }
+        },
+        additionalMethod: null
     };
-    THUMBNAIL_QUEUE_INTERVAL = 3000;
+    const THUMBNAIL_QUEUE_INTERVAL = 3000;
     const BG_FIT_OPTIONS = [ "align-center", "fit-height", "fit-width", "fill" ];
     const SCRIPT_MARKDOWN = [
         [ /([\n\r]){1,2}/g, "<br>" ],
@@ -143,6 +144,16 @@
         [ /(&gt;&gt;p&gt;&gt;)/g, "<span class=\"tm-cp\">" ],
         [ /(\:\:\:)/g, "</span>" ]
     ];
+    const EMOTE_STICKERS = {
+        "angry": "화남",
+        "drop": "당황",
+        "embarrassed": "실망",
+        "good": "따봉",
+        "love": "좋음",
+        "question": "물음",
+        "sparkle": "번뜩",
+        "surprise": "놀람"
+    };
 
     const $ = (x) => document.querySelector(x);
     const $a = (x) => document.querySelectorAll(x);
@@ -249,10 +260,13 @@
     const $modalBgs = $a(".modal-area");
     const $objLayer = $("#photo-layer");
     const $btnAddImage = $("#button-add-image");
+    const $btnAddDialogue = $("#button-add-dialogue");
+    const $btnAddSticker = $("#button-add-sticker");
     const $objList = $("#image-item-list");
     const $controller = $("#photo-item-controller");
     const $controllerBar = $("#controller-bar");
     const $resizePoints = $a("#photo-item-controller > .resize-point");
+    const $btnControllerAddon = $("#button-controller-additional");
     const $btnTglDarker = $("#controller-toggle-darker");
     const $btnResetImage = $("#button-reset-image");
     const $slideList = $("#slide-list");
@@ -298,6 +312,7 @@
     const $selboxBgs = $a("#photo-select-revamped img");
     const $selboxThemeSel = $a("#select-theme");
     const $selboxThemeOps = $a("#select-theme option");
+    const $stickerSel = $("#select-sticker-style");
 
     const eventConn = [
         [
@@ -944,12 +959,13 @@
         res.uid = uid;
         for (const k in params) {
             if (k === "id") res.id = params[k];
-            else if (k === "classes") res.classes = params[k];
+            else if (k === "class") res.class = params[k];
         };
 
         if (t === "image") {
             if (typeof params.name === "undefined" || params.name.constructor !== String ||
                 typeof params.image === "undefined" || params.image.constructor !== HTMLImageElement) return null;
+            res.class.push("object-image");
             res.name = params.name;
             res.type = "image";
             res.sort = tslide.assets.objects.length;
@@ -968,11 +984,11 @@
             res.flags.darker = false;
             res.flags.sizeAdjustable = true;
 
-            res.assets.body = $create("img", { id: res.id || "", classes: res.classes });
-            res.assets.body.style["left"] = res.rectOrigin.x;
-            res.assets.body.style["top"] = res.rectOrigin.y;
-            res.assets.body.style["width"] = res.rect.width;
-            res.assets.body.style["height"] = res.rect.height;
+            res.assets.body = $create("img", { id: res.id || "", class: res.class });
+            res.assets.body.style["left"] = `${res.rectOrigin.x}px`;
+            res.assets.body.style["top"] = `${res.rectOrigin.y}px`;
+            res.assets.body.style["width"] = `${res.rect.width}px`;
+            res.assets.body.style["height"] = `${res.rect.height}px`;
             res.assets.body.src = res.assets.image;
             res.assets.body.addEventListener("click", () => selectItem(res.uid));
 
@@ -1000,6 +1016,75 @@
             $objList.append(res.assets.label);
         } else if (t === "dialogue") {
 
+        } else if (t === "sticker") {
+            res.class.push("object-sticker");
+            res.name = "Sticker object";
+            res.type = "sticker",
+            res.sort = tslide.assets.objects.length;
+            
+            res.assets.data.stickerStyle = null;
+            res.rectOrigin.x = 0;
+            res.rectOrigin.y = 0;
+            res.rectOrigin.width = 100;
+            res.rectOrigin.height = 100;
+            res.rectOrigin.rotate = 0;
+            res.rectOrigin.flip.horizontal = false;
+            res.rectOrigin.flip.vertical = false;
+            res.rect = JSON.parse(JSON.stringify(res.rectOrigin));
+            res.flags.visible = true;
+            res.flags.darker = false;
+            res.flags.sizeAdjustable = false;
+
+            res.assets.body = $create("div", {
+                id: res.id || "",
+                class: res.class,
+                html: Object.keys(EMOTE_STICKERS).map((x) => `<img src="./assets/images/emote-${x}.svg" class="${x}">`).join("")
+            });
+            res.assets.body.style["left"] = `${res.rectOrigin.x}px`;
+            res.assets.body.style["top"] = `${res.rectOrigin.y}px`;
+            res.assets.body.style["width"] = `${res.rect.width}px`;
+            res.assets.body.style["height"] = `${res.rect.height}px`;
+            res.assets.body.addEventListener("click", () => selectItem(res.uid));
+            res.assets.data.stickerNodes = res.assets.body.querySelectorAll("img");
+
+            res.additionalMethod = () => {
+                const tmodal = __manager.modal.reserve["modal-sticker-quick"];
+                const $tmtitle = tmodal.$title.$.querySelector("h1");
+                $tmtitle.innerText = `#${res.uid}: ${res.name}@${sid}`;
+                Array.from($stickerSel.querySelectorAll("option")).find(($n) => $n.value === res.assets.data.stickerStyle).selected = true;
+                $stickerSel.onchange = (c) => res.applySticker(c.target.value);
+                tmodal.show();
+            };
+
+            res.doRefresh = () => {
+                res.assets.body.style["transform"] = `translate(${res.rect.x}px, ${res.rect.y}px) ` +
+                    `rotate(${res.rect.rotate}deg) ` +
+                    `scale(${res.rect.flip.horizontal ? -1 : 1}, ${res.rect.flip.vertical ? -1 : 1})`;
+            };
+            res.applySticker = (s) => {
+                if (!Object.keys(EMOTE_STICKERS).includes(s)) return;
+                res.assets.data.stickerStyle = s;
+                for (const $n of Array.from(res.assets.data.stickerNodes).filter((x) => !x.classList.contains(s))) $n.style["display"] = "none";
+                Array.from(res.assets.data.stickerNodes).find((x) => x.classList.contains(s)).style["display"] = "block";
+            };
+            res.doRefresh();
+            res.applySticker(Object.keys(EMOTE_STICKERS)[0]);
+            
+            res.assets.label = $create("div", {
+                class: [ "image-item" ],
+                html: `<div class="thumb"><img></div>` +
+                    `<p>#${res.uid}: ${res.name}</p>` +
+                    `<button class="remove"><div class="i i-trash"></div></button>`
+            });
+            res.assets.label.addEventListener("click", (e) => {
+                if (e.target === res.assets.label && objManager.selected !== res.uid) selectItem(res.uid);
+                else unselectItem();
+            });
+            res.assets.label.querySelector("button.remove").addEventListener("click", () => removeObject(sid, uid));
+
+            tslide.assets.objects.push(res);
+            $objLayer.append(res.assets.body);
+            $objList.append(res.assets.label);
         };
         return res;
     };
@@ -1035,6 +1120,13 @@
         for (const _$item of $controllerBar.querySelectorAll("button, input")) _$item.removeAttribute("disabled");
         if (item.flags.darker) $btnTglDarker.classList.add("controller-active");
         else $btnTglDarker.classList.remove("controller-active");
+        if (item.additionalMethod) {
+            $btnControllerAddon.style["display"] = "flex";
+            $btnControllerAddon.onclick = item.additionalMethod;
+        } else {
+            $btnControllerAddon.style["display"] = "none";
+            $btnControllerAddon.onclick = null;
+        };
     };
     const unselectItem = () => {
         objManager.selected = null;
@@ -1042,6 +1134,8 @@
         for (const _$item of $controllerBar.querySelectorAll("button, input")) _$item.setAttribute("disabled", "true");
         Array.from($a(".active-image-item")).forEach(($n) => $n.classList.remove("active-image-item"));
         $btnTglDarker.classList.remove("controller-active");
+        $btnControllerAddon.style["display"] = "none";
+        $btnControllerAddon.onclick = null;
     };
     const addImagePos = (i, x, y) => {
         const item = slide[current].assets.objects.find((x) => x.uid === objManager.selected);
@@ -1234,13 +1328,9 @@
     };
     setShowName(show.name);
 
-    for (const $radio of $tglType) {
-        $radio.onclick = () => setType(parseInt($radio.value));
-    };
-
-    for (const i in Array.from($sboxAreas)) {
-        $sboxThemeSel.append($create("option", { value: `${i}`, text: $sboxAreas[i].dataset.themeName }));
-    };
+    for (const $radio of $tglType) $radio.onclick = () => setType(parseInt($radio.value));
+    for (const i in Array.from($sboxAreas)) $sboxThemeSel.append($create("option", { value: `${i}`, text: $sboxAreas[i].dataset.themeName }));
+    for (const key in EMOTE_STICKERS) $stickerSel.append($create("option", { value: key, text: EMOTE_STICKERS[key] }));
 
     document.addEventListener("keydown", (k) => {
         if (!Number.isNaN(parseInt(objManager.selected)) && k.shiftKey && k.keyCode === 82) {
@@ -1694,6 +1784,10 @@
             });
         };
         $uploader.click();
+    };
+    $btnAddSticker.onclick = () => {
+        addObject(current, "sticker");
+        refreshThumbnail(current, $photozone);
     };
 
     $btnPhotoRemove.click();

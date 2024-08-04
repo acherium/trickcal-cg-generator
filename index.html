@@ -93,7 +93,7 @@
     <div id="top">
         <div id="logo-area">
             <img id="logo" src="./assets/essentials/logo.svg">
-            <!-- <h2 id="logotype" class="m-hide">트릭컬 스토리 대화창 생성기</h1> -->
+            <h2 id="logotype" class="m-hide">트릭컬 스토리 대화창 생성기</h1>
             <!-- <span id="ver"></span> -->
         </div>
         <button id="button-search">
@@ -382,6 +382,9 @@
                             <div id="resize-point-5" class="resize-point"></div>
                             <div id="resize-point-6" class="resize-point"></div>
                             <div id="resize-point-7" class="resize-point"></div>
+                            <button id="button-controller-additional">
+                                <div class="i i-config"></div>
+                            </button>
                         </div>
                     </div>
                     <div id="deadline"></div>
@@ -488,16 +491,24 @@
                 </button>
                 <div class="partition-horizontal"></div>
                 <h4>개체</h4>
-                <div class="flexlist-horizontal wf">
-                    <button id="button-add-image" class="wfix hfix">
-                        <div class="i i-plus"></div>
-                        <p>사진</p>
-                    </button>
-                    <button id="button-reset-image" class="wf fjcc">
-                        <div class="i i-trash"></div>
-                        <p>전체 삭제</p>
-                    </button>
-                </div>
+                <!-- <div class="flexlist-horizontal wf">
+                </div> -->
+                <button id="button-add-image" class="wf fjcc">
+                    <div class="i i-plus"></div>
+                    <p>사진</p>
+                </button>
+                <button id="button-add-dialogue" class="wf fjcc">
+                    <div class="i i-plus"></div>
+                    <p>대화상자</p>
+                </button>
+                <button id="button-add-sticker" class="wf fjcc">
+                    <div class="i i-plus"></div>
+                    <p>스티커</p>
+                </button>
+                <button id="button-reset-image" class="wf fjcc">
+                    <div class="i i-trash"></div>
+                    <p>전체 삭제</p>
+                </button>
                 <div id="image-item-list">
                 </div>
             </div>
@@ -524,6 +535,24 @@
             </div>
             <div class="controller">
                 <button class="close"></button>
+                <button class="close"></button>
+            </div>
+        </div>
+    </div>
+    <div id="modal-sticker-quick" class="modal">
+        <div class="bg bg-none"></div>
+        <div class="body">
+            <div class="title">
+                <div class="icon il i-config"></div>
+                <h1>스티커 옵션</h1>
+            </div>
+            <div class="content">
+                <div class="flexlist-horizontal wf">
+                    <p>스티커</p>
+                    <select id="select-sticker-style" class="f1"></select>
+                </div>
+            </div>
+            <div class="controller">
                 <button class="close"></button>
             </div>
         </div>

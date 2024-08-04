@@ -1193,6 +1193,15 @@ span.tm-b {
     pointer-events: all;
 }
 
+#button-controller-additional {
+    position: absolute;
+    left: 0;
+    bottom: -50px;
+
+    width: 44px;
+    height: 44px;
+}
+
 .resize-point {
     position: absolute;
 
@@ -1330,6 +1339,16 @@ span.tm-b {
 }
 .image-item-darker {
     filter: brightness(0.3);
+}
+
+.object-sticker {
+    position: relative;
+}
+.object-sticker > img {
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
 }
 
 .active-image-item::before {

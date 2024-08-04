@@ -3,7 +3,7 @@
         name: "Project Pictor",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "24w31.19",
+        version: "24w31.20",
         date: "24-08-04",
         watermark: false,
         isBeta: false
@@ -1069,7 +1069,7 @@
 
             res.assets.label = $create("div", {
                 class: [ "image-item" ],
-                html: `<div class="thumb"><img src=""></div>` +
+                html: `<div class="thumb"><img src="./assets/images/thumbnail-dialogue.svg"></div>` +
                     `<p>#${res.uid}: ${res.name}</p>` +
                     `<button class="remove"><div class="i i-trash"></div></button>`
             });
@@ -1138,7 +1138,7 @@
             
             res.assets.label = $create("div", {
                 class: [ "image-item" ],
-                html: `<div class="thumb"><img></div>` +
+                html: `<div class="thumb"><img src="./assets/images/thumbnail-sticker.svg"></div>` +
                     `<p>#${res.uid}: ${res.name}</p>` +
                     `<button class="remove"><div class="i i-trash"></div></button>`
             });

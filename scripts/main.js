@@ -3,7 +3,7 @@
         name: "Project Pictor",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "24w31.21",
+        version: "24w31.22",
         date: "24-08-04",
         watermark: false,
         isBeta: false
@@ -1465,7 +1465,7 @@
         };
         $controller.onpointerup = () => {
             if (flag) unselectItem();
-            $controller.releasePointerCapture(p.pointerId);
+            if ($controller.hasPointerCapture(p.pointerId)) $controller.releasePointerCapture(p.pointerId);
             refreshThumbnail(current, $photozone);
             $controller.onpointermove = null;
             $controller.onpointerup = null;

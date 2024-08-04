@@ -3,7 +3,7 @@
         name: "Project Pictor",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "24w31.16",
+        version: "24w31.17",
         date: "24-08-04",
         watermark: false,
         isBeta: false
@@ -290,6 +290,7 @@
 
     const $nameInput = $("#input-name");
     const $contInput = $("#input-content");
+    const $dialogueInput = $("#input-dialogue-content");
 
     const $comNameareas = $a("#photo-script-box-namearea, #photo-script-box-area-revamped .namearea")
     const $comNames = $a("#photo-script-box-area-revamped .namearea .name, #photo-script-box-area-revamped .namearea .outline, #photo-script-box-namebox span");
@@ -1015,7 +1016,72 @@
             $objLayer.append(res.assets.body);
             $objList.append(res.assets.label);
         } else if (t === "dialogue") {
+            res.class.push("object-dialogue");
+            res.name = "Dialogue object";
+            res.type = "dialogue";
+            res.sort = tslide.assets.objects.length;
 
+            res.assets.data.content = "Hello, world!";
+            res.rectOrigin.x = 0;
+            res.rectOrigin.y = 0;
+            res.rectOrigin.width = 200;
+            res.rectOrigin.height = 200;
+            res.rectOrigin.rotate = -3;
+            res.rectOrigin.flip.horizontal = false;
+            res.rectOrigin.flip.vertical = false;
+            res.rect = JSON.parse(JSON.stringify(res.rectOrigin));
+            res.flags.visible = true;
+            res.flags.darker = false;
+            res.flags.sizeAdjustable = false;
+            
+            res.assets.body = $create("div", {
+                id: res.id || "",
+                class: res.class,
+                html: "<p></p>"
+            });
+            res.assets.body.style["left"] = `${res.rectOrigin.x}px`;
+            res.assets.body.style["top"] = `${res.rectOrigin.y}px`;
+            res.assets.body.style["width"] = `${res.rect.width}px`;
+            res.assets.body.style["height"] = `${res.rect.height}px`;
+            res.assets.body.src = res.assets.image;
+            res.assets.body.addEventListener("click", () => selectItem(res.uid));
+
+            res.additionalMethod = () => {
+                const tmodal = __manager.modal.reserve["modal-dialogue-quick"];
+                const $tmtitle = tmodal.$title.$.querySelector("h1");
+                $tmtitle.innerText = `#${res.uid}: ${res.name}@${sid}`;
+                $dialogueInput.value = res.assets.data.content;
+                $dialogueInput.oninput = (e) => res.applyContent(e.target.value);
+                tmodal.show();
+            };
+
+            res.doRefresh = () => {
+                res.assets.body.style["transform"] = `translate(${res.rect.x}px, ${res.rect.y}px) ` +
+                    `rotate(${res.rect.rotate}deg) ` +
+                    `scale(${res.rect.flip.horizontal ? -1 : 1}, ${res.rect.flip.vertical ? -1 : 1})`;
+            };
+            res.applyContent = (s) => {
+                res.assets.data.content = s;
+                res.assets.body.querySelector("p").innerText = s;
+            };
+            res.doRefresh();
+            res.applyContent(res.assets.data.content);
+
+            res.assets.label = $create("div", {
+                class: [ "image-item" ],
+                html: `<div class="thumb"><img src=""></div>` +
+                    `<p>#${res.uid}: ${res.name}</p>` +
+                    `<button class="remove"><div class="i i-trash"></div></button>`
+            });
+            res.assets.label.addEventListener("click", (e) => {
+                if (e.target === res.assets.label && objManager.selected !== res.uid) selectItem(res.uid);
+                else unselectItem();
+            });
+            res.assets.label.querySelector("button.remove").addEventListener("click", () => removeObject(sid, uid));
+
+            tslide.assets.objects.push(res);
+            $objLayer.append(res.assets.body);
+            $objList.append(res.assets.label);
         } else if (t === "sticker") {
             res.class.push("object-sticker");
             res.name = "Sticker object";
@@ -1581,9 +1647,7 @@
         };
     });
     $btnResetImage.onclick = () => {
-        Object.values(objManager.current).forEach((x) => {
-            x.lab.querySelector("button.remove").click();
-        });
+        for (const obj of slide[current].assets.objects) removeObject(current, obj.uid);
         refreshThumbnail(current, $photozone);
     };
 
@@ -1784,6 +1848,10 @@
             });
         };
         $uploader.click();
+    };
+    $btnAddDialogue.onclick = () => {
+        addObject(current, "dialogue");
+        refreshThumbnail(current, $photozone);
     };
     $btnAddSticker.onclick = () => {
         addObject(current, "sticker");

@@ -1140,6 +1140,7 @@ span.tm-b {
 
     width: 100%;
     
+    color: var(--c-trickcal-font);
     font-size: 14pt;
     text-align: center;
 }
@@ -1165,6 +1166,7 @@ span.tm-b {
 
     width: 100%;
     
+    color: var(--c-trickcal-font);
     font-size: 14pt;
     text-align: center;
 }

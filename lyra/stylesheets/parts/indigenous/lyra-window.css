@@ -1,0 +1,20 @@
+@charset "UTF-8";
+#lyra-window-area {
+  position: fixed;
+  left: 0;
+  top: 0;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  z-index: 101;
+
+  width: 100vw;
+  height: 100vh;
+
+  pointer-events: none;
+}
+#lyra-window-area {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}

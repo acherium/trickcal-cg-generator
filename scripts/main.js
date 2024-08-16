@@ -1,10 +1,12 @@
+import { COMMON_INTERVAL, ANIMATION_INTERVAL, $, $a, create, append, LyraButton, LyraModal, LyraModalManager, LyraNotification, LyraNotificationManager } from "../lyra/lyra-module.js";
+
 (() => {
     const app = {
         name: "Project Pictor",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "24w33.1",
-        date: "24-08-16",
+        version: "24w33.2",
+        date: "24-08-17",
         watermark: false,
         isBeta: false
     };
@@ -154,9 +156,6 @@
         "sparkle": "번뜩",
         "surprise": "놀람"
     };
-
-    const $ = (x) => document.querySelector(x);
-    const $a = (x) => document.querySelectorAll(x);
 
     let show = {
         version: 6,
@@ -318,17 +317,17 @@
     const eventConn = [
         [
             "click", $sbox,
-            () => __manager.modal.reserve["modal-content"].show()
+            () => modalman.reserve["modal-content"].show()
         ],
         [
             "click", $("#button-color-preset"),
-            () => __manager.modal.reserve["modal-color-preset"].show()
+            () => modalman.reserve["modal-color-preset"].show()
         ],
         [
             "keydown", $nameInput,
             (k) => {
                 if (k.ctrlKey && k.keyCode === 13 || k.keyCode === 27) {
-                    __manager.modal.reserve["modal-content"].close();
+                    modalman.reserve["modal-content"].close();
                 }
             }
         ],
@@ -342,13 +341,13 @@
         ],
         [
             "click", $("#button-markdown-help"),
-            () => __manager.modal.reserve["modal-markdown"].show()
+            () => modalman.reserve["modal-markdown"].show()
         ],
         [
             "keydown", $contInput,
             (k) => {
                 if (k.ctrlKey && k.keyCode === 13 || k.keyCode === 27) {
-                    __manager.modal.reserve["modal-content"].close();
+                    modalman.reserve["modal-content"].close();
                 }
             }
         ],
@@ -700,7 +699,7 @@
                                 icon: "config",
                                 text: "설정으로 이동",
                                 onclick: () => {
-                                    __manager.modal.reserve["modal-config-bg"].show();
+                                    modalman.reserve["modal-config-bg"].show();
                                     setTimeout(() => {
                                         $selectBgFit.focus();
                                     });
@@ -724,7 +723,7 @@
                                 icon: "config",
                                 text: "설정으로 이동",
                                 onclick: () => {
-                                    __manager.modal.reserve["modal-config-bg"].show();
+                                    modalman.reserve["modal-config-bg"].show();
                                     setTimeout(() => {
                                         $selectBgFit.focus();
                                     });
@@ -833,7 +832,7 @@
                 const $thumb = $(`#slide-item-${i} div.thumb > img`);
                 $thumb.src = src;
             });
-        }, __lyra.env["INTERVAL"]);
+        }, COMMON_INTERVAL);
     };
     const setAreaPos = (x, y) => {
         areaRect.x = x;
@@ -985,7 +984,7 @@
             res.flags.darker = false;
             res.flags.sizeAdjustable = true;
 
-            res.assets.body = $create("img", { id: res.id || "", class: res.class });
+            res.assets.body = create("img", { id: res.id || "", classes: res.class });
             res.assets.body.style["left"] = `${res.rectOrigin.x}px`;
             res.assets.body.style["top"] = `${res.rectOrigin.y}px`;
             res.assets.body.style["width"] = `${res.rect.width}px`;
@@ -1000,11 +999,13 @@
             };
             res.doRefresh();
 
-            res.assets.label = $create("div", {
-                class: [ "image-item" ],
-                html: `<div class="thumb"><img src="${res.assets.image}"></div>` +
-                    `<p>#${res.uid}: ${res.name}</p>` +
-                    `<button class="remove"><div class="i i-trash"></div></button>`
+            res.assets.label = create("div", {
+                classes: [ "image-item" ],
+                properties: {
+                    innerHTML: `<div class="thumb"><img src="${res.assets.image}"></div>` +
+                        `<p>#${res.uid}: ${res.name}</p>` +
+                        `<button class="remove"><div class="i i-trash"></div></button>`
+                }
             });
             res.assets.label.addEventListener("click", (e) => {
                 if (e.target === res.assets.label && objManager.selected !== res.uid) selectItem(res.uid);
@@ -1034,10 +1035,12 @@
             res.flags.darker = false;
             res.flags.sizeAdjustable = false;
             
-            res.assets.body = $create("div", {
+            res.assets.body = create("div", {
                 id: res.id || "",
-                class: res.class,
-                html: "<p></p>"
+                classes: res.class,
+                properties: {
+                    innerHTML: "<p></p>"
+                }
             });
             res.assets.body.style["left"] = `${res.rectOrigin.x}px`;
             res.assets.body.style["top"] = `${res.rectOrigin.y}px`;
@@ -1047,7 +1050,7 @@
             res.assets.body.addEventListener("click", () => selectItem(res.uid));
 
             res.additionalMethod = () => {
-                const tmodal = __manager.modal.reserve["modal-dialogue-quick"];
+                const tmodal = modalman.reserve["modal-dialogue-quick"];
                 const $tmtitle = tmodal.$title.$.querySelector("h1");
                 $tmtitle.innerText = `#${res.uid}: ${res.name}@${sid}`;
                 $dialogueInput.value = res.assets.data.content;
@@ -1067,11 +1070,13 @@
             res.doRefresh();
             res.applyContent(res.assets.data.content);
 
-            res.assets.label = $create("div", {
-                class: [ "image-item" ],
-                html: `<div class="thumb"><img src="./assets/images/thumbnail-dialogue.svg"></div>` +
-                    `<p>#${res.uid}: ${res.name}</p>` +
-                    `<button class="remove"><div class="i i-trash"></div></button>`
+            res.assets.label = create("div", {
+                classes: [ "image-item" ],
+                properties: {
+                    innerHTML: `<div class="thumb"><img src="./assets/images/thumbnail-dialogue.svg"></div>` +
+                        `<p>#${res.uid}: ${res.name}</p>` +
+                        `<button class="remove"><div class="i i-trash"></div></button>`
+                }
             });
             res.assets.label.addEventListener("click", (e) => {
                 if (e.target === res.assets.label && objManager.selected !== res.uid) selectItem(res.uid);
@@ -1101,10 +1106,12 @@
             res.flags.darker = false;
             res.flags.sizeAdjustable = false;
 
-            res.assets.body = $create("div", {
+            res.assets.body = create("div", {
                 id: res.id || "",
-                class: res.class,
-                html: Object.keys(EMOTE_STICKERS).map((x) => `<img src="./assets/images/emote-${x}.svg" class="${x}">`).join("")
+                classes: res.class,
+                properties: {
+                    innerHTML: Object.keys(EMOTE_STICKERS).map((x) => `<img src="./assets/images/emote-${x}.svg" class="${x}">`).join("")
+                }
             });
             res.assets.body.style["left"] = `${res.rectOrigin.x}px`;
             res.assets.body.style["top"] = `${res.rectOrigin.y}px`;
@@ -1114,7 +1121,7 @@
             res.assets.data.stickerNodes = res.assets.body.querySelectorAll("img");
 
             res.additionalMethod = () => {
-                const tmodal = __manager.modal.reserve["modal-sticker-quick"];
+                const tmodal = modalman.reserve["modal-sticker-quick"];
                 const $tmtitle = tmodal.$title.$.querySelector("h1");
                 $tmtitle.innerText = `#${res.uid}: ${res.name}@${sid}`;
                 Array.from($stickerSel.querySelectorAll("option")).find(($n) => $n.value === res.assets.data.stickerStyle).selected = true;
@@ -1136,11 +1143,13 @@
             res.doRefresh();
             res.applySticker(Object.keys(EMOTE_STICKERS)[0]);
             
-            res.assets.label = $create("div", {
-                class: [ "image-item" ],
-                html: `<div class="thumb"><img src="./assets/images/thumbnail-sticker.svg"></div>` +
-                    `<p>#${res.uid}: ${res.name}</p>` +
-                    `<button class="remove"><div class="i i-trash"></div></button>`
+            res.assets.label = create("div", {
+                classes: [ "image-item" ],
+                properties: {
+                    innerHTML: `<div class="thumb"><img src="./assets/images/thumbnail-sticker.svg"></div>` +
+                        `<p>#${res.uid}: ${res.name}</p>` +
+                        `<button class="remove"><div class="i i-trash"></div></button>`
+                }
             });
             res.assets.label.addEventListener("click", (e) => {
                 if (e.target === res.assets.label && objManager.selected !== res.uid) selectItem(res.uid);
@@ -1362,11 +1371,13 @@
             new LyraModal({
                 icon: "export",
                 title: "덮어쓰기 경고",
-                content: $create("p", {
-                    html: `이미 저장된 문서가 있습니다.<br><br>` +
-                        `<b>제목: ${oldShowData.name}<br>` +
-                        `마지막 수정: ${new Intl.DateTimeFormat("kr", { dateStyle: "full", timeStyle: "full" }).format(oldShowData.lastUpdate)}</b><br><br>` +
-                        `이 문서의 내용을 무시하고 현재 내용을 덮어쓰시겠습니까? 이전 내용이 삭제됩니다.`
+                content: create("p", {
+                    properties: {
+                        innerHTML: `이미 저장된 문서가 있습니다.<br><br>` +
+                            `<b>제목: ${oldShowData.name}<br>` +
+                            `마지막 수정: ${new Intl.DateTimeFormat("kr", { dateStyle: "full", timeStyle: "full" }).format(oldShowData.lastUpdate)}</b><br><br>` +
+                            `이 문서의 내용을 무시하고 현재 내용을 덮어쓰시겠습니까? 이전 내용이 삭제됩니다.`
+                    }
                 }),
                 buttons: [
                     new LyraButton({
@@ -1395,8 +1406,8 @@
     setShowName(show.name);
 
     for (const $radio of $tglType) $radio.onclick = () => setType(parseInt($radio.value));
-    for (const i in Array.from($sboxAreas)) $sboxThemeSel.append($create("option", { value: `${i}`, text: $sboxAreas[i].dataset.themeName }));
-    for (const key in EMOTE_STICKERS) $stickerSel.append($create("option", { value: key, text: EMOTE_STICKERS[key] }));
+    for (const i in Array.from($sboxAreas)) $sboxThemeSel.append(create("option", { properties: { value: `${i}`, innerText: $sboxAreas[i].dataset.themeName } }));
+    for (const key in EMOTE_STICKERS) $stickerSel.append(create("option", { properties: { value: key, innerText: EMOTE_STICKERS[key] } }));
 
     document.addEventListener("keydown", (k) => {
         if (!Number.isNaN(parseInt(objManager.selected)) && k.shiftKey && k.keyCode === 82) {
@@ -1657,10 +1668,10 @@
     };
 
     $contentArea.onclick = () => {
-        __manager.modal.reserve["modal-content"].show();
+        modalman.reserve["modal-content"].show();
     };
     $btnContent.onclick = () => {
-        __manager.modal.reserve["modal-content"].show();
+        modalman.reserve["modal-content"].show();
     };
     for (const _$r of Array.from($rblScriptBoxPos)) {
         _$r.onclick = () => {
@@ -1757,7 +1768,7 @@
     };
 
     $btnModalSlideSize.onclick = () => {
-        __manager.modal.reserve["modal-slide-size"].show();
+        modalman.reserve["modal-slide-size"].show();
     };
     Array.from($btnSlideSize).forEach(($n) => {
         $n.onclick = () => {
@@ -1788,13 +1799,13 @@
             setAreaWidth(width);
             setAreaHeight(Math.floor(width * ratio));
             setBackgroundFit("fill");
-            __manager.modal.reserve["modal-slide-size"].close();
+            modalman.reserve["modal-slide-size"].close();
             refreshThumbnail(current, $photozone);
         };
     };
 
     $btnSelbox.onclick = () => {
-        __manager.modal.reserve["modal-select"].show();
+        modalman.reserve["modal-select"].show();
     };
     Array.from($inputSelboxOption).forEach(($n, i) => {
         const $t = [ $selboxOps[0][i], $selboxOps[1][i] ];
@@ -1813,7 +1824,7 @@
             refreshThumbnail(current, $photozone);
         };
         $n.onkeydown = (k) => {
-            if (k.keyCode === 13 && k.ctrlKey || k.keyCode === 27) __manager.modal.reserve["modal-select"].close();
+            if (k.keyCode === 13 && k.ctrlKey || k.keyCode === 27) modalman.reserve["modal-select"].close();
         };
     });
     $chkSelbox.onchange = (c) => {
@@ -1919,7 +1930,7 @@
     };
 
     $btnConfigBg.onclick = () => {
-        __manager.modal.reserve["modal-config-bg"].show();
+        modalman.reserve["modal-config-bg"].show();
     };
     $selectBgFit.onchange = (c) => {
         setBackgroundFit(c.target.value);
@@ -1927,11 +1938,11 @@
     };
 
     $btnConfigIndi.onclick = () => {
-        __manager.modal.reserve["modal-config-indicators"].show();
+        modalman.reserve["modal-config-indicators"].show();
     };
 
     // $btnModalColPreset.onclick = () => {
-    //     __manager.modal.reserve["modal-color-preset"].show();
+    //     modalman.reserve["modal-color-preset"].show();
     // };
     (async() => {
         const RACEDATA = await fetch("https://acherium.github.io/trickcal-chardata/trace-all.json").then((res) => res.ok ? res.json() : {});
@@ -1941,25 +1952,27 @@
         const PALETTE = await Object.fromEntries(Object.values(RACEDATA).map((x) => [ x.id, { name: x.name.ko, char: Object.values(CHARDATA).filter((y) => y.data.race === x.id).map((y) => [ y.name.ko, y.data.color]).filter((y) => y[1])}]));
     
         for (const _race of Object.values(PALETTE)) {
-            const _$subdiv = new LyraElement("div", { class: [ "color-preset-subdiv" ] }).into($colPresetList);
-            new LyraElement("p", { text: _race.name }).into(_$subdiv);
+            const _$subdiv = append(create("div", { classes: [ "color-preset-subdiv" ] }), $colPresetList);
+            append(create("p", { properties: { innerText: _race.name} }), _$subdiv);
             for (const _char of _race.char) {
-                const _$item = new LyraElement("div", {
-                    class: [ "color-preset-item" ],
-                    style: `border-color: #${_char[1]}`,
-                    html: `${_char[0]}<br><span>#${_char[1]}</span>`
-                }).into(_$subdiv);
-                _$item.$.onclick = () => {
+                const _$item = append(create("div", {
+                    classes: [ "color-preset-item" ],
+                    properties: {
+                        style: `border-color: #${_char[1]}`,
+                        innerHTML: `${_char[0]}<br><span>#${_char[1]}</span>`
+                    }
+                }), _$subdiv);
+                _$item.onclick = () => {
                     setNameColor(_char[1]);
                     if ($chkAutoName.checked) setName(_char[0]);
-                    __manager.modal.reserve["modal-color-preset"].close();
+                    modalman.reserve["modal-color-preset"].close();
                 };
             };
         };
     })();
 
     $btnModalConfigExport.onclick = () => {
-        __manager.modal.reserve["modal-config-export"].show();
+        modalman.reserve["modal-config-export"].show();
     };
     $inputMultiplier.onchange = (c) => {
         const _i = Number(c.target.value);
@@ -1989,7 +2002,7 @@
             };
         };
         $n.ontouchstart = (t) => {
-            __manager.modal.reserve["modal-config-bg"].$content.style["overflow"] = "hidden";
+            modalman.reserve["modal-config-bg"].$content.style["overflow"] = "hidden";
             const $dragarea = t.target.parentNode;
             const dragareaRect = $dragarea.getBoundingClientRect();
             $n.ontouchmove = (m) => {
@@ -2000,7 +2013,7 @@
                 setBackgroundColor(Object.fromEntries(rgb.map((x, j) => x = [ [ "r", "g", "b" ][j], x ])));
             };
             $n.ontouchend = () => {
-                __manager.modal.reserve["modal-config-bg"].$content.style["overflow"] = "hidden";
+                modalman.reserve["modal-config-bg"].$content.style["overflow"] = "hidden";
                 $n.ontouchmove = null;
                 $n.ontouchend = null;
                 refreshThumbnail(current, $photozone);
@@ -2036,7 +2049,7 @@
             };
         };
         $n.ontouchstart = (t) => {
-            __manager.modal.reserve["modal-content"].$content.style["overflow"] = "hidden";
+            modalman.reserve["modal-content"].$content.style["overflow"] = "hidden";
             const $dragarea = t.target.parentNode;
             const dragareaRect = $dragarea.getBoundingClientRect();
             $n.ontouchmove = (m) => {
@@ -2047,7 +2060,7 @@
                 setNameColorRGB(Object.fromEntries(rgb.map((x, j) => x = [ [ "r", "g", "b" ][j], x ])));
             };
             $n.ontouchend = () => {
-                __manager.modal.reserve["modal-content"].$content.style["overflow"] = "scroll";
+                modalman.reserve["modal-content"].$content.style["overflow"] = "scroll";
                 $n.ontouchmove = null;
                 $n.ontouchend = null;
                 refreshThumbnail(current, $photozone);
@@ -2064,13 +2077,13 @@
         };
     });
 
-    $ver.innerText = `${app.name}\nVersion ${app.version}@${app.date}\n\nPowered by ${__lyra.meta.name}\nBuild ${__lyra.meta.version}@${__lyra.meta.date}`;
+    $ver.innerText = `${app.name}\nVersion ${app.version}@${app.date}\n\nPowered by Lyra Engine`;
     $logo.onclick = () => {
-        __manager.modal.reserve["modal-about"].show();
+        modalman.reserve["modal-about"].show();
     };
 
     $btnSearch.onclick = () => {
-        __manager.modal.reserve["modal-search"].show();
+        modalman.reserve["modal-search"].show();
     };
 
     for (const x of eventConn) {
@@ -2085,6 +2098,11 @@
         $splash.classList.add("splash-out");
         setTimeout(() => {
             $splash.remove();
-        }, 1000 + __lyra.env["ANIMATION-INTERVAL"]);
-    }, 1000 + __lyra.env["ANIMATION-INTERVAL"]);
+        }, 1000 + ANIMATION_INTERVAL);
+    }, 1000 + ANIMATION_INTERVAL);
+
+
+    const modalman = new LyraModalManager();
+    const notiman = new LyraNotificationManager();
+
 })();

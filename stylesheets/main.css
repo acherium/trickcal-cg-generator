@@ -24,6 +24,11 @@
         --c-sub: rgb(24, 23, 24);
     }
 }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
 .force-hide {
     display: none !important;
@@ -289,19 +294,6 @@ main {
 }
 .button-list > *:not(:last-child) {
     margin-right: 10px;
-}
-
-.partition-vertical {
-    width: 1px;
-    height: 100%;
-
-    background-color: var(--c-border);
-}
-.partition-horizontal {
-    width: 100%;
-    height: 1px;
-
-    background-color: var(--c-border);
 }
 
 .view {

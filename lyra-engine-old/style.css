@@ -1,0 +1,888 @@
+@charset "UTF-8";
+@import url("./icons.css");
+@import url("./assets/fonts/pretendardvariable-gov/pretendardvariable-gov.css");
+:root {
+    --c-lyra: oklch(59% 0.3 309);
+    --c-white: oklch(100% 0 0);
+    --c-n9: oklch(90% 0 0);
+    --c-n8: oklch(80% 0 0);
+    --c-n7: oklch(70% 0 0);
+    --c-n6: oklch(60% 0 0);
+    --c-n5: oklch(50% 0 0);
+    --c-n4: oklch(40% 0 0);
+    --c-n3: oklch(30% 0 0);
+    --c-n2: oklch(20% 0 0);
+    --c-n1: oklch(10% 0 0);
+    --c-black: oklch(0% 0 0);
+    --c-blue: oklch(60% 0.11 245);
+    --c-main: var(--c-white);
+    --c-font: var(--c-black);
+    --c-button: oklch(94% 0.01 317);
+    --c-button-cover: var(--c-black);
+    --c-button-cover-disabled: oklch(100% 0 0 / 0.5);
+    --c-checkbox-border: var(--c-n7);
+    --c-shadow: oklch(0% 0 0 / 0.5);
+    --c-modal-bg: oklch(0% 0 0 / 0.5);
+    --c-notification-bg: oklch(100% 0 0 / 0.9);
+
+    --r-tiny: 2px;
+    --r-small: 4px;
+    --r-medium: 8px;
+    --r-large: 20px;
+    --r: var(--r-small);
+
+    --p-tiny: 2px;
+    --p-small: 4px;
+    --p-medium: 8px;
+    --p-large: 12px;
+    --p-modal: 24px;
+    --p: var(--p-medium);
+    
+    --m-tiny: 2px;
+    --m-small: 4px;
+    --m-medium: 8px;
+    --m-large: 12px;
+    --m: var(--m-small);
+
+    --t-transition: 0.05s;
+
+    --af-sweep-in: cubic-bezier(.19, .67, .55, .93);
+    --af-sweep-out: cubic-bezier(.7, .11, .81, .71);
+}
+@media (prefers-color-scheme: dark) {
+    :root {
+        --c-main: var(--c-black);
+        --c-font: var(--c-white);
+        --c-button: oklch(20% 0 325);
+        --c-button-cover: var(--c-white);
+        --c-button-cover-disabled: oklch(0% 0 0 / 0.5);
+        --c-checkbox-border: var(--c-n5);
+        --c-shadow: oklch(50% 0 0 / 0.5);
+        --c-notification-bg: oklch(20% 0 0 / 0.9);
+    }
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+    font-family: "Pretendard GOV Variable";
+    color: var(--c-font);
+}
+body {
+    background-color: var(--c-main);
+}
+
+@keyframes ani-fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+@keyframes ani-fade-out {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+@keyframes ani-window-in {
+    from {
+        transform: scale(0.95) translateY(10px);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1) translateY(0px);
+        opacity: 1;
+    }
+}
+@keyframes ani-window-out {
+    from {
+        transform: scale(1) translateY(0px);
+        opacity: 1;
+    }
+    to {
+        transform: scale(0.95) translateY(10px);
+        opacity: 0;
+    }
+}
+
+.flexlist {
+    display: flex;
+    position: relative;
+    gap: var(--p);
+    flex-wrap: wrap;
+
+    max-width: 100%;
+    width: max-content;
+    height: max-content;
+
+    background-color: var(--c-main);
+}
+.flexlist > input[type=checkbox], .flexlist > input[type=radio] {
+    display: none;
+}
+.flexlist-horizontal {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: flex-start;
+    gap: var(--p);
+
+    width: max-content;
+    height: max-content;
+
+    background-color: var(--c-main);
+}
+.flexlist-horizontal > input[type=checkbox], .flexlist-horizontal > input[type=radio] {
+    display: none;
+}
+.flexlist-vertical {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    gap: var(--p);
+
+    width: max-content;
+    height: max-content;
+
+    background-color: var(--c-main);
+}
+.flexlist-vertical > input[type=checkbox], .flexlist-vertical > input[type=radio] {
+    display: none;
+}
+.fjcs {
+    justify-content: flex-start;
+}
+.fjcc {
+    justify-content: center;
+}
+.fjce {
+    justify-content: flex-end;
+}
+.fjcb {
+    justify-content: space-between;
+}
+.wf {
+    width: 100% !important;
+}
+.hf {
+    height: 100% !important;
+}
+.f1 {
+    flex: 1 !important;
+}
+.wfix {
+    min-width: max-content;
+}
+.hfix { 
+    min-height: max-content;
+}
+.wm50 {
+    max-width: 100%;
+    width: 50px;
+}
+.wm400 {
+    max-width: 100%;
+    width: 400px;
+}
+.wm600 {
+    max-width: 100%;
+    width: 600px;
+}
+.hm200 {
+    max-height: 100%;
+    height: 200px;
+}
+.hm300 {
+    max-height: 100%;
+    height: 300px;
+}
+.oh {
+    overflow: hidden !important;
+}
+
+button p, button span, a p, a span, input p, input span, label p, label span {
+    color: inherit;
+}
+
+a:focus, button:focus, input:focus, select:focus, textarea:focus, .radio-toggle-list label:has(input[type=radio]):focus {
+    border-radius: var(--r);
+    outline: solid 2px var(--c-lyra);
+}
+button:disabled, input:disabled, select:disabled, textarea:disabled, .radio-toggle-list label:has(input[type=radio]:disabled) {
+    /* pointer-events: none; */
+    cursor: no-drop;
+}
+
+a {
+    display: inline-flex;
+    align-items: baseline;
+    position: relative;
+
+    color: var(--c-blue);
+    text-decoration: underline dotted 2px;
+}
+a::before {
+    display: inline-block;
+    align-self: flex-end;
+    margin: 0 0.2em 1px 0.2em;
+
+    width: 1em;
+    height: 1em;
+
+    content: "";
+    background: no-repeat top/1em var(--i-arrow-ne-white);
+    background-color: var(--c-lyra);
+}
+a::after {
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    width: 100%;
+    height: 100%;
+
+    border-radius: var(--r);
+    background-color: var(--c-button-cover);
+    opacity: 0;
+    content: "";
+    pointer-events: none;
+
+    transition: opacity var(--t-transition) linear;
+    will-change: opacity;
+}
+a:hover::after, a:focus::after {
+    opacity: 0.1;
+}
+a:visited {
+    color: var(--c-lyra);
+}
+
+button {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: flex-start;
+    gap: var(--m);
+    padding: var(--p-large);
+    overflow: hidden;
+
+    color: var(--c-font);
+    border: none;
+    border-radius: var(--r);
+    background-color: var(--c-button);
+}
+button:not(:disabled) {
+    cursor: pointer;
+}
+button:not(:disabled)::before {
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    width: 100%;
+    height: 100%;
+
+    border-radius: inherit;
+    background-color: var(--c-button-cover);
+    opacity: 0;
+    content: "";
+
+    transition: opacity var(--t-transition) linear;
+    will-change: opacity;
+}
+button:not(:disabled)::after {
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    width: 50px;
+    height: 100%;
+
+    background: linear-gradient(90deg, transparent, oklch(0% 0 0 / 0.05), oklch(0% 0 0 / 0.05), transparent);
+    content: "";
+
+    transform: translateX(-50px);
+    will-change: transform;
+}
+button:not(:disabled):hover::before, button:not(:disabled):focus::before {
+    opacity: 0.1;
+}
+button:not(:disabled):hover::after, button:not(:disabled):focus::after {
+    animation: 4s linear 0.25s ani-button-cover-effect;
+}
+button:not(:disabled):active::before {
+    opacity: 0.2;
+}
+button:disabled {
+    opacity: 0.5;
+    cursor: no-drop;
+}
+@keyframes ani-button-cover-effect {
+    0% {
+        transform: translateX(-50px);
+    }
+    100% {
+        transform: translateX(calc(100vw + 100px));
+    }
+}
+
+input[type=checkbox], input[type=radio] {
+    display: none;
+}
+label:has(input[type=checkbox]), label:has(input[type=radio]) {
+    display: flex;
+    position: relative;
+    align-items: center;
+    gap: var(--m);
+
+    width: fit-content;
+    height: fit-content;
+}
+label:has(input[type=checkbox])::before, label:has(input[type=radio])::before {
+    box-sizing: border-box;
+
+    width: 20px;
+    height: 20px;
+
+    border: solid 2px var(--c-checkbox-border);
+    content: "";
+}
+label:has(input[type=checkbox])::before {
+    border-radius: var(--r);
+}
+label:has(input[type=radio])::before {
+    border-radius: 10px;
+}
+label:has(input[type=checkbox]:not(:disabled)), label:has(input[type=radio]:not(:disabled)) {
+    cursor: pointer;
+}
+label:has(input[type=checkbox]:not(:disabled))::before, label:has(input[type=radio]:not(:disabled))::before {
+    transition: border var(--t-transition) linear;
+    will-change: border;
+}
+label:has(input[type=checkbox]:not(:disabled))::before {
+    border-radius: var(--r);
+}
+label:has(input[type=radio]:not(:disabled))::before {
+    border: solid 2px var(--c-checkbox-border);
+}
+label:has(input[type=checkbox]:not(:disabled)):hover::before, label:has(input[type=radio]:not(:disabled)):hover::before {
+    border-color: var(--c-lyra);
+}
+label:has(input[type=checkbox]:not(:disabled):checked)::before {
+    border: solid 6px var(--c-lyra);
+}
+label:has(input[type=radio]:not(:disabled):checked)::before {
+    border: solid 6px var(--c-lyra);
+}
+label:has(input[type=checkbox]:disabled), label:has(input[type=radio]:disabled) {
+    opacity: 0.5;
+}
+label:has(input[type=checkbox]:disabled), label:has(input[type=radio]:disabled) {
+    cursor: no-drop;
+}
+label:has(input[type=checkbox]:disabled)::before, label:has(input[type=radio]:disabled)::before {
+    background-color: var(--c-checkbox-border);
+}
+
+.radio-toggle-list {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: var(--p);
+}
+.radio-toggle-list label:has(input[type=radio]) {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: flex-start;
+    gap: var(--m);
+    padding: var(--p-large);
+    overflow: hidden;
+
+    color: var(--c-font);
+    border: none;
+    border-radius: var(--r);
+    background-color: var(--c-button);
+}
+.radio-toggle-list label:has(input[type=radio]:checked) {
+    color: var(--c-white);
+    background-color: var(--c-lyra);
+}
+.radio-toggle-list label:has(input[type=radio]:checked)::before {
+    border: none;
+}
+.radio-toggle-list label:has(input[type=radio])::before {
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    width: 100%;
+    height: 100%;
+
+    border: none;
+    border-radius: inherit;
+    background-color: var(--c-button-cover);
+    opacity: 0;
+    content: "";
+
+    transition: opacity var(--t-transition) linear;
+    will-change: opacity;
+}
+.radio-toggle-list label:has(input[type=radio]:not(:disabled)) {
+    cursor: pointer;
+}
+.radio-toggle-list label:has(input[type=radio]:not(:disabled))::after {
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    width: 50px;
+    height: 100%;
+
+    background: linear-gradient(90deg, transparent, oklch(0% 0 0 / 0.05), oklch(0% 0 0 / 0.05), transparent);
+    content: "";
+
+    transform: translateX(-50px);
+    will-change: transform;
+}
+.radio-toggle-list label:has(input[type=radio]:not(:disabled)):hover::before, .radio-toggle-list label:has(input[type=radio]:not(:disabled)):focus::before {
+    opacity: 0.1;
+}
+.radio-toggle-list label:has(input[type=radio]:not(:disabled)):hover::after, .radio-toggle-list label:has(input[type=radio]:not(:disabled)):focus::after {
+    animation: 4s linear 0.25s ani-button-cover-effect;
+}
+.radio-toggle-list label:has(input[type=radio]:not(:disabled)):active::before {
+    opacity: 0.2;
+}
+.radio-toggle-list label:has(input[type=radio]:disabled) {
+    opacity: 0.5;
+    cursor: no-drop;
+}
+
+input[type=text], input[type=number] {
+    padding: var(--p-large);
+
+    font-size: inherit;
+    color: var(--c-font);
+    border: none;
+    border-radius: var(--r);
+    background-color: var(--c-button);
+    appearance: textfield;
+}
+input[type=text]::placeholder, input[type=number]::placeholder {
+    color: var(--c-checkbox-border);
+    font-style: italic;
+}
+input[type=text]:disabled, input[type=number]:disabled {
+    opacity: 0.5;
+}
+label:has(input[type=text]), label:has(input[type=number]) {
+    display: flex;
+    align-items: center;
+    padding: var(--p);
+
+    width: fit-content;
+    height: fit-content;
+
+    border: solid 2px var(--c-button);
+    border-radius: var(--r);
+    background-color: var(--c-button);
+}
+label:has(input[type=text]) > *:not(:last-child), label:has(input[type=number]) > *:not(:last-child) {
+    margin-right: var(--m);
+}
+label:has(input[type=text]) > input[type=text], label:has(input[type=number]) > input[type=number] {
+    margin-left: var(--m);
+    padding: var(--p-small) var(--p-small) var(--p-small) var(--p);
+
+    border: none;
+    border-left: solid 2px var(--c-checkbox-border);
+    border-radius: 0;
+}
+label:has(input[type=text]:focus), label:has(input[type=number]:focus) {
+    outline: solid 2px var(--c-lyra);
+}
+label:has(input[type=text]:focus) > input[type=text], label:has(input[type=number]:focus) > input[type=number] {
+    outline: none;
+}
+label:has(input[type=text]:not(:disabled)), label:has(input[type=number]:not(:disabled)) {
+    cursor: text;
+}
+label:has(input[type=text]:disabled), label:has(input[type=number]:disabled) {
+    opacity: 0.5;
+    cursor: no-drop;
+}
+
+textarea {
+    padding: var(--p);
+
+    font-size: inherit;
+    color: var(--c-font);
+    border: none;
+    border-radius: var(--r);
+    background-color: var(--c-button);
+}
+textarea::placeholder {
+    color: var(--c-checkbox-border);
+    font-style: italic;
+}
+textarea:disabled {
+    opacity: 0.5;
+}
+label:has(textarea) {
+    display: grid;
+    grid-template-columns: 24px auto;
+    grid-template-rows: 24px auto;
+    place-items: center start;
+    padding: var(--p);
+
+    width: fit-content;
+    height: fit-content;
+
+    border-radius: var(--r);
+    background-color: var(--c-button);
+}
+label:has(textarea) > p {
+    overflow: hidden;
+
+    width: min-content;
+
+    text-wrap: nowrap;
+    text-overflow: ellipsis;
+}
+label:has(textarea):not(:has(div.i)) > p {
+    grid-column: 1 / -1;
+}
+label:has(textarea) > textarea {
+    grid-column: 1 / -1;
+    margin-top: var(--m-large);
+    padding: var(--p) 0 0 0;
+
+    width: 100%;
+    height: 100%;
+
+    border-top: solid 2px var(--c-checkbox-border);
+    border-radius: 0;
+}
+label:has(textarea:focus) {
+    outline: solid 2px var(--c-lyra);
+}
+label:has(textarea) > textarea:focus {
+    border-radius: 0;
+    outline: none;
+}
+label:has(textarea:disabled) {
+    opacity: 0.5;
+    cursor: no-drop;
+}
+
+select {
+    padding: 10px;
+
+    font-size: 12pt;
+    border: 0;
+    border-radius: 4px;
+    background-color: var(--c-button);
+    cursor: pointer;
+    
+    transition: all 0.1s;
+}
+
+#lyra-modal-area, #lyra-window-area, #lyra-notification-area {
+    position: fixed;
+    left: 0;
+    top: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    pointer-events: none;
+}
+#lyra-modal-area {
+    z-index: 100;
+}
+#lyra-window-area {
+    z-index: 101;
+}
+#lyra-notification-area {
+    display: flex;
+    justify-content: center;
+    z-index: 102;
+}
+#lyra-notification-area > div.wrap {
+    display: flex;
+    position: absolute;
+    justify-content: flex-end;
+    flex-direction: column;
+    gap: var(--m-large);
+    padding: var(--p);
+    bottom: 65%;
+
+    max-width: 700px;
+    width: 100vw;
+    height: max-content;
+}
+
+.modal {
+    display: grid;
+    grid-template-areas:
+        "modal";
+    place-items: center;
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    max-width: 100vw;
+    max-height: 100vh;
+    width: 100%;
+    height: 100%;
+
+    pointer-events: auto;
+}
+.modal > .bg {
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background-color: var(--c-modal-bg);
+    /* opacity: 0; */
+
+    animation: 0.25s ease-in-out ani-fade-in both;
+    will-change: opacity;
+}
+.modal > .bg-none {
+    background-color: transparent;
+}
+.modal > .body {
+    grid-area: modal;
+    display: grid;
+    position: relative;
+    grid-template-areas:
+        "title"
+        "content"
+        "controller";
+    grid-template-columns: minmax(0px, 700px);
+    grid-template-rows: minmax(0px, auto) minmax(0px, 1fr) minmax(0px, auto);
+    row-gap: var(--m-large);
+    margin: var(--m);
+    padding: var(--p-modal);
+    box-sizing: content-box;
+
+    max-width: inherit;
+    max-height: calc(100vh - var(--p-modal)*2 - var(--m)*2);
+    width: auto;
+    height: max-content;
+
+    border-radius: var(--r-medium);
+    background-color: var(--c-main);
+    box-shadow: 0 0 10px var(--c-shadow);
+
+    animation: 0.25s var(--af-sweep-in) ani-window-in both;
+    will-change: transform, opacity;
+}
+.modal > .body > .title {
+    grid-area: title;
+    display: grid;
+    position: relative;
+    grid-template-columns: 45px minmax(0px, auto);
+    grid-template-rows: 45px;
+    place-items: center start;
+    overflow: hidden;
+
+    max-width: inherit;
+    width: 100%;
+}
+.modal > .body > .title > h1 {
+    grid-column: 1 / span 2;
+    position: inherit;
+    overflow: hidden;
+
+    max-width: inherit;
+    width: inherit;
+
+    text-wrap: nowrap;
+    text-overflow: ellipsis;
+}
+.modal > .body > .title > .icon+h1 {
+    grid-column: auto;
+}
+.modal > .body > .content {
+    grid-area: content;
+    position: relative;
+    padding: var(--p-tiny);
+    overflow-y: scroll;
+}
+.modal > .body > .controller {
+    grid-area: controller;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: var(--m);
+}
+
+.notification {
+    display: grid;
+    grid-template-columns: 20px minmax(0, 1fr) minmax(0, auto);
+    grid-template-rows: auto;
+    gap: var(--p);
+    place-items: center;
+    padding: var(--p-modal);
+    overflow: hidden;
+
+    max-width: inherit;
+    width: auto;
+    height: max-content;
+
+    border-radius: var(--r-medium);
+    background-color: var(--c-notification-bg);
+    box-shadow: 0 0 10px var(--c-shadow);
+    pointer-events: auto;
+
+    animation: 0.25s var(--af-sweep-in) ani-window-in both;
+    will-change: transform, opacity;
+}
+.notification > p {
+    grid-column: 1 / span 2;
+
+    width: 100%;
+
+    word-break: break-all;
+}
+.notification > .icon+p {
+    grid-column: auto;
+}
+.notification > .button-area {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--m);
+
+    width: 100%;
+    height: fit-content;
+}
+.notification > .button-area > button {
+    justify-content: center;
+    padding: var(--p);
+
+    min-width: 44px;
+    min-height: 44px;
+    width: fit-content;
+    height: fit-content;
+
+    border-radius: 22px;
+    background-color: transparent;
+}
+.notification > .button-area > button:has(p) {
+    padding: var(--p) var(--p-large);
+}
+.notification > .gauge {
+    grid-column: none;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+
+    width: 0%;
+    height: 6px;
+
+    background-color: var(--c-font);
+    opacity: 0.5;
+
+    will-change: width;
+}
+@keyframes ani-notification-gauge {
+    from {
+        width: 0%;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+.notification-two-track {
+    grid-template-columns: 20px minmax(0, 1fr);
+    grid-template-rows: repeat(2, minmax(0, auto));
+}
+.notification-two-track > .button-area {
+    grid-column: 1 / -1;
+}
+
+.bg-blur, .bg-acrylic {
+    backdrop-filter: blur(10px);
+}
+.bg-blur::before, .bg-acrylic::before {
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    width: 100%;
+    height: 100%;
+
+    content: "";
+}
+.bg-acrylic::before {
+    background: repeat url("./assets/essentials/noise.png");
+    opacity: 0.02;
+}
+
+.partition-vertical {
+    width: 1px;
+    height: 100%;
+
+    background-color: var(--c-button);
+}
+.partition-horizontal {
+    width: 100%;
+    height: 1px;
+
+    background-color: var(--c-button);
+}
+
+#watermark {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    padding: 6px;
+    z-index: 9999;
+
+    font-size: 10pt;
+    color: white;
+    border-radius: 4px;
+    background-color: black;
+    text-align: right;
+    opacity: 1;
+    pointer-events: none;
+}
+
+@media screen and (min-width: 900px) {
+    .m-show-flex {
+        display: none !important;
+    }
+}
+@media screen and (max-width: 900px) {
+    .m-hide {
+        display: none !important;
+    }
+
+    .m-show-flex {
+        display: flex;
+    }
+
+    .m-menu-expand {
+        display: block !important;
+    }
+
+    .notification {
+        padding: var(--p-large);
+    }
+}

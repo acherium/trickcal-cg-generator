@@ -1526,12 +1526,19 @@ span.tm-b {
     line-height: 48px;
 
     font-weight: 900;
-    text-align: center;
+    text-align: right;
 
     color: var(--c-font);
     border-radius: var(--r-small) 0 0 var(--r-small);
-    background-color: var(--c-button);
+    background-color: var(--c-main);
 }
+.colorpicker-area > .right > .colorpicker-range {
+    width: 100%;
+    height: 100%;
+}
+.colorpicker-area > .right > .colorpicker-r-revamped > div > div { background-color: rgb(255, 0, 0); }
+.colorpicker-area > .right > .colorpicker-g-revamped > div > div { background-color: rgb(0, 200, 0); }
+.colorpicker-area > .right > .colorpicker-b-revamped > div > div { background-color: rgb(0, 0, 255); }
 .colorpicker-bar {
     position: relative;
 
@@ -1572,7 +1579,7 @@ span.tm-b {
     width: 100%;
     height: 100%;
 
-    border-radius: 0 var(--r-small) var(--r-small) 0;
+    border-radius: var(--r-small);
 }
 
 .color-preset-subdiv {

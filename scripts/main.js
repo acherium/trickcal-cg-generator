@@ -1,11 +1,11 @@
-import { COMMON_INTERVAL, ANIMATION_INTERVAL, $, $a, create, append, LyraButton, LyraModal, LyraModalManager, LyraNotification, LyraNotificationManager } from "../lyra/lyra-module.js";
+import { COMMON_INTERVAL, ANIMATION_INTERVAL, $, $a, create, append, LyraButton, LyraModal, LyraModalManager, LyraNotification, LyraNotificationManager, copy } from "../lyra/lyra-module.js";
 
 (() => {
     const app = {
         name: "Project Pictor",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "24w33.3",
+        version: "24w33.4",
         date: "24-08-17",
         watermark: false,
         isBeta: false
@@ -200,7 +200,8 @@ import { COMMON_INTERVAL, ANIMATION_INTERVAL, $, $a, create, append, LyraButton,
     const $nameBg = $("#photo-script-box-name-backdrop");
     const $pickerNamePrev = $("#colorpicker-namearea .colorpicker-preview");
     const $pickerNamePrevValue = $("#colorpicker-namearea .colorpicker-preview-value");
-    const $pickerNamePointers = $a("#colorpicker-namearea .colorpicker-pointer");
+    // const $pickerNamePointers = $a("#colorpicker-namearea .colorpicker-pointer");
+    const $pickerNameRange = $a("#colorpicker-namearea .colorpicker-range-input");
     const $pickerNameInputs = $a("#colorpicker-namearea .colorpicker-input");
     const $chkAutoName = $("#checkbox-toggle-auto-change-name");
     const $chkTglName = $("#checkbox-toggle-namearea");
@@ -236,6 +237,7 @@ import { COMMON_INTERVAL, ANIMATION_INTERVAL, $, $a, create, append, LyraButton,
     const $pickerBgPrev = $("#colorpicker-bg .colorpicker-preview");
     const $pickerBgPrevValue = $("#colorpicker-bg .colorpicker-preview-value");
     const $pickerBgPointers = $a("#colorpicker-bg .colorpicker-pointer");
+    const $pickerBgRange = $a("#colorpicker-bg .colorpicker-range-input")
     const $pickerBgInputs = $a("#colorpicker-bg .colorpicker-input");
     const $btnConfigIndi = $("#button-config-indicators");
     const $uploader = $("#uploader");
@@ -550,9 +552,14 @@ import { COMMON_INTERVAL, ANIMATION_INTERVAL, $, $a, create, append, LyraButton,
         $pickerNamePrev.style["background-color"] = `#${hex}`;
         $pickerNamePrev.style["border-color"] = `#${hex}`;
         $pickerNamePrevValue.innerText = `#${hex}\n${Object.values(rgb).join(", ")}`;
-        Array.from($pickerNamePointers).forEach(($n, i) => {
-            $n.style["left"] = `${posper[i]}%`;
-        });
+        for (const range of $pickerNameRange) {
+            const type = range.className.toString().split(/ +/g)[1].trim();
+            range.value = `${rgb[type]}`;
+            $("div > div", range.parentNode).style["width"] = `${rgb[type] / 255 * 100}%`;
+        };
+        // Array.from($pickerNamePointers).forEach(($n, i) => {
+        //     $n.style["left"] = `${posper[i]}%`;
+        // });
         Array.from($pickerNameInputs).forEach(($n, i) => {
             $n.value = Object.values(rgb)[i];
         });
@@ -565,9 +572,14 @@ import { COMMON_INTERVAL, ANIMATION_INTERVAL, $, $a, create, append, LyraButton,
         $pickerNamePrev.style["background-color"] = `#${hex}`;
         $pickerNamePrev.style["border-color"] = `#${hex}`;
         $pickerNamePrevValue.innerText = `#${hex}\n${Object.values(rgb).join(", ")}`;
-        Array.from($pickerNamePointers).forEach(($n, i) => {
-            $n.style["left"] = `${posper[i]}%`;
-        });
+        for (const range of $pickerNameRange) {
+            const type = range.className.toString().split(/ +/g)[1].trim();
+            range.value = `${rgb[type]}`;
+            $("div > div", range.parentNode).style["width"] = `${rgb[type] / 255 * 100}%`;
+        };
+        // Array.from($pickerNamePointers).forEach(($n, i) => {
+        //     $n.style["left"] = `${posper[i]}%`;
+        // });
         Array.from($pickerNameInputs).forEach(($n, i) => {
             $n.value = Object.values(rgb)[i];
         });
@@ -847,9 +859,14 @@ import { COMMON_INTERVAL, ANIMATION_INTERVAL, $, $a, create, append, LyraButton,
         $pickerBgPrev.style["background-color"] = `#${hex}`;
         $pickerBgPrev.style["border-color"] = `#${hex}`;
         $pickerBgPrevValue.innerText = `#${hex}\n${Object.values(rgb).join(", ")}`;
-        Array.from($pickerBgPointers).forEach(($n, i) => {
-            $n.style["left"] = `${posper[i]}%`;
-        });
+        for (const range of $pickerBgRange) {
+            const type = range.className.toString().split(/ +/g)[1].trim();
+            range.value = `${rgb[type]}`;
+            $("div > div", range.parentNode).style["width"] = `${rgb[type] / 255 * 100}%`;
+        };
+        // Array.from($pickerBgPointers).forEach(($n, i) => {
+        //     $n.style["left"] = `${posper[i]}%`;
+        // });
         Array.from($pickerBgInputs).forEach(($n, i) => {
             $n.value = Object.values(rgb)[i];
         });
@@ -1982,44 +1999,52 @@ import { COMMON_INTERVAL, ANIMATION_INTERVAL, $, $a, create, append, LyraButton,
     $inputMultiplier.value = multiplier;
     refreshSize();
     
-    Array.from($pickerBgPointers).forEach(($n, i) => {
-        $n.onpointerdown = (p) => {
-            $n.setPointerCapture(p.pointerId);
-            const $dragarea = p.target.parentNode;
-            const dragareaRect = $dragarea.getBoundingClientRect();
-            $n.onpointermove = (m) => {
-                const rgb = Object.values(slide[current].color.background);
-                let per = Math.floor((m.clientX - dragareaRect.x) / dragareaRect.width * 100);
-                per = per < 0 ? 0 : per > 100 ? 100 : per;
-                rgb[i] = Math.floor(per / 100 * 255);
-                setBackgroundColor(Object.fromEntries(rgb.map((x, j) => x = [ [ "r", "g", "b" ][j], x ])));
-            };
-            $n.onpointerup = () => {
-                $n.releasePointerCapture(p.pointerId);
-                $n.onpointermove = null;
-                $n.onpointerup = null;
-                refreshThumbnail(current, $photozone);
-            };
+    for (const range of $pickerBgRange) {
+        range.oninput = (e) => {
+            const type = range.className.toString().split(/ +/g)[1].trim();
+            const newcol = copy(slide[current].color.background);
+            newcol[type] = parseInt(e.target.value);
+            setBackgroundColor(newcol);
         };
-        $n.ontouchstart = (t) => {
-            modalman.reserve["modal-config-bg"].$content.style["overflow"] = "hidden";
-            const $dragarea = t.target.parentNode;
-            const dragareaRect = $dragarea.getBoundingClientRect();
-            $n.ontouchmove = (m) => {
-                const rgb = Object.values(slide[current].color.background);
-                let per = Math.floor((m.touches[0].clientX - dragareaRect.x) / dragareaRect.width * 100);
-                per = per < 0 ? 0 : per > 100 ? 100 : per;
-                rgb[i] = Math.floor(per / 100 * 255);
-                setBackgroundColor(Object.fromEntries(rgb.map((x, j) => x = [ [ "r", "g", "b" ][j], x ])));
-            };
-            $n.ontouchend = () => {
-                modalman.reserve["modal-config-bg"].$content.style["overflow"] = "hidden";
-                $n.ontouchmove = null;
-                $n.ontouchend = null;
-                refreshThumbnail(current, $photozone);
-            };
-        };
-    });
+    };
+    // Array.from($pickerBgPointers).forEach(($n, i) => {
+    //     $n.onpointerdown = (p) => {
+    //         $n.setPointerCapture(p.pointerId);
+    //         const $dragarea = p.target.parentNode;
+    //         const dragareaRect = $dragarea.getBoundingClientRect();
+    //         $n.onpointermove = (m) => {
+    //             const rgb = Object.values(slide[current].color.background);
+    //             let per = Math.floor((m.clientX - dragareaRect.x) / dragareaRect.width * 100);
+    //             per = per < 0 ? 0 : per > 100 ? 100 : per;
+    //             rgb[i] = Math.floor(per / 100 * 255);
+    //             setBackgroundColor(Object.fromEntries(rgb.map((x, j) => x = [ [ "r", "g", "b" ][j], x ])));
+    //         };
+    //         $n.onpointerup = () => {
+    //             $n.releasePointerCapture(p.pointerId);
+    //             $n.onpointermove = null;
+    //             $n.onpointerup = null;
+    //             refreshThumbnail(current, $photozone);
+    //         };
+    //     };
+    //     $n.ontouchstart = (t) => {
+    //         modalman.reserve["modal-config-bg"].$content.style["overflow"] = "hidden";
+    //         const $dragarea = t.target.parentNode;
+    //         const dragareaRect = $dragarea.getBoundingClientRect();
+    //         $n.ontouchmove = (m) => {
+    //             const rgb = Object.values(slide[current].color.background);
+    //             let per = Math.floor((m.touches[0].clientX - dragareaRect.x) / dragareaRect.width * 100);
+    //             per = per < 0 ? 0 : per > 100 ? 100 : per;
+    //             rgb[i] = Math.floor(per / 100 * 255);
+    //             setBackgroundColor(Object.fromEntries(rgb.map((x, j) => x = [ [ "r", "g", "b" ][j], x ])));
+    //         };
+    //         $n.ontouchend = () => {
+    //             modalman.reserve["modal-config-bg"].$content.style["overflow"] = "hidden";
+    //             $n.ontouchmove = null;
+    //             $n.ontouchend = null;
+    //             refreshThumbnail(current, $photozone);
+    //         };
+    //     };
+    // });
     Array.from($pickerBgInputs).forEach(($n, i) => {
         $n.onchange = (c) => {
             const rgb = Object.values(slide[current].color.background);
@@ -2029,44 +2054,53 @@ import { COMMON_INTERVAL, ANIMATION_INTERVAL, $, $a, create, append, LyraButton,
             setBackgroundColor(Object.fromEntries(rgb.map((x, j) => x = [ [ "r", "g", "b" ][j], x ])));
         };
     });
-    Array.from($pickerNamePointers).forEach(($n, i) => {
-        $n.onpointerdown = (p) => {
-            $n.setPointerCapture(p.pointerId);
-            const $dragarea = p.target.parentNode;
-            const dragareaRect = $dragarea.getBoundingClientRect();
-            $n.onpointermove = (m) => {
-                const rgb = Object.values(slide[current].color.namearea);
-                let per = Math.floor((m.clientX - dragareaRect.x) / dragareaRect.width * 100);
-                per = per < 0 ? 0 : per > 100 ? 100 : per;
-                rgb[i] = Math.floor(per / 100 * 255);
-                setNameColorRGB(Object.fromEntries(rgb.map((x, j) => x = [ [ "r", "g", "b" ][j], x ])));
-            };
-            $n.onpointerup = () => {
-                $n.releasePointerCapture(p.pointerId);
-                $n.onpointermove = null;
-                $n.onpointerup = null;
-                refreshThumbnail(current, $photozone);
-            };
+
+    for (const range of $pickerNameRange) {
+        range.oninput = (e) => {
+            const type = range.className.toString().split(/ +/g)[1].trim();
+            const newcol = copy(slide[current].color.namearea);
+            newcol[type] = parseInt(e.target.value);
+            setNameColorRGB(newcol);
         };
-        $n.ontouchstart = (t) => {
-            modalman.reserve["modal-content"].$content.style["overflow"] = "hidden";
-            const $dragarea = t.target.parentNode;
-            const dragareaRect = $dragarea.getBoundingClientRect();
-            $n.ontouchmove = (m) => {
-                const rgb = Object.values(slide[current].color.namearea);
-                let per = Math.floor((m.touches[0].clientX - dragareaRect.x) / dragareaRect.width * 100);
-                per = per < 0 ? 0 : per > 100 ? 100 : per;
-                rgb[i] = Math.floor(per / 100 * 255);
-                setNameColorRGB(Object.fromEntries(rgb.map((x, j) => x = [ [ "r", "g", "b" ][j], x ])));
-            };
-            $n.ontouchend = () => {
-                modalman.reserve["modal-content"].$content.style["overflow"] = "scroll";
-                $n.ontouchmove = null;
-                $n.ontouchend = null;
-                refreshThumbnail(current, $photozone);
-            };
-        };
-    });
+    };
+    // Array.from($pickerNamePointers).forEach(($n, i) => {
+    //     $n.onpointerdown = (p) => {
+    //         $n.setPointerCapture(p.pointerId);
+    //         const $dragarea = p.target.parentNode;
+    //         const dragareaRect = $dragarea.getBoundingClientRect();
+    //         $n.onpointermove = (m) => {
+    //             const rgb = Object.values(slide[current].color.namearea);
+    //             let per = Math.floor((m.clientX - dragareaRect.x) / dragareaRect.width * 100);
+    //             per = per < 0 ? 0 : per > 100 ? 100 : per;
+    //             rgb[i] = Math.floor(per / 100 * 255);
+    //             setNameColorRGB(Object.fromEntries(rgb.map((x, j) => x = [ [ "r", "g", "b" ][j], x ])));
+    //         };
+    //         $n.onpointerup = () => {
+    //             $n.releasePointerCapture(p.pointerId);
+    //             $n.onpointermove = null;
+    //             $n.onpointerup = null;
+    //             refreshThumbnail(current, $photozone);
+    //         };
+    //     };
+    //     $n.ontouchstart = (t) => {
+    //         modalman.reserve["modal-content"].$content.style["overflow"] = "hidden";
+    //         const $dragarea = t.target.parentNode;
+    //         const dragareaRect = $dragarea.getBoundingClientRect();
+    //         $n.ontouchmove = (m) => {
+    //             const rgb = Object.values(slide[current].color.namearea);
+    //             let per = Math.floor((m.touches[0].clientX - dragareaRect.x) / dragareaRect.width * 100);
+    //             per = per < 0 ? 0 : per > 100 ? 100 : per;
+    //             rgb[i] = Math.floor(per / 100 * 255);
+    //             setNameColorRGB(Object.fromEntries(rgb.map((x, j) => x = [ [ "r", "g", "b" ][j], x ])));
+    //         };
+    //         $n.ontouchend = () => {
+    //             modalman.reserve["modal-content"].$content.style["overflow"] = "scroll";
+    //             $n.ontouchmove = null;
+    //             $n.ontouchend = null;
+    //             refreshThumbnail(current, $photozone);
+    //         };
+    //     };
+    // });
     Array.from($pickerNameInputs).forEach(($n, i) => {
         $n.onchange = (c) => {
             const rgb = Object.values(slide[current].color.namearea);

@@ -5,7 +5,7 @@ import { COMMON_INTERVAL, ANIMATION_INTERVAL, $, $a, create, append, LyraButton,
         name: "Project Pictor",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "24w33.2",
+        version: "24w33.3",
         date: "24-08-17",
         watermark: false,
         isBeta: false
@@ -1051,7 +1051,7 @@ import { COMMON_INTERVAL, ANIMATION_INTERVAL, $, $a, create, append, LyraButton,
 
             res.additionalMethod = () => {
                 const tmodal = modalman.reserve["modal-dialogue-quick"];
-                const $tmtitle = tmodal.$title.$.querySelector("h1");
+                const $tmtitle = tmodal.nodes.title.querySelector("h1");
                 $tmtitle.innerText = `#${res.uid}: ${res.name}@${sid}`;
                 $dialogueInput.value = res.assets.data.content;
                 $dialogueInput.oninput = (e) => res.applyContent(e.target.value);
@@ -1122,7 +1122,7 @@ import { COMMON_INTERVAL, ANIMATION_INTERVAL, $, $a, create, append, LyraButton,
 
             res.additionalMethod = () => {
                 const tmodal = modalman.reserve["modal-sticker-quick"];
-                const $tmtitle = tmodal.$title.$.querySelector("h1");
+                const $tmtitle = tmodal.nodes.title.querySelector("h1");
                 $tmtitle.innerText = `#${res.uid}: ${res.name}@${sid}`;
                 Array.from($stickerSel.querySelectorAll("option")).find(($n) => $n.value === res.assets.data.stickerStyle).selected = true;
                 $stickerSel.onchange = (c) => res.applySticker(c.target.value);

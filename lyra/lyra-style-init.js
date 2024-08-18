@@ -231,8 +231,10 @@ import { body, $, $a, copy,
     const bounding = tip.getBoundingClientRect();
     const width = bounding.width;
     const height = bounding.height;
-    if ((e.clientX + tipOffset.x + width) < (window.innerWidth - tipOffset.x)) tipPos.x = e.clientX + tipOffset.x;
-    if ((e.clientY + tipOffset.y + height) < (window.innerHeight - tipOffset.y)) tipPos.y = e.clientY + tipOffset.y;
+    tipPos.x = ((e.clientX + tipOffset.x + width) < (window.innerWidth - tipOffset.x)) ? e.clientX + tipOffset.x : window.innerWidth - width - tipOffset.x;
+    tipPos.y = ((e.clientY + tipOffset.y + height) < (window.innerHeight - tipOffset.y)) ? e.clientY + tipOffset.y : window.innerHeight - height - tipOffset.y;
+    // if ((e.clientX + tipOffset.x + width) < (window.innerWidth - tipOffset.x)) tipPos.x = e.clientX + tipOffset.x;
+    // if ((e.clientY + tipOffset.y + height) < (window.innerHeight - tipOffset.y)) tipPos.y = e.clientY + tipOffset.y;
     tip.style["transform"] = `translate(${tipPos.x}px, ${tipPos.y}px)`;
 
     if (e.target !== body && e.target.getAttribute("lyra-tip") !== null && tipFlag !== e.target) {

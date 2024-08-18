@@ -5,7 +5,7 @@ import { COMMON_INTERVAL, ANIMATION_INTERVAL, $, $a, create, append, LyraButton,
         name: "Project Pictor",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "24w33.6",
+        version: "24w33.7",
         date: "24-08-18",
         watermark: false,
         isBeta: false

@@ -1,7 +1,8 @@
 // 내부 상수들
 export const COMMON_INTERVAL = 30;
 export const ANIMATION_INTERVAL = 30;
-export const WINDOW_ANIMATION_INTERVAL = 250;
+export const TOOLTIP_ANIMATION_DURATION = 200;
+export const WINDOW_ANIMATION_DURATION = 250;
 export const DEFAULT_NOTIFICATION_DURATION = 5000;
 export const DEFAULT_IMAGE_SLIDER_INTERVAL = 5000;
 export const DEFAULT_IMAGE_SLIDER_DURATION = 500;
@@ -251,7 +252,7 @@ export class LyraModal {
     this.nodes.body.style["animation-name"] = "ani-window-out";
     setTimeout(() => {
       this.nodes.main = revoke(this.nodes.main);
-    }, WINDOW_ANIMATION_INTERVAL + ANIMATION_INTERVAL);
+    }, WINDOW_ANIMATION_DURATION + ANIMATION_INTERVAL);
 
     return this;
   };
@@ -385,7 +386,7 @@ export class LyraNotification {
     this.nodes.main.style["animation-timing-function"] = "var(--af-sweep-out)";
     this.nodes.main.style["animation-name"] = "ani-window-out";
 
-    if (this._options.autoDestroy) setTimeout(() => this.destroy(), WINDOW_ANIMATION_INTERVAL + ANIMATION_INTERVAL);
+    if (this._options.autoDestroy) setTimeout(() => this.destroy(), WINDOW_ANIMATION_DURATION + ANIMATION_INTERVAL);
     
     return this;
   };

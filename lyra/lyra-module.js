@@ -3,6 +3,8 @@ export const COMMON_INTERVAL = 30;
 export const ANIMATION_INTERVAL = 30;
 export const WINDOW_ANIMATION_INTERVAL = 250;
 export const DEFAULT_NOTIFICATION_DURATION = 5000;
+export const DEFAULT_IMAGE_SLIDER_INTERVAL = 5000;
+export const DEFAULT_IMAGE_SLIDER_DURATION = 500;
 
 // 각종 변수들
 /**

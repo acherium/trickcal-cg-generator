@@ -5,8 +5,8 @@ import { COMMON_INTERVAL, ANIMATION_INTERVAL, $, $a, create, append, LyraButton,
         name: "Project Pictor",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "24w33.8",
-        date: "24-08-18",
+        version: "24w34.1",
+        date: "24-08-19",
         watermark: false,
         isBeta: false
     };
@@ -575,7 +575,7 @@ import { COMMON_INTERVAL, ANIMATION_INTERVAL, $, $a, create, append, LyraButton,
         for (const range of $pickerNameRange) {
             const type = range.className.toString().split(/ +/g)[1].trim();
             range.value = `${rgb[type]}`;
-            $("div > div", range.parentNode).style["width"] = `${rgb[type] / 255 * 100}%`;
+            // $("div > div", range.parentNode).style["width"] = `${rgb[type] / 255 * 100}%`;
         };
         // Array.from($pickerNamePointers).forEach(($n, i) => {
         //     $n.style["left"] = `${posper[i]}%`;
@@ -862,7 +862,7 @@ import { COMMON_INTERVAL, ANIMATION_INTERVAL, $, $a, create, append, LyraButton,
         for (const range of $pickerBgRange) {
             const type = range.className.toString().split(/ +/g)[1].trim();
             range.value = `${rgb[type]}`;
-            $("div > div", range.parentNode).style["width"] = `${rgb[type] / 255 * 100}%`;
+            // $("div > div", range.parentNode).style["width"] = `${rgb[type] / 255 * 100}%`;
         };
         // Array.from($pickerBgPointers).forEach(($n, i) => {
         //     $n.style["left"] = `${posper[i]}%`;

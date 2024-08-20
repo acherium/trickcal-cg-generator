@@ -1,7 +1,9 @@
 import { body, $, $a, copy,
   create, append, revoke,
   LyraButton,
-  TOOLTIP_ANIMATION_DURATION, DEFAULT_IMAGE_SLIDER_INTERVAL, DEFAULT_IMAGE_SLIDER_DURATION
+  ANIMATION_INTERVAL,
+  TOOLTIP_DURATION, TOOLTIP_ANIMATION_DURATION,
+  DEFAULT_IMAGE_SLIDER_INTERVAL, DEFAULT_IMAGE_SLIDER_DURATION
 } from "./lyra-module.js";
 
 (() => {
@@ -222,46 +224,46 @@ import { body, $, $a, copy,
 
   // 마우스 툴팁 스타일, 기능 생성
   const tipArea = append(create("div", { id: "lyra-tooltip-area" }));
-  const tip = append(create("span", { classes: [ "tip" ] }), tipArea);
-  const tipPos = { x: 0, y: 0 };
-  const tipOffset = { x: 10, y: 20 };
-  let tipFlag = null;
+  const tipOffset = { x: 10, y: 10 };
+  let activeTip = null;
   document.addEventListener("mousemove", (e) => {
-    if (e.target === document) return;
-    const bounding = tip.getBoundingClientRect();
-    const width = bounding.width;
-    const height = bounding.height;
-    tipPos.x = ((e.clientX + tipOffset.x + width) < (window.innerWidth - tipOffset.x)) ? e.clientX + tipOffset.x : window.innerWidth - width - tipOffset.x;
-    tipPos.y = ((e.clientY + tipOffset.y + height) < (window.innerHeight - tipOffset.y)) ? e.clientY + tipOffset.y : window.innerHeight - height - tipOffset.y;
-    // if ((e.clientX + tipOffset.x + width) < (window.innerWidth - tipOffset.x)) tipPos.x = e.clientX + tipOffset.x;
-    // if ((e.clientY + tipOffset.y + height) < (window.innerHeight - tipOffset.y)) tipPos.y = e.clientY + tipOffset.y;
-    tip.style["transform"] = `translate(${tipPos.x}px, ${tipPos.y}px)`;
+    if (!(e.target instanceof HTMLElement) || e.target.getAttribute("lyra-tip") === null) return;
+    const node = e.target;
+    if (activeTip === node || activeTip !== null) return;
+    activeTip = node;
+    const tip = append(create("p", { classes: [ "tip" ], properties: { innerText: node.getAttribute("lyra-tip") } }), tipArea);
+    tip.animate({
+      transform: [ "translateY(5px) scale(0.9)", "translateY(0px) scale(1)" ]
+    }, {
+      duration: TOOLTIP_ANIMATION_DURATION,
+      easing: "ease-in-out",
+      fill: "both",
+      composite: "accumulate"
+    });
+    tip.animate({
+      opacity: [ "0", "1" ]
+    }, {
+      duration: TOOLTIP_ANIMATION_DURATION,
+      easing: "ease-in-out",
+      fill: "both",
+      composite: "replace"
+    });
 
-    if (e.target !== body && e.target.getAttribute("lyra-tip") !== null && tipFlag !== e.target) {
-      tipFlag = e.target;
-      tip.innerText = e.target.getAttribute("lyra-tip");
+    const nodeBound = node.getBoundingClientRect();
+    const tipBound = tip.getBoundingClientRect();
+    let x = nodeBound.x + tipOffset.x;
+    let y = nodeBound.y + nodeBound.height + tipOffset.y;
+    if (x + tipBound.width > window.innerWidth - tipOffset.x) x = nodeBound.x + nodeBound.width - tipBound.width - tipOffset.x;
+    if (y + tipBound.height > window.innerHeight - tipOffset.y) y = nodeBound.y - tipBound.height - tipOffset.y;
+    tip.style["transform"] = `translate(${x}px, ${y}px)`;
+
+    const over = () => {
       tip.animate({
-        transform: [ "translate(-5px, -5px) scale(0.9)", "translate(0px, 0px) scale(1)" ]
-      }, {
-        duration: TOOLTIP_ANIMATION_DURATION,
-        easing: "ease-in-out",
-        composite: "accumulate"
-      });
-      tip.animate({
-        opacity: [ "0", "1" ]
+        transform: [ "translateY(0px) scale(1)", "translateY(5px) scale(0.9)" ]
       }, {
         duration: TOOLTIP_ANIMATION_DURATION,
         easing: "ease-in-out",
         fill: "both",
-        composite: "replace"
-      });
-    } else if ((e.target === body || e.target.getAttribute("lyra-tip") === null) && tipFlag) {
-      tipFlag = null;
-      tip.animate({
-        transform: [ "translate(0px, 0px) scale(1)", "translate(-5px, -5px) scale(0.9)" ]
-      }, {
-        duration: TOOLTIP_ANIMATION_DURATION,
-        easing: "ease-in-out",
         composite: "accumulate"
       });
       tip.animate({
@@ -272,6 +274,17 @@ import { body, $, $a, copy,
         fill: "both",
         composite: "replace"
       });
-    };
+      setTimeout(() => tip.remove(), TOOLTIP_ANIMATION_DURATION + ANIMATION_INTERVAL);
+    };  
+
+    const timeoutHandler = setTimeout(() => {
+      over();
+    }, TOOLTIP_DURATION);
+
+    node.addEventListener("mouseleave", () => {
+      activeTip = null;
+      over();
+      clearTimeout(timeoutHandler);
+    });
   });
 })();

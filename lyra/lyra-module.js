@@ -1,6 +1,7 @@
 // 내부 상수들
 export const COMMON_INTERVAL = 30;
 export const ANIMATION_INTERVAL = 30;
+export const TOOLTIP_DURATION = 10000;
 export const TOOLTIP_ANIMATION_DURATION = 200;
 export const WINDOW_ANIMATION_DURATION = 250;
 export const DEFAULT_NOTIFICATION_DURATION = 5000;

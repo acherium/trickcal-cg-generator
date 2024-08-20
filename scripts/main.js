@@ -5,7 +5,7 @@ import { COMMON_INTERVAL, ANIMATION_INTERVAL, $, $a, create, append, LyraButton,
         name: "Project Pictor",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "24w34.2",
+        version: "24w34.3",
         date: "24-08-20",
         watermark: false,
         isBeta: false
@@ -585,6 +585,10 @@ import { COMMON_INTERVAL, ANIMATION_INTERVAL, $, $a, create, append, LyraButton,
         });
 
     };
+    const getMarkdownContent = (str) => {
+        for (const regxp of SCRIPT_MARKDOWN) str = str.replace(regxp[0], regxp[1]);
+        return str;
+    };
     const setContent = (x) => {
         let res = x;
         for (const regxp of SCRIPT_MARKDOWN) res = res.replace(regxp[0], regxp[1]);
@@ -1035,16 +1039,23 @@ import { COMMON_INTERVAL, ANIMATION_INTERVAL, $, $a, create, append, LyraButton,
             $objList.append(res.assets.label);
         } else if (t === "dialogue") {
             res.class.push("object-dialogue");
+            res.class.push("sizing-0");
+            res.class.push("positioning-2");
+            res.class.push("theme-0");
             res.name = "Dialogue object";
             res.type = "dialogue";
             res.sort = tslide.assets.objects.length;
 
-            res.assets.data.content = "Hello, world!";
+            res.assets.data.contentRaw = "Hello, world!";
+            res.assets.data.content = getMarkdownContent(res.assets.data.contentRaw);
+            res.assets.data.sizing = 0;
+            res.assets.data.positioning = 2;
+            res.assets.data.theme = 0;
             res.rectOrigin.x = 0;
             res.rectOrigin.y = 0;
             res.rectOrigin.width = 200;
             res.rectOrigin.height = 200;
-            res.rectOrigin.rotate = -3;
+            res.rectOrigin.rotate = 0;
             res.rectOrigin.flip.horizontal = false;
             res.rectOrigin.flip.vertical = false;
             res.rect = JSON.parse(JSON.stringify(res.rectOrigin));
@@ -1072,6 +1083,40 @@ import { COMMON_INTERVAL, ANIMATION_INTERVAL, $, $a, create, append, LyraButton,
                 $tmtitle.innerText = `#${res.uid}: ${res.name}@${sid}`;
                 $dialogueInput.value = res.assets.data.content;
                 $dialogueInput.oninput = (e) => res.applyContent(e.target.value);
+
+                const sizeRadios = Array.from($a("input.object-dialogue-sizing", tmodal.nodes.content));
+                for (const i in sizeRadios) {
+                    sizeRadios[i].onchange = (e) => {
+                        if (!e.target.checked) return;
+                        res.assets.body.classList.replace(`sizing-${res.assets.data.sizing}`, `sizing-${i}`);
+                        res.class = Array.from(res.assets.body.classList);
+                        res.assets.data.sizing = i;
+                    };
+                };
+                sizeRadios[res.assets.data.sizing].checked = true;
+
+                const posRadios = Array.from($a("input.object-dialogue-positioning", tmodal.nodes.content));
+                for (const i in posRadios) {
+                    posRadios[i].onchange = (e) => {
+                        if (!e.target.checked) return;
+                        res.assets.body.classList.replace(`positioning-${res.assets.data.positioning}`, `positioning-${i}`);
+                        res.class = Array.from(res.assets.body.classList);
+                        res.assets.data.positioning = i;
+                    };
+                };
+                posRadios[res.assets.data.positioning].checked = true;
+
+                const themeRadios = Array.from($a("input.object-dialogue-theme", tmodal.nodes.content));
+                for (const i in themeRadios) {
+                    themeRadios[i].onchange = (e) => {
+                        if (!e.target.checked) return;
+                        res.assets.body.classList.replace(`theme-${res.assets.data.theme}`, `theme-${i}`);
+                        res.class = Array.from(res.assets.body.classList);
+                        res.assets.data.theme = i;
+                    };
+                };
+                themeRadios[res.assets.data.theme].checked = true;
+
                 tmodal.show();
             };
 
@@ -1081,8 +1126,9 @@ import { COMMON_INTERVAL, ANIMATION_INTERVAL, $, $a, create, append, LyraButton,
                     `scale(${res.rect.flip.horizontal ? -1 : 1}, ${res.rect.flip.vertical ? -1 : 1})`;
             };
             res.applyContent = (s) => {
-                res.assets.data.content = s;
-                res.assets.body.querySelector("p").innerText = s;
+                res.assets.data.contentRaw = s;
+                res.assets.data.content = getMarkdownContent(s);
+                res.assets.body.querySelector("p").innerHTML = res.assets.data.content;
             };
             res.doRefresh();
             res.applyContent(res.assets.data.content);

@@ -5,7 +5,7 @@ import { COMMON_INTERVAL, ANIMATION_INTERVAL, $, $a, create, append, LyraButton,
         name: "Project Pictor",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "24w34.5",
+        version: "24w34.6",
         date: "24-08-20",
         watermark: false,
         isBeta: false
@@ -706,18 +706,18 @@ import { COMMON_INTERVAL, ANIMATION_INTERVAL, $, $a, create, append, LyraButton,
                             new LyraButton({
                                 icon: "arrow-e",
                                 text: "이미지 비율에 맞춤",
-                                onclick: () => {
-                                    $btnFitToBg.click();
+                                events: {
+                                    click: () => $btnFitToBg.click()
                                 }
                             }),
                             new LyraButton({
                                 icon: "config",
                                 text: "설정으로 이동",
-                                onclick: () => {
-                                    modalman.reserve["modal-config-bg"].show();
-                                    setTimeout(() => {
-                                        $selectBgFit.focus();
-                                    });
+                                events: {
+                                    click: () => {
+                                        modalman.reserve["modal-config-bg"].show();
+                                        setTimeout(() => $selectBgFit.focus());
+                                    }
                                 }
                             })
                         ]
@@ -730,18 +730,18 @@ import { COMMON_INTERVAL, ANIMATION_INTERVAL, $, $a, create, append, LyraButton,
                             new LyraButton({
                                 icon: "arrow-e",
                                 text: "이미지 비율에 맞춤",
-                                onclick: () => {
-                                    $btnFitToBg.click();
+                                events: {
+                                    click: () => $btnFitToBg.click()
                                 }
                             }),
                             new LyraButton({
                                 icon: "config",
                                 text: "설정으로 이동",
-                                onclick: () => {
-                                    modalman.reserve["modal-config-bg"].show();
-                                    setTimeout(() => {
-                                        $selectBgFit.focus();
-                                    });
+                                events: {
+                                    click: () => {
+                                        modalman.reserve["modal-config-bg"].show();
+                                        setTimeout(() => $selectBgFit.focus())
+                                    }
                                 }
                             })
                         ]

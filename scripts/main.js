@@ -5,7 +5,7 @@ import { COMMON_INTERVAL, ANIMATION_INTERVAL, $, $a, create, append, LyraButton,
         name: "Project Pictor",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "24w34.3",
+        version: "24w34.4",
         date: "24-08-20",
         watermark: false,
         isBeta: false
@@ -131,7 +131,6 @@ import { COMMON_INTERVAL, ANIMATION_INTERVAL, $, $a, create, append, LyraButton,
     const THUMBNAIL_QUEUE_INTERVAL = 3000;
     const BG_FIT_OPTIONS = [ "align-center", "fit-height", "fit-width", "fill" ];
     const SCRIPT_MARKDOWN = [
-        [ /([\n\r]){1,2}/g, "<br>" ],
         [ /\\/g, "" ],
         [ /</g, "&lt;" ],
         [ />/g, "&gt;" ],
@@ -144,6 +143,7 @@ import { COMMON_INTERVAL, ANIMATION_INTERVAL, $, $a, create, append, LyraButton,
         [ /(&gt;&gt;b&gt;&gt;)/g, "<span class=\"tm-cb\">" ],
         [ /(&gt;&gt;y&gt;&gt;)/g, "<span class=\"tm-cy\">" ],
         [ /(&gt;&gt;p&gt;&gt;)/g, "<span class=\"tm-cp\">" ],
+        [ /([\n\r]){1,2}/g, "<br>" ],
         [ /(\:\:\:)/g, "</span>" ]
     ];
     const EMOTE_STICKERS = {
@@ -590,8 +590,7 @@ import { COMMON_INTERVAL, ANIMATION_INTERVAL, $, $a, create, append, LyraButton,
         return str;
     };
     const setContent = (x) => {
-        let res = x;
-        for (const regxp of SCRIPT_MARKDOWN) res = res.replace(regxp[0], regxp[1]);
+        const res = getMarkdownContent(x);
         slide[current].strings.contentRaw = x;
         slide[current].strings.content = res;
         for (const _$n of $comConts) _$n.innerHTML = res;

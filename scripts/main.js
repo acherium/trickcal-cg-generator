@@ -5,7 +5,7 @@ import { COMMON_INTERVAL, ANIMATION_INTERVAL, $, $a, create, append, LyraButton,
         name: "Project Pictor",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "24w34.4",
+        version: "24w34.5",
         date: "24-08-20",
         watermark: false,
         isBeta: false
@@ -342,7 +342,7 @@ import { COMMON_INTERVAL, ANIMATION_INTERVAL, $, $a, create, append, LyraButton,
             () => refreshThumbnail(current, $photozone)
         ],
         [
-            "click", $("#button-markdown-help"),
+            "click", $a(".button-markdown-help"),
             () => modalman.reserve["modal-markdown"].show()
         ],
         [
@@ -1054,7 +1054,7 @@ import { COMMON_INTERVAL, ANIMATION_INTERVAL, $, $a, create, append, LyraButton,
             res.rectOrigin.y = 0;
             res.rectOrigin.width = 200;
             res.rectOrigin.height = 200;
-            res.rectOrigin.rotate = 0;
+            res.rectOrigin.rotate = -3;
             res.rectOrigin.flip.horizontal = false;
             res.rectOrigin.flip.vertical = false;
             res.rect = JSON.parse(JSON.stringify(res.rectOrigin));
@@ -1076,6 +1076,20 @@ import { COMMON_INTERVAL, ANIMATION_INTERVAL, $, $a, create, append, LyraButton,
             res.assets.body.src = res.assets.image;
             res.assets.body.addEventListener("click", () => selectItem(res.uid));
 
+            res.assets.data.bgs = append(create("div", { classes: [ "bg-area" ] }), res.assets.body);
+            append(create("img", { classes: [ "bg-10" ], properties: { src: "./assets/images/dialogue-10.svg" } }), res.assets.data.bgs);
+            append(create("img", { classes: [ "bg-11" ], properties: { src: "./assets/images/dialogue-11.svg" } }), res.assets.data.bgs);
+            append(create("img", { classes: [ "bg-12" ], properties: { src: "./assets/images/dialogue-12.svg" } }), res.assets.data.bgs);
+            append(create("img", { classes: [ "bg-13" ], properties: { src: "./assets/images/dialogue-13.svg" } }), res.assets.data.bgs);
+            append(create("img", { classes: [ "arrow-10" ], properties: { src: "./assets/images/dialogue-arrow-10.svg" } }), res.assets.data.bgs);
+            append(create("img", { classes: [ "next-10" ], properties: { src: "./assets/images/next-green.svg" } }), res.assets.data.bgs);
+            append(create("img", { classes: [ "bg-20" ], properties: { src: "./assets/images/dialogue-20.svg" } }), res.assets.data.bgs);
+            append(create("img", { classes: [ "bg-21" ], properties: { src: "./assets/images/dialogue-21.svg" } }), res.assets.data.bgs);
+            append(create("img", { classes: [ "bg-22" ], properties: { src: "./assets/images/dialogue-22.svg" } }), res.assets.data.bgs);
+            append(create("img", { classes: [ "bg-23" ], properties: { src: "./assets/images/dialogue-23.svg" } }), res.assets.data.bgs);
+            append(create("img", { classes: [ "arrow-20" ], properties: { src: "./assets/images/dialogue-arrow-20.svg" } }), res.assets.data.bgs);
+            append(create("img", { classes: [ "next-20" ], properties: { src: "./assets/images/next-purple.svg" } }), res.assets.data.bgs);
+
             res.additionalMethod = () => {
                 const tmodal = modalman.reserve["modal-dialogue-quick"];
                 const $tmtitle = tmodal.nodes.title.querySelector("h1");
@@ -1089,18 +1103,24 @@ import { COMMON_INTERVAL, ANIMATION_INTERVAL, $, $a, create, append, LyraButton,
                         if (!e.target.checked) return;
                         res.assets.body.classList.replace(`sizing-${res.assets.data.sizing}`, `sizing-${i}`);
                         res.class = Array.from(res.assets.body.classList);
-                        res.assets.data.sizing = i;
+                        res.assets.data.sizing = parseInt(i);
+                        res.doRefresh();
+                        refreshThumbnail(current, $photozone);
                     };
                 };
                 sizeRadios[res.assets.data.sizing].checked = true;
 
                 const posRadios = Array.from($a("input.object-dialogue-positioning", tmodal.nodes.content));
+                const posDegs = [ -3, 3, -3, 3 ];
                 for (const i in posRadios) {
                     posRadios[i].onchange = (e) => {
                         if (!e.target.checked) return;
                         res.assets.body.classList.replace(`positioning-${res.assets.data.positioning}`, `positioning-${i}`);
                         res.class = Array.from(res.assets.body.classList);
-                        res.assets.data.positioning = i;
+                        res.assets.data.positioning = parseInt(i);
+                        res.rect.rotate = posDegs[i];
+                        res.doRefresh();
+                        refreshThumbnail(current, $photozone);
                     };
                 };
                 posRadios[res.assets.data.positioning].checked = true;
@@ -1111,7 +1131,9 @@ import { COMMON_INTERVAL, ANIMATION_INTERVAL, $, $a, create, append, LyraButton,
                         if (!e.target.checked) return;
                         res.assets.body.classList.replace(`theme-${res.assets.data.theme}`, `theme-${i}`);
                         res.class = Array.from(res.assets.body.classList);
-                        res.assets.data.theme = i;
+                        res.assets.data.theme = parseInt(i);
+                        res.doRefresh();
+                        refreshThumbnail(current, $photozone);
                     };
                 };
                 themeRadios[res.assets.data.theme].checked = true;
@@ -1120,24 +1142,33 @@ import { COMMON_INTERVAL, ANIMATION_INTERVAL, $, $a, create, append, LyraButton,
             };
 
             res.doRefresh = () => {
-                res.assets.body.style["transform"] = `translate(${res.rect.x}px, ${res.rect.y}px) ` +
-                    `rotate(${res.rect.rotate}deg) ` +
+                const bound = res.assets.body.getBoundingClientRect();
+                res.rect.width = bound.width;
+                res.rect.height = bound.height;
+                setControllerSize(0, 0, res.rect.width, res.rect.height);
+                
+                if (res.assets.data.theme === 0) {
+                    res.assets.body.style["transform"] = `translate(${res.rect.x}px, ${res.rect.y}px) ` +
+                        `rotate(${res.rect.rotate}deg) ` +
+                        `scale(${res.rect.flip.horizontal ? -1 : 1}, ${res.rect.flip.vertical ? -1 : 1})`;
+                } else {
+                    res.assets.body.style["transform"] = `translate(${res.rect.x}px, ${res.rect.y}px) ` +
                     `scale(${res.rect.flip.horizontal ? -1 : 1}, ${res.rect.flip.vertical ? -1 : 1})`;
+                };
             };
             res.applyContent = (s) => {
                 res.assets.data.contentRaw = s;
                 res.assets.data.content = getMarkdownContent(s);
                 res.assets.body.querySelector("p").innerHTML = res.assets.data.content;
             };
-            res.doRefresh();
             res.applyContent(res.assets.data.content);
-
+            
             res.assets.label = create("div", {
                 classes: [ "image-item" ],
                 properties: {
                     innerHTML: `<div class="thumb"><img src="./assets/images/thumbnail-dialogue.svg"></div>` +
-                        `<p>#${res.uid}: ${res.name}</p>` +
-                        `<button class="remove"><div class="i i-trash"></div></button>`
+                    `<p>#${res.uid}: ${res.name}</p>` +
+                    `<button class="remove"><div class="i i-trash"></div></button>`
                 }
             });
             res.assets.label.addEventListener("click", (e) => {
@@ -1145,10 +1176,11 @@ import { COMMON_INTERVAL, ANIMATION_INTERVAL, $, $a, create, append, LyraButton,
                 else unselectItem();
             });
             res.assets.label.querySelector("button.remove").addEventListener("click", () => removeObject(sid, uid));
-
+            
             tslide.assets.objects.push(res);
             $objLayer.append(res.assets.body);
             $objList.append(res.assets.label);
+            res.doRefresh();
         } else if (t === "sticker") {
             res.class.push("object-sticker");
             res.name = "Sticker object";

@@ -1357,46 +1357,6 @@ span.tm-b {
     border: solid 5px var(--c-black);
     background-color: var(--c-black);
 }
-.object-dialogue.sizing-0 {
-    min-width: 250px;
-    min-height: 150px;
-
-    width: max-content !important;
-    height: max-content !important;
-}
-.object-dialogue.sizing-1 {
-    width: 165px !important;
-    height: 165px !important;
-}
-.object-dialogue.sizing-2 {
-    width: 260px !important;
-    height: 165px !important;
-}
-.object-dialogue.sizing-3 {
-    width: 350px !important;
-    height: 165px !important;
-}
-.object-dialogue.sizing-4 {
-    width: 550px !important;
-    height: 165px !important;
-}
-
-.object-dialogue.theme-0.positioning-0,
-.object-dialogue.theme-0.positioning-2 { rotate: -3deg; }
-
-.object-dialogue.theme-0.positioning-1,
-.object-dialogue.theme-0.positioning-3 { rotate: 3deg; }
-
-.object-dialogue.theme-0.positioning-0::before { transform: translate(-20px, -20px); }
-.object-dialogue.theme-0.positioning-1::before { transform: translate(12px, -20px); }
-.object-dialogue.theme-0.positioning-2::before { transform: translate(-20px, 12px); }
-.object-dialogue.theme-0.positioning-3::before { transform: translate(12px, 12px); }
-
-.object-dialogue.theme-1::before,
-.object-dialogue.theme-1::after,
-.object-dialogue.theme-2::before,
-.object-dialogue.theme-2::after { content: none; }
-
 .object-dialogue > p {
     position: relative;
     padding: 0 30px;
@@ -1434,6 +1394,161 @@ span.tm-b {
     content: "";
     background-color: var(--c-white);
 }
+
+.object-dialogue > .bg-area {
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+}
+.object-dialogue > .bg-area > img {
+    display: none;
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+}
+.object-dialogue > .bg-area > img.arrow-10,
+.object-dialogue > .bg-area > img.arrow-20 {
+    width: 40px;
+    height: auto;
+}
+.object-dialogue > .bg-area > img.next-10,
+.object-dialogue > .bg-area > img.next-20 {
+    right: 25px;
+    bottom: 25px;
+
+    width: 16px;
+    height: auto;
+}
+
+.object-dialogue.theme-1,
+.object-dialogue.theme-2 {
+    border: none;
+    background-color: transparent;
+}
+
+.object-dialogue.theme-0.sizing-0 {
+    min-width: 250px;
+    min-height: 150px;
+
+    width: max-content !important;
+    height: max-content !important;
+}
+.object-dialogue.theme-0.sizing-1 {
+    width: 165px !important;
+    height: 165px !important;
+}
+.object-dialogue.theme-0.sizing-2 {
+    width: 260px !important;
+    height: 165px !important;
+}
+.object-dialogue.theme-0.sizing-3 {
+    width: 350px !important;
+    height: 165px !important;
+}
+.object-dialogue.theme-0.sizing-4 {
+    width: 550px !important;
+    height: 165px !important;
+}
+
+.object-dialogue.theme-0.positioning-0,
+.object-dialogue.theme-0.positioning-2 { transform: rotate(-3deg); }
+
+.object-dialogue.theme-0.positioning-1,
+.object-dialogue.theme-0.positioning-3 { transform: rotate(3deg); }
+
+.object-dialogue.theme-0.positioning-0::before { transform: translate(-20px, -20px); }
+.object-dialogue.theme-0.positioning-1::before { transform: translate(12px, -20px); }
+.object-dialogue.theme-0.positioning-2::before { transform: translate(-20px, 12px); }
+.object-dialogue.theme-0.positioning-3::before { transform: translate(12px, 12px); }
+
+.object-dialogue.theme-0 > .bg-area { display: none; }
+
+.object-dialogue.theme-1::before,
+.object-dialogue.theme-1::after,
+.object-dialogue.theme-2::before,
+.object-dialogue.theme-2::after { content: none; }
+
+.object-dialogue.theme-1.sizing-0,
+.object-dialogue.theme-2.sizing-0 {
+    min-width: 250px;
+    min-height: 150px;
+
+    width: max-content !important;
+    height: max-content !important;
+}
+.object-dialogue.theme-1.sizing-1,
+.object-dialogue.theme-2.sizing-1 {
+    width: 250px !important;
+    height: 150px !important;
+}
+.object-dialogue.theme-1.sizing-2,
+.object-dialogue.theme-2.sizing-2 {
+    width: 350px !important;
+    height: 150px !important;
+}
+.object-dialogue.theme-1.sizing-3,
+.object-dialogue.theme-2.sizing-3 {
+    width: 500px !important;
+    height: 150px !important;
+}
+.object-dialogue.theme-1.sizing-4,
+.object-dialogue.theme-2.sizing-4 {
+    width: 600px !important;
+    height: 150px !important;
+}
+
+.object-dialogue.theme-1.sizing-0 > .bg-area > .bg-10 { display: block; }
+.object-dialogue.theme-1.sizing-1 > .bg-area > .bg-10 { display: block; }
+.object-dialogue.theme-1.sizing-2 > .bg-area > .bg-11 { display: block; }
+.object-dialogue.theme-1.sizing-3 > .bg-area > .bg-12 { display: block; }
+.object-dialogue.theme-1.sizing-4 > .bg-area > .bg-13 { display: block; }
+.object-dialogue.theme-1 > .bg-area > .arrow-10 { display: block; }
+.object-dialogue.theme-1 > .bg-area > .next-10 { display: block; }
+
+.object-dialogue.theme-2.sizing-0 > .bg-area > .bg-20 { display: block; }
+.object-dialogue.theme-2.sizing-1 > .bg-area > .bg-20 { display: block; }
+.object-dialogue.theme-2.sizing-2 > .bg-area > .bg-21 { display: block; }
+.object-dialogue.theme-2.sizing-3 > .bg-area > .bg-22 { display: block; }
+.object-dialogue.theme-2.sizing-4 > .bg-area > .bg-23 { display: block; }
+.object-dialogue.theme-2 > .bg-area > .arrow-20 { display: block; }
+.object-dialogue.theme-2 > .bg-area > .next-20 { display: block; }
+
+.object-dialogue.theme-2 > p { color: var(--c-trickcal-font-sokmaeum); }
+
+.object-dialogue.positioning-0 > .bg-area > .arrow-10,
+.object-dialogue.positioning-0 > .bg-area > .arrow-20 {
+    left: 20px;
+    top: -8px;
+
+    transform: scaleY(-1);
+}
+
+.object-dialogue.positioning-1 > .bg-area > .arrow-10,
+.object-dialogue.positioning-1 > .bg-area > .arrow-20 {
+    right: 20px;
+    top: -8px;
+
+    transform: scaleY(-1) scaleX(-1);
+}
+
+.object-dialogue.positioning-2 > .bg-area > .arrow-10,
+.object-dialogue.positioning-2 > .bg-area > .arrow-20 {
+    left: 20px;
+    bottom: -8px;
+}
+
+.object-dialogue.positioning-3 > .bg-area > .arrow-10,
+.object-dialogue.positioning-3 > .bg-area > .arrow-20 {
+    right: 20px;
+    bottom: -8px;
+
+    transform: scaleX(-1);
+}
+
+.object-dialogue.positioning-4 > .bg-area > .arrow-10,
+.object-dialogue.positioning-4 > .bg-area > .arrow-20 { display: none; }
 
 .active-image-item::before {
     position: absolute;

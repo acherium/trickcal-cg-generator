@@ -1527,7 +1527,7 @@ span.tm-b {
 
 .object-dialogue.positioning-1 > .bg-area > .arrow-10,
 .object-dialogue.positioning-1 > .bg-area > .arrow-20 {
-    right: 20px;
+    right: 30px;
     top: -8px;
 
     transform: scaleY(-1) scaleX(-1);
@@ -1541,7 +1541,7 @@ span.tm-b {
 
 .object-dialogue.positioning-3 > .bg-area > .arrow-10,
 .object-dialogue.positioning-3 > .bg-area > .arrow-20 {
-    right: 20px;
+    right: 30px;
     bottom: -8px;
 
     transform: scaleX(-1);

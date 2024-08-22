@@ -103,7 +103,7 @@
 .slider > .controller > input[type=radio]:focus { outline: none; }
 
 .slider:hover > .controller { background-color: var(--c-main); }
-.slider:hover > .controller > input[type=radio] { background-color: var(--c-lyra); }
+.slider:hover > .controller > input[type=radio] { background-color: var(--c-accent); }
 
 @keyframes ani-slider-out-right {
   to { transform: translateX(100%); }
@@ -129,5 +129,5 @@
     gap: var(--p-large);
     background-color: var(--c-main);
   }
-  .slider > .controller > input[type=radio] { background-color: var(--c-lyra); }
+  .slider > .controller > input[type=radio] { background-color: var(--c-accent); }
 }

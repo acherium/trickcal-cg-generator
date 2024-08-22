@@ -49,11 +49,11 @@ label:has(input[type=checkbox]:not(:disabled))::before { border-radius: var(--r)
 label:has(input[type=radio]:not(:disabled))::before { border: solid 2px var(--c-checkbox-border); }
 
 label:has(input[type=checkbox]:not(:disabled)):hover::before,
-label:has(input[type=radio]:not(:disabled)):hover::before { border-color: var(--c-lyra); }
+label:has(input[type=radio]:not(:disabled)):hover::before { border-color: var(--c-accent); }
 
-label:has(input[type=checkbox]:not(:disabled):checked)::before { border: solid 6px var(--c-lyra); }
+label:has(input[type=checkbox]:not(:disabled):checked)::before { border: solid 6px var(--c-accent); }
 
-label:has(input[type=radio]:not(:disabled):checked)::before { border: solid 6px var(--c-lyra); }
+label:has(input[type=radio]:not(:disabled):checked)::before { border: solid 6px var(--c-accent); }
 
 label:has(input[type=checkbox]:disabled),
 label:has(input[type=radio]:disabled) { opacity: 0.5; }

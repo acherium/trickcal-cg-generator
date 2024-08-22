@@ -1,5 +1,5 @@
 @charset "UTF-8";
-a:focus { outline: solid 2px var(--c-lyra); }
+a:focus { outline: solid 2px var(--c-accent); }
 
 a {
   display: inline-flex;
@@ -20,7 +20,7 @@ a::before {
 
   content: "";
   background: no-repeat top/1em var(--i-arrow-ne-white);
-  background-color: var(--c-lyra);
+  background-color: var(--c-accent);
 }
 
 a::after {
@@ -43,4 +43,4 @@ a::after {
 
 a:hover::after, a:focus::after { opacity: 0.1; }
 
-a:visited { color: var(--c-lyra); }
+a:visited { color: var(--c-accent); }

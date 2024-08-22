@@ -135,7 +135,7 @@ input[type=text], input[type=number], textarea {
     transition: all 0.1s;
 }
 input[type=text]:focus, input[type=number]:focus, textarea:focus {
-    outline: solid 3px var(--c-lyra);
+    outline: solid 3px var(--c-accent);
 }
 input[type=number] {
     appearance: textfield;
@@ -158,7 +158,7 @@ select {
     transition: all 0.1s;
 }
 select:focus {
-    outline: solid 3px var(--c-lyra);
+    outline: solid 3px var(--c-accent);
 }
 option:not(:disabled) {
     color: var(--c-font);
@@ -211,7 +211,7 @@ label:active > p, label:active > .i, label:active::before {
     filter: var(--f-button-hover) !important;
 }
 input[type=checkbox]:checked+label, input[type=checkbox]:checked+label, input[type=radio]:checked+label, input[type=radio]:checked+label {
-    background-color: var(--c-lyra);
+    background-color: var(--c-accent);
 }
 input[type=checkbox]:checked+label > p, input[type=checkbox]:checked+label > .i, input[type=checkbox]:checked+label::before,
 input[type=radio]:checked+label > p, input[type=radio]:checked+label > .i, input[type=radio]:checked+label::before {
@@ -254,7 +254,7 @@ input[type=checkbox]:checked+label:not(.image-item)::before {
 
     color: var(--c-white);
     border-radius: 4px;
-    background-color: var(--c-lyra);
+    background-color: var(--c-accent);
     pointer-events: none;
 
     animation-name: ani-pop-up;

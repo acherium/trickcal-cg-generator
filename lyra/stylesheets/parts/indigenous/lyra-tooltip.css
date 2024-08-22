@@ -22,5 +22,5 @@
   color: var(--c-white);
   border-radius: var(--r);
   outline: solid 2px var(--c-main);
-  background-color: var(--c-lyra);
+  background-color: var(--c-accent);
 }

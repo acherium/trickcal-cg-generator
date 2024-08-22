@@ -43,7 +43,7 @@ input[type=file] {
     color: var(--c-font-sub);
 }
 .desc a {
-    color: var(--c-lyra);
+    color: var(--c-accent);
 }
 
 body {
@@ -90,7 +90,7 @@ body {
     max-width: 100%;
     max-height: 100%;
 
-    border-bottom: solid 2px var(--c-lyra);
+    border-bottom: solid 2px var(--c-accent);
 }
 
 #logo-area {
@@ -111,7 +111,7 @@ body {
     font-size: 8pt;
     color: var(--c-white);
     border-radius: var(--r-small);
-    background-color: var(--c-lyra);
+    background-color: var(--c-accent);
 } */
 
 #button-search {
@@ -155,7 +155,7 @@ footer span, footer  a {
     color: var(--c-font-sub);
 }
 footer a {
-    color: var(--c-lyra);
+    color: var(--c-accent);
 }
 
 #left, #right {
@@ -258,7 +258,7 @@ main {
     width: calc(100% + 800px);
     height: calc(100% + 800px);
 
-    border: solid 3px var(--c-lyra);
+    border: solid 3px var(--c-accent);
 }
 
 #preview-bg {
@@ -378,7 +378,7 @@ input[type=checkbox] {
     pointer-events: all;
 }
 #photo-layer > *:hover {
-    outline: solid 2px var(--c-lyra);
+    outline: solid 2px var(--c-accent);
 }
 
 #photo-sokmaeum {
@@ -439,7 +439,7 @@ input[type=checkbox] {
     cursor: pointer;
 }
 #photo-script-box-area-revamped:hover {
-    outline: solid 2px var(--c-lyra);
+    outline: solid 2px var(--c-accent);
 }
 
 #photo-script-box-area-revamped > .area {
@@ -761,7 +761,7 @@ input[type=checkbox] {
     cursor: pointer;
 }
 #photo-script-box-area:hover {
-    outline: solid 2px var(--c-lyra);
+    outline: solid 2px var(--c-accent);
 }
 .content-box-center {
     bottom: calc(50% - 112px) !important;
@@ -1180,7 +1180,7 @@ span.tm-b {
     position: absolute;
     
     border: solid 2px black;
-    outline: solid 2px var(--c-lyra);
+    outline: solid 2px var(--c-accent);
 
     background-color: rgba(177, 0, 255, 0.1);
     cursor: move;
@@ -1275,7 +1275,7 @@ span.tm-b {
     background-color: transparent;
 }
 #controller-bar .controller-active {
-    background-color: var(--c-lyra);
+    background-color: var(--c-accent);
 }
 
 #image-item-list {
@@ -1559,13 +1559,13 @@ span.tm-b {
     width: calc(100% - 6px);
     height: calc(100% - 6px);
 
-    border: solid 3px var(--c-lyra);
+    border: solid 3px var(--c-accent);
     pointer-events: none;
     content: "";
 }
 .active-image-item p {
     font-weight: 900;
-    color: var(--c-lyra);
+    color: var(--c-accent);
 }
 
 .slide-item {
@@ -1612,13 +1612,13 @@ span.tm-b {
     width: calc(100% - 6px);
     height: calc(100% - 6px);
 
-    border: solid 3px var(--c-lyra);
+    border: solid 3px var(--c-accent);
     pointer-events: none;
     content: "";
 }
 .active-slide p {
     font-weight: 900;
-    color: var(--c-lyra);
+    color: var(--c-accent);
 }
 
 .slide-item-menu {
@@ -1655,9 +1655,9 @@ span.tm-b {
     width: 150px;
     height: 150px;
 
-    border: solid 3px var(--c-lyra);
+    border: solid 3px var(--c-accent);
     border-radius: var(--r-small);
-    background-color: var(--c-lyra);
+    background-color: var(--c-accent);
 }
 .colorpicker-preview-value {
     padding: 0 4px;
@@ -1727,7 +1727,7 @@ span.tm-b {
     cursor: ew-resize;
 }
 .colorpicker-pointer:active {
-    outline: solid 2px var(--c-lyra);
+    outline: solid 2px var(--c-accent);
 }
 .colorpicker-area > .right > input[type=number] {
     width: 100%;
@@ -1886,7 +1886,7 @@ span.tm-b {
 
     color: var(--c-white);
     border-radius: 4px;
-    background-color: var(--c-lyra);
+    background-color: var(--c-accent);
     pointer-events: none;
 
     animation-name: ani-pop-up;
@@ -1949,7 +1949,7 @@ button {
     }
 
     .m-active-toggle-menu {
-        background-color: var(--c-lyra);
+        background-color: var(--c-accent);
     }
     .m-active-toggle-menu * {
         filter: brightness(0) invert(1) !important;

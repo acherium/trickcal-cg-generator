@@ -1,5 +1,5 @@
 @charset "UTF-8";
-select:focus { outline: solid 2px var(--c-lyra); }
+select:focus { outline: solid 2px var(--c-accent); }
 select:disabled { cursor: no-drop; }
 
 select {

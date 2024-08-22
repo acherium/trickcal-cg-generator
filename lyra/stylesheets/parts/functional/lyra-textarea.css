@@ -1,5 +1,5 @@
 @charset "UTF-8";
-textarea:focus { outline: solid 2px var(--c-lyra); }
+textarea:focus { outline: solid 2px var(--c-accent); }
 textarea:disabled { cursor: no-drop; }
 
 textarea {
@@ -65,7 +65,7 @@ label:has(textarea) > textarea {
   border-radius: 0;
 }
 
-label:has(textarea:focus) { outline: solid 2px var(--c-lyra); }
+label:has(textarea:focus) { outline: solid 2px var(--c-accent); }
 
 label:has(textarea) > textarea:focus {
   border-radius: 0;

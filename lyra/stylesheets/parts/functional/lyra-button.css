@@ -1,6 +1,6 @@
 @charset "UTF-8";
 button:disabled { cursor: no-drop; }
-button:focus { outline: solid 2px var(--c-lyra); }
+button:focus { outline: solid 2px var(--c-accent); }
 
 button {
   display: flex;

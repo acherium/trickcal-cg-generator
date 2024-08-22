@@ -1,6 +1,8 @@
 @charset "UTF-8";
 :root {
   --c-lyra: oklch(59% 0.3 309);
+  --c-accent: var(--c-lyra);
+  --c-accent-alt: var(--c-lyra);
   --c-white: oklch(100% 0 0);
   --c-n9: oklch(90% 0 0);
   --c-n8: oklch(80% 0 0);

@@ -3,16 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>트릭컬 스토리 대화창 생성기</title>
+    <title>트릭컬 테마극장 생성기</title>
     <link rel="icon" href="./assets/essentials/favicon.svg">
     <link rel="manifest" href="./manifest.json" crossorigin="use-credentials">
-    <meta property="og:title" content="트릭컬 스토리 대화창 생성기">
-    <meta property="og:description" content="모바일 게임 《트릭컬: 리바이브》의 인게임 스토리에서의 대화창 및 CG 씬과 유사한 규격의 이미지를 쉽게 제작하도록 돕는 웹기반 어플리케이션입니다.">
+    <meta property="og:title" content="트릭컬 테마극장 생성기">
+    <meta property="og:description" content="모바일 게임 《트릭컬: 리바이브》의 인게임 스토리(테마극장)에서의 대화창 및 CG 씬과 유사한 규격의 이미지를 쉽게 제작하도록 돕는 웹기반 어플리케이션입니다.">
     <meta property="og:image" content="https://acherium.github.io/trickcal/cg-gen/assets/essentials/thumbnail.png">
     <meta property="og:url" content="https://acherium.github.io/trickcal/cg-gen/">
 
+    <link rel="stylesheet" href="./lyra/lyra-styles.css">
+    <link rel="stylesheet" href="./stylesheets/main.css">
+
+    <script type="module" src="./lyra/lyra-style-init.js" async></script>
+    <script src="./scripts/html2canvas-pro.min.js" defer></script>
+    <script type="module" src="./scripts/main.js" defer></script>
     <style>
         :root {
+            --c-accent: oklch(73.2% 0.16 31.9);
+            --c-accent-alt: oklch(98.7% 0 67.75);
             --c-splash-bg: oklch(100% 0 0);
         }
         @media (prefers-color-scheme: dark) {
@@ -32,7 +40,7 @@
             top: 0;
             width: 100vw;
             height: 100vh;
-            border-bottom: solid 6px oklch(59% 0.3 309);
+            border-bottom: solid 6px oklch(73.2% 0.16 31.9);
             background-color: var(--c-splash-bg);
             opacity: 1;
             pointer-events: none;
@@ -75,18 +83,12 @@
             }
         }
     </style>
-    <link rel="stylesheet" href="./lyra/lyra-styles.css">
-    <link rel="stylesheet" href="./stylesheets/main.css">
-
-    <script type="module" src="./lyra/lyra-style-init.js" async></script>
-    <script src="./scripts/html2canvas-pro.min.js" defer></script>
-    <script type="module" src="./scripts/main.js" defer></script>
 </head>
 <body>
     <div id="splash-screen">
         <div id="splash-logo">
             <img src="./assets/essentials/logo.svg">
-            <p>트릭컬 스토리 대화창 생성기</p>
+            <p>트릭컬 테마극장 생성기</p>
         </div>
         <img id="splash-poweredby" src="./lyra/assets/essentials/poweredby.svg" alt="Powered by Lyra Engine">
     </div>
@@ -94,8 +96,7 @@
     <div id="top">
         <div id="logo-area">
             <img id="logo" src="./assets/essentials/logo.svg">
-            <h2 id="logotype" class="m-hide">트릭컬 스토리 대화창 생성기</h1>
-            <!-- <span id="ver"></span> -->
+            <h2 id="logotype" class="m-hide">테마극장 생성기</h1>
         </div>
         <button id="button-search">
             <div class="i i-search"></div>

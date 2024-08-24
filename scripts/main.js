@@ -10,7 +10,7 @@ import {
         name: "Project Pictor",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "24w34.9",
+        version: "24w34.11",
         date: "24-08-24",
         watermark: false,
         isBeta: false
@@ -1044,7 +1044,7 @@ import {
             res.class.push("sizing-0");
             res.class.push("positioning-2");
             res.class.push("theme-0");
-            res.name = "Dialogue object";
+            res.name = "말풍선";
             res.type = "dialogue";
             res.sort = tslide.assets.objects.length;
 
@@ -1186,7 +1186,7 @@ import {
             res.doRefresh();
         } else if (t === "sticker") {
             res.class.push("object-sticker");
-            res.name = "Sticker object";
+            res.name = "스티커";
             res.type = "sticker",
             res.sort = tslide.assets.objects.length;
             

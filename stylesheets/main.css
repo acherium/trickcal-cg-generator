@@ -100,10 +100,15 @@ body {
     width: 40px;
 
     border-radius: var(--r-small);
+    pointer-events: none;
 }
 #logotype {
     height: 40px;
     line-height: 40px;
+
+    font-family: "ONE Mobile POP";
+    font-size: 18pt;
+    pointer-events: none;
 }
 /* #ver {
     padding: 3px;
@@ -183,12 +188,10 @@ footer a {
     align-items: flex-start;
     justify-content: flex-start;
     flex-direction: column;
+    gap: var(--m);
 
     width: 100%;
     height: max-content;
-}
-.scroll-box-inner > *:not(:last-child), #slide-list > *:not(:last-child) {
-    margin-bottom: 8px;
 }
 
 #middle {
@@ -212,7 +215,7 @@ footer a {
     align-items: center;
     justify-content: center;
     z-index: 0;
-    overflow: scroll;
+    overflow: hidden;
 
     flex: 1;
     width: 100%;
@@ -221,9 +224,6 @@ footer a {
     border-radius: var(--r-large);
     background-color: var(--c-sub);
 }
-/* #middle-top:active {
-    cursor: grab;
-} */
 #middle-bottom {
     position: relative;
     /* margin: 8px 0; */
@@ -240,20 +240,18 @@ footer a {
 }
 
 main {
-    display: flex;
     position: relative;
-    align-items: center;
-    justify-content: center;
     flex-direction: column;
     /* padding: 300px; */
     /* box-sizing: content-box; */
+    overflow: scroll;
 
-    min-width: max-content;
-    min-height: max-content;
+    max-width: 100%;
+    max-height: 100%;
     width: max-content;
     height: max-content;
 
-    pointer-events: none;
+    /* pointer-events: none; */
 }
 
 #deadline {
@@ -1288,7 +1286,7 @@ span.tm-b {
     align-items: flex-start;
     justify-content: flex-start;
     flex-direction: column-reverse;
-    gap: var(--p);
+    gap: var(--m);
 
     width: 100%;
 }
@@ -1810,49 +1808,6 @@ span.tm-b {
     font-size: 8pt;
 }
 
-#script-box-config {
-    display: grid;
-    grid-template-columns: minmax(0, 200px) minmax(0, auto);
-    grid-template-rows: repeat(2, minmax(0, 80px));
-    gap: var(--p);
-}
-#script-box-config > *, #script-box-type {
-    padding: var(--p-small);
-
-    border: solid 2px var(--c-button);
-    border-radius: var(--r-medium);
-}
-#script-box-position {
-    grid-row: 1 / -1;
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 33%));
-    grid-template-rows: repeat(4, minmax(0, auto));
-}
-#script-box-style {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 25%));
-    grid-template-rows: repeat(2, minmax(0, auto));
-}
-#script-sokmaeum-style {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 33%));
-    grid-template-rows: repeat(2, minmax(0, auto));
-}
-#script-box-type {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 50%));
-    grid-template-rows: repeat(2, minmax(0, auto));
-}
-#script-box-position > *, #script-box-style > *, #script-sokmaeum-style > *, #script-box-type > * {
-    justify-content: center;
-
-    width: 100%;
-    height: 100%;
-}
-#script-box-position > p, #script-box-style > p, #script-sokmaeum-style > p, #script-box-type > p {
-    grid-column: 1 / -1;
-}
-
 .alert {
     display: flex;
     position: absolute;
@@ -1876,46 +1831,6 @@ span.tm-b {
     flex-direction: column;
     gap: var(--m-medium);
 }
-
-/* .tip {
-    display: none;
-    position: absolute;
-    align-items: flex-start;
-    justify-content: flex-start;
-    padding: 8px;
-    top: 5px;
-    z-index: 10;
-
-    width: max-content;
-    height: max-content;
-
-    color: var(--c-white);
-    border-radius: 4px;
-    background-color: var(--c-accent);
-    pointer-events: none;
-
-    animation-name: ani-pop-up;
-    animation-duration: 0.1s;
-}
-.rtip {
-    left: calc(100% + 15px);
-}
-.ltip {
-    right: calc(100% + 6px);
-}
-.utip {
-    top: -45px;
-}
-*:has(.tip):hover > .tip, *:has(.tip):active > .tip {
-    display: flex;
-}
-*:has(.tip):not(:hover) > .tip {
-    animation-name: ani-pop-out;
-}
-
-.modal-input-text, #content {
-    font-family: "ONE Mobile POP";
-} */
 
 button {
     min-height: 44px;

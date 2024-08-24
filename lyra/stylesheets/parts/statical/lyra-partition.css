@@ -1,22 +1,19 @@
 @charset "UTF-8";
-.partition-vertical {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  
-  width: 1px;
+.divline,
+.divline-column {
+  margin: 0 var(--m);
+
+  min-width: 2px;
   height: 100%;
 
   background-color: var(--c-button);
 }
 
-.partition-horizontal {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  
+.divline-row {
+  margin: var(--m) 0;
+
   width: 100%;
-  height: 1px;
+  min-height: 2px;
 
   background-color: var(--c-button);
 }

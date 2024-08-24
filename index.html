@@ -94,15 +94,15 @@
     </div>
     <input type="file" id="uploader">
     <div id="top">
-        <div id="logo-area">
+        <div id="logo-area" lyra-tip="클릭하면 버전 정보를 표시합니다.">
             <img id="logo" src="./assets/essentials/logo.svg">
-            <h2 id="logotype" class="m-hide">테마극장 생성기</h1>
+            <p id="logotype" class="m-hide">트릭컬 테마극장 생성기</p>
         </div>
         <!-- <button id="button-search">
             <div class="i i-search"></div>
             <p class="m-hide">리소스 검색</p>
         </button> -->
-        <div class="m-hide flexlist-horizontal">
+        <div class="m-hide list-row">
             <label for="checkbox-toggle-shortcut" id="toggle-shortcut">
                 <input type="checkbox" id="checkbox-toggle-shortcut">
                 <p>단축키 사용</p>
@@ -112,7 +112,7 @@
                 <p>단축키 도움말</p>
             </button> -->
         </div>
-        <div class="m-show-flex flexlist-horizontal">
+        <div class="m-show-flex list-row">
             <button id="m-button-toggle-slide">
                 <div class="i i-slide"></div>
             </button>
@@ -124,13 +124,13 @@
     <div id="bottom">
         <div id="left">
             <div class="scroll-box-inner">
-                <div class="partition-horizontal" style="display: none;"></div>
+                <div class="divline-row" style="display: none;"></div>
                 <h4 style="display: none;">문서</h4>
                 <label class="wf f1" style="display: none;">
                     <p>제목</p>
                     <input type="text" id="show-name" class="wf f1" value="">
                 </label>
-                <div class="flexlist-horizontal wf" style="display: none;">
+                <div class="list-row wf" style="display: none;">
                     <button id="button-save" class="wf fjcc">
                         <div class="i i-export"></div>
                         <p>저장</p>
@@ -140,20 +140,20 @@
                         <p>불러오기</p>
                     </button>
                 </div>
-                <div class="partition-horizontal"></div>
+                <div class="divline-row"></div>
                 <h4>이미지로 출력</h4>
-                <div class="flexlist-horizontal wf">
-                    <button id="button-download" class="wf fjcc" lyra-tip="현재 슬라이드를 PNG 이미지로 저장합니다.">
+                <div class="list-row wf">
+                    <button id="button-download" class="f1 fjcc" lyra-tip="현재 슬라이드를 PNG 이미지로 저장합니다.">
                         <div class="i i-download"></div>
                         <p>현재</p>
                     </button>
-                    <button id="button-download-all" class="wf fjcc" lyra-tip="모든 슬라이드를 PNG 이미지로 저장합니다.">
+                    <button id="button-download-all" class="f1 fjcc" lyra-tip="모든 슬라이드를 PNG 이미지로 저장합니다.">
                         <div class="i i-download"></div>
                         <p>전체</p>
                     </button>
                 </div>
-                <div class="flexlist-horizontal wf">
-                    <label class="wf f1">
+                <div class="list-row wf">
+                    <label class="f1">
                         <div class="i i-slide-size"></div>
                         <input type="text" id="export-size-onmenu" class="wf f1" disabled>
                     </label>
@@ -161,26 +161,26 @@
                         <div class="i i-config"></div>
                     </button>
                 </div>
-                <div class="flexlist-horizontal fjcc wf">
+                <div class="list-row fjcc wf">
                     <span class="desc">Powered by <a href="https://github.com/yorickshan/html2canvas-pro" target="_blank">html2canvas-pro</a></span>
                 </div>
-                <div class="partition-horizontal"></div>
+                <div class="divline-row"></div>
                 <h4>슬라이드</h4>
                 <button id="button-slide-size" class="wf fjcc">
                     <div class="i i-slide-size"></div>
                     <p>슬라이드 크기</p>
                 </button>
-                <div class="flexlist-horizontal wf">
-                    <button id="button-add-slide" class="wf fjcc" lyra-tip="빈 슬라이드를 추가합니다.">
+                <div class="list-row wf">
+                    <button id="button-add-slide" class="f1 fjcc" lyra-tip="빈 슬라이드를 추가합니다.">
                         <div class="i i-create-slide"></div>
                         <p>추가</p>
                     </button>
-                    <button id="button-duplicate-slide" class="wf fjcc" lyra-tip="현재 슬라이드를 복제합니다.">
+                    <button id="button-duplicate-slide" class="f1 fjcc" lyra-tip="현재 슬라이드를 복제합니다.">
                         <div class="i i-duplicate-slide"></div>
                         <p>복제</p>
                     </button>
                 </div>
-                <div class="partition-horizontal"></div>
+                <div class="divline-row"></div>
                 <div id="slide-list">
                 </div>
             </div>
@@ -393,7 +393,7 @@
             </div>
             <div id="middle-bottom">
                 <div id="controller-bar">
-                    <div class="partition-vertical"></div>
+                    <div class="divline"></div>
                     <button id="button-controller-bottommost" lyra-tip="맨 아래로">
                         <div class="i i-bottommost"></div>
                     </button>
@@ -406,7 +406,7 @@
                     <button id="button-controller-frontmost" lyra-tip="맨 위로">
                         <div class="i i-frontmost"></div>
                     </button>
-                    <div class="partition-vertical"></div>
+                    <div class="divline"></div>
                     <button id="button-controller-flip-horizontal" lyra-tip="좌우 뒤집기">
                         <div class="i i-flip-horizontal"></div>
                     </button>
@@ -417,31 +417,31 @@
                     <button id="controller-toggle-darker" lyra-tip="어둡게">
                         <div class="i i-invert"></div>
                     </button>
-                    <div class="partition-vertical"></div>
+                    <div class="divline"></div>
                     <button id="button-controller-reset" lyra-tip="위치 및 크기 초기화">
                         <div class="i i-rescue"></div>
                     </button>
                     <button id="button-controller-remove" lyra-tip="삭제">
                         <div class="i i-trash"></div>
                     </button>
-                    <div class="partition-vertical"></div>
+                    <div class="divline"></div>
                     <button id="button-controller-unselect" lyra-tip="선택 취소">
                         <div class="i i-deny"></div>
                     </button>
-                    <div class="partition-vertical"></div>
+                    <div class="divline"></div>
                 </div>
             </div>
         </div>
         <div id="right">
             <div class="scroll-box-inner">
-                <div class="partition-horizontal"></div>
+                <div class="divline-row"></div>
                 <h4>배경</h4>
-                <div class="flexlist-horizontal wf">
-                    <button id="button-set-bg" class="wf fjcc">
+                <div class="list-row wf">
+                    <button id="button-set-bg" class="f1 fjcc">
                         <div class="i i-plus"></div>
                         <p>설정</p>
                     </button>
-                    <button id="button-remove-bg" class="wf fjcc">
+                    <button id="button-remove-bg" class="f1 fjcc">
                         <div class="i i-trash"></div>
                         <p>제거</p>
                     </button>
@@ -453,25 +453,27 @@
                 <div id="preview-bg">
                     <img src="">
                 </div>
-                <div class="partition-horizontal"></div>
+                <div class="divline-row"></div>
                 <h4>요소</h4>
-                <div id="script-box-type" class="radio-toggle-list wf">
-                    <p>모드</p>
-                    <label lyra-tip="구 테마극장 스타일로 설정합니다.">
-                        <input type="radio" name="script-box-type" value="0">
-                        기본
-                    </label>
-                    <label lyra-tip="테마극장 개편 업데이트 이후 스타일로 설정합니다.">
-                        <input type="radio" name="script-box-type" value="1">
-                        신규
-                    </label>
+                <div id="script-box-type" class="list listbox wf">
+                    <h4>모드</h4>
+                    <div class="list-row wf">
+                        <label class="f1" lyra-tip="구 테마극장 스타일로 설정합니다.">
+                            <input type="radio" name="script-box-type" value="0">
+                            기본
+                        </label>
+                        <label class="f1" lyra-tip="테마극장 개편 업데이트 이후 스타일로 설정합니다.">
+                            <input type="radio" name="script-box-type" value="1">
+                            신규
+                        </label>
+                    </div>
                 </div>
-                <div class="flexlist-horizontal wf">
-                    <button id="button-content" class="wf fjcc">
+                <div class="list-row wf">
+                    <button id="button-content" class="f1 fjcc">
                         <div class="i i-content"></div>
                         <p>대화창</p>
                     </button>
-                    <button id="button-select-box" class="wf fjcc">
+                    <button id="button-select-box" class="f1 fjcc">
                         <div class="i i-content"></div>
                         <p>선택지</p>
                     </button>
@@ -480,24 +482,24 @@
                     <div class="i i-config"></div>
                     <p>기타 요소 설정</p>
                 </button>
-                <div class="partition-horizontal"></div>
+                <div class="divline-row"></div>
                 <h4>개체</h4>
-                <div class="flexlist-horizontal wf">
-                    <button id="button-add-dialogue" class="wf fjcc">
+                <div class="list-row wf">
+                    <button id="button-add-dialogue" class="f1 fjcc">
                         <div class="i i-plus"></div>
                         <p>말풍선</p>
                     </button>
-                    <button id="button-add-sticker" class="wf fjcc">
+                    <button id="button-add-sticker" class="f1 fjcc">
                         <div class="i i-plus"></div>
                         <p>스티커</p>
                     </button>
                 </div>
-                <div class="flexlist-horizontal wf">
-                    <button id="button-add-image" class="wf fjcc">
+                <div class="list-row wf">
+                    <button id="button-add-image" class="f1 fjcc">
                         <div class="i i-plus"></div>
                         <p>사진</p>
                     </button>
-                    <button id="button-reset-image" class="wf fjcc">
+                    <button id="button-reset-image" class="f1 fjcc">
                         <div class="i i-trash"></div>
                         <p>전체 삭제</p>
                     </button>
@@ -514,7 +516,9 @@
                 <div class="icon il i-content"></div>
                 <h1>이름</h1>
             </div>
-            <div class="content"></div>
+            <div class="content">
+                <div class="divline-row"></div>
+            </div>
             <div class="controller">
                 <button class="close"></button>
             </div>
@@ -525,6 +529,7 @@
         <div class="body">
             <div class="title"></div>
             <div class="content">
+                <div class="divline-row"></div>
             </div>
             <div class="controller">
                 <button class="close"></button>
@@ -534,42 +539,43 @@
     </div>
     <div id="modal-dialogue-quick" class="modal">
         <div class="bg bg-none"></div>
-        <div class="body wm400">
+        <div class="body">
             <div class="title">
                 <div class="icon il i-config"></div>
                 <h1>말풍선</h1>
             </div>
             <div class="content">
-                <h3>내용</h3>
+                <div class="divline-row"></div>
+                <h4>내용</h4>
                 <textarea id="input-dialogue-content" class="input-content wf"></textarea>
                 <button class="button-markdown-help wfc">
                     <div class="i i-notification"></div>
                     <p>마크다운 문법 도움말</p>
                 </button>
-                <div class="partition-horizontal"></div>
-                <h3>크기</h3>
-                <div class="flexlist">
+                <div class="divline-row"></div>
+                <h4>크기</h4>
+                <div class="list-row">
                     <label><input type="radio" name="object-dialogue-sizing" class="object-dialogue-sizing" value="0">자동</label>
                     <label><input type="radio" name="object-dialogue-sizing" class="object-dialogue-sizing" value="1">짧음</label>
                     <label><input type="radio" name="object-dialogue-sizing" class="object-dialogue-sizing" value="2">보통</label>
                     <label><input type="radio" name="object-dialogue-sizing" class="object-dialogue-sizing" value="3">긺</label>
                     <label><input type="radio" name="object-dialogue-sizing" class="object-dialogue-sizing" value="4">아주 긺</label>
                 </div>
-                <div class="partition-horizontal"></div>
-                <h3>방향</h3>
-                <div class="flexlist">
+                <div class="divline-row"></div>
+                <h4>방향</h4>
+                <div class="list-row">
                     <label><input type="radio" name="object-dialogue-positioning" class="object-dialogue-positioning" value="0">↖</label>
                     <label><input type="radio" name="object-dialogue-positioning" class="object-dialogue-positioning" value="1">↗</label>
                     <label><input type="radio" name="object-dialogue-positioning" class="object-dialogue-positioning" value="2">↙</label>
                     <label><input type="radio" name="object-dialogue-positioning" class="object-dialogue-positioning" value="3">↘</label>
                     <label><input type="radio" name="object-dialogue-positioning" class="object-dialogue-positioning" value="4">+</label>
                 </div>
-                <div class="partition-horizontal"></div>
-                <h3>테마</h3>
-                <div class="flexlist">
-                    <label><input type="radio" name="object-dialogue-theme" class="object-dialogue-theme" value="0">0</label>
-                    <label><input type="radio" name="object-dialogue-theme" class="object-dialogue-theme" value="1">1</label>
-                    <label><input type="radio" name="object-dialogue-theme" class="object-dialogue-theme" value="2">2</label>
+                <div class="divline-row"></div>
+                <h4>테마</h4>
+                <div class="list-row">
+                    <label><input type="radio" name="object-dialogue-theme" class="object-dialogue-theme" value="0">사각형</label>
+                    <label><input type="radio" name="object-dialogue-theme" class="object-dialogue-theme" value="1">기본</label>
+                    <label><input type="radio" name="object-dialogue-theme" class="object-dialogue-theme" value="2">속마음</label>
                 </div>
             </div>
             <div class="controller">
@@ -585,10 +591,9 @@
                 <h1>스티커 옵션</h1>
             </div>
             <div class="content">
-                <div class="flexlist-horizontal wf">
-                    <p>스티커</p>
-                    <select id="select-sticker-style" class="f1"></select>
-                </div>
+                <div class="divline-row"></div>
+                <h4>스티커</h4>
+                <select id="select-sticker-style" class="f1"></select>
             </div>
             <div class="controller">
                 <button class="close"></button>
@@ -603,7 +608,8 @@
                 <h1>대화창</h1>
             </div>
             <div class="content">
-                <h3>이름</h3>
+                <div class="divline-row"></div>
+                <h4>이름</h4>
                 <label class="wf f1">
                     <p>이름</p>
                     <input type="text" id="input-name" class="wf f1">
@@ -628,7 +634,7 @@
                         <input type="number" class="colorpicker-input colorpicker-input-b">
                     </div>
                 </div>
-                <div class="flexlist-horizontal content-type-1 wf">
+                <div class="list-row content-type-1 wf">
                     <p>위치</p>
                     <select id="select-namearea-position" class="f1">
                         <option value="0">좌측</option>
@@ -640,97 +646,57 @@
                     <div class="i i-palette"></div>
                     <p>색상 프리셋</p>
                 </button>
-                <div class="partition-horizontal"></div>
-                <h3>내용</h3>
+                <div class="divline-row"></div>
+                <h4>내용</h4>
                 <textarea id="input-content" class="input-content wf"></textarea>
                 <button class="button-markdown-help wfc">
                     <div class="i i-notification"></div>
                     <p>마크다운 문법 도움말</p>
                 </button>
-                <div class="partition-horizontal"></div>
-                <h3>형태</h3>
-                <div class="flexlist-vertical content-type-0 wf">
-                    <div id="script-box-config" class="wf">
-                        <div id="script-box-position" class="radio-toggle-list wf">
-                            <p>위치</p>
-                            <label>
-                                <input type="radio" name="script-box-position" value="0">
-                                <p>↖</p>
-                            </label>
-                            <label>
-                                <input type="radio" name="script-box-position" value="1">
-                                <p>↑</p>
-                            </label>
-                            <label>
-                                <input type="radio" name="script-box-position" value="2">
-                                <p>↗</p>
-                            </label>
-                            <label>
-                                <input type="radio" name="script-box-position" value="3">
-                                <p>←</p>
-                            </label>
-                            <label>
-                                <input type="radio" name="script-box-position" value="4">
-                                <p>+</p>
-                            </label>
-                            <label>
-                                <input type="radio" name="script-box-position" value="5">
-                                <p>→</p>
-                            </label>
-                            <label>
-                                <input type="radio" name="script-box-position" value="6">
-                                <p>↙</p>
-                            </label>
-                            <label>
-                                <input type="radio" name="script-box-position" value="7">
-                                <p>↓</p>
-                            </label>
-                            <label>
-                                <input type="radio" name="script-box-position" value="8">
-                                <p>↘</p>
-                            </label>
+                <div class="divline-row"></div>
+                <h4>형태</h4>
+                <div class="list content-type-0 wf">
+                    <div id="script-box-position" class="list-column listbox hf f1 fais">
+                        <h4>위치</h4>
+                        <div class="list-row wf f1 fais">
+                            <label><input type="radio" name="script-box-position" value="0">↖</label>
+                            <label><input type="radio" name="script-box-position" value="1">↑</label>
+                            <label><input type="radio" name="script-box-position" value="2">↗</label>
                         </div>
-                        <div id="script-box-style" class="radio-toggle-list wf">
-                            <p>모양</p>
-                            <label>
-                                <input type="radio" name="script-box-style" value="0">
-                                <p>기본</p>
-                            </label>
-                            <label>
-                                <input type="radio" name="script-box-style" value="1">
-                                <p>생각</p>
-                            </label>
-                            <label>
-                                <input type="radio" name="script-box-style" value="2">
-                                <p>놀람</p>
-                            </label>
-                            <label>
-                                <input type="radio" name="script-box-style" value="3">
-                                <p>사각형</p>
-                            </label>
+                        <div class="list-row wf f1 fais">
+                            <label><input type="radio" name="script-box-position" value="3">←</label>
+                            <label><input type="radio" name="script-box-position" value="4">+</label>
+                            <label><input type="radio" name="script-box-position" value="5">→</label>
                         </div>
-                        <div id="script-sokmaeum-style" class="radio-toggle-list wf">
-                            <p>속마음</p>
-                            <label>
-                                <input type="radio" name="script-sokmaeum-style" value="0">
-                                <p>없음</p>
-                            </label>
-                            <label>
-                                <input type="radio" name="script-sokmaeum-style" value="1">
-                                <p>있음</p>
-                            </label>
-                            <label>
-                                <input type="radio" name="script-sokmaeum-style" value="2">
-                                <p>활성화</p>
-                            </label>
+                        <div class="list-row wf f1 fais">
+                            <label><input type="radio" name="script-box-position" value="6">↙</label>
+                            <label><input type="radio" name="script-box-position" value="7">↓</label>
+                            <label><input type="radio" name="script-box-position" value="8">↘</label>
                         </div>
+                    </div>
+                    <div class="list-column wf hf f1">
+                        <div id="script-box-style" class="list-column listbox wf fais">
+                            <h4>모양</h4>
+                            <div class="list-row wf">
+                                <label class="f1"><input type="radio" name="script-box-style" value="0">기본</label>
+                                <label class="f1"><input type="radio" name="script-box-style" value="1">생각</label>
+                                <label class="f1"><input type="radio" name="script-box-style" value="2">놀람</label>
+                                <label class="f1"><input type="radio" name="script-box-style" value="3">사각형</label>
+                            </div>
+                        </div>
+                        <id id="script-sokmaeum-style" class="list-column listbox wf fais">
+                            <h4>속마음</h4>
+                            <div class="list-row wf">
+                                <label class="f1"><input type="radio" name="script-sokmaeum-style" value="0">없음</label>
+                                <label class="f1"><input type="radio" name="script-sokmaeum-style" value="1">있음</label>
+                                <label class="f1"><input type="radio" name="script-sokmaeum-style" value="2">활성화</label>
+                            </div>
+                        </id>
                     </div>
                 </div>
-                <div class="flexlist-vertical content-type-1 wf">
-                    <div class="flexlist-horizontal wf">
-                        <p>테마</p>
-                        <select id="select-theme" class="f1"></select>
-                    </div>
+                <div class="list-row content-type-1 wf">
+                    <p>테마</p>
+                    <select id="select-theme" class="f1"></select>
                 </div>
                 <label>
                     <input type="checkbox" id="checkbox-toggle-content">
@@ -754,6 +720,7 @@
                 <h1>색상 프리셋</h1>
             </div>
             <div class="content">
+                <div class="divline-row"></div>
                 <div id="color-preset-list"></div>
             </div>
             <div class="controller">
@@ -773,23 +740,25 @@
                 <h1>슬라이드 크기</h1>
             </div>
             <div class="content">
-                <div class="flexlist-horizontal wf">
-                    <input type="number" id="input-slide-size-width" class="wf"><span>×</span><input type="number" id="input-slide-size-height" class="wf">
+                <div class="divline-row"></div>
+                <h4>크기</h4>
+                <div class="list-row wf">
+                    <input type="number" id="input-slide-size-width" class="wf f1"><span>×</span><input type="number" id="input-slide-size-height" class="wf f1">
                 </div>
                 <button id="button-fit-to-bg-size" class="wfc">
                     <div class="i i-star5"></div>
                     <p>배경 이미지 비율에 맞춤</p>
                 </button>
-                <div class="partition-horizontal"></div>
+                <div class="divline-row"></div>
                 <h4>프리셋</h4>
-                <div class="flexlist wf">
-                    <button class="button-slide-size f1" data-width="1280" data-height="720">
+                <div class="list wf">
+                    <button class="button-slide-size wf f1" data-width="1280" data-height="720">
                         <p>1280×720 (16:9)</p>
                     </button>
-                    <button class="button-slide-size f1" data-width="1788" data-height="700">
+                    <button class="button-slide-size wf f1" data-width="1788" data-height="700">
                         <p>1788×700 (23:9)</p>
                     </button>
-                    <button class="button-slide-size f1" data-width="1280" data-height="1066">
+                    <button class="button-slide-size wf f1" data-width="1280" data-height="1066">
                         <p>1280×1066 (6:5)</p>
                     </button>
                 </div>
@@ -807,14 +776,15 @@
                 <h1>선택지 목록</h1>
             </div>
             <div class="content">
-                <h3>내용</h3>
+                <div class="divline-row"></div>
+                <h4>내용</h4>
                 <input type="text" id="select-option-0" class="select-option modal-input-text f1">
                 <input type="text" id="select-option-1" class="select-option modal-input-text f1">
                 <input type="text" id="select-option-2" class="select-option modal-input-text f1">
-                <div class="flexlist-vertical content-type-1 wf">
-                    <div class="partition-horizontal"></div>
-                    <h3>형태</h3>
-                    <div class="flexlist-horizontal wf">
+                <div class="list-column content-type-1 wf fais">
+                    <div class="divline-row"></div>
+                    <h4>형태</h4>
+                    <div class="list-row wf">
                         <p>테마</p>
                         <select id="select-theme" class="f1">
                             <option value="0">기본형</option>
@@ -822,7 +792,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="partition-horizontal"></div>
+                <div class="divline-row"></div>
                 <label>
                     <input type="checkbox" id="checkbox-toggle-select">
                     <p>선택 목록 표시</p>
@@ -841,6 +811,7 @@
                 <h1>기타 배경 설정</h1>
             </div>
             <div class="content">
+                <div class="divline-row"></div>
                 <h4>배경 기본 색상</h4>
                 <div id="colorpicker-bg" class="colorpicker-area">
                     <div class="left colorpicker-preview">
@@ -858,7 +829,7 @@
                         <input type="number" class="colorpicker-input colorpicker-input-b">
                     </div>
                 </div>
-                <div class="partition-horizontal"></div>
+                <div class="divline-row"></div>
                 <h4>배경 이미지 맞춤</h4>
                 <select id="select-bg-fit" class="wf">
                     <option value="align-center">중앙 배치</option>
@@ -880,6 +851,7 @@
                 <h1>기타 요소 설정</h1>
             </div>
             <div class="content">
+                <div class="divline-row"></div>
                 <h4>타이틀 표시기</h4>
                 <label class="f1 wf">
                     <p>제목</p>
@@ -893,7 +865,7 @@
                     <input type="checkbox" id="checkbox-toggle-title">
                     <p>표시</p>
                 </label>
-                <div class="partition-horizontal"></div>
+                <div class="divline-row"></div>
                 <h4>위치 표시기</h4>
                 <label class="f1 wf">
                     <p>위치</p>
@@ -903,7 +875,7 @@
                     <input type="checkbox" id="checkbox-toggle-location">
                     <p>표시</p>
                 </label>
-                <div class="partition-horizontal"></div>
+                <div class="divline-row"></div>
                 <h4>조작기 표시기</h4>
                 <label id="toggle-photo-button">
                     <input type="checkbox" id="checkbox-toggle-photo-button">
@@ -922,6 +894,7 @@
                 <h1>정보</h1>
             </div>
             <div class="content">
+                <div class="divline-row"></div>
                 <img id="banner" src="./assets/essentials/banner.svg" alt="Project Pictor Logo">
                 <p id="ver"></p><br>
                 <p>모바일 게임 《트릭컬: 리바이브》의 인게임 스토리(테마극장)에서의 대화창 및 CG 씬과 유사한 규격의 이미지를 쉽게 제작하도록 돕는 웹기반 어플리케이션입니다.</p>
@@ -933,14 +906,15 @@
     </div>
     <div id="modal-markdown" class="modal">
         <div class="bg"></div>
-        <div class="body wm600">
+        <div class="body">
             <div class="title">
                 <div class="icon il i-notification"></div>
                 <h1>마크다운 문법 도움말</h1>
             </div>
             <div class="content">
+                <div class="divline-row"></div>
                 <p>내용 입력칸에 다음과 같은 규칙을 적용하여 작성하면 영역 내 글자의 크기나 색상을 조절할 수 있습니다.<br>한 단어에 여러 종류의 규칙을 적용할 수 있으며, 줄바꿈도 가능합니다.</p>
-                <div class="partition-horizontal"></div>
+                <div class="divline-row"></div>
                 <pre>(((가나다:::&#09;&#09;→ 작은 글자</pre>
                 <pre>{{{가나다:::&#09;&#09;→ 중간 글자(기본)</pre>
                 <pre>[[[가나다:::&#09;&#09;→ 큰 글자</pre>
@@ -964,7 +938,8 @@
                 <h1>출력 설정</h1>
             </div>
             <div class="content">
-                <h3>출력물 크기 배율 설정</h3>
+                <div class="divline-row"></div>
+                <h4>출력물 크기 배율 설정</h4>
                 <p>출력할 이미지의 크기 배율을 조절합니다.</p>
                 <label class="wf f1">
                     <div class="i i-export"></div>
@@ -987,7 +962,9 @@
         <div class="bg"></div>
         <div class="body">
             <div class="title"></div>
-            <div class="content"></div>
+            <div class="content">
+                <div class="divline-row"></div>
+            </div>
             <div class="controller">
                 <button class="close"></button>
             </div>

@@ -2,7 +2,7 @@
 export const LYRA_NAME = "Lyra Engine";
 export const LYRA_AUTHOR = "Acherium";
 export const LYRA_CONTACT = "acherium@pm.me";
-export const LYRA_VERSION = "1100";
+export const LYRA_VERSION = "1102";
 export const LYRA_DATE = "24-08-24";
 
 export const COMMON_INTERVAL = 30;

@@ -1,39 +1,38 @@
 @charset "UTF-8";
-.flexlist {
-  display: flex;
-  position: relative;
-  gap: var(--m);
-  flex-wrap: wrap;
-
-  max-width: 100%;
-  width: max-content;
-  height: max-content;
-
-  background-color: var(--c-main);
-}
-
-.flexlist > input[type=checkbox],
-.flexlist > input[type=radio] {
-  display: none;
-}
-
-.flexlist-horizontal {
+.list,
+.list-row,
+.list-column,
+.list-rev,
+.list-rev-row,
+.list-rev-column{
   display: flex;
   position: relative;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
+  gap: var(--m);
+  flex-wrap: wrap;
+  flex-direction: row;
 
-  width: max-content;
-  height: max-content;
-
-  background-color: var(--c-main);
+  width: fit-content;
+  height: fit-content;
 }
 
-.flexlist-horizontal > *:not(:last-child) {
-  margin-right: 8px;
+.list-column { flex-direction: column; }
+.list-rev,
+.list-rev-row { flex-direction: row-reverse; }
+.list-rev-column { flex-direction: column-reverse; }
+
+.listbox {
+  display: flex;
+  padding: var(--p);
+  flex-direction: column;
+  gap: var(--m);
+
+  border: solid 2px var(--c-border);
+  border-radius: var(--r-medium);
 }
 
-.flexlist-horizontal > input[type=checkbox],
-.flexlist-horizontal > input[type=radio] {
-  display: none;
+@media screen and (max-width: 900px) {
+  .list { flex-direction: column; }
+  .list-rev { flex-direction: column-reverse; }
 }

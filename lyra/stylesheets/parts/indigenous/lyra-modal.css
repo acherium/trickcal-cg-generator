@@ -50,7 +50,7 @@
   background-color: var(--c-modal-bg);
   /* opacity: 0; */
 
-  animation: 0.25s ease-in-out ani-fade-in both;
+  animation: 0.15s ease-in-out ani-fade-in both;
   will-change: opacity;
 }
 
@@ -74,11 +74,12 @@
   width: auto;
   height: max-content;
 
+  outline: solid 1px var(--c-border);
   border-radius: var(--r-medium);
   background-color: var(--c-main);
-  box-shadow: 0 0 10px var(--c-shadow);
+  /* box-shadow: 0 0 10px var(--c-shadow); */
 
-  animation: 0.25s var(--af-sweep-in) ani-window-in both;
+  animation: 0.15s var(--af-sweep-in) ani-window-in both;
   will-change: transform, opacity;
 }
 

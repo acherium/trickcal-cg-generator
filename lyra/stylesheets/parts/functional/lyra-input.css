@@ -206,7 +206,7 @@ label:has(input[type=range]) > .rail > .tip > .text {
   opacity: 0;
   pointer-events: none;
 
-  transform: translateY(3px) scale(0.95);
+  transform: translateY(3px) scale(0.98);
   transition: ease-in-out 0.15s;
   transition-property: opacity transform;
 }

@@ -1,9 +1,15 @@
 // 내부 상수들
+export const LYRA_NAME = "Lyra Engine";
+export const LYRA_AUTHOR = "Acherium";
+export const LYRA_CONTACT = "acherium@pm.me";
+export const LYRA_VERSION = "1100";
+export const LYRA_DATE = "24-08-24";
+
 export const COMMON_INTERVAL = 30;
 export const ANIMATION_INTERVAL = 30;
 export const TOOLTIP_DURATION = 10000;
-export const TOOLTIP_ANIMATION_DURATION = 200;
-export const WINDOW_ANIMATION_DURATION = 250;
+export const TOOLTIP_ANIMATION_DURATION = 150;
+export const WINDOW_ANIMATION_DURATION = 150;
 export const DEFAULT_NOTIFICATION_DURATION = 5000;
 export const DEFAULT_IMAGE_SLIDER_INTERVAL = 5000;
 export const DEFAULT_IMAGE_SLIDER_DURATION = 500;
@@ -218,7 +224,6 @@ export class LyraModal {
       this.nodes.controller = append(create("div", { classes: [ "controller" ]}), this.nodes.body);
 
       if (params.bg) this.nodes.bg.classList.add(`bg-${params.bg}`);
-      else this.nodes.bg.classList.add("bg-acrylic");
       if (params.icon) this.nodes.titleIcon = append(create("div", { classes: [ "icon", "il", `i-${params.icon}` ] }), this.nodes.title);
       if (params.title) this.nodes.titleText = append(create("h1", { properties: { innerText: `${params.title}` } }), this.nodes.title);
       if (params.content && params.content instanceof HTMLElement) append(params.content, this.nodes.content);
@@ -339,7 +344,7 @@ export class LyraNotification {
       this._options.autoDestroy = op.autoDestroy !== null ? (op.autoDestroy === "false" ? false : true) : this._options.autoDestroy;
       this._options.defaultCloseButton = op.defaultCloseButton !== null ? (op.defaultCloseButton === "false" ? false : true) : this._options.defaultCloseButton;
     } else {
-      this.nodes.main = create("div", { classes: [ "notification", "bg-acrylic" ] });
+      this.nodes.main = create("div", { classes: [ "notification" ] });
       if (params.icon) this.nodes.icon = append(create("div", { classes: [ "icon", "i", `i-${params.icon}` ] }), this.nodes.main);
       if (params.text) this.nodes.text = append(create("p", { properties: { innerText: params.text } }), this.nodes.main);
       if (params.buttons && params.buttons.constructor === Array) this.nodes.buttons = params.buttons;

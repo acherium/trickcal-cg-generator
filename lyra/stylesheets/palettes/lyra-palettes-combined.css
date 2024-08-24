@@ -22,8 +22,9 @@
   --c-button-cover-disabled: oklch(100% 0 0 / 0.5);
   --c-checkbox-border: var(--c-n7);
   --c-shadow: oklch(0% 0 0 / 0.5);
-  --c-modal-bg: oklch(0% 0 0 / 0.5);
-  --c-notification-bg: oklch(100% 0 0 / 0.9);
+  --c-modal-bg: oklch(0% 0 0 / 0.7);
+  --c-notification-bg: oklch(100% 0 0);
+  --c-border: oklch(80% 0 0);
 
   --r-tiny: 2px;
   --r-small: 4px;
@@ -58,6 +59,7 @@
       --c-button-cover-disabled: oklch(0% 0 0 / 0.5);
       --c-checkbox-border: var(--c-n5);
       --c-shadow: oklch(50% 0 0 / 0.5);
-      --c-notification-bg: oklch(20% 0 0 / 0.9);
+      --c-notification-bg: oklch(20% 0 0);
+      --c-border: oklch(30% 0 0);
   }
 }

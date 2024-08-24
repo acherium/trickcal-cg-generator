@@ -1,12 +1,17 @@
-import { COMMON_INTERVAL, ANIMATION_INTERVAL, $, $a, create, append, LyraButton, LyraModal, LyraModalManager, LyraNotification, LyraNotificationManager, copy } from "../lyra/lyra-module.js";
+import {
+    LYRA_NAME, LYRA_AUTHOR, LYRA_CONTACT, LYRA_VERSION, LYRA_DATE,
+    $, $a, create, append, copy,
+    LyraButton, LyraModal, LyraModalManager, LyraNotification, LyraNotificationManager,
+    COMMON_INTERVAL, ANIMATION_INTERVAL
+} from "../lyra/lyra-module.js";
 
 (() => {
     const app = {
         name: "Project Pictor",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "24w34.8",
-        date: "24-08-20",
+        version: "24w34.9",
+        date: "24-08-24",
         watermark: false,
         isBeta: false
     };
@@ -200,7 +205,6 @@ import { COMMON_INTERVAL, ANIMATION_INTERVAL, $, $a, create, append, LyraButton,
     const $nameBg = $("#photo-script-box-name-backdrop");
     const $pickerNamePrev = $("#colorpicker-namearea .colorpicker-preview");
     const $pickerNamePrevValue = $("#colorpicker-namearea .colorpicker-preview-value");
-    // const $pickerNamePointers = $a("#colorpicker-namearea .colorpicker-pointer");
     const $pickerNameRange = $a("#colorpicker-namearea .colorpicker-range-input");
     const $pickerNameInputs = $a("#colorpicker-namearea .colorpicker-input");
     const $chkAutoName = $("#checkbox-toggle-auto-change-name");
@@ -281,7 +285,6 @@ import { COMMON_INTERVAL, ANIMATION_INTERVAL, $, $a, create, append, LyraButton,
     const $inputMultiplier = $("#export-multiplier");
     const $pExportSizeMenu = $("#export-size-onmenu");
     const $pExportSizeModal = $("#export-size-onmodal");
-    const $btnSearch = $("#button-search");
     const $inputShowName = $("#show-name");
     const $btnSave = $("#button-save");
     const $btnLoad = $("#button-load");
@@ -1524,36 +1527,36 @@ import { COMMON_INTERVAL, ANIMATION_INTERVAL, $, $a, create, append, LyraButton,
         duplicateSlide();
     };
 
-    $middle.onpointerdown = (p) => {
-        if (p.target !== $middle) return;
-        $middle.setPointerCapture(p.pointerId);
-        $middle.onpointermove = (m) => {
-            setAreaPos(areaRect.x + m.movementX, areaRect.y + m.movementY);
-        };
-        $middle.onpointerup = () => {
-            if ($middle.hasPointerCapture(p.pointerId)) $middle.releasePointerCapture(p.pointerId);
-            $middle.onpointermove = null;
-            $middle.onpointerup = null;
-        };
-    };
-    $middle.ontouchstart = (t) => {
-        if (t.touches[0].target !== $middle) return;
-        let ox = t.touches[0].clientX;
-        let oy = t.touches[0].clientY;
-        $middle.ontouchmove = (m) => {
-            const x = m.touches[0].clientX;
-            const y = m.touches[0].clientY;
-            const mx = x - ox;
-            const my = y - oy;
-            ox = x;
-            oy = y;
-            setAreaPos(areaRect.x + mx, areaRect.y + my);
-        };
-        $middle.ontouchend = () => {
-            $middle.ontouchmove = null;
-            $middle.ontouchend = null;
-        };
-    };
+    // $middle.onpointerdown = (p) => {
+    //     if (p.target !== $middle) return;
+    //     $middle.setPointerCapture(p.pointerId);
+    //     $middle.onpointermove = (m) => {
+    //         setAreaPos(areaRect.x + m.movementX, areaRect.y + m.movementY);
+    //     };
+    //     $middle.onpointerup = () => {
+    //         if ($middle.hasPointerCapture(p.pointerId)) $middle.releasePointerCapture(p.pointerId);
+    //         $middle.onpointermove = null;
+    //         $middle.onpointerup = null;
+    //     };
+    // };
+    // $middle.ontouchstart = (t) => {
+    //     if (t.touches[0].target !== $middle) return;
+    //     let ox = t.touches[0].clientX;
+    //     let oy = t.touches[0].clientY;
+    //     $middle.ontouchmove = (m) => {
+    //         const x = m.touches[0].clientX;
+    //         const y = m.touches[0].clientY;
+    //         const mx = x - ox;
+    //         const my = y - oy;
+    //         ox = x;
+    //         oy = y;
+    //         setAreaPos(areaRect.x + mx, areaRect.y + my);
+    //     };
+    //     $middle.ontouchend = () => {
+    //         $middle.ontouchmove = null;
+    //         $middle.ontouchend = null;
+    //     };
+    // };
 
     $controller.onpointerdown = (p) => {
         if (p.target !== $controller) return;
@@ -2035,9 +2038,6 @@ import { COMMON_INTERVAL, ANIMATION_INTERVAL, $, $a, create, append, LyraButton,
         modalman.reserve["modal-config-indicators"].show();
     };
 
-    // $btnModalColPreset.onclick = () => {
-    //     modalman.reserve["modal-color-preset"].show();
-    // };
     (async() => {
         const RACEDATA = await fetch("https://acherium.github.io/trickcal-chardata/trace-all.json").then((res) => res.ok ? res.json() : {});
         if (Object.values(RACEDATA).length === 0) new LyraNotification({ icon: "critical", text: "RACEDATA 파일을 불러오지 못했습니다." }).show();
@@ -2084,44 +2084,6 @@ import { COMMON_INTERVAL, ANIMATION_INTERVAL, $, $a, create, append, LyraButton,
             setBackgroundColor(newcol);
         };
     };
-    // Array.from($pickerBgPointers).forEach(($n, i) => {
-    //     $n.onpointerdown = (p) => {
-    //         $n.setPointerCapture(p.pointerId);
-    //         const $dragarea = p.target.parentNode;
-    //         const dragareaRect = $dragarea.getBoundingClientRect();
-    //         $n.onpointermove = (m) => {
-    //             const rgb = Object.values(slide[current].color.background);
-    //             let per = Math.floor((m.clientX - dragareaRect.x) / dragareaRect.width * 100);
-    //             per = per < 0 ? 0 : per > 100 ? 100 : per;
-    //             rgb[i] = Math.floor(per / 100 * 255);
-    //             setBackgroundColor(Object.fromEntries(rgb.map((x, j) => x = [ [ "r", "g", "b" ][j], x ])));
-    //         };
-    //         $n.onpointerup = () => {
-    //             $n.releasePointerCapture(p.pointerId);
-    //             $n.onpointermove = null;
-    //             $n.onpointerup = null;
-    //             refreshThumbnail(current, $photozone);
-    //         };
-    //     };
-    //     $n.ontouchstart = (t) => {
-    //         modalman.reserve["modal-config-bg"].$content.style["overflow"] = "hidden";
-    //         const $dragarea = t.target.parentNode;
-    //         const dragareaRect = $dragarea.getBoundingClientRect();
-    //         $n.ontouchmove = (m) => {
-    //             const rgb = Object.values(slide[current].color.background);
-    //             let per = Math.floor((m.touches[0].clientX - dragareaRect.x) / dragareaRect.width * 100);
-    //             per = per < 0 ? 0 : per > 100 ? 100 : per;
-    //             rgb[i] = Math.floor(per / 100 * 255);
-    //             setBackgroundColor(Object.fromEntries(rgb.map((x, j) => x = [ [ "r", "g", "b" ][j], x ])));
-    //         };
-    //         $n.ontouchend = () => {
-    //             modalman.reserve["modal-config-bg"].$content.style["overflow"] = "hidden";
-    //             $n.ontouchmove = null;
-    //             $n.ontouchend = null;
-    //             refreshThumbnail(current, $photozone);
-    //         };
-    //     };
-    // });
     Array.from($pickerBgInputs).forEach(($n, i) => {
         $n.onchange = (c) => {
             const rgb = Object.values(slide[current].color.background);
@@ -2140,44 +2102,6 @@ import { COMMON_INTERVAL, ANIMATION_INTERVAL, $, $a, create, append, LyraButton,
             setNameColorRGB(newcol);
         };
     };
-    // Array.from($pickerNamePointers).forEach(($n, i) => {
-    //     $n.onpointerdown = (p) => {
-    //         $n.setPointerCapture(p.pointerId);
-    //         const $dragarea = p.target.parentNode;
-    //         const dragareaRect = $dragarea.getBoundingClientRect();
-    //         $n.onpointermove = (m) => {
-    //             const rgb = Object.values(slide[current].color.namearea);
-    //             let per = Math.floor((m.clientX - dragareaRect.x) / dragareaRect.width * 100);
-    //             per = per < 0 ? 0 : per > 100 ? 100 : per;
-    //             rgb[i] = Math.floor(per / 100 * 255);
-    //             setNameColorRGB(Object.fromEntries(rgb.map((x, j) => x = [ [ "r", "g", "b" ][j], x ])));
-    //         };
-    //         $n.onpointerup = () => {
-    //             $n.releasePointerCapture(p.pointerId);
-    //             $n.onpointermove = null;
-    //             $n.onpointerup = null;
-    //             refreshThumbnail(current, $photozone);
-    //         };
-    //     };
-    //     $n.ontouchstart = (t) => {
-    //         modalman.reserve["modal-content"].$content.style["overflow"] = "hidden";
-    //         const $dragarea = t.target.parentNode;
-    //         const dragareaRect = $dragarea.getBoundingClientRect();
-    //         $n.ontouchmove = (m) => {
-    //             const rgb = Object.values(slide[current].color.namearea);
-    //             let per = Math.floor((m.touches[0].clientX - dragareaRect.x) / dragareaRect.width * 100);
-    //             per = per < 0 ? 0 : per > 100 ? 100 : per;
-    //             rgb[i] = Math.floor(per / 100 * 255);
-    //             setNameColorRGB(Object.fromEntries(rgb.map((x, j) => x = [ [ "r", "g", "b" ][j], x ])));
-    //         };
-    //         $n.ontouchend = () => {
-    //             modalman.reserve["modal-content"].$content.style["overflow"] = "scroll";
-    //             $n.ontouchmove = null;
-    //             $n.ontouchend = null;
-    //             refreshThumbnail(current, $photozone);
-    //         };
-    //     };
-    // });
     Array.from($pickerNameInputs).forEach(($n, i) => {
         $n.onchange = (c) => {
             const rgb = Object.values(slide[current].color.namearea);
@@ -2188,13 +2112,10 @@ import { COMMON_INTERVAL, ANIMATION_INTERVAL, $, $a, create, append, LyraButton,
         };
     });
 
-    $ver.innerText = `${app.name}\nVersion ${app.version}@${app.date}\n\nPowered by Lyra Engine`;
+    $ver.innerText = `${app.name}\nVersion ${app.version}@${app.date}\n\n` +
+        `Powered by ${LYRA_NAME} by ${LYRA_AUTHOR}\nBuild ${LYRA_VERSION}@${LYRA_DATE}`;
     $logo.onclick = () => {
         modalman.reserve["modal-about"].show();
-    };
-
-    $btnSearch.onclick = () => {
-        modalman.reserve["modal-search"].show();
     };
 
     for (const x of eventConn) {

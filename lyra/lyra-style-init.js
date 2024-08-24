@@ -31,7 +31,7 @@ import { body, $, $a, copy,
     });
     slider.addEventListener("mouseleave", () => {
       text.style["opacity"] = "0";
-      text.style["transform"] = "translateY(3px) scale(0.95)";
+      text.style["transform"] = "translateY(3px) scale(0.98)";
     });
   };
 
@@ -233,7 +233,7 @@ import { body, $, $a, copy,
     activeTip = node;
     const tip = append(create("p", { classes: [ "tip" ], properties: { innerText: node.getAttribute("lyra-tip") } }), tipArea);
     tip.animate({
-      transform: [ "translateY(5px) scale(0.9)", "translateY(0px) scale(1)" ]
+      transform: [ "translateY(3px) scale(0.98)", "translateY(0px) scale(1)" ]
     }, {
       duration: TOOLTIP_ANIMATION_DURATION,
       easing: "ease-in-out",
@@ -259,7 +259,7 @@ import { body, $, $a, copy,
 
     const over = () => {
       tip.animate({
-        transform: [ "translateY(0px) scale(1)", "translateY(5px) scale(0.9)" ]
+        transform: [ "translateY(0px) scale(1)", "translateY(3px) scale(0.98)" ]
       }, {
         duration: TOOLTIP_ANIMATION_DURATION,
         easing: "ease-in-out",

@@ -44,12 +44,13 @@
   width: auto;
   height: max-content;
 
+  outline: solid 1px var(--c-border);
   border-radius: var(--r-medium);
   background-color: var(--c-notification-bg);
-  box-shadow: 0 0 10px var(--c-shadow);
+  /* box-shadow: 0 0 10px var(--c-shadow); */
   pointer-events: auto;
 
-  animation: 0.25s var(--af-sweep-in) ani-window-in both;
+  animation: 0.15s var(--af-sweep-in) ani-window-in both;
   will-change: transform, opacity;
 }
 .notification * {
@@ -103,10 +104,10 @@
   bottom: 0;
 
   width: 0%;
-  height: 6px;
+  height: 3px;
 
-  background-color: var(--c-font);
-  opacity: 0.5;
+  background-color: var(--c-border);
+  /* opacity: 0.5; */
 
   will-change: width;
 }

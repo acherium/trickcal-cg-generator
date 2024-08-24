@@ -1,7 +1,7 @@
 @charset "UTF-8";
-.bg-blur, .bg-acrylic {
-  backdrop-filter: blur(10px);
-}
+.bg-none { opacity: 0 !important; }
+
+.bg-blur, .bg-acrylic { backdrop-filter: blur(10px); }
 
 .bg-blur::before, .bg-acrylic::before {
   position: absolute;

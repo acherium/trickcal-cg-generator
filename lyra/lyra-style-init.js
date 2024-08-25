@@ -231,7 +231,7 @@ import { body, $, $a, copy,
     const node = e.target;
     if (activeTip === node || activeTip !== null) return;
     activeTip = node;
-    const tip = append(create("p", { classes: [ "tip" ], properties: { innerText: node.getAttribute("lyra-tip") } }), tipArea);
+    const tip = append(create("p", { classes: [ "tip" ], properties: { innerHTML: node.getAttribute("lyra-tip") } }), tipArea);
     tip.animate({
       transform: [ "translateY(3px) scale(0.98)", "translateY(0px) scale(1)" ]
     }, {

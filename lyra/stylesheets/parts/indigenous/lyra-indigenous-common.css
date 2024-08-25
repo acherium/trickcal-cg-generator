@@ -1,5 +1,7 @@
 @charset "UTF-8";
-.bg-none { opacity: 0 !important; }
+.bg-none { display: none !important; }
+
+.bg-transparent { opacity: 0 !important; }
 
 .bg-blur, .bg-acrylic { backdrop-filter: blur(10px); }
 

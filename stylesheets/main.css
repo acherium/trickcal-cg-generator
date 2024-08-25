@@ -194,6 +194,10 @@ footer a {
     height: max-content;
 }
 
+#slide-list.no-thumbnail .thumb {
+    display: none;
+}
+
 #middle {
     display: flex;
     position: relative;

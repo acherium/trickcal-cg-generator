@@ -2,8 +2,8 @@
 export const LYRA_NAME = "Lyra Engine";
 export const LYRA_AUTHOR = "Acherium";
 export const LYRA_CONTACT = "acherium@pm.me";
-export const LYRA_VERSION = "1102";
-export const LYRA_DATE = "24-08-24";
+export const LYRA_VERSION = "1103";
+export const LYRA_DATE = "24-08-25";
 
 export const COMMON_INTERVAL = 30;
 export const ANIMATION_INTERVAL = 30;
@@ -214,10 +214,10 @@ export class LyraModal {
         this.nodes.buttons = this.nodes.buttons.filter((x) => x.classList.contains("close") ? x.remove() : x).filter((x) => x);
       };
 
-      this.nodes.bg.addEventListener("click", () => this.close());
+      // this.nodes.bg.addEventListener("click", () => this.close());
     } else {
       this.nodes.main = create("div", { classes: [ "modal" ] });
-      this.nodes.bg = append(create("div", { classes: [ "bg" ], events: { click: () => this.close() } }), this.nodes.main);
+      this.nodes.bg = append(create("div", { classes: [ "bg" ] }), this.nodes.main);
       this.nodes.body = append(create("div", { classes: [ "body" ]}), this.nodes.main);
       this.nodes.title = append(create("div", { classes: [ "title" ]}), this.nodes.body);
       this.nodes.content = append(create("div", { classes: [ "content" ]}), this.nodes.body);
@@ -238,7 +238,7 @@ export class LyraModal {
   };
 
   show() {
-    this.nodes.main.style["pointer-events"] = "auto";
+    // this.nodes.main.style["pointer-events"] = "auto";
     this.nodes.bg.style["animation-name"] = "ani-fade-in";
     this.nodes.body.style["animation-timing-function"] = "var(--af-sweep-in)";
     this.nodes.body.style["animation-name"] = "ani-window-in";
@@ -248,16 +248,26 @@ export class LyraModal {
     else if (this.nodes.buttons.length > 0) this.nodes.buttons[this.nodes.buttons.length - 1].focus();
     else document.activeElement?.blur();
 
+    setTimeout(() => {
+      const detectBlur = (e) => {
+        if (!Array.from($a(".body *, .body", this.nodes.main)).includes(e.target)) {
+          this.close();
+          document.removeEventListener("click", detectBlur);
+        };
+      };
+      document.addEventListener("click", detectBlur);
+    });
+
     return this;
   };
 
   close() {
-    this.nodes.main.style["pointer-events"] = "none";
+    // this.nodes.main.style["pointer-events"] = "none";
     this.nodes.bg.style["animation-name"] = "ani-fade-out";
     this.nodes.body.style["animation-timing-function"] = "var(--af-sweep-out)";
     this.nodes.body.style["animation-name"] = "ani-window-out";
     setTimeout(() => {
-      this.nodes.main = revoke(this.nodes.main);
+      if (this.nodes.main.isConnected) this.nodes.main = revoke(this.nodes.main);
     }, WINDOW_ANIMATION_DURATION + ANIMATION_INTERVAL);
 
     return this;

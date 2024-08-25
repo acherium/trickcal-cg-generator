@@ -10,8 +10,8 @@ import {
         name: "Project Pictor",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "24w34.11",
-        date: "24-08-24",
+        version: "24w34.12",
+        date: "24-08-25",
         watermark: false,
         isBeta: false
     };
@@ -191,6 +191,7 @@ import {
         x: 0,
         y: 0
     };
+    let flagThumbnail = true;
 
     const $logo = $("#logo-area");
     const $ver = $("#ver");
@@ -318,6 +319,8 @@ import {
     const $selboxThemeSel = $a("#select-theme");
     const $selboxThemeOps = $a("#select-theme option");
     const $stickerSel = $("#select-sticker-style");
+
+    const $chkDisabledThumbnail = $("#checkbox-disable-thumbnail-gen");
 
     const eventConn = [
         [
@@ -456,7 +459,19 @@ import {
                 refreshThumbnail(current, $photozone);
             }
         ],
-        [ "click", $("#button-controller-unselect"), () => unselectItem() ]
+        [ "click", $("#button-controller-unselect"), () => unselectItem() ],
+        [ 
+            "change", $chkDisabledThumbnail,
+            (e) => {
+                if (e.target.checked) {
+                    flagThumbnail = false;
+                    $slideList.classList.add("no-thumbnail");
+                } else {
+                    flagThumbnail = true;
+                    $slideList.classList.remove("no-thumbnail");
+                };
+            }
+        ]
     ];
 
     const setNamePos = (i) => {
@@ -843,6 +858,7 @@ import {
         $(`#slide-item-${current}`)?.classList.add("active-slide");
     };
     const refreshThumbnail = (i, $n) => {
+        if (!flagThumbnail) return;
         setTimeout(() => {
             html2canvas($n, { logging: false, scale: 0.3 }).then((c) => {
                 const src = `${c.toDataURL("image/png")}`;
@@ -1505,6 +1521,8 @@ import {
     for (const $radio of $tglType) $radio.onclick = () => setType(parseInt($radio.value));
     for (const i in Array.from($sboxAreas)) $sboxThemeSel.append(create("option", { properties: { value: `${i}`, innerText: $sboxAreas[i].dataset.themeName } }));
     for (const key in EMOTE_STICKERS) $stickerSel.append(create("option", { properties: { value: key, innerText: EMOTE_STICKERS[key] } }));
+
+    $chkDisabledThumbnail.checked = false;
 
     document.addEventListener("keydown", (k) => {
         if (!Number.isNaN(parseInt(objManager.selected)) && k.shiftKey && k.keyCode === 82) {

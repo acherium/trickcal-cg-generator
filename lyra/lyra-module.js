@@ -193,7 +193,10 @@ export class LyraModal {
       content: null,
       controller: null,
       buttons: [],
-      defaultCloseButton: new LyraButton({ icon: "accept", text: "확인", events: { click: () => this.close() } }),
+      defaultCloseButton: new LyraButton({ icon: "accept", text: "확인", events: { click: () => {
+        document.removeEventListener("click", this.detectBlur);
+        this.close();
+      } } }),
     };
     this._closeButtonIndex = -1;
 
@@ -232,9 +235,22 @@ export class LyraModal {
       if (params.zIndex) this.nodes.main.style["z-index"] = `${params.zIndex}`;
     };
 
-    for (const button of this.nodes.buttons) append(button, this.nodes.controller);
+    for (const button of this.nodes.buttons) {
+      append(button, this.nodes.controller);
+      if (button.classList.contains("close")) button.addEventListener("click", () => {
+        document.removeEventListener("click", this.detectBlur);
+        this.close();
+      });
+    };
 
     return this;
+  };
+
+  detectBlur = (e) => {
+    if (!Array.from($a(".body *, .body", this.nodes.main)).includes(e.target)) {
+      this.close();
+      document.removeEventListener("click", this.detectBlur);
+    };
   };
 
   show() {
@@ -249,13 +265,7 @@ export class LyraModal {
     else document.activeElement?.blur();
 
     setTimeout(() => {
-      const detectBlur = (e) => {
-        if (!Array.from($a(".body *, .body", this.nodes.main)).includes(e.target)) {
-          this.close();
-          document.removeEventListener("click", detectBlur);
-        };
-      };
-      document.addEventListener("click", detectBlur);
+      document.addEventListener("click", this.detectBlur);
     });
 
     return this;

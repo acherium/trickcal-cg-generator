@@ -10,7 +10,7 @@ import {
         name: "Project Pictor",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "24w34.12",
+        version: "24w34.13",
         date: "24-08-25",
         watermark: false,
         isBeta: false
@@ -811,7 +811,7 @@ import {
         setAreaSize(x.area.width, x.area.height);
         setName(x.strings.name);
         setNameColorRGB(x.color.namearea);
-        setContent(x.strings.content);
+        setContent(x.strings.contentRaw);
         setBoxPos(x.scriptbox.pos);
         setBoxStyle(x.scriptbox.style);
         setSokmaeumStyle(x.scriptbox.sokmaeum);
@@ -989,12 +989,12 @@ import {
     };
 
     // 개체 조작용 함수
-    const addObject = (sid, t, params = {}) => {
+    const addObject = (sid, t, params = {}, origin = null) => {
         const tslide = slide[sid];
         if (!tslide) return null;
         if (typeof t === "undefined" || t.constructor !== String) return null;
         const uid = uniqueInt++;
-        const res = JSON.parse(JSON.stringify(OBJECT_TEMPLATE));
+        const res = origin || JSON.parse(JSON.stringify(OBJECT_TEMPLATE));
         res.uid = uid;
         for (const k in params) {
             if (k === "id") res.id = params[k];
@@ -1002,26 +1002,26 @@ import {
         };
 
         if (t === "image") {
-            if (typeof params.name === "undefined" || params.name.constructor !== String ||
-                typeof params.image === "undefined" || params.image.constructor !== HTMLImageElement) return null;
+            if (origin === null && ( typeof params.name === "undefined" || params.name.constructor !== String ||
+                typeof params.image === "undefined" || params.image.constructor !== HTMLImageElement )) return null;
             res.class.push("object-image");
-            res.name = params.name;
+            res.name = origin?.name || params.name;
             res.type = "image";
             res.sort = tslide.assets.objects.length;
 
-            res.assets.image = params.image.src;
-            res.assets.data.fileName = params.name;
-            res.rectOrigin.x = 0;
-            res.rectOrigin.y = 0;
-            res.rectOrigin.width = params.image.width;
-            res.rectOrigin.height = params.image.height;
-            res.rectOrigin.rotate = 0;
-            res.rectOrigin.flip.horizontal = false;
-            res.rectOrigin.flip.vertical = false;
-            res.rect = JSON.parse(JSON.stringify(res.rectOrigin));
-            res.flags.visible = true;
-            res.flags.darker = false;
-            res.flags.sizeAdjustable = true;
+            res.assets.image = origin?.assets.image || params.image.src;
+            res.assets.data.fileName = origin?.assets.data.fileName || params.name;
+            res.rectOrigin.x = origin ? origin.rectOrigin.x : 0;
+            res.rectOrigin.y = origin ? origin.rectOrigin.y : 0;
+            res.rectOrigin.width = origin ? origin.rectOrigin.width : params.image.width;
+            res.rectOrigin.height = origin ? origin.rectOrigin.height : params.image.height;
+            res.rectOrigin.rotate = origin ? origin.rectOrigin.rotate : 0;
+            res.rectOrigin.flip.horizontal = origin ? origin.rectOrigin.flip.horizontal : false;
+            res.rectOrigin.flip.vertical = origin ? origin.rectOrigin.flip.vertical : false;
+            res.rect = JSON.parse(JSON.stringify(origin?.rect || res.rectOrigin));
+            res.flags.visible = origin ? origin.flags.visible : true;
+            res.flags.darker = origin ? origin.flags.darker : false;
+            res.flags.sizeAdjustable = origin ? origin.flags.sizeAdjustable : true;
 
             res.assets.body = create("img", { id: res.id || "", classes: res.class });
             res.assets.body.style["left"] = `${res.rectOrigin.x}px`;
@@ -1052,35 +1052,37 @@ import {
             });
             res.assets.label.querySelector("button.remove").addEventListener("click", () => removeObject(sid, uid));
 
-            tslide.assets.objects.push(res);
+            if (origin === null) tslide.assets.objects.push(res);
             $objLayer.append(res.assets.body);
             $objList.append(res.assets.label);
         } else if (t === "dialogue") {
             res.class.push("object-dialogue");
-            res.class.push("sizing-0");
-            res.class.push("positioning-2");
-            res.class.push("theme-0");
-            res.name = "말풍선";
+            if (origin === null) {
+                res.class.push("sizing-0");
+                res.class.push("positioning-2");
+                res.class.push("theme-0");
+            };
+            res.name = origin?.name || "말풍선";
             res.type = "dialogue";
             res.sort = tslide.assets.objects.length;
 
-            res.assets.data.contentRaw = "Hello, world!";
-            res.assets.data.content = getMarkdownContent(res.assets.data.contentRaw);
-            res.assets.data.sizing = 0;
-            res.assets.data.positioning = 2;
-            res.assets.data.theme = 0;
-            res.rectOrigin.x = 0;
-            res.rectOrigin.y = 0;
-            res.rectOrigin.width = 200;
-            res.rectOrigin.height = 200;
-            res.rectOrigin.rotate = -3;
-            res.rectOrigin.flip.horizontal = false;
-            res.rectOrigin.flip.vertical = false;
-            res.rect = JSON.parse(JSON.stringify(res.rectOrigin));
-            res.flags.visible = true;
-            res.flags.darker = false;
-            res.flags.sizeAdjustable = false;
-            
+            res.assets.data.contentRaw = origin?.assets.data.contentRaw || "Hello, world!";
+            res.assets.data.content = getMarkdownContent(origin?.assets.data.contentRaw || res.assets.data.contentRaw);
+            res.assets.data.sizing = origin ? origin.assets.data.sizing : 0;
+            res.assets.data.positioning = origin ? origin.assets.data.positioning : 2;
+            res.assets.data.theme = origin ? origin.assets.data.theme : 0;
+            res.rectOrigin.x = origin ? origin.rectOrigin.x : 0;
+            res.rectOrigin.y = origin ? origin.rectOrigin.y : 0;
+            res.rectOrigin.width = origin ? origin.rectOrigin.width : 200;
+            res.rectOrigin.height = origin ? origin.rectOrigin.height : 200;
+            res.rectOrigin.rotate = origin ? origin.rectOrigin.rotate : -3;
+            res.rectOrigin.flip.horizontal = origin ? origin.rectOrigin.flip.horizontal : false;
+            res.rectOrigin.flip.vertical = origin ? origin.rectOrigin.flip.vertical : false;
+            res.rect = JSON.parse(JSON.stringify(origin?.rect || res.rectOrigin));
+            res.flags.visible = origin ? origin.flags.visible : true;
+            res.flags.darker = origin ? origin.flags.darker : false;
+            res.flags.sizeAdjustable = origin ? origin.flags.sizeAdjustable : false;
+
             res.assets.body = create("div", {
                 id: res.id || "",
                 classes: res.class,
@@ -1113,7 +1115,7 @@ import {
                 const tmodal = modalman.reserve["modal-dialogue-quick"];
                 const $tmtitle = tmodal.nodes.title.querySelector("h1");
                 $tmtitle.innerText = `#${res.uid}: ${res.name}@${sid}`;
-                $dialogueInput.value = res.assets.data.content;
+                $dialogueInput.value = res.assets.data.contentRaw;
                 $dialogueInput.oninput = (e) => res.applyContent(e.target.value);
 
                 const sizeRadios = Array.from($a("input.object-dialogue-sizing", tmodal.nodes.content));
@@ -1180,7 +1182,7 @@ import {
                 res.assets.data.content = getMarkdownContent(s);
                 res.assets.body.querySelector("p").innerHTML = res.assets.data.content;
             };
-            res.applyContent(res.assets.data.content);
+            res.applyContent(res.assets.data.contentRaw);
             
             res.assets.label = create("div", {
                 classes: [ "image-item" ],
@@ -1196,28 +1198,28 @@ import {
             });
             res.assets.label.querySelector("button.remove").addEventListener("click", () => removeObject(sid, uid));
             
-            tslide.assets.objects.push(res);
+            if (origin === null) tslide.assets.objects.push(res);
             $objLayer.append(res.assets.body);
             $objList.append(res.assets.label);
             res.doRefresh();
         } else if (t === "sticker") {
             res.class.push("object-sticker");
-            res.name = "스티커";
-            res.type = "sticker",
+            res.name = origin?.name || "스티커";
+            res.type = origin?.type || "sticker",
             res.sort = tslide.assets.objects.length;
-            
-            res.assets.data.stickerStyle = null;
-            res.rectOrigin.x = 0;
-            res.rectOrigin.y = 0;
-            res.rectOrigin.width = 100;
-            res.rectOrigin.height = 100;
-            res.rectOrigin.rotate = 0;
-            res.rectOrigin.flip.horizontal = false;
-            res.rectOrigin.flip.vertical = false;
-            res.rect = JSON.parse(JSON.stringify(res.rectOrigin));
-            res.flags.visible = true;
-            res.flags.darker = false;
-            res.flags.sizeAdjustable = false;
+
+            res.assets.data.stickerStyle = origin ? origin.assets.data.stickerStyle : null;
+            res.rectOrigin.x = origin ? origin.rectOrigin.x : 0;
+            res.rectOrigin.y = origin ? origin.rectOrigin.y : 0;
+            res.rectOrigin.width = origin ? origin.rect.width : 100;
+            res.rectOrigin.height = origin ? origin.rect.height : 100;
+            res.rectOrigin.rotate = origin ? origin.rect.rotate : 0;
+            res.rectOrigin.flip.horizontal = origin ? origin.rect.flip.horizontal : false;
+            res.rectOrigin.flip.vertical = origin ? origin.rect.flip.vertical : false;
+            res.rect = JSON.parse(JSON.stringify(origin ? origin.rect : res.rectOrigin));
+            res.flags.visible = origin ? origin.flags.visible : true;
+            res.flags.darker = origin ? origin.flags.darker : false;
+            res.flags.sizeAdjustable = origin ? origin.flags.sizeAdjustable : false;
 
             res.assets.body = create("div", {
                 id: res.id || "",
@@ -1254,7 +1256,7 @@ import {
                 Array.from(res.assets.data.stickerNodes).find((x) => x.classList.contains(s)).style["display"] = "block";
             };
             res.doRefresh();
-            res.applySticker(Object.keys(EMOTE_STICKERS)[0]);
+            res.applySticker(origin ? origin.assets.data.stickerStyle : Object.keys(EMOTE_STICKERS)[0]);
             
             res.assets.label = create("div", {
                 classes: [ "image-item" ],
@@ -1270,18 +1272,14 @@ import {
             });
             res.assets.label.querySelector("button.remove").addEventListener("click", () => removeObject(sid, uid));
 
-            tslide.assets.objects.push(res);
+            if (origin === null) tslide.assets.objects.push(res);
             $objLayer.append(res.assets.body);
             $objList.append(res.assets.label);
         };
         return res;
     };
-    const addObjectDirect = (obj) => {
-        $objLayer.append(obj.assets.body);
-        $objList.append(obj.assets.label);
-    };
     const addObjectIterable = (a) => {
-        for (const obj of a) addObjectDirect(obj);
+        for (const obj of a) addObject(current, obj.type, {}, obj);
     };
     const removeObject = (sid, oid) => {
         const tslide = slide[sid];
@@ -1494,15 +1492,15 @@ import {
                 }),
                 buttons: [
                     new LyraButton({
-                        class: [ "close" ],
+                        classes: [ "close" ],
                         icon: "export",
                         text: "덮어쓰기",
-                        onclick: () => {
-                            saveCurrent();
+                        events: {
+                            click: () => saveCurrent()
                         }
                     }),
                     new LyraButton({
-                        class: [ "close" ],
+                        classes: [ "close" ],
                         icon: "deny",
                         text: "취소"
                     })

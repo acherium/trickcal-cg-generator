@@ -10,7 +10,7 @@ import {
         name: "Pictor",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "24w35.1",
+        version: "24w35.2",
         date: "24-08-26",
         watermark: false,
         isBeta: false
@@ -161,6 +161,24 @@ import {
         "sparkle": "번뜩",
         "surprise": "놀람"
     };
+    const EMOTE_STICKERS_REVAMPED = {
+        "0-surprise": "느낌표",
+        "1-question": "물음표",
+        "2-surprise2a": "들뜸",
+        "4-startle": "놀람",
+        "5-sparkle": '반짝',
+        "6-angry": "화남",
+        "7-stun": "충격",
+        "8-sweat": "땀",
+        "9-dizzy": "어지러움",
+        "10-star": "별",
+        "11-silence": "침묵",
+        "12-embarrassed": "당황",
+        "13-sigh": "한숨",
+        "14-panic": "공황",
+        "15-disappoint": "실망",
+        "16-idea": "아이디어"
+    }
 
     let show = {
         version: 6,
@@ -1211,21 +1229,21 @@ import {
             res.assets.data.stickerStyle = origin ? origin.assets.data.stickerStyle : null;
             res.rectOrigin.x = origin ? origin.rectOrigin.x : 0;
             res.rectOrigin.y = origin ? origin.rectOrigin.y : 0;
-            res.rectOrigin.width = origin ? origin.rect.width : 100;
-            res.rectOrigin.height = origin ? origin.rect.height : 100;
+            res.rectOrigin.width = origin ? origin.rect.width : 160;
+            res.rectOrigin.height = origin ? origin.rect.height : 160;
             res.rectOrigin.rotate = origin ? origin.rect.rotate : 0;
             res.rectOrigin.flip.horizontal = origin ? origin.rect.flip.horizontal : false;
             res.rectOrigin.flip.vertical = origin ? origin.rect.flip.vertical : false;
             res.rect = JSON.parse(JSON.stringify(origin ? origin.rect : res.rectOrigin));
             res.flags.visible = origin ? origin.flags.visible : true;
             res.flags.darker = origin ? origin.flags.darker : false;
-            res.flags.sizeAdjustable = origin ? origin.flags.sizeAdjustable : false;
+            res.flags.sizeAdjustable = origin ? origin.flags.sizeAdjustable : true;
 
             res.assets.body = create("div", {
                 id: res.id || "",
                 classes: res.class,
                 properties: {
-                    innerHTML: Object.keys(EMOTE_STICKERS).map((x) => `<img src="./assets/images/emote-${x}.svg" class="${x}">`).join("")
+                    innerHTML: Object.keys(EMOTE_STICKERS_REVAMPED).map((x) => `<img src="./assets/images/emotion-${x}.svg" class="${x}">`).join("")
                 }
             });
             res.assets.body.style["left"] = `${res.rectOrigin.x}px`;
@@ -1250,13 +1268,13 @@ import {
                     `scale(${res.rect.flip.horizontal ? -1 : 1}, ${res.rect.flip.vertical ? -1 : 1})`;
             };
             res.applySticker = (s) => {
-                if (!Object.keys(EMOTE_STICKERS).includes(s)) return;
+                if (!Object.keys(EMOTE_STICKERS_REVAMPED).includes(s)) return;
                 res.assets.data.stickerStyle = s;
                 for (const $n of Array.from(res.assets.data.stickerNodes).filter((x) => !x.classList.contains(s))) $n.style["display"] = "none";
                 Array.from(res.assets.data.stickerNodes).find((x) => x.classList.contains(s)).style["display"] = "block";
             };
             res.doRefresh();
-            res.applySticker(origin ? origin.assets.data.stickerStyle : Object.keys(EMOTE_STICKERS)[0]);
+            res.applySticker(origin ? origin.assets.data.stickerStyle : Object.keys(EMOTE_STICKERS_REVAMPED)[0]);
             
             res.assets.label = create("div", {
                 classes: [ "image-item" ],
@@ -1518,7 +1536,7 @@ import {
 
     for (const $radio of $tglType) $radio.onclick = () => setType(parseInt($radio.value));
     for (const i in Array.from($sboxAreas)) $sboxThemeSel.append(create("option", { properties: { value: `${i}`, innerText: $sboxAreas[i].dataset.themeName } }));
-    for (const key in EMOTE_STICKERS) $stickerSel.append(create("option", { properties: { value: key, innerText: EMOTE_STICKERS[key] } }));
+    for (const key in EMOTE_STICKERS_REVAMPED) $stickerSel.append(create("option", { properties: { value: key, innerText: EMOTE_STICKERS_REVAMPED[key] } }));
 
     $chkDisabledThumbnail.checked = false;
 

@@ -7,11 +7,11 @@ import {
 
 (() => {
     const app = {
-        name: "Project Pictor",
+        name: "Pictor",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "24w34.13",
-        date: "24-08-25",
+        version: "24w35.1",
+        date: "24-08-26",
         watermark: false,
         isBeta: false
     };

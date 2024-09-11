@@ -75,7 +75,7 @@
   width: auto;
   height: max-content;
 
-  outline: solid 1px var(--c-border);
+  /* outline: solid 1px var(--c-border); */
   border-radius: var(--r-medium);
   background-color: var(--c-main);
   /* box-shadow: 0 0 10px var(--c-shadow); */

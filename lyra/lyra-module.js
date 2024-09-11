@@ -1,9 +1,10 @@
-// 내부 상수들
+// 각종 변수들
+// 내부 변수
 export const LYRA_NAME = "Lyra Engine";
 export const LYRA_AUTHOR = "Acherium";
 export const LYRA_CONTACT = "acherium@pm.me";
-export const LYRA_VERSION = "1103";
-export const LYRA_DATE = "24-08-25";
+export const LYRA_VERSION = "1104";
+export const LYRA_DATE = "24-09-11";
 
 export const COMMON_INTERVAL = 30;
 export const ANIMATION_INTERVAL = 30;
@@ -14,12 +15,19 @@ export const DEFAULT_NOTIFICATION_DURATION = 5000;
 export const DEFAULT_IMAGE_SLIDER_INTERVAL = 5000;
 export const DEFAULT_IMAGE_SLIDER_DURATION = 500;
 
-// 각종 변수들
 /**
  * 문서 본문 요소입니다.
  * @see {@link https://developer.mozilla.org/ko/docs/Web/HTML/Element/body | MDN 레퍼런스> <body>: 문서 본문 요소}
  */
 export const body = document.body;
+
+// 환경 변수
+export const lyraEnv = {
+  theme: "auto"
+};
+export const DICT_LYRA_ENV = {
+  theme: [ "auto", "light", "dark" ]
+};
 
 
 // 각종 함수들
@@ -29,7 +37,7 @@ export const body = document.body;
  * @see {@link https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze | MDN 레퍼런스> Object.freeze()}
  */
 export const freeze = (obj) => {
-  for (const value of Object.values(obj)) freeze(value);
+  for (const value of Object.values(obj)) if (typeof value === "object" && typeof value[Symbol.iterator] === "function") freeze(value);
   Object.freeze(obj);
   return;
 };
@@ -435,3 +443,7 @@ export class LyraNotification {
     return this;
   };
 };
+
+// 환경변수 고정
+Object.seal(lyraEnv);
+freeze(DICT_LYRA_ENV);

@@ -10,8 +10,8 @@ import {
         name: "Pictor",
         author: "Acherium",
         contact: "acherium@pm.me",
-        version: "24w35.2",
-        date: "24-08-26",
+        version: "24w37.1",
+        date: "24-09-11",
         watermark: false,
         isBeta: false
     };

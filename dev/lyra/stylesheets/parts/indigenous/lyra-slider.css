@@ -1,0 +1,133 @@
+@charset "UTF-8";
+.slider {
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+
+  background-color: var(--main);
+  
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.slider > .capsule {
+  position: absolute;
+
+  width: inherit;
+  height: inherit;
+  
+  border-radius: inherit;
+  
+  /* transition: transform ease-out 0.5s; */
+  animation-duration: 0.5s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+.slider > .capsule img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.slider > .capsule > * {
+  display: flex;
+  overflow: hidden;
+
+  width: 100%;
+  height: 100%;
+
+  border-radius: inherit;
+}
+
+.slider > .capsule > a::after { content: none; }
+.slider > .capsule > a::before { content: none; }
+
+.slider > button {
+  position: absolute;
+  z-index: 2;
+
+  width: 44px;
+  height: 44px;
+
+  border-radius: 22px;
+  background-color: var(--c-main);
+  opacity: 0;
+
+  transition: opacity ease-in-out 0.1s;
+}
+
+.slider > button.previous { left: 10px; }
+.slider > button.next { right: 10px; }
+
+.slider:hover > button { opacity: 1; }
+
+.slider > .controller {
+  display: flex;
+  position: absolute;
+  padding: var(--p);
+  gap: var(--p-small);
+  bottom: 10px;
+  z-index: 3;
+
+  width: max-content;
+  height: max-content;
+
+  border-radius: 16px;
+  background-color: transparent;
+
+  transition: background-color ease-in-out 0.1s;
+}
+
+.slider > .controller > input[type=radio] {
+  display: block;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+  width: 16px;
+  height: 16px;
+
+  appearance: none;
+  border-radius: 8px;
+  background-color: var(--c-main);
+  opacity: 0.25;
+  cursor: pointer;
+
+  transition: background-color ease-in-out 0.1s;
+}
+
+.slider > .controller > input[type=radio]:checked { opacity: 1; }
+.slider > .controller > input[type=radio]:focus { outline: none; }
+
+.slider:hover > .controller { background-color: var(--c-main); }
+.slider:hover > .controller > input[type=radio] { background-color: var(--c-accent); }
+
+@keyframes ani-slider-out-right {
+  to { transform: translateX(100%); }
+}
+
+@keyframes ani-slider-out-left {
+  to { transform: translateX(-100%); }
+}
+
+@keyframes ani-slider-in-right {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0%); }
+}
+
+@keyframes ani-slider-in-left {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0%); }
+}
+
+@media screen and (max-width: 900px) {
+  .slider > button { opacity: 1; }
+  .slider > .controller {
+    gap: var(--p-large);
+    background-color: var(--c-main);
+  }
+  .slider > .controller > input[type=radio] { background-color: var(--c-accent); }
+}

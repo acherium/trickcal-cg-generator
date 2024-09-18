@@ -1,0 +1,12 @@
+@charset "UTF-8";
+@import url("./assets/fonts/pretendardvariable-gov/pretendardvariable-gov.css");
+@import url("./stylesheets/icons/lyra-icons.css");
+@import url("./stylesheets/palettes/lyra-palettes-combined.css");
+@import url("./stylesheets/animations/lyra-animations-common.css");
+@import url("./stylesheets/miscellaneous/lyra-miscellaneous.css");
+@import url("./stylesheets/parts/lyra-parts-all.css");
+* {
+  font-family: "Pretendard GOV Variable";
+  color: var(--c-font);
+}
+body { background-color: var(--c-main); }

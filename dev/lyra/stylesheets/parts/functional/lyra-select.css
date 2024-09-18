@@ -1,0 +1,17 @@
+@charset "UTF-8";
+select:focus { outline: solid 2px var(--c-accent); }
+select:disabled { cursor: no-drop; }
+
+select {
+  margin: 0;
+  padding: 10px;
+  box-sizing: border-box;
+
+  font-size: 12pt;
+  border: 0;
+  border-radius: 4px;
+  background-color: var(--c-button);
+  cursor: pointer;
+  
+  transition: all 0.1s;
+}

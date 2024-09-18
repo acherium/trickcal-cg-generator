@@ -1,0 +1,125 @@
+@charset "UTF-8";
+#lyra-notification-area {
+  display: flex;
+  position: fixed;
+  justify-content: center;
+  left: 0;
+  top: 0;
+  z-index: 102;
+
+  width: 100vw;
+  height: 100vh;
+
+  pointer-events: none;
+}
+
+#lyra-notification-area > div.wrap {
+  display: flex;
+  position: absolute;
+  justify-content: flex-end;
+  flex-direction: column;
+  gap: var(--m-large);
+  bottom: 65%;
+  margin: 0;
+  padding: var(--p);
+  box-sizing: border-box;
+
+  max-width: 700px;
+  width: 100vw;
+  height: max-content;
+}
+
+.notification {
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr) minmax(0, auto);
+  grid-template-rows: auto;
+  gap: var(--p);
+  place-items: center;
+  margin: 0;
+  padding: var(--p-modal);
+  overflow: hidden;
+  box-sizing: border-box;
+
+  max-width: inherit;
+  width: auto;
+  height: max-content;
+
+  /* outline: solid 1px var(--c-border); */
+  border-radius: var(--r-medium);
+  background-color: var(--c-notification-bg);
+  /* box-shadow: 0 0 10px var(--c-shadow); */
+  pointer-events: auto;
+
+  animation: 0.15s var(--af-sweep-in) ani-window-in both;
+  will-change: transform, opacity;
+}
+.notification * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.notification > p {
+  grid-column: 1 / span 2;
+
+  width: 100%;
+
+  word-break: break-all;
+}
+
+.notification > .icon+p {
+  grid-column: auto;
+}
+
+.notification > .button-area {
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--m);
+
+  width: 100%;
+  height: fit-content;
+}
+
+.notification > .button-area > button {
+  justify-content: center;
+  padding: var(--p);
+
+  min-width: 44px;
+  min-height: 44px;
+  width: fit-content;
+  height: fit-content;
+
+  border-radius: 22px;
+  background-color: transparent;
+}
+
+.notification > .button-area > button:has(p) { padding: var(--p) var(--p-large); }
+
+.notification > .gauge {
+  grid-column: none;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+
+  width: 0%;
+  height: 3px;
+
+  background-color: var(--c-border);
+  /* opacity: 0.5; */
+
+  will-change: width;
+}
+
+@keyframes ani-notification-gauge {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+
+.notification-two-track {
+  grid-template-columns: 20px minmax(0, 1fr);
+  grid-template-rows: repeat(2, minmax(0, auto));
+}
+
+.notification-two-track > .button-area { grid-column: 1 / -1; }

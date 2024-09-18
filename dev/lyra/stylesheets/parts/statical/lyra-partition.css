@@ -1,0 +1,19 @@
+@charset "UTF-8";
+.divline,
+.divline-column {
+  margin: 0 var(--m);
+
+  min-width: 2px;
+  height: 100%;
+
+  background-color: var(--c-button);
+}
+
+.divline-row {
+  margin: var(--m) 0;
+
+  width: 100%;
+  min-height: 2px;
+
+  background-color: var(--c-button);
+}

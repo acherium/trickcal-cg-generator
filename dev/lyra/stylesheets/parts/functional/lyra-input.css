@@ -1,0 +1,217 @@
+@charset "UTF-8";
+input:disabled { cursor: no-drop; }
+input:focus {outline: solid 2px var(--c-accent); }
+
+label:has(input) * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Input: Text, Number */
+input[type=text],
+input[type=number] {
+  margin: 0;
+  padding: var(--p-large);
+  box-sizing: border-box;
+
+  font-size: inherit;
+  color: var(--c-font);
+  border: none;
+  border-radius: var(--r);
+  background-color: var(--c-button);
+  appearance: textfield;
+}
+input[type=text] *,
+input[type=number] * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+input[type=text]::placeholder,
+input[type=number]::placeholder {
+  color: var(--c-checkbox-border);
+  font-style: italic;
+}
+
+input[type=text]:disabled,
+input[type=number]:disabled { opacity: 0.5; }
+
+label:has(input[type=text]),
+label:has(input[type=number]) {
+  display: flex;
+  align-items: center;
+  padding: var(--p);
+
+  width: fit-content;
+  height: fit-content;
+
+  border: solid 2px var(--c-button);
+  border-radius: var(--r);
+  background-color: var(--c-button);
+}
+
+label:has(input[type=text]) > *:not(:last-child),
+label:has(input[type=number]) > *:not(:last-child) { margin-right: var(--m); }
+
+label:has(input[type=text]) > input[type=text],
+label:has(input[type=number]) > input[type=number] {
+  margin-left: var(--m);
+  padding: var(--p-small) var(--p-small) var(--p-small) var(--p);
+
+  border: none;
+  border-left: solid 2px var(--c-checkbox-border);
+  border-radius: 0;
+}
+
+label:has(input[type=text]:focus),
+label:has(input[type=number]:focus) { outline: solid 2px var(--c-accent); }
+
+label:has(input[type=text]:focus) > input[type=text],
+label:has(input[type=number]:focus) > input[type=number] { outline: none; }
+
+label:has(input[type=text]:not(:disabled)),
+label:has(input[type=number]:not(:disabled)) { cursor: text; }
+
+label:has(input[type=text]:disabled),
+label:has(input[type=number]:disabled) {
+  opacity: 0.5;
+  cursor: no-drop;
+}
+
+/* Input: Range */
+input[type=range] {
+  appearance: none;
+
+  height: 10px;
+
+  border-radius: 5px;
+  background-color: var(--c-button);
+}
+
+input[type=range]::-webkit-slider-thumb {
+  box-sizing: border-box;
+  
+  width: 20px;
+  height: 20px;
+
+  border: solid 2px var(--c-accent);
+  border-radius: 10px;
+  outline: solid 2px var(--c-main);
+  background-color: var(--c-main);
+  appearance: none;
+  cursor: pointer;
+
+  transition: background-color ease-in-out 0.1s;
+}
+input[type=range]::-moz-range-thumb {
+  box-sizing: border-box;
+  
+  width: 20px;
+  height: 20px;
+
+  border: solid 2px var(--c-accent);
+  border-radius: 10px;
+  outline: solid 2px var(--c-main);
+  background-color: var(--c-main);
+  cursor: pointer;
+
+  transition: background-color ease-in-out 0.1s;
+}
+
+input[type=range]:disabled::-webkit-slider-thumb { 
+  border-color: var(--c-font);
+  background-color: var(--c-button);
+}
+input[type=range]:disabled::-moz-range-thumb { 
+  border-color: var(--c-font);
+  background-color: var(--c-button);
+}
+
+input[type=range]:not(:disabled):hover::-webkit-slider-thumb { background-color: var(--c-button); }
+input[type=range]:not(:disabled):hover::-moz-range-thumb { background-color: var(--c-button); }
+
+input[type=range]:not(:disabled):active::-webkit-slider-thumb { background-color: var(--c-accent); }
+input[type=range]:not(:disabled):active::-moz-range-thumb { background-color: var(--c-accent); }
+
+label:has(input[type=range]) {
+  display: grid;
+  position: relative;
+  place-items: center;
+  padding: 0 var(--p-large);
+  box-sizing: border-box;
+  z-index: 0;
+
+  width: 500px;
+  height: 44px;
+
+  border-radius: var(--r);
+  background-color: var(--c-main);
+}
+
+label:has(input[type=range]) > input:focus { outline: none; }
+label:has(input[type=range]:focus) { outline: solid 2px var(--c-accent); }
+
+label:has(input[type=range]) > input[type=range] {
+  z-index: 1;
+
+  width: 100%;
+  height: 100%;
+
+  background-color: transparent;
+  cursor: pointer;
+}
+
+label:has(input[type=range]) > .rail {
+  position: absolute;
+  /* left: var(--p-large); */
+  z-index: 0;
+  /* overflow: hidden; */
+
+  width: calc(100% - var(--p-large) * 2 - 20px);
+  height: 10px;
+
+  border-radius: 5px;
+  background-color: var(--c-button);
+  pointer-events: none;
+}
+
+label:has(input[type=range]) > .rail > .gauge {
+  height: 100%;
+
+  border-radius: 5px;
+  background-color: var(--c-accent);
+}
+
+label:has(input[type=range]:disabled) > .rail > .gauge { background-color: var(--c-button); }
+
+label:has(input[type=range]) > .rail > .tip {
+  display: grid;
+  position: absolute;
+  place-items: center;
+  top: -30px;
+}
+
+label:has(input[type=range]) > .rail > .tip > .text {
+  position: absolute;
+  padding: var(--p) var(--p-large);
+  z-index: 2;
+
+  text-align: center;
+  color: var(--c-white);
+  border-radius: var(--r);
+  outline: solid 2px var(--c-main);
+  background-color: var(--c-accent);
+  opacity: 0;
+  pointer-events: none;
+
+  transform: translateY(3px) scale(0.98);
+  transition: ease-in-out 0.15s;
+  transition-property: opacity transform;
+}
+
+label:has(input[type=range]:disabled) > .rail > .tip > .text {
+  color: var(--c-font);
+  background-color: var(--c-button);
+}

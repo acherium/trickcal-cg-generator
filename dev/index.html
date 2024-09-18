@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>트릭컬 테마극장 생성기</title>
+  <link rel="shortcut icon" href="./assets/essentials/favicon.svg" type="image/x-icon">
+  <meta property="og:title" content="트릭컬 테마극장 생성기">
+  <meta id="desc" property="og:description" content="모바일 게임 '트릭컬: 리바이브'의 인게임 스토리(테마극장)에서의 대화창 및 CG 씬과 유사한 규격의 이미지를 쉽게 제작하도록 돕는 웹기반 어플리케이션입니다.">
+  <meta property="og:image" content="https://acherium.github.io/trickcal/cg-gen/assets/essentials/thumbnail.png">
+  <meta property="og:url" content="https://acherium.github.io/trickcal/cg-gen/">
+
+  <link rel="stylesheet" href="./lyra/lyra-styles.css">
+  <link rel="stylesheet" href="./stylesheets/main.css">
+
+  <script type="module" src="./lyra/lyra-style-init.js" async></script>
+  <script type="module" src="./scripts/pictor.js" defer></script>
+</head>
+<body>
+  <div id="menu-area">
+    <div id="menu-list">
+      <div id="logo" lyra-tip="트릭컬 테마극장 생성기"></div>
+      <div class="partition"></div>
+      <button id="button-menu-doc" class="toggle-menu" data-menu="menu-doc" lyra-tip="문서 및 출력"><div class="i i-document"></div></button>
+      <button id="button-menu-slide" class="toggle-menu" data-menu="menu-slide" lyra-tip="슬라이드"><div class="i i-slide"></div></button>
+      <button id="button-menu-elements" class="toggle-menu" data-menu="menu-elements" lyra-tip="배경 및 요소"><div class="i i-config"></div></button>
+      <button id="button-menu-object" class="toggle-menu" data-menu="menu-object" lyra-tip="개체"><div class="i i-layer"></div></button>
+      <button id="button-menu-about" class="toggle-menu" data-menu="menu-about" lyra-tip="앱 정보"><div class="i i-notification"></div></button>
+    </div>
+    <div id="menuzone">
+      <div id="menu-doc" class="menu">
+        <div class="title">
+          <h2>문서 및 출력</h2>
+          <button class="close"><div class="i i-deny"></div></button>
+        </div>
+        <div class="divline-row"></div>
+        <h4>문서 정보</h4>
+        <label class="wf f1">
+          <p>제목</p>
+          <input type="text" id="show-name" class="wf f1" value="">
+        </label>
+        <div class="divline-row"></div>
+        <h4>브라우저에 저장</h4>
+        <div class="list-row wf">
+          <button id="button-save" class="f1 fjcc">
+            <div class="i i-export"></div>
+            <p>저장</p>
+          </button>
+          <button id="button-load" class="f1 fjcc">
+            <div class="i i-import"></div>
+            <p>불러오기</p>
+          </button>
+        </div>
+        <div class="divline-row"></div>
+        <h4>이미지로 저장</h4>
+        <div class="list-row wf">
+          <button id="button-download" class="f1 fjcc" lyra-tip="현재 슬라이드를 PNG 이미지로 저장합니다.">
+            <div class="i i-download"></div>
+            <p>현재</p>
+          </button>
+          <button id="button-download-all" class="f1 fjcc" lyra-tip="모든 슬라이드를 PNG 이미지로 저장합니다.">
+            <div class="i i-download"></div>
+            <p>전체</p>
+          </button>
+        </div>
+        <label class="wf f1">
+          <div class="i i-export"></div>
+          <p>출력 배율</p>
+          <input type="number" id="export-multiplier" class="wf f1">
+        </label>
+        <label class="wf f1">
+          <div class="i i-slide-size"></div>
+          <p>최종 크기</p>
+          <input type="text" id="export-size-onmodal" class="wf f1" disabled>
+        </label>
+        <p>출력 배율을 과도하게 큰 값으로 설정할 경우 브라우저 또는 기기의 작동 중지나 데이터 손실을 일으킬 수 있습니다.</p>
+        <div class="list-row fjcc wf">
+          <span><small>Powered by <a href="https://github.com/yorickshan/html2canvas-pro" target="_blank">html2canvas-pro</a></small></span>
+        </div>
+      </div>
+      <div id="menu-slide" class="menu">
+        <div class="title">
+          <h2>슬라이드</h2>
+          <button class="close"><div class="i i-deny"></div></button>
+        </div>
+        <div class="divline-row"></div>
+        <h4>크기 조정</h4>
+        <div class="list-row wf">
+          <input type="number" id="input-slide-size-width" class="wf f1"><span>×</span><input type="number" id="input-slide-size-height" class="wf f1">
+          <button id="button-fit-to-bg-size" class="wfc" lyra-tip="배경 이미지 비율에 맞춤"><div class="i i-slide-size"></div></button>
+        </div>
+        <div class="list wf">
+          <button class="button-slide-size wf f1" data-width="1280" data-height="720"><p>1280×720 (16:9)</p></button>
+          <button class="button-slide-size wf f1" data-width="1788" data-height="700"><p>1788×700 (23:9)</p></button>
+          <button class="button-slide-size wf f1" data-width="1280" data-height="1066"><p>1280×1066 (6:5)</p></button>
+        </div>
+        <div class="divline-row"></div>
+        <h4>목록</h4>
+        <div class="list-row wf">
+          <button id="button-add-slide" class="f1 fjcc" lyra-tip="빈 슬라이드를 추가합니다."><div class="i i-create-slide"></div><p>추가</p></button>
+          <button id="button-duplicate-slide" class="f1 fjcc" lyra-tip="현재 슬라이드를 복제합니다."><div class="i i-duplicate-slide"></div><p>복제</p></button>
+        </div>
+        <div id="slide-list">
+        </div>
+      </div>
+      <div id="menu-elements" class="menu">
+        <div class="title">
+          <h2>배경 및 요소</h2>
+          <button class="close"><div class="i i-deny"></div></button>
+        </div>
+        <div class="divline-row"></div>
+        <h4>배경 이미지</h4>
+        <div class="list-row wf">
+          <button id="button-set-bg" class="f1 fjcc"><div class="i i-plus"></div><p>설정</p></button>
+          <button id="button-remove-bg" class="f1 fjcc"><div class="i i-trash"></div><p>제거</p></button>
+        </div>
+        <div class="list-row wf">
+          <p>맞춤</p>
+          <select id="select-bg-fit" class="wf f1">
+            <option value="align-center">중앙 배치</option>
+            <option value="fit-height">슬라이드 높이에 맞춤</option>
+            <option value="fit-width">슬라이드 폭에 맞춤</option>
+            <option value="fill">슬라이드 채움</option>
+          </select>
+        </div>
+        <div class="divline-row"></div>
+        <h4>배경 색상</h4>
+        <div id="colorpicker-bg" class="colorpicker">
+          <div class="left colorpicker-preview">
+            <p class="colorpicker-preview-value">#FFFFFF<br>255, 255, 255</p>
+          </div>
+          <div class="right">
+            <p>R</p>
+            <label class="colorpicker-range colorpicker-r-revamped"><input type="range" min="0" max="255" step="1" value="0" id="colorpicker-bg-r" class="colorpicker-range-input r"></label>
+            <input type="number" class="colorpicker-input colorpicker-input-r">
+            <p>G</p>
+            <label class="colorpicker-range colorpicker-g-revamped"><input type="range" min="0" max="255" step="1" value="0" id="colorpicker-bg-g" class="colorpicker-range-input g"></label>
+            <input type="number" class="colorpicker-input colorpicker-input-g">
+            <p>B</p>
+            <label class="colorpicker-range colorpicker-b-revamped"> <input type="range" min="0" max="255" step="1" value="0" id="colorpicker-bg-b" class="colorpicker-range-input b"></label>
+            <input type="number" class="colorpicker-input colorpicker-input-b">
+          </div>
+      </div>
+      </div>
+      <div id="menu-object" class="menu">
+        <div class="title">
+          <h2>개체</h2>
+          <button class="close"><div class="i i-deny"></div></button>
+        </div>
+        <div class="divline-row"></div>
+      </div>
+      <div id="menu-about" class="menu">
+        <div class="title">
+          <h2>앱 정보</h2>
+          <button class="close"><div class="i i-deny"></div></button>
+        </div>
+        <div class="divline-row"></div>
+        <img src="./assets/essentials/banner.svg" alt="Project Pictor" id="about-thumbnail">
+        <p id="about-app"></p><br>
+        <p id="about-lyra"></p><br>
+        <p id="about-desc"></p><br>
+        <p>
+          Acherium 제작. '클뜯 요소' 없음.<br>
+          '트릭컬: 리바이브(Trickcal RE:VIVE)'는 ㈜에피드게임즈의 상표입니다.
+        </p>
+      </div>
+    </div>
+  </div>
+  <main>
+    <div id="photozone-area">
+      <div id="photozone"></div>
+    </div>
+  </main>
+</body>
+</html>

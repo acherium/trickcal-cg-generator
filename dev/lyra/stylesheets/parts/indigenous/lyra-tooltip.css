@@ -1,0 +1,26 @@
+@charset "UTF-8";
+#lyra-tooltip-area {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 103;
+  box-sizing: border-box;
+
+  width: 100vw;
+  height: 100vh;
+
+  pointer-events: none;
+}
+
+#lyra-tooltip-area > .tip {
+  position: absolute;
+  padding: var(--p) var(--p-large);
+  left: 0;
+  top: 0;
+  box-sizing: border-box;
+
+  color: var(--c-white);
+  border-radius: var(--r);
+  outline: solid 2px var(--c-main);
+  background-color: var(--c-accent);
+}

@@ -9,7 +9,7 @@ import {
     name: "Project Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2000.1",
+    version: "2000.2",
     date: "24-09-18",
     watermark: true,
     isBeta: true

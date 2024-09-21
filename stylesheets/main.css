@@ -474,6 +474,8 @@ main {
   border-radius: var(--r-small);
 }
 
+.menu > .wrap:has(.colorpicker-range:active) { overflow-y: hidden; }
+
 /* 다운로드 경고창 */
 .alert {
   display: flex;
@@ -519,7 +521,7 @@ main {
   }
 
   #menu-list > .wrap > *:hover { border-radius: 0; }
-  #menu-list > .wrap > *:hover > span { display: none; }
+  #menu-list > .wrap > #logo:hover > span { display: none; }
   #menu-list > .wrap > button > span { display: inline; }
 
   #menu-list > .wrap > .partition {

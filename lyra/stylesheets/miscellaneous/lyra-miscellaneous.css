@@ -39,11 +39,9 @@
   box-sizing: border-box;
 
   font-size: 10pt;
-  color: white;
+  color: oklch(70% 0 0/0.3);
   border-radius: 4px;
-  background-color: black;
   text-align: right;
-  opacity: 1;
   pointer-events: none;
 }
 

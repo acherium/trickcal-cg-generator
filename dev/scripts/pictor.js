@@ -9,8 +9,8 @@ import {
     name: "Project Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2000.2",
-    date: "24-09-18",
+    version: "2000.3",
+    date: "24-09-21",
     watermark: true,
     isBeta: true
   };
@@ -35,7 +35,7 @@ import {
           $(`#${currentMenu}`).style["display"] = "none";
         };
         tgl.classList.add("active");
-        menu.style["display"] = "block";
+        menu.style["display"] = "flex";
         currentMenu = target;
       };
     };

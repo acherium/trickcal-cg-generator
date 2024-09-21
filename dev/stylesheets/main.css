@@ -5,6 +5,7 @@
 }
 :root {
   --c-accent: oklch(73.2% 0.16 31.9);
+  --c-border: oklch(90% 0.01 317);
   --c-green: rgb(117, 153, 45);
   --c-lightgreen: rgb(219, 237, 167);
   --c-backgroundgreen: rgb(239, 245, 219);
@@ -22,6 +23,7 @@
 }
 @media (prefers-color-scheme: dark) {
   :root {
+    --c-border: oklch(30% 0.01 317);
       --c-sub: rgb(24, 23, 24);
   }
 }
@@ -32,6 +34,9 @@
   padding: 0;
   box-sizing: border-box;
 }
+html {
+  overflow: hidden;
+}
 body {
   display: flex;
   overflow: hidden;
@@ -39,6 +44,12 @@ body {
   width: 100dvw;
   height: 100dvh;
 }
+
+input[type=text], input[type=number] { height: 44px; }
+label:has(input[type=text]) > input,
+label:has(input[type=number]) > input { height: 24px; }
+select { height: 44px; }
+button { height: max-content; }
 
 /* 주 영역 */
 
@@ -52,36 +63,69 @@ body {
 }
 
 #menu-list {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding: 4px;
+  position: relative;
   z-index: 1;
 
-  width: 52px;
+  width: 53px;
   height: 100%;
 
+  border-right: solid 1px var(--c-border);
   background-color: var(--c-main);
 }
-#menu-list > button { background-color: transparent; }
-#menu-list > button.active { background-color: var(--c-accent); }
+
+#menu-list > .wrap {
+  display: flex;
+  position: absolute;
+  flex-direction: column;
+  left: 0;
+  top: 0;
+}
+
+#menu-list > .wrap > button {
+  justify-content: center;
+
+  min-width: 52px;
+  min-height: 52px;
+  width: max-content;
+
+  border-radius: 0;
+  background-color: transparent;
+}
+#menu-list > .wrap > button:focus { outline: none; }
+#menu-list > .wrap > button:hover { background-color: var(--c-button); }
+#menu-list > .wrap > button.active { background-color: var(--c-accent); }
+#menu-list > .wrap > button > .i { margin: 4px; }
 
 #logo {
-  width: 44px;
-  height: 44px;
+  display: flex;
+  align-items: center;
 
-  border-radius: var(--r);
+  width: max-content;
+
+  background-color: var(--c-accent);
+}
+#logo > div {
+  width: 52px;
+  height: 52px;
+
   background: no-repeat center center/32px url("../assets/essentials/logo-black.svg");
 }
 @media (prefers-color-scheme: dark) {
   #logo { background-image: url("../assets/essentials/logo-white.svg"); }
 }
+#logo > span { padding-right: var(--p); }
+
+#menu-list > .wrap > * > span {
+  display: none;
+  margin-right: 4px;
+}
+#menu-list > .wrap > *:hover > span { display: inline; }
 
 .partition {
-  width: 100%;
-  height: 2px;
+  width: 52px;
+  height: 1px;
 
-  background-color: var(--c-button);
+  background-color: var(--c-border);
 }
 
 #menuzone {
@@ -93,30 +137,57 @@ body {
   width: max-content;
   height: 100%;
 
+  /* border-right: solid 1px var(--c-border); */
   background-color: var(--c-main);
 }
 
 .menu {
   display: none;
-  overflow-y: scroll;
-  padding: var(--p-small);
+  flex-direction: column;
+  overflow: hidden;
 
   max-width: inherit;
   width: 400px;
   height: 100%;
 
+  outline: solid 1px var(--c-border);
   animation: ease-in-out 0.25s ani-window-in;
 }
-.menu > *:not(:last-child) { margin-bottom: var(--m); }
 #menuzone > input[type=checkbox]:checked+.menu { display: block; }
 
 .menu > .title {
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  height: 44px;
+
+  border-bottom: solid 1px var(--c-border);
+  background-color: var(--c-sub);
 }
-.menu > .title > button { background-color: transparent; }
-.menu > h4 { margin-top: var(--m-large); }
+.menu > .title > h2 { padding: var(--p); }
+.menu > .title > button {
+  border-left: solid 1px var(--c-border);
+  border-radius: unset;
+  background-color: var(--c-accent);
+}
+
+.menu > .wrap {
+  gap: var(--m);
+  padding: var(--p-large);
+  overflow-y: scroll;
+
+  width: inherit;
+  height: max-content;
+}
+.menu > .wrap > *:not(:last-child) { margin-bottom: var(--m); }
+.menu > .wrap > h4:not(:first-child) { margin-top: var(--m-large); }
+
+/* 메뉴 - 대화창 */
+.input-content {
+  min-height: 100px;
+  resize: none;
+}
 
 /* 메뉴 - 앱 정보 */
 #about-thumbnail {
@@ -259,15 +330,25 @@ main {
     height: fit-content;
   }
   #menu-list {
-    flex-direction: row;
+    overflow-x: scroll;
+    overflow-y: hidden;
 
-    width: 100%;
-    height: 52px;
+    width: 100dvw;
+    height: 53px;
+
+    border-right: none;
+    border-top: solid 1px var(--c-border);
+  }
+  #menu-list > .wrap {
+    flex-direction: row;
   }
 
+  #menu-list > .wrap > *:hover > span { display: unset; }
+  #menu-list > .wrap > button > span { display: inline; }
+
   .partition {
-    width: 2px;
-    height: 100%;
+    width: 1px;
+    height: 52px;
   }
 
   #menuzone {
@@ -281,7 +362,6 @@ main {
   }
 
   .menu {
-    padding: var(--m-large);
     width: 100%;
     height: 100dvh;
   }

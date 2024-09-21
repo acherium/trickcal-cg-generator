@@ -125,6 +125,7 @@ button { height: max-content; }
 }
 #logo > span { padding-right: var(--p); }
 
+#menu-list > .wrap > *:hover { border-radius: 0 var(--r-medium) var(--r-medium) 0; }
 #menu-list > .wrap > * > span {
   display: none;
   margin-right: 4px;
@@ -517,7 +518,8 @@ main {
     flex-direction: row;
   }
 
-  #menu-list > .wrap > *:hover > span { display: unset; }
+  #menu-list > .wrap > *:hover { border-radius: 0; }
+  #menu-list > .wrap > *:hover > span { display: none; }
   #menu-list > .wrap > button > span { display: inline; }
 
   #menu-list > .wrap > .partition {

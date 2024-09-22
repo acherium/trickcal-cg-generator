@@ -11,7 +11,7 @@ import {
     name: "Project Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2000.9b",
+    version: "2000.9c",
     date: "24-09-23",
     watermark: false,
     isBeta: false
@@ -2186,9 +2186,9 @@ import {
         btnViewReset.click();
       }
       // PNG 이미지로 저장
-      else if (e.code === "Enter" && !e.shiftKey) {
+      else if (e.code === "KeyK") {
         btnSavePNG.click();
-      } else if (e.code === "Enter" && e.shiftKey) {
+      } else if (e.code === "KeyL") {
         btnSavePNGall.click();
       }
       // 검색

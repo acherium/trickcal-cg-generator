@@ -3,7 +3,7 @@
 export const LYRA_NAME = "Lyra Engine";
 export const LYRA_AUTHOR = "Acherium";
 export const LYRA_CONTACT = "acherium@pm.me";
-export const LYRA_VERSION = "1105";
+export const LYRA_VERSION = "1106";
 export const LYRA_DATE = "24-09-22";
 
 export const COMMON_INTERVAL = 30;
@@ -288,6 +288,7 @@ export class LyraModal {
       if (this.nodes.main.isConnected) this.nodes.main = revoke(this.nodes.main);
     }, WINDOW_ANIMATION_DURATION + ANIMATION_INTERVAL);
 
+    document.documentElement.focus();
     return this;
   };
 };

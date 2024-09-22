@@ -45,9 +45,9 @@ body {
   height: 100dvh;
 }
 
-.force-hide {
-  display: none !important;
-}
+.force-hide { display: none !important; }
+
+span.key-hint { text-decoration: underline; }
 
 input[type=text], input[type=number] { height: 44px; }
 label:has(input[type=text]) > input,

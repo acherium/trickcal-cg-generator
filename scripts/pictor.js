@@ -1,6 +1,6 @@
 import {
   LYRA_NAME, LYRA_AUTHOR, LYRA_VERSION, LYRA_DATE,
-  $, $a, create, append, copy,
+  body, $, $a, create, append, copy,
   LyraButton, LyraModal, LyraModalManager, LyraNotification, LyraNotificationManager,
   COMMON_INTERVAL, ANIMATION_INTERVAL
 } from "../lyra/lyra-module.js";
@@ -11,8 +11,8 @@ import {
     name: "Project Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2000.8",
-    date: "24-09-22",
+    version: "2000.9",
+    date: "24-09-23",
     watermark: false,
     isBeta: false
   };
@@ -25,7 +25,7 @@ import {
   const btnMenuSlide = $("#button-menu-slide");
   const btnMenuSbox = $("#button-menu-scriptbox");
   const btnMenuElems = $("#button-menu-elements");
-  const btnMenuObjs = $("#button-menu-objects");
+  const btnMenuObjs = $("#button-menu-object");
   const btnMenuAbout = $("#button-menu-about");
   for (const tgl of tglMenus) {
     tgl.onclick = () => {
@@ -1642,6 +1642,7 @@ import {
   btnSavePNG.onclick = () => {
     alertDownload.style["display"] = "flex";
     exportPNG(photozone);
+    document.documentElement.focus();
   };
   btnSavePNGall.onclick = () => {
     let i = 0;
@@ -1674,6 +1675,7 @@ import {
       } else {
         l.remove();
         alertDownload.style["display"] = "none";
+        document.documentElement.focus();
       };
     };
     cb();
@@ -2132,4 +2134,74 @@ import {
       };
     };
   });
+
+  // 검색 기능
+  const search = $("#search-area");
+  const searchBar = $("#search");
+  const inputSearch = $("#input-search");
+  inputSearch.onkeydown = (e) => {
+    if (e.code === "Enter" && e.target.value?.length > 0) {
+      const raw = e.target.value;
+      const regex = new RegExp(`(${raw})`, "gi");
+      const index = Object.keys(slide).map((x) => [ parseInt(x), slide[x].strings.content ]);
+      const checked = index.filter((x) => regex.exec(x[1]));
+      if (checked.length > 0) {
+        setSlide(checked[0][0]);
+      };
+
+      e.target.value = null;
+      search.style["display"] = "none";
+    };
+  };
+  document.addEventListener("click", (e) => {
+    if (e.target !== searchBar && e.target !== inputSearch) {
+      search.style["display"] = "none";
+      inputSearch.value = null;
+    };
+  });
+
+  // 키보드 바로가기 기능
+  document.addEventListener("keydown", (e) => {
+    if (e.target === body) {
+      // 메뉴 바로가기
+      if (e.code === "KeyA") {
+        btnMenuDoc.click();
+      } else if (e.code === "KeyS") {
+        btnMenuSlide.click();
+      } else if (e.code === "KeyD") {
+        btnMenuSbox.click();
+      } else if (e.code === "KeyF") {
+        btnMenuElems.click();
+      } else if (e.code === "KeyG") {
+        btnMenuObjs.click();
+      } else if (e.code === "KeyH") {
+        btnMenuAbout.click();
+      }
+      // 확대/축소
+      else if (e.code === "Minus") {
+        btnViewZoomOut.click();
+      } else if (e.code === "Equal") {
+        btnViewZoomIn.click();
+      } else if (e.code === "Backspace") {
+        btnViewReset.click();
+      }
+      // PNG 이미지로 저장
+      else if (e.code === "Enter" && !e.shiftKey) {
+        btnSavePNG.click();
+      } else if (e.code === "Enter" && e.shiftKey) {
+        btnSavePNGall.click();
+      }
+      // 검색
+      else if (e.code === "Space") {
+        search.style["display"] = "grid";
+        setTimeout(() => { inputSearch.focus(); }, 30);
+      };
+    };
+    // 메뉴 닫기
+    if (e.code === "Escape" && (currentMenu !== null || search.checkVisibility())) {
+      Array.from(tglMenus).find((x) => x.dataset.menu === currentMenu)?.click();
+      search.style["display"] = "none";
+    };
+  });
+
 })();

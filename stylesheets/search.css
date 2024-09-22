@@ -1,0 +1,45 @@
+@charset "UTF-8";
+/* 검색 바 */
+#search-area {
+  display: grid;
+  position: absolute;
+  place-items: center;
+  top: 20%;
+  padding: var(--p);
+  z-index: 103;
+  box-sizing: border-box;
+
+  width: 100dvw;
+  height: max-content;
+
+  pointer-events: none;
+}
+
+#search {
+  display: grid;
+  grid-template-columns: 36px minmax(0, auto);
+  padding: 20px;
+  place-items: center;
+  gap: var(--p);
+
+  max-width: calc(100dvw - var(--p) * 2);
+  width: 660px;
+  height: max-content;
+
+  border: solid 1px var(--c-border);
+  border-radius: var(--r-medium);
+  background-color: var(--c-main);
+  pointer-events: auto;
+}
+
+#input-search {
+  padding: 0 var(--p);
+
+  width: 100%;
+
+  font-size: 18pt;
+  background-color: transparent;
+}
+#input-search:focus { outline: unset; }
+
+#search > .il { pointer-events: none; }

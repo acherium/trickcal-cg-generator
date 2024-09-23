@@ -28,6 +28,8 @@
       <div class="wrap">
         <div id="logo"><div></div><span>트릭컬 테마극장 생성기</span></div>
         <div class="partition"></div>
+        <button id="button-search"><div class="i i-search"></div><span>대사 검색(<span class="key-hint">Space</span>)</span></button>
+        <div class="partition"></div>
         <button id="button-menu-doc" class="toggle-menu" data-menu="menu-doc"><div class="i i-document"></div><span>문서 및 출력(<span class="key-hint">A</span>)</span></button>
         <button id="button-menu-slide" class="toggle-menu" data-menu="menu-slide"><div class="i i-slide"></div><span>슬라이드(<span class="key-hint">S</span>)</span></button>
         <button id="button-menu-scriptbox" class="toggle-menu" data-menu="menu-scriptbox"><div class="i i-star5"></div><span>대화창(<span class="key-hint">D</span>)</span></button>
@@ -114,7 +116,7 @@
             <button id="button-add-slide" class="f1 fjcc"><div class="i i-create-slide"></div><p>빈 슬라이드 추가</p></button>
             <button id="button-duplicate-slide" class="f1 fjcc"><div class="i i-duplicate-slide"></div><p>현재 슬라이드 복제</p></button>
           </div>
-          <label lyra-tip="썸네일 자동 생성 및 새로고침 기능을 비활성화합니다.<br>사이트가 느리게 동작하는 문제를 해결할 수 있습니다.<br>체크를 해제한 후에 썸네일을 다시 생성해야할 수 있습니다.">
+          <label style="display:none;" lyra-tip="썸네일 자동 생성 및 새로고침 기능을 비활성화합니다.<br>사이트가 느리게 동작하는 문제를 해결할 수 있습니다.<br>체크를 해제한 후에 썸네일을 다시 생성해야할 수 있습니다.">
             <input type="checkbox" id="checkbox-disable-thumbnail-gen">
             썸네일 생성 비활성화
           </label>
@@ -720,14 +722,19 @@
   <div id="alert-downloading" class="alert" style="display: none;">
     <h3>저장중입니다</h3>
   </div>
-  <div id="alert-regulation" class="notification" lyra-autoShow="true">
+  <div id="alert-regulation" class="notification" lyra-autoShow="false">
     <div class="i i-notification"></div>
     <p><a href="https://epidgames.oqupie.com/portal/2399/article/50943" target="_blank">트릭컬: 리바이브 2차 창작물에 대한 규정</a>을 준수하시기 바랍니다.</p>
   </div>
   <div id="search-area" style="display:none;">
     <div id="search">
       <div class="il i-search"></div>
-      <input type="text" id="input-search" placeholder="여기에 대화창 내용을 입력하여 검색">
+      <input type="text" id="input-search" placeholder="여기에 대사를 입력하여 검색">
+    </div>
+    <div id="search-result-list">
+      <p class="num"></p>
+      <div class="desc">키보드 'Tab' 또는 'Shift+Tab'으로 이동, 'Enter'로 선택.</div>
+      <div class="slist"></div>
     </div>
   </div>
 </body>

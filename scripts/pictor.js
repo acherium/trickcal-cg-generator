@@ -11,7 +11,7 @@ import {
     name: "Project Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2000.9c",
+    version: "2000.10",
     date: "24-09-23",
     watermark: false,
     isBeta: false
@@ -1381,6 +1381,7 @@ import {
     applySlide();
   };
   const setSlide = (i) => {
+    if (!slide[i]) return;
     unselectItem();
     current = i;
     applySlide();
@@ -2136,25 +2137,69 @@ import {
   });
 
   // 검색 기능
+  const btnSearch = $("#button-search");
   const search = $("#search-area");
   const searchBar = $("#search");
+  const sresList = $("#search-result-list");
+  const sres = $("#search-result-list > .slist");
+  const pSresLength = $("#search-result-list > .num");
   const inputSearch = $("#input-search");
+  btnSearch.onclick = () => {
+    setTimeout(() => {
+      search.style["display"] = "flex";
+      sresList.style["display"] = "none";
+      $a("*", sres).forEach((x) => x.remove());
+      setTimeout(() => { inputSearch.focus(); }, COMMON_INTERVAL);
+    });
+  };
   inputSearch.onkeydown = (e) => {
     if (e.code === "Enter" && e.target.value?.length > 0) {
       const raw = e.target.value;
-      const regex = new RegExp(`(${raw})`, "gi");
-      const index = Object.keys(slide).map((x) => [ parseInt(x), slide[x].strings.content ]);
-      const checked = index.filter((x) => regex.exec(x[1]));
-      if (checked.length > 0) {
-        setSlide(checked[0][0]);
+      const index = Object.keys(slide).map((x) => {
+        return {
+          id: parseInt(x),
+          items: {
+            content: `${slide[x].toggles.namearea ? `${slide[x].strings.name}: ` : ""}${slide[x].strings.contentRaw}`,
+            dialogues: slide[x].assets.objects.filter((y) => y.type === "dialogue").map((y) => {
+              return {
+                uid: y.uid,
+                content: y.assets.data.contentRaw
+              };
+            })
+          }
+        };
+      });
+      const checked = index.filter((x) => (new RegExp(`(${raw})`, "gi").exec(x.items.content) || x.items.dialogues.filter((y) => new RegExp(`(${raw})`, "gi").exec(y.content)).length));
+      if (checked.length === 1) {
+        setSlide(checked[0].id);
+        e.target.value = null;
+        search.style["display"] = "none";
+      } else if (checked.length > 1) {
+        checked.forEach((x) => {
+          const btn = create("button", {
+            classes: [ "item" ],
+            properties: {
+              innerHTML: `<h3>슬라이드 ${x.id+1}</h3>` +
+                `<p>"${x.items.content}"</p>` +
+                (x.items.dialogues.length ? `<p>${x.items.dialogues.map((y) => `말풍선 ${y.uid} "${y.content}"`).join("<br>")}</p>` : "")
+            }
+          });
+          btn.onclick = () => setSlide(x.id);
+          append(btn, sres);
+        });
+        sresList.style["display"] = "flex";
+        pSresLength.innerText = `${checked.length}개의 결과`;
+        setTimeout(() => {
+          $("button.item", sres).focus();
+        }, COMMON_INTERVAL);
       };
-
-      e.target.value = null;
-      search.style["display"] = "none";
     };
   };
   document.addEventListener("click", (e) => {
-    if (e.target !== searchBar && e.target !== inputSearch) {
+    if (e.target !== searchBar
+        && e.target !== inputSearch
+        && e.target !== sresList
+        && e.target !== pSresLength) {
       search.style["display"] = "none";
       inputSearch.value = null;
     };
@@ -2193,8 +2238,17 @@ import {
       }
       // 검색
       else if (e.code === "Space") {
-        search.style["display"] = "grid";
-        setTimeout(() => { inputSearch.focus(); }, 30);
+        btnSearch.click();
+      }
+      // 슬라이드 이동
+      else if (e.code === "PageUp") {
+        setSlide(current-1);
+      } else if (e.code === "PageDown") {
+        setSlide(current+1);
+      } else if (e.code === "Home") {
+        setSlide(0);
+      } else if (e.code === "End") {
+        setSlide(Object.keys(slide).length-1);
       };
     };
     // 메뉴 닫기

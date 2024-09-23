@@ -371,7 +371,8 @@
   position: relative;
   padding: 10px 22px 13px 22px;
 
-  min-width: 77px;
+  min-width: 40px;
+  min-height: 44px;
   width: max-content;
 
   color: var(--c-white);

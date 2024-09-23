@@ -28,14 +28,14 @@
       <div class="wrap">
         <div id="logo"><div></div><span>트릭컬 테마극장 생성기</span></div>
         <div class="partition"></div>
-        <button id="button-search"><div class="i i-search"></div><span>대사 검색(<span class="key-hint">Space</span>)</span></button>
+        <button id="button-search"><div class="i i-search"></div><span>대사 검색<span class="key-hint">Space</span></span></button>
         <div class="partition"></div>
-        <button id="button-menu-doc" class="toggle-menu" data-menu="menu-doc"><div class="i i-document"></div><span>문서 및 출력(<span class="key-hint">A</span>)</span></button>
-        <button id="button-menu-slide" class="toggle-menu" data-menu="menu-slide"><div class="i i-slide"></div><span>슬라이드(<span class="key-hint">S</span>)</span></button>
-        <button id="button-menu-scriptbox" class="toggle-menu" data-menu="menu-scriptbox"><div class="i i-star5"></div><span>대화창(<span class="key-hint">D</span>)</span></button>
-        <button id="button-menu-elements" class="toggle-menu" data-menu="menu-elements"><div class="i i-config"></div><span>배경 및 요소(<span class="key-hint">F</span>)</span></button>
-        <button id="button-menu-object" class="toggle-menu" data-menu="menu-object"><div class="i i-layer"></div><span>개체(<span class="key-hint">G</span>)</span></button>
-        <button id="button-menu-about" class="toggle-menu" data-menu="menu-about"><div class="i i-notification"></div><span>앱 정보(<span class="key-hint">H</span>)</span></button>
+        <button id="button-menu-doc" class="toggle-menu" data-menu="menu-doc"><div class="i i-document"></div><span>문서 및 출력<span class="key-hint">A</span></span></button>
+        <button id="button-menu-slide" class="toggle-menu" data-menu="menu-slide"><div class="i i-slide"></div><span>슬라이드<span class="key-hint">S</span></span></button>
+        <button id="button-menu-scriptbox" class="toggle-menu" data-menu="menu-scriptbox"><div class="i i-star5"></div><span>대화창<span class="key-hint">D</span></span></button>
+        <button id="button-menu-elements" class="toggle-menu" data-menu="menu-elements"><div class="i i-config"></div><span>배경 및 요소<span class="key-hint">F</span></span></button>
+        <button id="button-menu-object" class="toggle-menu" data-menu="menu-object"><div class="i i-layer"></div><span>개체<span class="key-hint">G</span></span></button>
+        <button id="button-menu-about" class="toggle-menu" data-menu="menu-about"><div class="i i-notification"></div><span>앱 정보<span class="key-hint">H</span></span></button>
       </div>
     </div>
     <div id="menuzone">
@@ -67,11 +67,11 @@
           <div class="list-row wf">
             <button id="button-download" class="f1 fjcc">
               <div class="i i-download"></div>
-              <p>현재 슬라이드 저장(<span class="key-hint">K</span>)</p>
+              <p>현재 슬라이드 저장<span class="key-hint">K</span></p>
             </button>
             <button id="button-download-all" class="f1 fjcc">
               <div class="i i-download"></div>
-              <p>전체 슬라이드 저장(<span class="key-hint">L</span>)</p>
+              <p>전체 슬라이드 저장<span class="key-hint">L</span></p>
             </button>
             <div class="list-row fjcc wf">
               <span><small>Powered by <a href="https://github.com/yorickshan/html2canvas-pro" target="_blank">html2canvas-pro</a></small></span>
@@ -722,9 +722,8 @@
   <div id="alert-downloading" class="alert" style="display: none;">
     <h3>저장중입니다</h3>
   </div>
-  <div id="alert-regulation" class="notification" lyra-autoShow="true">
-    <div class="i i-notification"></div>
-    <p><a href="https://epidgames.oqupie.com/portal/2399/article/50943" target="_blank">트릭컬: 리바이브 2차 창작물에 대한 규정</a>을 준수하시기 바랍니다.</p>
+  <div id="alert-regulation" class="notification" lyra-autoShow="true" lyra-defaultCloseButton="false">
+    <p><a href="https://epidgames.oqupie.com/portal/2399/article/50943" target="_blank">2차 창작물에 대한 규정</a>을 준수하시기 바랍니다.</p>
   </div>
   <div id="search-area" style="display:none;">
     <div id="search">
@@ -732,8 +731,10 @@
       <input type="text" id="input-search" placeholder="여기에 대사를 입력하여 검색">
     </div>
     <div id="search-result-list">
-      <p class="num"></p>
-      <div class="desc">키보드 'Tab' 또는 'Shift+Tab'으로 이동, 'Enter'로 선택.</div>
+      <h4 class="num"></h4>
+      <div class="desc">
+        키보드 'Tab' 또는 'Shift+Tab'으로 이동.<br>
+        'Enter'로 선택, 'ESC'로 검색 닫기.</div>
       <div class="slist"></div>
     </div>
   </div>

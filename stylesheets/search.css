@@ -93,3 +93,16 @@
 #search-result-list > .slist > .item::before { content: none; }
 
 #search-result-list > .slist > .item:focus { background-color: var(--c-accent); }
+
+@media screen and (max-width: 700px) {
+  #search-area { top: 0; }
+
+  #search { grid-template-columns: 24px minmax(0, auto); }
+  #search > .il {
+    width: 24px;
+    height: 24px;
+
+    background-size: 24px;
+  }
+  #input-search { font-size: 14pt; }
+}

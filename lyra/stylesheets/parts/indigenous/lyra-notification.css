@@ -60,7 +60,7 @@
 }
 
 .notification > p {
-  /* grid-column: 1 / span 2; */
+  grid-column: 1 / span 2;
 
   width: 100%;
 

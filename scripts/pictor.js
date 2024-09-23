@@ -11,8 +11,8 @@ import {
     name: "Project Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2000.10d",
-    date: "24-09-23",
+    version: "2001",
+    date: "24-09-24",
     watermark: false,
     isBeta: false
   };
@@ -353,41 +353,6 @@ import {
     refreshThumbnail(current, photozone);
     if (f) {
       bg.style["display"] = null;
-      const _$res = new Image();
-      _$res.src = f;
-      _$res.onload = () => {
-        const ratioRes = Math.floor(_$res.width / _$res.height * RATIOCHECKER) / RATIOCHECKER;
-        const ratioArea = Math.floor(slide[current].area.width / slide[current].area.height * RATIOCHECKER) / RATIOCHECKER;
-        if (ratioRes !== ratioArea) {
-          new LyraNotification({
-            icon: "notification",
-            text: "슬라이드의 비율과 배경으로 설정한 이미지의 비율이 맞지 않습니다.\n슬라이드 비율을 이미지에 맞추시겠습니까?",
-            buttons: [
-              new LyraButton({
-                icon: "arrow-e",
-                text: "이미지 비율에 맞춤",
-                events: {
-                  click: () => btnFitToBg.click()
-                }
-              })
-            ]
-          }).show();
-        } else if ((ratioRes === ratioArea || _$res.width !== slide[current].area.width) && slide[current].values.backgroundFit !== "fill") {
-          new LyraNotification({
-            icon: "notification",
-            text: "슬라이드의 크기와 배경으로 설정한 이미지의 크기가 맞지 않습니다.\n슬라이드 크기를 이미지에 맞추시겠습니까?",
-            buttons: [
-              new LyraButton({
-                icon: "arrow-e",
-                text: "이미지 비율에 맞춤",
-                events: {
-                  click: () => btnFitToBg.click()
-                }
-              })
-            ]
-          }).show();
-        };
-      };
     } else {
       bg.style["display"] = "none";
     };
@@ -439,6 +404,43 @@ import {
       reader.onload = () => {
         setBackground(reader.result);
         uploader.onchange = null;
+
+        const _$res = new Image();
+        _$res.src = reader.result;
+        _$res.onload = () => {
+          const ratioRes = Math.floor(_$res.width / _$res.height * RATIOCHECKER) / RATIOCHECKER;
+          const ratioArea = Math.floor(slide[current].area.width / slide[current].area.height * RATIOCHECKER) / RATIOCHECKER;
+          if (ratioRes !== ratioArea) {
+            new LyraNotification({
+              icon: "notification",
+              text: "슬라이드의 비율과 배경으로 설정한 이미지의 비율이 맞지 않습니다.\n슬라이드 비율을 이미지에 맞추시겠습니까?",
+              buttons: [
+                new LyraButton({
+                  icon: "arrow-e",
+                  text: "이미지 비율에 맞춤",
+                  events: {
+                    click: () => btnFitToBg.click()
+                  }
+                })
+              ]
+            }).show();
+          } else if ((ratioRes === ratioArea || _$res.width !== slide[current].area.width) && slide[current].values.backgroundFit !== "fill") {
+            new LyraNotification({
+              icon: "notification",
+              text: "슬라이드의 크기와 배경으로 설정한 이미지의 크기가 맞지 않습니다.\n슬라이드 크기를 이미지에 맞추시겠습니까?",
+              buttons: [
+                new LyraButton({
+                  icon: "arrow-e",
+                  text: "이미지 비율에 맞춤",
+                  events: {
+                    click: () => btnFitToBg.click()
+                  }
+                })
+              ]
+            }).show();
+          };
+        };
+
       };
     };
     uploader.click();

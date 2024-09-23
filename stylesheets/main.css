@@ -47,7 +47,15 @@ body {
 
 .force-hide { display: none !important; }
 
-span.key-hint { text-decoration: underline; }
+span.key-hint {
+  display: inline-block;
+  margin-left: var(--m);
+  padding: var(--p-small) var(--p);
+
+  color: var(--c-main);
+  border-radius: var(--r);
+  background-color: var(--c-font);
+}
 
 input[type=text], input[type=number] { height: 44px; }
 label:has(input[type=text]) > input,

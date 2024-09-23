@@ -11,7 +11,7 @@ import {
     name: "Project Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2000.10",
+    version: "2000.10b",
     date: "24-09-23",
     watermark: false,
     isBeta: false
@@ -2153,7 +2153,7 @@ import {
     });
   };
   inputSearch.onkeydown = (e) => {
-    if (e.code === "Enter" && e.target.value?.length > 0) {
+    if ((e.code === "Enter" || e.key === "Enter") && e.target.value?.length > 0) {
       const raw = e.target.value;
       const index = Object.keys(slide).map((x) => {
         return {

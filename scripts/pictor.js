@@ -11,8 +11,8 @@ import {
     name: "Project Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2001",
-    date: "24-09-24",
+    version: "2002",
+    date: "24-09-27",
     watermark: false,
     isBeta: false
   };
@@ -89,6 +89,8 @@ import {
   const SCALEMIN = 0.2;
   const SCALEMAX = 2;
   const SCALESTEPS = 0.2;
+  const OPACITYMIN = 0;
+  const OPACITYMAX = 100;
 
   // 데이터 템플릿
   const SLIDE_TEMPLATE = {
@@ -131,7 +133,8 @@ import {
     scriptbox: {
       style: 0,
       sokmaeum: 0,
-      pos: 7
+      pos: 7,
+      opacity: 100
     },
     values: {
       backgroundFit: "align-center",
@@ -335,6 +338,16 @@ import {
       alertDownload.style["display"] = "none";
     });
   };
+  const setRange = (node, i) => {
+    node.value = i;
+    if (node.parentNode.tagName === "LABEL") {
+      const min = parseInt(node.min);
+      const max = parseInt(node.max);
+      const per = i / max * 100;
+      const gauge = $(".gauge", node.parentNode);
+      gauge.style["width"] = `${per}%`;
+    };
+  };
 
   // 배경 조작 기능
   const uploader = $("#uploader");
@@ -372,7 +385,8 @@ import {
     colpicBgPrevVal.innerText = `#${hex}\n${Object.values(rgb).join(", ")}`;
     for (const range of colpicBgRanges) {
       const type = range.className.toString().split(/ +/g)[1].trim();
-      range.value = `${rgb[type]}`;
+      // range.value = `${rgb[type]}`;
+      setRange(range, rgb[type]);
     };
     Array.from(colpicBgInputs).forEach((n, i) => {
       n.value = Object.values(rgb)[i];
@@ -458,6 +472,8 @@ import {
   const conts1 = $a(".content-type-1");
   const sboxAreas = $a("#photo-script-box-area-revamped .area");
   const selSboxTheme = $("#select-scriptbox-theme");
+  const sboxAlphaRange = $("#range-scriptbox-opacity");
+  const sboxes = $a("#photo-script-box-area-revamped, #photo-script-box-area");
   const setType = (i) => {
     if (i === 0) {
       slide[current].values.type = i;
@@ -482,6 +498,14 @@ import {
       Array.from(selSboxTheme.querySelectorAll("option")).find((n) => n.value === `${i}`).selected = true;
     };
   };
+  const setBoxOpacity = (i) => {
+    i = (i > OPACITYMAX) ? OPACITYMAX : (i < OPACITYMIN) ? OPACITYMIN : i;
+    slide[current].scriptbox.opacity = i;
+    sboxes.forEach((node) => {
+      node.style["opacity"] = `${i/100}`;
+    });
+    setRange(sboxAlphaRange, i);
+  };
   radTypes.forEach((radio) => {
     radio.onclick = () => setType(parseInt(radio.value));
   });
@@ -492,6 +516,9 @@ import {
   selSboxTheme.onchange = (c) => {
     setTheme(parseInt(c.target.value));
     refreshThumbnail(current, photozone);
+  };
+  sboxAlphaRange.oninput = (c) => {
+    setBoxOpacity(parseInt(c.target.value));
   };
 
   // 대화창 기본 조작 기능(구형)
@@ -588,8 +615,9 @@ import {
     colpicNamePrevValue.innerText = `#${hex}\n${Object.values(rgb).join(", ")}`;
     for (const range of colpicNameRanges) {
       const type = range.className.toString().split(/ +/g)[1].trim();
-      range.value = `${rgb[type]}`;
-      $("div > div", range.parentNode).style["width"] = `${rgb[type] / 255 * 100}%`;
+      setRange(range, rgb[type]);
+      // range.value = `${rgb[type]}`;
+      // $("div > div", range.parentNode).style["width"] = `${rgb[type] / 255 * 100}%`;
     };
     Array.from(colpicNameInputs).forEach((n, i) => {
       n.value = Object.values(rgb)[i];
@@ -604,7 +632,8 @@ import {
     colpicNamePrevValue.innerText = `#${hex}\n${Object.values(rgb).join(", ")}`;
     for (const range of colpicNameRanges) {
       const type = range.className.toString().split(/ +/g)[1].trim();
-      range.value = `${rgb[type]}`;
+      setRange(range, rgb[type]);
+      // range.value = `${rgb[type]}`;
     };
     Array.from(colpicNameInputs).forEach((n, i) => {
       n.value = Object.values(rgb)[i];
@@ -1422,6 +1451,7 @@ import {
     setBoxPos(x.scriptbox.pos);
     setBoxStyle(x.scriptbox.style);
     setSokmaeumStyle(x.scriptbox.sokmaeum);
+    setBoxOpacity(x.scriptbox.opacity);
 
     setType(x.values.type);
 
@@ -2128,7 +2158,6 @@ import {
   };
 
   // 대화창 클릭시 메뉴 열림
-  const sboxes = $a("#photo-script-box-area-revamped, #photo-script-box-area");
   sboxes.forEach((node) => {
     node.onclick = () => {
       if (currentMenu !== "menu-scriptbox") {
@@ -2260,4 +2289,8 @@ import {
     };
   });
 
+  // 버전 텍스트 적용
+  $a(".ver").forEach((node) => {
+    node.innerText = APP.version;
+  });
 })();

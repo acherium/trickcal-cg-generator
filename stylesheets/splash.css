@@ -1,0 +1,71 @@
+@charset "UTF-8";
+#splash-area {
+  display: grid;
+  position: fixed;
+  place-items: center;
+  left: 0;
+  top: 0;
+  padding: var(--p);
+  z-index: 10000;
+
+  max-width: calc(100dvw - var(--p) * 2);
+  max-height: calc(100dvh - var(--p) * 2);
+  width: 100dvw;
+  height: 100dvh;
+  
+  pointer-events: none;
+
+  animation: 1s linear 1s ani-fade-out both;
+}
+
+#splash {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: minmax(0, 1fr) repeat(2, minmax(0, auto));
+  overflow: hidden;
+
+  max-width: inherit;
+  max-height: inherit;
+  width: 600px;
+  height: 300px;
+
+  border: solid 1px var(--c-border);
+  border-radius: var(--r-medium);
+}
+
+#splash > .top {
+  display: flex;
+  align-items: end;
+  justify-content: start;
+  padding: var(--p);
+
+  background-color: var(--c-main);
+}
+#splash > .top > img {
+  margin-left: var(--m-large);
+
+  width: 80px;
+  aspect-ratio: 1/1;
+}
+
+#splash > .middle {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: var(--p) var(--p-large);
+
+  background-color: var(--c-accent);
+}
+#splash > .middle > h1 {
+  font-family: "ONE Mobile POP";
+  font-weight: normal;
+}
+
+#splash > .bottom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--p-small);
+
+  background-color: var(--c-main);
+}

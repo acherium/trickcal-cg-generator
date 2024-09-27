@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="./stylesheets/photozone.css">
   <link rel="stylesheet" href="./stylesheets/objects.css">
   <link rel="stylesheet" href="./stylesheets/search.css">
+  <link rel="stylesheet" href="./stylesheets/splash.css">
 
   <script type="module" src="./lyra/lyra-style-init.js"></script>
   <script src="./scripts/html2canvas-pro.min.js"></script>
@@ -325,6 +326,12 @@
           <div class="list-row content-type-1 wf">
             <p>테마</p>
             <select id="select-scriptbox-theme" class="f1"></select>
+          </div>
+          <div class="list-row content-type-1 wf">
+            <p>투명도</p>
+            <label class="wf f1">
+              <input type="range" id="range-scriptbox-opacity" min="0" max="100" step="10" value="0" autocomplete="off">
+            </label>
           </div>
           <label>
             <input type="checkbox" id="checkbox-toggle-content">
@@ -722,7 +729,7 @@
   <div id="alert-downloading" class="alert" style="display: none;">
     <h3>저장중입니다</h3>
   </div>
-  <div id="alert-regulation" class="notification" lyra-autoShow="true" lyra-defaultCloseButton="false">
+  <div id="alert-regulation" class="notification" lyra-autoShow="false" lyra-defaultCloseButton="false">
     <p><a href="https://epidgames.oqupie.com/portal/2399/article/50943" target="_blank">2차 창작물에 대한 규정</a>을 준수하시기 바랍니다.</p>
   </div>
   <div id="search-area" style="display:none;">
@@ -736,6 +743,23 @@
         키보드 'Tab' 또는 'Shift+Tab'으로 이동.<br>
         'Enter'로 선택, 'ESC'로 검색 닫기.</div>
       <div class="slist"></div>
+    </div>
+  </div>
+  <div id="splash-area">
+    <div id="splash">
+      <div class="top">
+        <img src="./assets/essentials/logo-accent.svg" alt="Logo">
+      </div>
+      <div class="middle">
+        <h1>트릭컬 테마극장 생성기</h1>
+        <p>Build <span class="ver">-</span></p>
+      </div>
+      <div class="bottom">
+        <span><small>
+          2차 창작물에 대한 규정을 준수하시기 바랍니다.<br>
+          자세한 내용은 '앱 정보(H)' 메뉴를 확인하세요.
+        </small></span>
+      </div>
     </div>
   </div>
 </body>

@@ -46,6 +46,7 @@ body {
 }
 
 .force-hide { display: none !important; }
+.wfc { width: fit-content !important; }
 
 span.key-hint {
   display: inline-block;

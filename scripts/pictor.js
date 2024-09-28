@@ -11,8 +11,8 @@ import {
     name: "Project Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2002",
-    date: "24-09-27",
+    version: "2003",
+    date: "24-09-28",
     watermark: false,
     isBeta: false
   };
@@ -1083,6 +1083,11 @@ import {
           };
         };
         themeRadios[res.assets.data.theme].checked = true;
+
+        const btnSavePNGDialogue = $("button.object-download", tmodal.nodes.content);
+        btnSavePNGDialogue.onclick = () => {
+          exportPNG(res.assets.body, 3);
+        };
 
         tmodal.show();
       };

@@ -11,8 +11,8 @@ import {
     name: "Project Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2003",
-    date: "24-09-28",
+    version: "2004",
+    date: "24-10-16",
     watermark: false,
     isBeta: false
   };
@@ -27,6 +27,7 @@ import {
   const btnMenuElems = $("#button-menu-elements");
   const btnMenuObjs = $("#button-menu-object");
   const btnMenuAbout = $("#button-menu-about");
+  const btnSavePNGOnmenu = $("#button-download-onmenu");
   for (const tgl of tglMenus) {
     tgl.onclick = () => {
       const target = tgl.dataset.menu;
@@ -54,6 +55,9 @@ import {
       Array.from(tglMenus).find((x) => x.dataset.menu === parent.id)?.classList.remove("active");
       currentMenu = null;
     };
+  };
+  btnSavePNGOnmenu.onclick = () => {
+    btnSavePNG.click();
   };
 
   // 앱 정보 기록

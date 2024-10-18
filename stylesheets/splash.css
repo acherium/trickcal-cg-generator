@@ -15,13 +15,13 @@
   
   pointer-events: none;
 
-  animation: 1s linear 1s ani-fade-out both;
+  animation: 1s linear 1.5s ani-fade-out both;
 }
 
 #splash {
   display: grid;
   grid-template-columns: 100%;
-  grid-template-rows: minmax(0, 1fr) repeat(2, minmax(0, auto));
+  grid-template-rows: minmax(0, auto) minmax(0, 1fr) minmax(0, auto);
   overflow: hidden;
 
   max-width: inherit;
@@ -29,43 +29,69 @@
   width: 600px;
   height: 300px;
 
-  border: solid 1px var(--c-border);
+  border: solid 2px var(--c-accent);
   border-radius: var(--r-medium);
+  background-color: var(--c-main);
 }
 
-#splash > .top {
+#splash-logo {
+  margin-left: var(--m-large);
+
+  width: 80px;
+  aspect-ratio: 1/1;
+
+  background: no-repeat center/100% 100% url("../assets/essentials/logo-black.svg");
+}
+@media (prefers-color-scheme: dark) { #splash-logo { background-image: url("../assets/essentials/logo-white.svg"); } }
+
+#splash > .image-area {
   display: flex;
   align-items: end;
   justify-content: start;
-  padding: var(--p);
+  /* padding: var(--p); */
 
-  background-color: var(--c-main);
+  /* background-color: var(--c-main); */
 }
-#splash > .top > img {
+#splash > .image-area > img {
   margin-left: var(--m-large);
 
   width: 80px;
   aspect-ratio: 1/1;
 }
 
-#splash > .middle {
+#splash > .title-area {
   display: flex;
   justify-content: center;
   flex-direction: column;
   padding: var(--p) var(--p-large);
 
-  background-color: var(--c-accent);
+  /* background-color: var(--c-accent); */
 }
-#splash > .middle > h1 {
+#splash > .title-area > h1 {
   font-family: "ONE Mobile POP";
   font-weight: normal;
 }
 
-#splash > .bottom {
+#splash > .desc-area {
   display: flex;
   align-items: center;
   justify-content: center;
   padding: var(--p-small);
 
-  background-color: var(--c-main);
+  font-size: 10pt;
+  /* background-color: var(--c-main); */
+}
+
+@media screen and (max-width: 700px) {
+  #splash-area {
+    padding: 0;
+
+    max-width: 100dvw;
+  }
+
+  #splash {
+    border-left: unset;
+    border-right: unset;
+    border-radius: unset;
+  }
 }

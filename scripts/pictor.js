@@ -11,8 +11,8 @@ import {
     name: "Project Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2005.2",
-    date: "24-11-09",
+    version: "2005.3",
+    date: "24-11-10",
     watermark: false,
     isBeta: false
   };
@@ -85,7 +85,7 @@ import {
   // 공통 상수
   const SIZEMIN = 32;
   const WIDTHMIN = 1000;
-  const HEIGHTMIN = 600;
+  const HEIGHTMIN = 510;
   const WIDTHMAX = 2000;
   const HEIGHTMAX = 2000;
   const RATIOCHECKER = 1000;
@@ -132,7 +132,7 @@ import {
     },
     area: {
       width: 1280,
-      height: 720
+      height: 640
     },
     scriptbox: {
       style: 0,

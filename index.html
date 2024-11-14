@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="./stylesheets/search.css">
   <link rel="stylesheet" href="./stylesheets/splash.css">
   <link rel="stylesheet" href="./stylesheets/misc.css">
+  <link rel="stylesheet" href="./stylesheets/menu.css">
 
   <script type="module" src="./lyra/lyra-style-init.js"></script>
   <script src="./scripts/html2canvas-pro.min.js"></script>
@@ -388,6 +389,30 @@
       </div>
     </div>
   </div>
+  <div id="float-menu-area" style="display:none;">
+    <div class="row">
+      <div class="wrap">
+        <div id="menu-main" class="float-menu">
+          <button class="logo"></button>
+          <div class="partition"></div>
+          <button><div class="i i-search"></div></button>
+          <button><div class="i i-download"></div></button>
+          <div class="partition"></div>
+          <button><div class="i i-document"></div></button>
+          <button><div class="i i-slide"></div></button>
+          <button><div class="i i-star5"></div></button>
+          <button><div class="i i-config"></div></button>
+          <button><div class="i i-layer"></div></button>
+          <button><div class="i i-notification"></div></button>
+        </div>
+        <div id="menu-zoom" class="float-menu">
+          <button><div class="i i-minus"></div></button>
+          <button><div class="i i-search"></div><p class="scale"></p></button>
+          <button><div class="i i-plus"></div></button>
+        </div>
+      </div>
+    </div>
+  </div>
   <main>
     <div id="pos-layer">
       <div id="scale-layer">
@@ -615,7 +640,7 @@
     <div id="viewport-bar">
       <div class="wrap">
         <button id="button-viewport-zoom-out"><div class="i i-minus"></div></button>
-        <button id="button-viewport-reset"><div class="i i-search"></div><p id="scale">0</p></button>
+        <button id="button-viewport-reset"><div class="i i-search"></div><p class="scale">0</p></button>
         <button id="button-viewport-zoom-in"><div class="i i-plus"></div></button>
       </div>
     </div>

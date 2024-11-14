@@ -11,10 +11,10 @@ import {
     name: "Project Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2005.3",
-    date: "24-11-10",
-    watermark: false,
-    isBeta: false
+    version: "2007.dev",
+    date: "24-11-14",
+    watermark: true,
+    isBeta: true
   };
 
   // 메뉴 접기/펼치기 기능 초기화
@@ -2124,7 +2124,7 @@ import {
 
   // 화면 확대/축소
   const layerScale = $("#scale-layer");
-  const pScale = $("#scale");
+  const pScales = $a(".scale");
   const setScale = (i) => {
     if (Number.isNaN(parseInt(i))) return;
     scale = i;
@@ -2139,7 +2139,8 @@ import {
     if (scale > SCALEMAX) scale = SCALEMAX;
     else if (scale < SCALEMIN) scale = SCALEMIN;
     layerScale.style["transform"] = `scale(${scale})`;
-    pScale.innerText = `${Math.floor(1*scale*100)}%`;
+    for (const node of pScales) node.innerText = `${Math.floor(1*scale*100)}%`;
+    // pScale.innerText = `${Math.floor(1*scale*100)}%`;
   };
   main.onwheel = (e) => {
     // deltaY: 휠 내림 === 양수값, 휠 올림 === 음수값

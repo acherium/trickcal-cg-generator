@@ -12,7 +12,7 @@ import {
     author: "Acherium",
     contact: "acherium@pm.me",
     version: "2009.dev",
-    date: "24-11-178",
+    date: "24-11-17",
     watermark: true,
     isBeta: true
   };

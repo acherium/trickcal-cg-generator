@@ -31,384 +31,414 @@
       <div class="wrap">
         <div id="logo"><div></div><span>트릭컬 테마극장 생성기</span></div>
         <div class="partition"></div>
-        <button id="button-search"><div class="i i-search"></div><span>대사 검색<span class="key-hint">Space</span></span></button>
-        <button id="button-download-onmenu"><div class="i i-download"></div><span>현재 슬라이드 저장<span class="key-hint">K</span></span></button>
+        <button class="button-search" id="button-search"><div class="i i-search"></div><span>대사 검색<span class="key-hint">Space</span></span></button>
+        <button class="button-download-onmenu" id="button-download-onmenu"><div class="i i-download"></div><span>현재 슬라이드 저장<span class="key-hint">K</span></span></button>
         <div class="partition"></div>
-        <button id="button-menu-doc" class="toggle-menu" data-menu="menu-doc"><div class="i i-document"></div><span>문서 및 출력<span class="key-hint">A</span></span></button>
-        <button id="button-menu-slide" class="toggle-menu" data-menu="menu-slide"><div class="i i-slide"></div><span>슬라이드<span class="key-hint">S</span></span></button>
-        <button id="button-menu-scriptbox" class="toggle-menu" data-menu="menu-scriptbox"><div class="i i-star5"></div><span>대화창<span class="key-hint">D</span></span></button>
-        <button id="button-menu-elements" class="toggle-menu" data-menu="menu-elements"><div class="i i-config"></div><span>배경 및 요소<span class="key-hint">F</span></span></button>
-        <button id="button-menu-object" class="toggle-menu" data-menu="menu-object"><div class="i i-layer"></div><span>개체<span class="key-hint">G</span></span></button>
-        <button id="button-menu-about" class="toggle-menu" data-menu="menu-about"><div class="i i-notification"></div><span>앱 정보<span class="key-hint">H</span></span></button>
+        <button class="toggle-menu toggle-menu-doc" data-menu="menu-doc"><div class="i i-document"></div><span>문서 및 출력<span class="key-hint">A</span></span></button>
+        <button class="toggle-menu toggle-menu-slide" data-menu="menu-slide"><div class="i i-slide"></div><span>슬라이드<span class="key-hint">S</span></span></button>
+        <button class="toggle-menu toggle-menu-scriptbox" data-menu="menu-scriptbox"><div class="i i-star5"></div><span>대화창<span class="key-hint">D</span></span></button>
+        <button class="toggle-menu toggle-menu-elements" data-menu="menu-elements"><div class="i i-config"></div><span>배경 및 요소<span class="key-hint">F</span></span></button>
+        <button class="toggle-menu toggle-menu-object" data-menu="menu-object"><div class="i i-layer"></div><span>개체<span class="key-hint">G</span></span></button>
+        <button class="toggle-menu toggle-menu-about" data-menu="menu-about"><div class="i i-notification"></div><span>앱 정보<span class="key-hint">H</span></span></button>
       </div>
     </div>
     <div id="menuzone">
-      <div id="menu-doc" class="menu">
-        <div class="title">
-          <h2>문서 및 출력</h2>
-          <button class="close"><div class="i i-deny"></div></button>
-        </div>
-        <div class="wrap">
-          <h4>문서 정보</h4>
-          <label class="wf f1">
-            <p>제목</p>
-            <input type="text" id="show-name" class="wf f1" value="">
-          </label>
-          <div class="divline-row"></div>
-          <h4>브라우저에 저장</h4>
-          <div class="list-row wf">
-            <button id="button-save" class="f1 fjcc">
-              <div class="i i-export"></div>
-              <p>저장</p>
-            </button>
-            <button id="button-load" class="f1 fjcc">
-              <div class="i i-import"></div>
-              <p>불러오기</p>
-            </button>
+      <div class="wrap">
+        <div id="menu-doc" class="menu">
+          <div class="title">
+            <h2>문서 및 출력</h2>
+            <button class="close"><div class="i i-deny"></div></button>
           </div>
-          <div class="divline-row"></div>
-          <h4>PNG 이미지로 저장</h4>
-          <div class="list-row wf">
-            <button id="button-download" class="f1 fjcc">
+          <div class="wrap">
+            <h4>문서 정보</h4>
+            <label class="wf f1">
+              <p>제목</p>
+              <input type="text" id="show-name" class="wf f1" value="">
+            </label>
+            <div class="divline-row"></div>
+            <h4>브라우저에 저장</h4>
+            <div class="list-row wf">
+              <button id="button-save" class="f1 fjcc">
+                <div class="i i-export"></div>
+                <p>저장</p>
+              </button>
+              <button id="button-load" class="f1 fjcc">
+                <div class="i i-import"></div>
+                <p>불러오기</p>
+              </button>
+            </div>
+            <div class="divline-row"></div>
+            <h4>PNG 이미지로 저장</h4>
+            <div class="list-row wf">
+              <button id="button-download" class="f1 fjcc">
+                <div class="i i-download"></div>
+                <p>현재 슬라이드 저장<span class="key-hint">K</span></p>
+              </button>
+              <button id="button-download-all" class="f1 fjcc">
+                <div class="i i-download"></div>
+                <p>전체 슬라이드 저장<span class="key-hint">L</span></p>
+              </button>
+              <div class="list-row fjcc wf">
+                <span><small>Powered by <a href="https://github.com/yorickshan/html2canvas-pro" target="_blank">html2canvas-pro</a></small></span>
+              </div>
+            </div>
+            <div class="divline-row"></div>
+            <h4>출력 배율 설정</h4>
+            <label class="wf f1">
+              <div class="i i-config"></div>
+              <p>배율</p>
+              <input type="number" id="export-multiplier" class="wf f1">
+            </label>
+            <label class="wf f1">
+              <div class="i i-slide-size"></div>
+              <p>크기</p>
+              <input type="text" id="export-size-onmodal" class="wf f1" disabled>
+            </label>
+            <p>출력 배율을 과도하게 큰 값으로 설정할 경우 브라우저 또는 기기의 작동 중지나 데이터 손실을 일으킬 수 있습니다.</p>
+          </div>
+        </div>
+        <div id="menu-slide" class="menu">
+          <div class="title">
+            <h2>슬라이드</h2>
+            <button class="close"><div class="i i-deny"></div></button>
+          </div>
+          <div class="wrap">
+            <h4>크기 조정</h4>
+            <div class="list-row wf">
+              <input type="number" id="input-slide-size-width" class="wf f1"><span>×</span><input type="number" id="input-slide-size-height" class="wf f1">
+            </div>
+            <button id="button-fit-to-bg-size" class="wf fjcc"><div class="i i-slide-size"></div>배경 이미지 비율에 맞춤</button>
+            <div class="divline-row"></div>
+            <h4>크기 프리셋</h4>
+            <div class="list-column wf">
+              <button class="button-slide-size wf f1 fjcc" data-width="1280" data-height="640"><div class="i i-config"></div><p>1280×640 (2:1)</p></button>
+              <button class="button-slide-size wf f1 fjcc" data-width="1280" data-height="720"><div class="i i-config"></div><p>1280×720 (16:9)</p></button>
+              <button class="button-slide-size wf f1 fjcc" data-width="1788" data-height="700"><div class="i i-config"></div><p>1788×700 (23:9)</p></button>
+              <button class="button-slide-size wf f1 fjcc" data-width="1280" data-height="1066"><div class="i i-config"></div><p>1280×1066 (6:5)</p></button>
+            </div>
+            <div class="divline-row"></div>
+            <h4>목록</h4>
+            <div class="list-row wf">
+              <button id="button-add-slide" class="f1 fjcc"><div class="i i-create-slide"></div><p>빈 슬라이드 추가</p></button>
+              <button id="button-duplicate-slide" class="f1 fjcc"><div class="i i-duplicate-slide"></div><p>현재 슬라이드 복제</p></button>
+            </div>
+            <label style="display:none;" lyra-tip="썸네일 자동 생성 및 새로고침 기능을 비활성화합니다.<br>사이트가 느리게 동작하는 문제를 해결할 수 있습니다.<br>체크를 해제한 후에 썸네일을 다시 생성해야할 수 있습니다.">
+              <input type="checkbox" id="checkbox-disable-thumbnail-gen">
+              썸네일 생성 비활성화
+            </label>
+            <div id="slide-list">
+            </div>
+          </div>
+        </div>
+        <div id="menu-elements" class="menu">
+          <div class="title">
+            <h2>배경 및 요소</h2>
+            <button class="close"><div class="i i-deny"></div></button>
+          </div>
+          <div class="wrap">
+            <h4>배경 이미지</h4>
+            <div class="list-row wf">
+              <button id="button-set-bg" class="f1 fjcc"><div class="i i-plus"></div><p>설정</p></button>
+              <button id="button-remove-bg" class="f1 fjcc"><div class="i i-trash"></div><p>제거</p></button>
+            </div>
+            <div class="list-row wf">
+              <p>맞춤</p>
+              <select id="select-bg-fit" class="wf f1">
+                <option value="align-center">중앙 배치</option>
+                <option value="fit-height">슬라이드 높이에 맞춤</option>
+                <option value="fit-width">슬라이드 폭에 맞춤</option>
+                <option value="fill">슬라이드 채움</option>
+              </select>
+            </div>
+            <div class="divline-row"></div>
+            <h4>배경 색상</h4>
+            <div id="colorpicker-bg" class="colorpicker">
+              <div class="left colorpicker-preview">
+                <p class="colorpicker-preview-value">#FFFFFF<br>255, 255, 255</p>
+              </div>
+              <div class="right">
+                <p>R</p>
+                <label class="colorpicker-range colorpicker-r-revamped"><input type="range" min="0" max="255" step="1" value="0" id="colorpicker-bg-r" class="colorpicker-range-input r"></label>
+                <input type="number" class="colorpicker-input colorpicker-input-r">
+                <p>G</p>
+                <label class="colorpicker-range colorpicker-g-revamped"><input type="range" min="0" max="255" step="1" value="0" id="colorpicker-bg-g" class="colorpicker-range-input g"></label>
+                <input type="number" class="colorpicker-input colorpicker-input-g">
+                <p>B</p>
+                <label class="colorpicker-range colorpicker-b-revamped"> <input type="range" min="0" max="255" step="1" value="0" id="colorpicker-bg-b" class="colorpicker-range-input b"></label>
+                <input type="number" class="colorpicker-input colorpicker-input-b">
+              </div>
+            </div>
+            <div class="divline-row"></div>
+            <h4>선택지</h4>
+            <div class="list-row wf">
+              <label class="f1"><p>1</p><input type="text" id="select-option-0" class="select-option modal-input-text wf f1"></label>
+              <button class="button-download-select" data-target="0"><div class="i i-download"></div></button>
+            </div>
+            <div class="list-row wf">
+              <label class="f1"><p>2</p><input type="text" id="select-option-1" class="select-option modal-input-text wf f1"></label>
+              <button class="button-download-select" data-target="1"><div class="i i-download"></div></button>
+            </div>
+            <div class="list-row wf">
+              <label class="f1"><p>3</p><input type="text" id="select-option-2" class="select-option modal-input-text wf f1"></label>
+              <button class="button-download-select" data-target="2"><div class="i i-download"></div></button>
+            </div>
+            <div class="list-column content-type-1 wf fais">
+              <div class="list-row wf">
+                <p>테마</p>
+                <select id="select-select-theme" class="f1">
+                  <option value="0">기본형</option>
+                  <option value="1">대화형</option>
+                </select>
+              </div>
+            </div>
+            <label>
+                <input type="checkbox" id="checkbox-toggle-select">
+                <p>선택 목록 표시</p>
+            </label>
+            <div class="divline-row"></div>
+            <h4>제목 표시기</h4>
+            <label class="f1 wf">
+                <p>제목</p>
+                <input type="text" id="input-title-name" class="f1 wf">
+            </label>
+            <label class="f1 wf">
+                <p>내용</p>
+                <input type="text" id="input-title-content" class="f1 wf">
+            </label>
+            <label id="toggle-title">
+                <input type="checkbox" id="checkbox-toggle-title">
+                <p>제목 표시기 표시</p>
+            </label>
+            <div class="divline-row"></div>
+            <h4>위치 표시기</h4>
+            <label class="f1 wf">
+              <p>위치</p>
+              <input type="text" id="input-location" class="f1 wf">
+            </label>
+            <label id="toggle-location">
+              <input type="checkbox" id="checkbox-toggle-location">
+              <p>위치 표시기 표시</p>
+            </label>
+            <div class="divline-row"></div>
+            <h4>조작기</h4>
+            <label id="toggle-photo-button">
+              <input type="checkbox" id="checkbox-toggle-photo-button">
+              <p>조작기 표시</p>
+            </label>
+          </div>
+        </div>
+        <div id="menu-scriptbox" class="menu">
+          <div class="title">
+            <h2>대화창</h2>
+            <button class="close"><div class="i i-deny"></div></button>
+          </div>
+          <div class="wrap">
+            <h4>대화창 모드</h4>
+            <div id="script-box-type" class="list listbox wf">
+                <div class="list-column wf">
+                    <label class="wf fjcs">
+                        <input type="radio" name="script-box-type" value="0">
+                        구형: 구 테마극장 스타일
+                    </label>
+                    <label class="wf fjcs">
+                        <input type="radio" name="script-box-type" value="1">
+                        신규: 개편 업데이트 이후 테마극장 스타일
+                    </label>
+                </div>
+            </div>
+            <div class="divline-row"></div>
+            <h4>대화창 이름</h4>
+            <div class="list-row wf">
+              <label class="wf f1">
+                <p>이름</p>
+                <input type="text" id="input-name" class="wf f1">
+              </label>
+              <button id="button-color-preset" class="wfc fjcc"><div class="i i-palette"></div><p>사도 색상표</p></button>
+            </div>
+            <div id="colorpicker-namearea" class="colorpicker">
+              <div class="left colorpicker-preview">
+                <p class="colorpicker-preview-value">#FFFFFF<br>255, 255, 255</p>
+              </div>
+              <div class="right">
+                <p>R</p>
+                <label class="colorpicker-range colorpicker-r-revamped"><input type="range" min="0" max="255" step="1" value="238" id="colorpicker-namearea-r" class="colorpicker-range-input r"></label>
+                <input type="number" class="colorpicker-input colorpicker-input-r">
+                <p>G</p>
+                <label class="colorpicker-range colorpicker-g-revamped"><input type="range" min="0" max="255" step="1" value="195" id="colorpicker-namearea-g" class="colorpicker-range-input g"></label>
+                <input type="number" class="colorpicker-input colorpicker-input-g">
+                <p>B</p>
+                <label class="colorpicker-range colorpicker-b-revamped"><input type="range" min="0" max="255" step="1" value="117" id="colorpicker-namearea-b" class="colorpicker-range-input b"></label>
+                <input type="number" class="colorpicker-input colorpicker-input-b">
+              </div>
+            </div>
+            <div class="list-row content-type-1 wf">
+              <p>위치</p>
+              <select id="select-namearea-position" class="f1">
+                <option value="0">좌측</option>
+                <option value="1">중앙</option>
+                <option value="2">우측</option>
+              </select>
+            </div>
+            <label>
+              <input type="checkbox" id="checkbox-toggle-namearea">
+              <p>이름표 표시</p>
+            </label>
+            <div class="divline-row"></div>
+            <h4>대화창 내용</h4>
+            <textarea id="input-content" class="input-content wf"></textarea>
+            <button class="button-markdown-help wfc fjcc"><div class="i i-notification"></div><p>마크다운 문법 도움말</p></button>
+            <div class="divline-row"></div>
+            <h4>대화창 형태</h4>
+            <div class="list-column content-type-0 wf">
+              <div id="script-box-position" class="list-column listbox wf f1 fais">
+                <h4>위치</h4>
+                <div class="list-row wf f1 fjcb">
+                  <label><input type="radio" name="script-box-position" value="0">↖</label>
+                  <label><input type="radio" name="script-box-position" value="1">↑</label>
+                  <label><input type="radio" name="script-box-position" value="2">↗</label>
+                </div>
+                <div class="list-row wf f1 fjcb">
+                  <label><input type="radio" name="script-box-position" value="3">←</label>
+                  <label><input type="radio" name="script-box-position" value="4">Ｃ</label>
+                  <label><input type="radio" name="script-box-position" value="5">→</label>
+                </div>
+                <div class="list-row wf f1 fjcb">
+                  <label><input type="radio" name="script-box-position" value="6">↙</label>
+                  <label><input type="radio" name="script-box-position" value="7">↓</label>
+                  <label><input type="radio" name="script-box-position" value="8">↘</label>
+                </div>
+              </div>
+              <div class="list-column wf hf f1">
+                <div id="script-box-style" class="list-column listbox wf fais">
+                  <h4>모양</h4>
+                  <div class="list-row wf">
+                    <label class="f1"><input type="radio" name="script-box-style" value="0">기본</label>
+                    <label class="f1"><input type="radio" name="script-box-style" value="1">생각</label>
+                    <label class="f1"><input type="radio" name="script-box-style" value="2">놀람</label>
+                    <label class="f1"><input type="radio" name="script-box-style" value="3">사각형</label>
+                  </div>
+                </div>
+                <div id="script-sokmaeum-style" class="list-column listbox wf fais">
+                  <h4>속마음</h4>
+                  <div class="list-row wf">
+                    <label class="f1"><input type="radio" name="script-sokmaeum-style" value="0">없음</label>
+                    <label class="f1"><input type="radio" name="script-sokmaeum-style" value="1">있음</label>
+                    <label class="f1"><input type="radio" name="script-sokmaeum-style" value="2">활성화</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="list-row content-type-1 wf">
+              <p>테마</p>
+              <select id="select-scriptbox-theme" class="f1"></select>
+            </div>
+            <div class="list-row content-type-1 wf">
+              <p>투명도</p>
+              <label class="wf f1">
+                <input type="range" id="range-scriptbox-opacity" min="0" max="100" step="10" value="0" autocomplete="off">
+              </label>
+            </div>
+            <label>
+              <input type="checkbox" id="checkbox-toggle-content">
+              <p>표시</p>
+            </label>
+            <div class="divline-row"></div>
+            <h4>PNG 이미지로 저장(대화창)</h4>
+            <button id="button-download-script-box" class="f1 fjcc">
               <div class="i i-download"></div>
-              <p>현재 슬라이드 저장<span class="key-hint">K</span></p>
-            </button>
-            <button id="button-download-all" class="f1 fjcc">
-              <div class="i i-download"></div>
-              <p>전체 슬라이드 저장<span class="key-hint">L</span></p>
+              <p>저장</p>
             </button>
             <div class="list-row fjcc wf">
               <span><small>Powered by <a href="https://github.com/yorickshan/html2canvas-pro" target="_blank">html2canvas-pro</a></small></span>
             </div>
           </div>
-          <div class="divline-row"></div>
-          <h4>출력 배율 설정</h4>
-          <label class="wf f1">
-            <div class="i i-config"></div>
-            <p>배율</p>
-            <input type="number" id="export-multiplier" class="wf f1">
-          </label>
-          <label class="wf f1">
-            <div class="i i-slide-size"></div>
-            <p>크기</p>
-            <input type="text" id="export-size-onmodal" class="wf f1" disabled>
-          </label>
-          <p>출력 배율을 과도하게 큰 값으로 설정할 경우 브라우저 또는 기기의 작동 중지나 데이터 손실을 일으킬 수 있습니다.</p>
         </div>
-      </div>
-      <div id="menu-slide" class="menu">
-        <div class="title">
-          <h2>슬라이드</h2>
-          <button class="close"><div class="i i-deny"></div></button>
-        </div>
-        <div class="wrap">
-          <h4>크기 조정</h4>
-          <div class="list-row wf">
-            <input type="number" id="input-slide-size-width" class="wf f1"><span>×</span><input type="number" id="input-slide-size-height" class="wf f1">
+        <div id="menu-object" class="menu">
+          <div class="title">
+            <h2>개체</h2>
+            <button class="close"><div class="i i-deny"></div></button>
           </div>
-          <button id="button-fit-to-bg-size" class="wf fjcc"><div class="i i-slide-size"></div>배경 이미지 비율에 맞춤</button>
-          <div class="divline-row"></div>
-          <h4>크기 프리셋</h4>
-          <div class="list-column wf">
-            <button class="button-slide-size wf f1 fjcc" data-width="1280" data-height="640"><div class="i i-config"></div><p>1280×640 (2:1)</p></button>
-            <button class="button-slide-size wf f1 fjcc" data-width="1280" data-height="720"><div class="i i-config"></div><p>1280×720 (16:9)</p></button>
-            <button class="button-slide-size wf f1 fjcc" data-width="1788" data-height="700"><div class="i i-config"></div><p>1788×700 (23:9)</p></button>
-            <button class="button-slide-size wf f1 fjcc" data-width="1280" data-height="1066"><div class="i i-config"></div><p>1280×1066 (6:5)</p></button>
-          </div>
-          <div class="divline-row"></div>
-          <h4>목록</h4>
-          <div class="list-row wf">
-            <button id="button-add-slide" class="f1 fjcc"><div class="i i-create-slide"></div><p>빈 슬라이드 추가</p></button>
-            <button id="button-duplicate-slide" class="f1 fjcc"><div class="i i-duplicate-slide"></div><p>현재 슬라이드 복제</p></button>
-          </div>
-          <label style="display:none;" lyra-tip="썸네일 자동 생성 및 새로고침 기능을 비활성화합니다.<br>사이트가 느리게 동작하는 문제를 해결할 수 있습니다.<br>체크를 해제한 후에 썸네일을 다시 생성해야할 수 있습니다.">
-            <input type="checkbox" id="checkbox-disable-thumbnail-gen">
-            썸네일 생성 비활성화
-          </label>
-          <div id="slide-list">
-          </div>
-        </div>
-      </div>
-      <div id="menu-elements" class="menu">
-        <div class="title">
-          <h2>배경 및 요소</h2>
-          <button class="close"><div class="i i-deny"></div></button>
-        </div>
-        <div class="wrap">
-          <h4>배경 이미지</h4>
-          <div class="list-row wf">
-            <button id="button-set-bg" class="f1 fjcc"><div class="i i-plus"></div><p>설정</p></button>
-            <button id="button-remove-bg" class="f1 fjcc"><div class="i i-trash"></div><p>제거</p></button>
-          </div>
-          <div class="list-row wf">
-            <p>맞춤</p>
-            <select id="select-bg-fit" class="wf f1">
-              <option value="align-center">중앙 배치</option>
-              <option value="fit-height">슬라이드 높이에 맞춤</option>
-              <option value="fit-width">슬라이드 폭에 맞춤</option>
-              <option value="fill">슬라이드 채움</option>
-            </select>
-          </div>
-          <div class="divline-row"></div>
-          <h4>배경 색상</h4>
-          <div id="colorpicker-bg" class="colorpicker">
-            <div class="left colorpicker-preview">
-              <p class="colorpicker-preview-value">#FFFFFF<br>255, 255, 255</p>
-            </div>
-            <div class="right">
-              <p>R</p>
-              <label class="colorpicker-range colorpicker-r-revamped"><input type="range" min="0" max="255" step="1" value="0" id="colorpicker-bg-r" class="colorpicker-range-input r"></label>
-              <input type="number" class="colorpicker-input colorpicker-input-r">
-              <p>G</p>
-              <label class="colorpicker-range colorpicker-g-revamped"><input type="range" min="0" max="255" step="1" value="0" id="colorpicker-bg-g" class="colorpicker-range-input g"></label>
-              <input type="number" class="colorpicker-input colorpicker-input-g">
-              <p>B</p>
-              <label class="colorpicker-range colorpicker-b-revamped"> <input type="range" min="0" max="255" step="1" value="0" id="colorpicker-bg-b" class="colorpicker-range-input b"></label>
-              <input type="number" class="colorpicker-input colorpicker-input-b">
-            </div>
-          </div>
-          <div class="divline-row"></div>
-          <h4>선택지</h4>
-          <div class="list-row wf">
-            <label class="f1"><p>1</p><input type="text" id="select-option-0" class="select-option modal-input-text wf f1"></label>
-            <button class="button-download-select" data-target="0"><div class="i i-download"></div></button>
-          </div>
-          <div class="list-row wf">
-            <label class="f1"><p>2</p><input type="text" id="select-option-1" class="select-option modal-input-text wf f1"></label>
-            <button class="button-download-select" data-target="1"><div class="i i-download"></div></button>
-          </div>
-          <div class="list-row wf">
-            <label class="f1"><p>3</p><input type="text" id="select-option-2" class="select-option modal-input-text wf f1"></label>
-            <button class="button-download-select" data-target="2"><div class="i i-download"></div></button>
-          </div>
-          <div class="list-column content-type-1 wf fais">
+          <div class="wrap">
+            <h4>개체</h4>
             <div class="list-row wf">
-              <p>테마</p>
-              <select id="select-select-theme" class="f1">
-                <option value="0">기본형</option>
-                <option value="1">대화형</option>
-              </select>
+              <button id="button-add-image" class="f1 fjcc"><div class="i i-plus"></div><p>사진</p></button>
+              <button id="button-add-dialogue" class="f1 fjcc"><div class="i i-plus"></div><p>말풍선</p></button>
+              <button id="button-add-sticker" class="f1 fjcc"><div class="i i-plus"></div><p>스티커</p></button>
+              <button id="button-reset-image" class=""><div class="i i-trash"></div></button>
+            </div>
+            <div id="image-item-list">
             </div>
           </div>
-          <label>
-              <input type="checkbox" id="checkbox-toggle-select">
-              <p>선택 목록 표시</p>
-          </label>
-          <div class="divline-row"></div>
-          <h4>제목 표시기</h4>
-          <label class="f1 wf">
-              <p>제목</p>
-              <input type="text" id="input-title-name" class="f1 wf">
-          </label>
-          <label class="f1 wf">
-              <p>내용</p>
-              <input type="text" id="input-title-content" class="f1 wf">
-          </label>
-          <label id="toggle-title">
-              <input type="checkbox" id="checkbox-toggle-title">
-              <p>제목 표시기 표시</p>
-          </label>
-          <div class="divline-row"></div>
-          <h4>위치 표시기</h4>
-          <label class="f1 wf">
-            <p>위치</p>
-            <input type="text" id="input-location" class="f1 wf">
-          </label>
-          <label id="toggle-location">
-            <input type="checkbox" id="checkbox-toggle-location">
-            <p>위치 표시기 표시</p>
-          </label>
-          <div class="divline-row"></div>
-          <h4>조작기</h4>
-          <label id="toggle-photo-button">
-            <input type="checkbox" id="checkbox-toggle-photo-button">
-            <p>조작기 표시</p>
-          </label>
         </div>
-      </div>
-      <div id="menu-scriptbox" class="menu">
-        <div class="title">
-          <h2>대화창</h2>
-          <button class="close"><div class="i i-deny"></div></button>
-        </div>
-        <div class="wrap">
-          <h4>대화창 모드</h4>
-          <div id="script-box-type" class="list listbox wf">
-              <div class="list-column wf">
-                  <label class="wf fjcs">
-                      <input type="radio" name="script-box-type" value="0">
-                      구형: 구 테마극장 스타일
-                  </label>
-                  <label class="wf fjcs">
-                      <input type="radio" name="script-box-type" value="1">
-                      신규: 개편 업데이트 이후 테마극장 스타일
-                  </label>
-              </div>
+        <div id="menu-about" class="menu">
+          <div class="title">
+            <h2>앱 정보</h2>
+            <button class="close"><div class="i i-deny"></div></button>
           </div>
-          <div class="divline-row"></div>
-          <h4>대화창 이름</h4>
-          <div class="list-row wf">
-            <label class="wf f1">
-              <p>이름</p>
-              <input type="text" id="input-name" class="wf f1">
-            </label>
-            <button id="button-color-preset" class="wfc fjcc"><div class="i i-palette"></div><p>사도 색상표</p></button>
+          <div class="wrap">
+            <img src="./assets/essentials/banner.svg" alt="Project Pictor" id="about-thumbnail">
+            <p id="about-app"></p><br>
+            <p id="about-lyra"></p><br>
+            <p id="about-desc"></p><br>
+            <p>Acherium 제작, "클뜯 요소" 없음&trade;.</p><br>
+            <p>'트릭컬: 리바이브(Trickcal RE:VIVE)'는 ㈜에피드게임즈의 상표입니다.</p><br>
+            <div class="divline-row"></div>
+            <p>관련 링크</p>
+            <a href="https://epidgames.oqupie.com/portal/2399/article/50943" target="_blank">트릭컬: 리바이브 2차 창작물에 대한 규정</a><br>
+            <a href="https://github.com/acherium" target="_blank">GitHub</a>
           </div>
-          <div id="colorpicker-namearea" class="colorpicker">
-            <div class="left colorpicker-preview">
-              <p class="colorpicker-preview-value">#FFFFFF<br>255, 255, 255</p>
-            </div>
-            <div class="right">
-              <p>R</p>
-              <label class="colorpicker-range colorpicker-r-revamped"><input type="range" min="0" max="255" step="1" value="238" id="colorpicker-namearea-r" class="colorpicker-range-input r"></label>
-              <input type="number" class="colorpicker-input colorpicker-input-r">
-              <p>G</p>
-              <label class="colorpicker-range colorpicker-g-revamped"><input type="range" min="0" max="255" step="1" value="195" id="colorpicker-namearea-g" class="colorpicker-range-input g"></label>
-              <input type="number" class="colorpicker-input colorpicker-input-g">
-              <p>B</p>
-              <label class="colorpicker-range colorpicker-b-revamped"><input type="range" min="0" max="255" step="1" value="117" id="colorpicker-namearea-b" class="colorpicker-range-input b"></label>
-              <input type="number" class="colorpicker-input colorpicker-input-b">
-            </div>
-          </div>
-          <div class="list-row content-type-1 wf">
-            <p>위치</p>
-            <select id="select-namearea-position" class="f1">
-              <option value="0">좌측</option>
-              <option value="1">중앙</option>
-              <option value="2">우측</option>
-            </select>
-          </div>
-          <label>
-            <input type="checkbox" id="checkbox-toggle-namearea">
-            <p>이름표 표시</p>
-          </label>
-          <div class="divline-row"></div>
-          <h4>대화창 내용</h4>
-          <textarea id="input-content" class="input-content wf"></textarea>
-          <button class="button-markdown-help wfc fjcc"><div class="i i-notification"></div><p>마크다운 문법 도움말</p></button>
-          <div class="divline-row"></div>
-          <h4>대화창 형태</h4>
-          <div class="list-column content-type-0 wf">
-            <div id="script-box-position" class="list-column listbox wf f1 fais">
-              <h4>위치</h4>
-              <div class="list-row wf f1 fjcb">
-                <label><input type="radio" name="script-box-position" value="0">↖</label>
-                <label><input type="radio" name="script-box-position" value="1">↑</label>
-                <label><input type="radio" name="script-box-position" value="2">↗</label>
-              </div>
-              <div class="list-row wf f1 fjcb">
-                <label><input type="radio" name="script-box-position" value="3">←</label>
-                <label><input type="radio" name="script-box-position" value="4">Ｃ</label>
-                <label><input type="radio" name="script-box-position" value="5">→</label>
-              </div>
-              <div class="list-row wf f1 fjcb">
-                <label><input type="radio" name="script-box-position" value="6">↙</label>
-                <label><input type="radio" name="script-box-position" value="7">↓</label>
-                <label><input type="radio" name="script-box-position" value="8">↘</label>
-              </div>
-            </div>
-            <div class="list-column wf hf f1">
-              <div id="script-box-style" class="list-column listbox wf fais">
-                <h4>모양</h4>
-                <div class="list-row wf">
-                  <label class="f1"><input type="radio" name="script-box-style" value="0">기본</label>
-                  <label class="f1"><input type="radio" name="script-box-style" value="1">생각</label>
-                  <label class="f1"><input type="radio" name="script-box-style" value="2">놀람</label>
-                  <label class="f1"><input type="radio" name="script-box-style" value="3">사각형</label>
-                </div>
-              </div>
-              <div id="script-sokmaeum-style" class="list-column listbox wf fais">
-                <h4>속마음</h4>
-                <div class="list-row wf">
-                  <label class="f1"><input type="radio" name="script-sokmaeum-style" value="0">없음</label>
-                  <label class="f1"><input type="radio" name="script-sokmaeum-style" value="1">있음</label>
-                  <label class="f1"><input type="radio" name="script-sokmaeum-style" value="2">활성화</label>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="list-row content-type-1 wf">
-            <p>테마</p>
-            <select id="select-scriptbox-theme" class="f1"></select>
-          </div>
-          <div class="list-row content-type-1 wf">
-            <p>투명도</p>
-            <label class="wf f1">
-              <input type="range" id="range-scriptbox-opacity" min="0" max="100" step="10" value="0" autocomplete="off">
-            </label>
-          </div>
-          <label>
-            <input type="checkbox" id="checkbox-toggle-content">
-            <p>표시</p>
-          </label>
-          <div class="divline-row"></div>
-          <h4>PNG 이미지로 저장(대화창)</h4>
-          <button id="button-download-script-box" class="f1 fjcc">
-            <div class="i i-download"></div>
-            <p>저장</p>
-          </button>
-          <div class="list-row fjcc wf">
-            <span><small>Powered by <a href="https://github.com/yorickshan/html2canvas-pro" target="_blank">html2canvas-pro</a></small></span>
-          </div>
-        </div>
-      </div>
-      <div id="menu-object" class="menu">
-        <div class="title">
-          <h2>개체</h2>
-          <button class="close"><div class="i i-deny"></div></button>
-        </div>
-        <div class="wrap">
-          <h4>개체</h4>
-          <div class="list-row wf">
-            <button id="button-add-image" class="f1 fjcc"><div class="i i-plus"></div><p>사진</p></button>
-            <button id="button-add-dialogue" class="f1 fjcc"><div class="i i-plus"></div><p>말풍선</p></button>
-            <button id="button-add-sticker" class="f1 fjcc"><div class="i i-plus"></div><p>스티커</p></button>
-            <button id="button-reset-image" class=""><div class="i i-trash"></div></button>
-          </div>
-          <div id="image-item-list">
-          </div>
-        </div>
-      </div>
-      <div id="menu-about" class="menu">
-        <div class="title">
-          <h2>앱 정보</h2>
-          <button class="close"><div class="i i-deny"></div></button>
-        </div>
-        <div class="wrap">
-          <img src="./assets/essentials/banner.svg" alt="Project Pictor" id="about-thumbnail">
-          <p id="about-app"></p><br>
-          <p id="about-lyra"></p><br>
-          <p id="about-desc"></p><br>
-          <p>Acherium 제작, "클뜯 요소" 없음&trade;.</p><br>
-          <p>'트릭컬: 리바이브(Trickcal RE:VIVE)'는 ㈜에피드게임즈의 상표입니다.</p><br>
-          <div class="divline-row"></div>
-          <p>관련 링크</p>
-          <a href="https://epidgames.oqupie.com/portal/2399/article/50943" target="_blank">트릭컬: 리바이브 2차 창작물에 대한 규정</a><br>
-          <a href="https://github.com/acherium" target="_blank">GitHub</a>
         </div>
       </div>
     </div>
   </div>
-  <div id="float-menu-area" style="display:none;">
+  <div id="float-menu-area">
     <div class="row">
       <div class="wrap">
+        <div id="controller-bar" class="float-menu">
+          <button id="button-controller-bottommost"><div class="i i-bottommost"></div></button>
+          <button id="button-controller-bottom"><div class="i i-bottom"></div></button>
+          <button id="button-controller-front"><div class="i i-front"></div></button>
+          <button id="button-controller-frontmost"><div class="i i-frontmost"></div></button>
+          <div class="partition"></div>
+          <button id="button-controller-flip-horizontal"><div class="i i-flip-horizontal"></div></button>
+          <button id="button-controller-flip-vertical"><div class="i i-flip-vertical"></div></button>
+          <input type="checkbox" id="checkbox-toggle-controller-darker">
+          <button id="controller-toggle-darker"><div class="i i-invert"></div></button>
+          <div class="partition"></div>
+          <button id="button-controller-reset"><div class="i i-rescue"></div></button>
+          <button id="button-controller-remove"><div class="i i-trash"></div></button>
+          <div class="partition"></div>
+          <button id="button-controller-unselect"><div class="i i-deny"></div></button>
+        </div>
+      </div>
+    </div>
+    <div class="row" style="display:none;">
+      <div class="wrap">
         <div id="menu-main" class="float-menu">
-          <button class="logo"></button>
+          <button class="toggle-menu toggle-menu-about logo" data-menu="menu-about"></button>
           <div class="partition"></div>
-          <button><div class="i i-search"></div></button>
-          <button><div class="i i-download"></div></button>
+          <button class="button-search"><div class="i i-search"></div></button>
+          <button class="button-download-onmenu" ><div class="i i-download"></div></button>
           <div class="partition"></div>
-          <button><div class="i i-document"></div></button>
-          <button><div class="i i-slide"></div></button>
-          <button><div class="i i-star5"></div></button>
-          <button><div class="i i-config"></div></button>
-          <button><div class="i i-layer"></div></button>
-          <button><div class="i i-notification"></div></button>
+          <button class="toggle-menu toggle-menu-doc" data-menu="menu-doc"><div class="i i-document"></div></button>
+          <button class="toggle-menu toggle-menu-slide" data-menu="menu-slide"><div class="i i-slide"></div></button>
+          <button class="toggle-menu toggle-menu-scriptbox" data-menu="menu-scriptbox"><div class="i i-star5"></div></button>
+          <button class="toggle-menu toggle-menu-elements" data-menu="menu-elements"><div class="i i-config"></div></button>
+          <button class="toggle-menu toggle-menu-object" data-menu="menu-object"><div class="i i-layer"></div></button>
         </div>
         <div id="menu-zoom" class="float-menu">
-          <button><div class="i i-minus"></div></button>
-          <button><div class="i i-search"></div><p class="scale"></p></button>
-          <button><div class="i i-plus"></div></button>
+          <button class="button-zoom-out"><div class="i i-minus"></div></button>
+          <button class="button-zoom-reset"><div class="i i-search"></div><p class="scale"></p></button>
+          <button class="button-zoom-in"><div class="i i-plus"></div></button>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="wrap">
+        <div id="menu-zoom" class="float-menu">
+          <button class="button-zoom-out"><div class="i i-minus"></div></button>
+          <button class="button-zoom-reset"><div class="i i-search"></div><p class="scale"></p></button>
+          <button class="button-zoom-in"><div class="i i-plus"></div></button>
         </div>
       </div>
     </div>
@@ -619,7 +649,7 @@
         </div>
       </div>
     </div>
-    <div id="controller-bar">
+    <!-- <div id="controller-bar">
       <div class="wrap">
         <button id="button-controller-bottommost"><div class="i i-bottommost"></div></button>
         <button id="button-controller-bottom"><div class="i i-bottom"></div></button>
@@ -636,14 +666,14 @@
         <div class="partition"></div>
         <button id="button-controller-unselect"><div class="i i-deny"></div></button>
       </div>
-    </div>
-    <div id="viewport-bar">
+    </div> -->
+    <!-- <div id="viewport-bar">
       <div class="wrap">
-        <button id="button-viewport-zoom-out"><div class="i i-minus"></div></button>
-        <button id="button-viewport-reset"><div class="i i-search"></div><p class="scale">0</p></button>
-        <button id="button-viewport-zoom-in"><div class="i i-plus"></div></button>
+        <button class="button-zoom-out" id="button-viewport-zoom-out"><div class="i i-minus"></div></button>
+        <button class="button-zoom-reset" id="button-viewport-reset"><div class="i i-search"></div><p class="scale">0</p></button>
+        <button class="button-zoom-in" id="button-viewport-zoom-in"><div class="i i-plus"></div></button>
       </div>
-    </div>
+    </div> -->
   </main>
   <div id="modal-color-preset" class="modal">
     <div class="bg"></div>

@@ -11,8 +11,8 @@ import {
     name: "Project Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2007.dev",
-    date: "24-11-14",
+    version: "2008.dev",
+    date: "24-11-178",
     watermark: true,
     isBeta: true
   };
@@ -21,43 +21,42 @@ import {
   let currentMenu = null;
   const tglMenus = $a("button.toggle-menu");
   const btnCloseMenus = $a(".menu button.close");
-  const btnMenuDoc = $("#button-menu-doc");
-  const btnMenuSlide = $("#button-menu-slide");
-  const btnMenuSbox = $("#button-menu-scriptbox");
-  const btnMenuElems = $("#button-menu-elements");
-  const btnMenuObjs = $("#button-menu-object");
-  const btnMenuAbout = $("#button-menu-about");
-  const btnSavePNGOnmenu = $("#button-download-onmenu");
-  for (const tgl of tglMenus) {
-    tgl.onclick = () => {
-      const target = tgl.dataset.menu;
-      const menu = $(`#${target}`);
-      if (currentMenu === target) {
-        tgl.classList.remove("active");
-        menu.style["display"] = "none";
-        currentMenu = null;
-      } else {
-        const prev = Array.from(tglMenus).find((x) => x.dataset.menu === currentMenu);
-        if (prev) {
-          prev.classList.remove("active");
-          $(`#${currentMenu}`).style["display"] = "none";
-        };
-        tgl.classList.add("active");
-        menu.style["display"] = "flex";
-        currentMenu = target;
+  const btnsSavePNGOnmenu = $a(".button-download-onmenu");
+  const toggleMenu = (s) => {
+    const target = $(`#${s}.menu`);
+    if (!target) return;
+    const targetBtns = Array.from(tglMenus).filter((x) => x.dataset.menu === s);
+    if (currentMenu === s) {
+      for (const btn of targetBtns) btn.classList.remove("active");
+      target.style["display"] = "none";
+      currentMenu = null;
+    } else {
+      const prevBtns = Array.from(tglMenus).filter((x) => x.dataset.menu === currentMenu);
+      if (prevBtns.length) {
+        for (const btn of prevBtns) btn.classList.remove("active");
+        $(`#${currentMenu}.menu`).style["display"] = "none";
       };
+      for (const btn of targetBtns) btn.classList.add("active");
+      target.style["display"] = "flex";
+      currentMenu = s;
+    };
+  };
+  for (const btn of tglMenus) {
+    btn.onclick = () => {
+      toggleMenu(btn.dataset.menu);
     };
   };
   for (const btn of btnCloseMenus) {
     btn.onclick = () => {
-      const parent = btn.parentNode.parentElement;
-      parent.style["display"] = "none";
-      Array.from(tglMenus).find((x) => x.dataset.menu === parent.id)?.classList.remove("active");
-      currentMenu = null;
+      const parent = btn.parentNode.parentNode;
+      toggleMenu(parent.id);
     };
   };
-  btnSavePNGOnmenu.onclick = () => {
-    btnSavePNG.click();
+  for (const btn of btnsSavePNGOnmenu) {
+    console.log(true);
+    btn.onclick = () => {
+      btnSavePNG.click();
+    };
   };
 
   // 앱 정보 기록
@@ -1505,16 +1504,15 @@ import {
     $(`#slide-item-${current}`)?.classList.add("active-slide");
   };
   const refreshThumbnail = (i, n) => {
-    return;
-    if (!flagThumbnail) return;
-    setTimeout(() => {
-      html2canvas(n, { logging: false, scale: 0.3 }).then((c) => {
-        const src = `${c.toDataURL("image/png")}`;
-        slide[current].assets.thumbnail = src;
-        const thumb = $(`#slide-item-${i} div.thumb > img`);
-        thumb.src = src;
-      });
-    }, COMMON_INTERVAL);
+    // if (!flagThumbnail) return;
+    // setTimeout(() => {
+    //   html2canvas(n, { logging: false, scale: 0.3 }).then((c) => {
+    //     const src = `${c.toDataURL("image/png")}`;
+    //     slide[current].assets.thumbnail = src;
+    //     const thumb = $(`#slide-item-${i} div.thumb > img`);
+    //     thumb.src = src;
+    //   });
+    // }, COMMON_INTERVAL);
   };
   inputAreaWidth.onchange = (c) => {
     setAreaWidth(c.target.value);
@@ -2153,45 +2151,56 @@ import {
   setScale(1);
 
   // 화면 컨트롤러 기능
-  const btnViewZoomOut = $("#button-viewport-zoom-out");
-  const btnViewZoomIn = $("#button-viewport-zoom-in");
-  const btnViewReset = $("#button-viewport-reset");
-  btnViewZoomOut.onclick = () => {
-    addScale(SCALESTEPS*-1);
+  const btnsZoomOut = $a(".button-zoom-out");
+  const btnsZoomReset = $a(".button-zoom-reset");
+  const btnsZoomIn = $a(".button-zoom-in");
+  for (const btn of btnsZoomOut) {
+    btn.onclick = () => {
+      addScale(SCALESTEPS*-1);
+    };
   };
-  btnViewZoomIn.onclick = () => {
-    addScale(SCALESTEPS);
+  for (const btn of btnsZoomIn) {
+    btn.onclick = () => {
+      addScale(SCALESTEPS);
+    };
   };
-  btnViewReset.onclick = () => {
-    setAreaPos(0, 0);
-    setScale(1);
+  for (const btn of btnsZoomReset) {
+    btn.onclick = () => {
+      setAreaPos(0, 0);
+      setScale(1);
+    };
   };
 
   // 대화창 클릭시 메뉴 열림
   sboxes.forEach((node) => {
     node.onclick = () => {
       if (currentMenu !== "menu-scriptbox") {
-        btnMenuSbox.click();
+        toggleMenu("menu-scriptbox");
         setTimeout(inputCont.focus());
       };
     };
   });
 
   // 검색 기능
-  const btnSearch = $("#button-search");
+  const btnsSearch = $a(".button-search");
   const search = $("#search-area");
   const searchBar = $("#search");
   const sresList = $("#search-result-list");
   const sres = $("#search-result-list > .slist");
   const pSresLength = $("#search-result-list > .num");
   const inputSearch = $("#input-search");
-  btnSearch.onclick = () => {
+  const toggleSearch = () => {
     setTimeout(() => {
       search.style["display"] = "flex";
       sresList.style["display"] = "none";
       $a("*", sres).forEach((x) => x.remove());
       setTimeout(() => { inputSearch.focus(); }, COMMON_INTERVAL);
     });
+  };
+  for (const btn of btnsSearch) {
+    btn.onclick = () => {
+      toggleSearch();
+    };
   };
   inputSearch.onkeydown = (e) => {
     if ((e.code === "Enter" || e.key === "Enter") && e.target.value?.length > 0) {
@@ -2251,25 +2260,26 @@ import {
     if (e.target === body) {
       // 메뉴 바로가기
       if (e.code === "KeyA") {
-        btnMenuDoc.click();
+        toggleMenu("menu-doc");
       } else if (e.code === "KeyS") {
-        btnMenuSlide.click();
+        toggleMenu("menu-slide");
       } else if (e.code === "KeyD") {
-        btnMenuSbox.click();
+        toggleMenu("menu-scriptbox");
       } else if (e.code === "KeyF") {
-        btnMenuElems.click();
+        toggleMenu("menu-elements");
       } else if (e.code === "KeyG") {
-        btnMenuObjs.click();
+        toggleMenu("menu-object");
       } else if (e.code === "KeyH") {
-        btnMenuAbout.click();
+        toggleMenu("menu-about");
       }
       // 확대/축소
       else if (e.code === "Minus") {
-        btnViewZoomOut.click();
+        addScale(SCALESTEPS*-1);
       } else if (e.code === "Equal") {
-        btnViewZoomIn.click();
+        addScale(SCALESTEPS);
       } else if (e.code === "Backspace") {
-        btnViewReset.click();
+        setAreaPos(0, 0);
+        setScale(1);
       }
       // PNG 이미지로 저장
       else if (e.code === "KeyK") {
@@ -2279,7 +2289,7 @@ import {
       }
       // 검색
       else if (e.code === "Space") {
-        btnSearch.click();
+        toggleSearch();
       }
       // 슬라이드 이동
       else if (e.code === "PageUp") {

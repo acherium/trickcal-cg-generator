@@ -1,6 +1,7 @@
 @charset "UTF-8";
 :root {
   --c-menu-shadow: oklch(0% 0 0/0.1);
+  --op-menu-shadow: 0 2px 3px var(--c-menu-shadow);
 
   --i-menu-size: 54px;
 }
@@ -37,14 +38,15 @@
 
 .float-menu {
   display: flex;
+  overflow: hidden;
 
   width: max-content;
-  height: var(--i-menu-size);
+  height: calc(var(--i-menu-size) + 2px);
 
   border: solid 1px var(--c-border);
   border-radius: var(--r);
   background-color: var(--c-main);
-  box-shadow: 0 2px 3px var(--c-menu-shadow);
+  box-shadow: var(--op-menu-shadow);
 }
 
 .float-menu > .partition {
@@ -66,4 +68,5 @@
   background-color: unset;
 }
 .float-menu > button:focus { outline: unset; }
+.float-menu > button.active { background-color: var(--c-accent); }
 .float-menu > .logo { background: no-repeat center center/32px url("../assets/essentials/logo-black.svg"); }

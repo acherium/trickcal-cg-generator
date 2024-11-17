@@ -958,7 +958,7 @@ span.tm-b {
 }
 
 /* 컨트롤러 바 */
-#controller-bar {
+/* #controller-bar {
   position: absolute;
   bottom: 0;
   padding: var(--p);
@@ -987,7 +987,7 @@ span.tm-b {
   height: 44px;
 
   background-color: var(--c-button);
-}
+} */
 
 /* 화면 컨트롤러 바 */
 #viewport-bar {

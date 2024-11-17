@@ -47,6 +47,19 @@
   border-radius: var(--r);
   background-color: var(--c-main);
   box-shadow: var(--op-menu-shadow);
+
+  animation: cubic-bezier(.17, .67, .49, .99) 0.25s ani-float-menu-in;
+}
+@keyframes ani-float-menu-in {
+  from {
+    transform: translateY(100%) scale(0.9);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
 }
 
 .float-menu > .partition {

@@ -171,10 +171,21 @@ button { height: max-content; }
   /* outline: solid 1px var(--c-border); */
   border: solid 1px var(--c-border);
   border-radius: var(--r);
-  animation: ease-in-out 0.25s ani-window-in;
+  animation: cubic-bezier(.17, .67, .49, .99) 0.25s ani-menu-in;
   box-shadow: var(--op-menu-shadow);
 
   background-color: var(--c-main);
+}
+@keyframes ani-menu-in {
+  from {
+    transform: translateX(-100%) scale(0.9);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+  }
 }
 #menuzone > input[type=checkbox]:checked+.menu { display: block; }
 

@@ -11,7 +11,7 @@ import {
     name: "Project Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2009.dev",
+    version: "2010",
     date: "24-11-17",
     watermark: true,
     isBeta: true

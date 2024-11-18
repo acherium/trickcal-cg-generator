@@ -3,8 +3,8 @@
 export const LYRA_NAME = "Lyra Engine";
 export const LYRA_AUTHOR = "Acherium";
 export const LYRA_CONTACT = "acherium@pm.me";
-export const LYRA_VERSION = "1106";
-export const LYRA_DATE = "24-09-22";
+export const LYRA_VERSION = "1107";
+export const LYRA_DATE = "24-11-18";
 
 export const COMMON_INTERVAL = 30;
 export const ANIMATION_INTERVAL = 30;

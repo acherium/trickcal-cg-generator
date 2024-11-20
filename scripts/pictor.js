@@ -1,8 +1,8 @@
 import {
   LYRA_NAME, LYRA_AUTHOR, LYRA_VERSION, LYRA_DATE,
   body, $, $a, create, append, copy,
-  LyraButton, LyraModal, LyraModalManager, LyraNotification, LyraNotificationManager,
-  COMMON_INTERVAL, ANIMATION_INTERVAL
+  LyraButton, LyraModal, LyraModalManager, LyraNotification, LyraNotificationManager, LyraWindowManager,
+  COMMON_INTERVAL, ANIMATION_INTERVAL,
 } from "../lyra/lyra-module.js";
 
 (() => {
@@ -11,8 +11,8 @@ import {
     name: "Project Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2010",
-    date: "24-11-17",
+    version: "2012.dev",
+    date: "24-11-20",
     watermark: true,
     isBeta: true
   };
@@ -2312,5 +2312,13 @@ import {
   // 버전 텍스트 적용
   $a(".ver").forEach((node) => {
     node.innerText = APP.version;
+  });
+
+  // 창 기능 테스트용
+  const winman = new LyraWindowManager();
+  document.addEventListener("keydown", (e) => {
+    if (e.target === body && e.shiftKey && e.code === "Slash") {
+      winman.reserve["window-about"].show();
+    };
   });
 })();

@@ -3,17 +3,26 @@
 export const LYRA_NAME = "Lyra Engine";
 export const LYRA_AUTHOR = "Acherium";
 export const LYRA_CONTACT = "acherium@pm.me";
-export const LYRA_VERSION = "1107";
-export const LYRA_DATE = "24-11-18";
+export const LYRA_VERSION = "1110";
+export const LYRA_DATE = "24-11-20";
 
 export const COMMON_INTERVAL = 30;
 export const ANIMATION_INTERVAL = 30;
 export const TOOLTIP_DURATION = 10000;
 export const TOOLTIP_ANIMATION_DURATION = 150;
 export const WINDOW_ANIMATION_DURATION = 150;
+export const WINDOW_ANIMATION_DURATION_LONG = 500;
 export const DEFAULT_NOTIFICATION_DURATION = 5000;
 export const DEFAULT_IMAGE_SLIDER_INTERVAL = 5000;
 export const DEFAULT_IMAGE_SLIDER_DURATION = 500;
+export const MINIMUM_WINDOW_WIDTH = 100;
+export const MINIMUM_WINDOW_HEIGHT = 100;
+export const DEFAULT_WINDOW_WIDTH = 600;
+export const DEFAULT_WINDOW_HEIGHT = 400;
+export const DEFAULT_WINDOW_X = 10;
+export const DEFAULT_WINDOW_Y = 10;
+
+export const TEMPLATE_CUBIC_BEZIER_0 = "cubic-bezier(.17, .67, .51, .98)";
 
 /**
  * 문서 본문 요소입니다.
@@ -441,6 +450,314 @@ export class LyraNotification {
   offTimer() {
     if (this._timeoutHandler !== null) clearTimeout(this._timeoutHandler);
     this.nodes.gauge.style["animation"] = null;
+    return this;
+  };
+};
+
+export class LyraWindowManager {
+  /**
+   * HTML 문서 원본에 생성된 LyraWindow 규격의 모든 요소를 불러오고, 이 창들의 동작을 통제하는 객체를 생성하여 반환합니다.
+   * @returns {LyraWindowManager}
+   */
+  constructor() {
+    const res = {
+      area: null,
+      reserve: {},
+      active: null
+    };
+    res.area = append(create("div", { id: "lyra-window-area" }));
+    freeze(res.area);
+
+    for (const window of $a(".window")) {
+      if (!window.id || window.id.length < 0) continue;
+      res.reserve[window.id] = new LyraWindow({}, res, window);
+    };
+
+    return res;
+  };
+};
+
+export class LyraWindow {
+  /**
+   * @typedef {object} LyraWindowParameters
+   * @property {string} [icon] 창 아이콘.
+   * @property {string} [name] 창 이름.
+   * @property {boolean} [movable] 창 이동 가능 여부.
+   * @property {boolean} [resizable] 창 크기 조절 가능 여부.
+   * @property {boolean} [defaultCloseButton] 기본 창 닫기 버튼 삽입 여부.
+   * @property {boolean} [defaultMaximizeButton] 기본 창 최대화 버튼 삽입 여부.
+   * @property {boolean} [defaultMinimizeButton] 기본 창 최소화 버튼 삽입 여부.
+   */
+  /**
+   * 창 클래스를 생성하고 반환합니다. 규격에 맞는 원본 HTML 요소가 제공된 경우에 해당 요소를 이 클래스에 연결시킵니다.
+   * @param {LyraWindowParameters} [params] 매개변수.
+   * @param {HTMLElement} [origin] 원본 HTML 요소.
+   * @returns {LyraWindow}
+   */
+  constructor(params = {}, manager, origin = null) {
+    this.connectedManager = manager;
+    this.nodes = {
+      main: null,
+      titleBar: null,
+      nameArea: null,
+      nameIcon: null,
+      name: null,
+      buttonArea: null,
+      defaultCloseButton: new LyraButton({ classes: [ "close" ], icon: "window-close" }),
+      defaultMaximizeButton: new LyraButton({ classes: [ "close" ], icon: "window-maximize" }),
+      defaultMinimizeButton: new LyraButton({ classes: [ "close" ], icon: "window-minimize" }),
+      menu: null,
+      menuNodes: {},
+      contents: null
+    };
+    this.options = {
+      defaultWidth: typeof params.width !== "undefined" ? (parseInt(params["width"]) < MINIMUM_WINDOW_WIDTH ? MINIMUM_WINDOW_WIDTH : parseInt(params["width"])) : DEFAULT_WINDOW_WIDTH,
+      defaultHeight: typeof params.height !== "undefined" ? (parseInt(params["height"]) < MINIMUM_WINDOW_HEIGHT ? MINIMUM_WINDOW_HEIGHT : parseInt(params["height"])) : DEFAULT_WINDOW_HEIGHT,
+      defaultX: typeof params.x !== "undefined" ? parseInt(params["x"]) : DEFAULT_WINDOW_X,
+      defaultY: typeof params.y !== "undefined" ? parseInt(params["y"]) : DEFAULT_WINDOW_Y,
+      movable: typeof params.movable !== "undefined" ? Boolean(params.movable) : true,
+      resizable: typeof params.resizable !== "undefined" ? Boolean(params.resizable) : true,
+      defaultCloseButton: typeof params.defaultCloseButton !== "undefined" ? Boolean(params.defaultCloseButton) : true,
+      defaultMaximizeButton: typeof params.defaultMaximizeButton !== "undefined" ? Boolean(params.defaultMaximizeButton) : true,
+      defaultMinimizeButton: typeof params.defaultMinimizeButton !== "undefined" ? Boolean(params.defaultMinimizeButton) : true
+    };
+
+    if (origin && origin.classList.contains("window") && origin.constructor === HTMLDivElement) {
+      this.nodes.main = revoke(origin);
+      this.nodes.body = $(".body", this.nodes.main);
+      this.nodes.titleBar = $(".body > .title-bar", this.nodes.main);
+      this.nodes.nameArea = $(".body > .title-bar > .name-area", this.nodes.main);
+      this.nodes.nameIcon = $(".body > .title-bar > .name-area > .i", this.nodes.main);
+      this.nodes.name = $(".body > .title-bar > .name-area > p", this.nodes.main);
+      this.nodes.buttonArea = $(".body > .title-bar > .button-area", this.nodes.main);
+      this.nodes.defaultCloseButton = $(".body > .title-bar > .button-area > button.close", this.nodes.main) || this.nodes.defaultCloseButton;
+      this.nodes.defaultMaximizeButton = $(".body > .title-bar > .button-area > button.maximize", this.nodes.main) || this.nodes.defaultMaximizeButton;
+      this.nodes.defaultMinimizeButton = $(".body > .title-bar > .button-area > button.minimize", this.nodes.main) || this.nodes.defaultMinimizeButton;
+      this.nodes.menu = append(create("ul"), append(create("div", { classes: [ "menu" ] }), this.nodes.body));
+      this.nodes.contents = $(".body > .contents", this.nodes.main);
+
+      this.connectMenu(revoke($(".body > .menu", this.nodes.main)));
+
+      const op = {
+        width: this.nodes.main.getAttribute("lyra-width"),
+        height: this.nodes.main.getAttribute("lyra-height"),
+        x: this.nodes.main.getAttribute("lyra-x"),
+        y: this.nodes.main.getAttribute("lyra-y"),
+        movable: this.nodes.main.getAttribute("lyra-movable"),
+        resizable: this.nodes.main.getAttribute("lyra-resizable"),
+        defaultCloseButton: this.nodes.main.getAttribute("lyra-defaultCloseButton"),
+        defaultMaximizeButton: this.nodes.main.getAttribute("lyra-defaultMaximizeButton"),
+        defaultMinimizeButton: this.nodes.main.getAttribute("lyra-defaultMinimizeButton")
+      };
+
+      this.options.defaultWidth = op.width !== null ? (parseInt(op.width) < MINIMUM_WINDOW_WIDTH ? MINIMUM_WINDOW_HEIGHT : parseInt(op.width)) : this.options.defaultWidth;
+      this.options.defaultHeight = op.height !== null ? (parseInt(op.height) < MINIMUM_WINDOW_HEIGHT ? MINIMUM_WINDOW_HHEIGHT : parseInt(op.height)) : this.options.defaultHeight;
+      this.options.defaultX = op.x !== null ? parseInt(op.x) : this.options.defaultX;
+      this.options.defaultY = op.y !== null ? parseInt(op.y) : this.options.defaultY;
+      this.options.movable = op.movable !== null ? (op.movable === "false" ? false : true) : this.options.movable;
+      this.options.resizable = op.resizable !== null ? (op.resizable === "false" ? false : true) : this.options.resizable;
+      this.options.defaultCloseButton = op.defaultCloseButton !== null ? (op.defaultCloseButton === "true" ? true : false) : this.options.defaultCloseButton;
+      this.options.defaultMaximizeButton = op.defaultMaximizeButton !== null ? (op.defaultMaximizeButton === "true" ? true : false) : this.options.defaultMaximizeButton;
+      this.options.defaultMinimizeButton = op.defaultMinimizeButton !== null ? (op.defaultMinimizeButton === "true" ? true : false) : this.options.defaultMinimizeButton;
+    } else {
+
+    };
+
+    this.rectOrigin = {
+      width: copy(this.options.defaultWidth),
+      height: copy(this.options.defaultHeight),
+      x: copy(this.options.defaultX),
+      y: copy(this.options.defaultY)
+    };
+    this.rect = copy(this.rectOrigin);
+
+    this.nodes.main.style["width"] = `${this.rect.width}px`;
+    this.nodes.main.style["left"] = `0`;
+    this.nodes.main.style["top"] = `0`;
+    this.nodes.main.style["transform"] = `translate(${this.rect.x}px, ${this.rect.y}px)`;
+    this.nodes.contents.style["width"] = `${this.rect.width}px`;
+    this.nodes.contents.style["height"] = `${this.rect.height}px`;
+
+    if (this.nodes.defaultCloseButton) this.nodes.defaultCloseButton.onclick = () => this.close();
+    if (this.nodes.defaultMaximizeButton) this.nodes.defaultMaximizeButton.onclick = () => this.maximize();
+
+    if (this.options.movable && this.nodes.titleBar) {
+      this.nodes.titleBar.onpointerdown = (e) => {
+        if (e.target !== this.nodes.titleBar || e.pointerType === "mouse" && e.buttons !== 1) return;
+        e.target.setPointerCapture(e.pointerId);
+
+        this.nodes.titleBar.onpointermove = (m) => {
+          if (this.nodes.main.classList.contains("maximize")) {
+            this.rect.x = e.clientX - this.rect.width / 2;
+            this.rect.y = e.clientY - 20;
+            this.maximize();
+          };
+          this.rect.x += m.movementX;
+          this.rect.y += m.movementY;
+          this.applyPosition();
+        };
+        this.nodes.titleBar.onpointerup = () => {
+          this.nodes.titleBar.onpointermove = null;
+          this.nodes.titleBar.onpointerup = null;
+        };
+      };
+    };
+
+    this.nodes.main.addEventListener("click", () => {
+      this.active();
+    });
+
+    return this;
+  };
+
+  connectMenu(node) {
+    const menu = {};
+
+    const main = $("ul", node);
+    if (main) {
+      const f = (n) => {
+        const x = {
+          id: null,
+          type: null,
+          string: null,
+          node: null,
+          submenuArea: null,
+          children: null,
+          onclick: () => {}
+        };
+
+        x.node = n;
+        x.id = x.node.id;
+        x.string = $("span", x.node)?.innerText || "null";
+        x.node.onclick = (e) => x.onclick(e);
+
+        if ($a("ul > li", x.node).length) {
+          x.type = "folder";
+          x.children = {};
+          x.onclick = (e) => {
+            if (e.target === x.node && !x.node.classList.contains("active")) {
+              Array.from($a(".active", x.node.parentNode)).forEach((y) => y.classList.remove("active"));
+              x.node.classList.add("active");
+            } else if (!Array.from($a("li", x.node)).find((y) => y === e.target)) {
+              x.node.classList.remove("active");
+              Array.from($a(".active", x.node)).forEach((y) => y.classList.remove("active"));
+            };
+          };
+          for (const y of $a("ul > li", x.node)) {
+            x.children[y.id] = f(y);
+          };
+        } else {
+          x.type = "single";
+          x.node.addEventListener("click", () => {
+            Array.from($a(".active", this.nodes.menu)).forEach((y) => y.classList.remove("active"));
+          });
+        };
+
+        return x;
+      };
+
+      for(const x of main.children) {
+        menu[x.id] = f(x);
+      };
+    };
+
+    this.nodes.menuNodes = menu;
+    for (const x of Object.values(this.nodes.menuNodes)) {
+      append(x.node, this.nodes.menu);
+    };
+
+    return this;
+  };
+
+  applyPosition() {
+    this.nodes.main.animate([ { "transform": `translate(${this.rect.x}px, ${this.rect.y}px)` } ], { fill: "both" });
+
+    return this;
+  };
+
+  resetPosition() {
+    this.rect = copy(this.rectOrigin);
+    this.applyPosition();
+
+    return this;
+  };
+
+  active() {
+    if (!this.nodes.main.isConnected) return this;
+    if ($(".window.active") && $(".window.active") === this.nodes.main) return this;
+    Array.from($a(".window.active", this.connectedManager.area)).forEach((x) => x.classList.remove("active"));
+    append(this.nodes.main, this.connectedManager.area);
+    this.nodes.main.classList.add("active");
+
+    return this;
+  };
+
+  show() {
+    if (this.nodes.main.isConnected) {
+      this.active();
+      return this;
+    };
+    this.nodes.main.style["opacity"] = "0";
+    
+    append(this.nodes.main, $("#lyra-window-area"));
+    this.active();
+
+    setTimeout(() => {
+      this.nodes.main.animate([
+        {
+          "transform": `translate(${this.rectOrigin.x}px, ${this.rectOrigin.y+20}px) scale(0.9)`,
+          "opacity": "0"
+        },
+        {
+          "transform": `translate(${this.rectOrigin.x}px, ${this.rectOrigin.y}px) scale(1)`,
+          "opacity": "1"
+        }
+      ], {
+        duration: WINDOW_ANIMATION_DURATION,
+        easing: TEMPLATE_CUBIC_BEZIER_0,
+        fill: "both"
+      });
+    }, COMMON_INTERVAL);
+
+    return this;
+  };
+
+  maximize() {
+    if (!this.options.resizable) return;
+
+    if (this.nodes.main.classList.contains("maximize")) {
+      this.nodes.main.classList.remove("maximize");
+    } else {
+      this.nodes.main.classList.add("maximize");
+    };
+
+    return this;
+  };
+
+  close() {
+    this.nodes.main.animate([
+      { "transform": "translate(0px, 0px) scale(1)" },
+      { "transform": "translate(0px, 20px) scale(0.9)" }
+    ], {
+      duration: WINDOW_ANIMATION_DURATION,
+      easing: TEMPLATE_CUBIC_BEZIER_0,
+      fill: "both",
+      composite: "add"
+    });
+    this.nodes.main.animate([
+      { "opacity": "1" },
+      { "opacity": "0" }
+    ], {
+      duration: WINDOW_ANIMATION_DURATION,
+      easing: TEMPLATE_CUBIC_BEZIER_0,
+      fill: "both"
+    });
+
+    setTimeout(() => {
+      this.resetPosition();
+      if (this.nodes.main.isConnected) this.nodes.main = revoke(this.nodes.main);
+    }, WINDOW_ANIMATION_DURATION + COMMON_INTERVAL);
+
     return this;
   };
 };

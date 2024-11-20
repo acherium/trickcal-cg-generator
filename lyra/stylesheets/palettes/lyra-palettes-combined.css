@@ -15,6 +15,8 @@
   --c-n1: oklch(10% 0 0);
   --c-black: oklch(0% 0 0);
   --c-blue: oklch(60% 0.11 245);
+  --c-red: oklch(64% 0.2 15);
+
   --c-main: var(--c-white);
   --c-font: var(--c-black);
   --c-button: oklch(94% 0.01 317);
@@ -25,6 +27,24 @@
   --c-modal-bg: oklch(0% 0 0 / 0.7);
   --c-notification-bg: oklch(100% 0 0);
   --c-border: oklch(80% 0 0);
+
+  --c-window-active-main: var(--c-main);
+  --c-window-active-border: var(--c-accent);
+  --c-window-active-title-bar: var(--c-main);
+  --c-window-active-title-bar-font: var(--c-font);
+  --c-window-active-shadow: 0 2px 3px oklch(70% 0 0/0.5);
+  --c-window-active-menu: transparent;
+  --c-window-active-menu-hover: oklch(70% 0 0/0.5);
+  --c-window-active-menu-active: var(--c-accent);
+
+  --c-window-inactive-main: var(--c-main);
+  --c-window-inactive-border: var(--c-border);
+  --c-window-inactive-title-bar: var(--c-n9);
+  --c-window-inactive-title-bar-font: var(--c-font);
+  --c-window-inactive-shadow: 0 2px 3px oklch(70% 0 0/0.5);
+  --c-window-inactive-menu: transparent;
+  --c-window-inactive-menu-hover: oklch(70% 0 0/0.5);
+  --c-window-inactive-menu-active: var(--c-accent);
 
   --r-tiny: 2px;
   --r-small: 4px;

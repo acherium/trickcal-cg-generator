@@ -3,7 +3,7 @@
 export const LYRA_NAME = "Lyra Engine";
 export const LYRA_AUTHOR = "Acherium";
 export const LYRA_CONTACT = "acherium@pm.me";
-export const LYRA_VERSION = "1110";
+export const LYRA_VERSION = "1111";
 export const LYRA_DATE = "24-11-20";
 
 export const COMMON_INTERVAL = 30;
@@ -462,10 +462,12 @@ export class LyraWindowManager {
   constructor() {
     const res = {
       area: null,
+      taskbar: null,
       reserve: {},
       active: null
     };
     res.area = append(create("div", { id: "lyra-window-area" }));
+    res.taskbar = append(create("div", { id: "lyra-window-taskbar" }), res.area);
     freeze(res.area);
 
     for (const window of $a(".window")) {
@@ -508,7 +510,8 @@ export class LyraWindow {
       defaultMinimizeButton: new LyraButton({ classes: [ "close" ], icon: "window-minimize" }),
       menu: null,
       menuNodes: {},
-      contents: null
+      contents: null,
+      taskbarItem: null
     };
     this.options = {
       defaultWidth: typeof params.width !== "undefined" ? (parseInt(params["width"]) < MINIMUM_WINDOW_WIDTH ? MINIMUM_WINDOW_WIDTH : parseInt(params["width"])) : DEFAULT_WINDOW_WIDTH,
@@ -580,10 +583,12 @@ export class LyraWindow {
 
     if (this.nodes.defaultCloseButton) this.nodes.defaultCloseButton.onclick = () => this.close();
     if (this.nodes.defaultMaximizeButton) this.nodes.defaultMaximizeButton.onclick = () => this.maximize();
+    if (this.nodes.defaultMinimizeButton) this.nodes.defaultMinimizeButton.onclick = () => this.minimize();
 
     if (this.options.movable && this.nodes.titleBar) {
       this.nodes.titleBar.onpointerdown = (e) => {
         if (e.target !== this.nodes.titleBar || e.pointerType === "mouse" && e.buttons !== 1) return;
+        this.activate();
         e.target.setPointerCapture(e.pointerId);
 
         this.nodes.titleBar.onpointermove = (m) => {
@@ -604,7 +609,19 @@ export class LyraWindow {
     };
 
     this.nodes.main.addEventListener("click", () => {
-      this.active();
+      this.activate();
+    });
+
+    this.nodes.taskbarItem = create("div", {
+      classes: [ "taskbar-item" ],
+      properties: { innerHTML: `<p>${this.nodes.name.innerText || "Window"}</p>` },
+      events: { click: () => {
+        if (this.nodes.main.isConnected) {
+          this.minimize()
+        } else {
+          this.show();
+        };
+      } }
     });
 
     return this;
@@ -682,25 +699,34 @@ export class LyraWindow {
     return this;
   };
 
-  active() {
+  activate() {
     if (!this.nodes.main.isConnected) return this;
     if ($(".window.active") && $(".window.active") === this.nodes.main) return this;
-    Array.from($a(".window.active", this.connectedManager.area)).forEach((x) => x.classList.remove("active"));
+    Array.from($a(".window.active, .taskbar-item.active", this.connectedManager.area)).forEach((x) => x.classList.remove("active"));
     append(this.nodes.main, this.connectedManager.area);
     this.nodes.main.classList.add("active");
+    this.nodes.taskbarItem.classList.add("active");
+
+    return this;
+  };
+
+  inactivate() {
+    this.nodes.main.classList.remove("active");
+    this.nodes.taskbarItem.classList.remove("active");
 
     return this;
   };
 
   show() {
     if (this.nodes.main.isConnected) {
-      this.active();
+      this.activate();
       return this;
     };
     this.nodes.main.style["opacity"] = "0";
     
-    append(this.nodes.main, $("#lyra-window-area"));
-    this.active();
+    append(this.nodes.main, this.connectedManager.area);
+    append(this.nodes.taskbarItem, this.connectedManager.taskbar);
+    this.activate();
 
     setTimeout(() => {
       this.nodes.main.animate([
@@ -734,7 +760,38 @@ export class LyraWindow {
     return this;
   };
 
+  minimize() {
+    this.nodes.main.animate([
+      { "transform": "translate(0px, 0px) scale(1)" },
+      { "transform": "translate(0px, 20px) scale(0.9)" }
+    ], {
+      duration: WINDOW_ANIMATION_DURATION,
+      easing: TEMPLATE_CUBIC_BEZIER_0,
+      fill: "both",
+      composite: "add"
+    });
+    this.nodes.main.animate([
+      { "opacity": "1" },
+      { "opacity": "0" }
+    ], {
+      duration: WINDOW_ANIMATION_DURATION,
+      easing: TEMPLATE_CUBIC_BEZIER_0,
+      fill: "both"
+    });
+
+    setTimeout(() => this.inactivate());
+
+    setTimeout(() => {
+      this.resetPosition();
+      if (this.nodes.main.isConnected) this.nodes.main = revoke(this.nodes.main);
+    }, WINDOW_ANIMATION_DURATION + COMMON_INTERVAL);
+
+    return this;
+  };
+
   close() {
+    if (this.nodes.taskbarItem.isConnected) this.nodes.taskbarItem = revoke(this.nodes.taskbarItem);
+
     this.nodes.main.animate([
       { "transform": "translate(0px, 0px) scale(1)" },
       { "transform": "translate(0px, 20px) scale(0.9)" }

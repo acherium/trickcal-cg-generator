@@ -14,6 +14,59 @@
   pointer-events: none;
 }
 
+#lyra-window-taskbar {
+  display: none;
+  position: absolute;
+  flex-wrap: wrap;
+  left: 0;
+  bottom: 0;
+  padding: var(--p);
+  gap: var(--p);
+  box-sizing: border-box;
+  z-index: 1;
+
+  width: 100%;
+  height: auto;
+
+  border-top: solid 1px var(--c-border);
+  background-color: var(--c-main);
+  pointer-events: auto;
+}
+#lyra-window-taskbar:has(*) { display: flex; }
+.taskbar-item {
+  display: flex;
+  position: relative;
+  padding: var(--p);
+  overflow: hidden;
+
+  max-width: 300px;
+  min-width: 200px;
+  width: 300px;
+  flex: 1;
+
+  color: var(--c-window-inactive-title-bar-font);
+  border: solid 1px var(--c-window-inactive-border);
+  border-radius: var(--r);
+  background-color: var(--c-window-inactive-title-bar);
+  cursor: pointer;
+}
+.taskbar-item.active {
+  color: var(--c-window-active-title-bar-font);
+  border-color: var(--c-window-active-border);
+  background-color: var(--c-window-active-title-bar);
+}
+.taskbar-item > p {
+  overflow: hidden;
+
+  width: 100%;
+
+  color: inherit;
+  text-wrap: nowrap;
+  text-overflow: ellipsis;
+  user-select: none;
+  pointer-events: none;
+}
+
 .window {
   position: absolute;
   margin: 0;
@@ -47,6 +100,7 @@
   background-color: var(--c-window-inactive-main);
   box-shadow: var(--c-window-inactive-shadow);
 }
+.window.maximize > .body { border-radius: unset; }
 .window.active > .body {
   outline-color: var(--c-window-active-border);
   background-color: var(--c-window-active-main);

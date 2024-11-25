@@ -11,8 +11,8 @@ import {
     name: "Project Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2013.dev-test",
-    date: "24-11-24",
+    version: "2014.dev",
+    date: "24-11-25",
     watermark: true,
     isBeta: true
   };
@@ -53,7 +53,6 @@ import {
     };
   };
   for (const btn of btnsSavePNGOnmenu) {
-    console.log(true);
     btn.onclick = () => {
       btnSavePNG.click();
     };
@@ -1844,6 +1843,7 @@ import {
   const resizePoints = $a("#photo-item-controller > .resize-point");
   cont.onpointerdown = (p) => {
     if (p.target !== cont) return;
+    if (p.pointerType === "mouse" && p.buttons !== 1) return;
     cont.setPointerCapture(p.pointerId);
     let flag = true;
     cont.onpointermove = (m) => {
@@ -1889,6 +1889,7 @@ import {
   };
   Array.from(resizePoints).forEach(($n, i) => {
     $n.onpointerdown = (p) => {
+      if (p.pointerType === "mouse" && p.buttons !== 1) return;
       $n.setPointerCapture(p.pointerId);
       $n.onpointermove = (m) => {
         const item = slide[current].assets.objects.find((x) => x.uid === objManager.selected);
@@ -2090,6 +2091,7 @@ import {
   };
   main.onpointerdown = (p) => {
     if (p.target !== main) return;
+    if (p.pointerType === "mouse" && p.buttons !== 1) return;
     main.setPointerCapture(p.pointerId);
     main.onpointermove = (m) => {
       setAreaPos(areaRect.x + m.movementX, areaRect.y + m.movementY);

@@ -1023,7 +1023,7 @@ span.tm-b {
 
 @media screen and (max-width: 700px) {
   /* 컨트롤러 바 */
-  #controller-bar {
+  /* #controller-bar {
     display: absolute;
     overflow-x: scroll;
 
@@ -1032,5 +1032,5 @@ span.tm-b {
     border-left: unset;
     border-right: unset;
     border-radius: unset;
-  }
+  } */
 }

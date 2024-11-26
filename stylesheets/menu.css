@@ -83,3 +83,28 @@
 .float-menu > button:focus { outline: unset; }
 .float-menu > button.active { background-color: var(--c-accent); }
 .float-menu > .logo { background: no-repeat center center/32px url("../assets/essentials/logo-black.svg"); }
+
+@media screen and (max-width: 700px) {
+  #menuzone {
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    width: 100%;
+    height: calc(100dvh - (var(--i-menu-size) * 2) - (var(--p) * 3));
+
+    pointer-events: none;
+  }
+
+  #menuzone > .wrap {
+    width: 100%;
+    height: 100%;
+  }
+
+  .menu {
+    width: 100%;
+    height: 100%;
+
+    pointer-events: auto;
+  }
+}

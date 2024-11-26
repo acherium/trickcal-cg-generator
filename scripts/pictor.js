@@ -11,10 +11,10 @@ import {
     name: "Project Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2015",
+    version: "2016",
     date: "24-11-26",
-    watermark: true,
-    isBeta: true
+    watermark: false,
+    isBeta: false
   };
 
   // 메뉴 접기/펼치기 기능 초기화

@@ -553,7 +553,7 @@ main {
     height: 52px;
   }
 
-  #menuzone {
+  /* #menuzone {
     position: absolute;
     left: 0;
     top: 0;
@@ -561,11 +561,11 @@ main {
     max-width: 100dvw;
     width: 100%;
     height: max-content;
-  }
+  } */
   
-  .menu {
+  /* .menu {
     max-height: calc(100dvh - (var(--i-menu-size) * 2) - (var(--p) * 5));
     width: 100%;
     height: calc(100dvh - 53px);
-  }
+  } */
 }

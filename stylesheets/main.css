@@ -569,3 +569,5 @@ main {
     height: calc(100dvh - 53px);
   } */
 }
+
+#window-test > .body > .contents { padding: var(--p); }

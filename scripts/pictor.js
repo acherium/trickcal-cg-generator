@@ -11,7 +11,7 @@ import {
     name: "Project Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2016",
+    version: "2017",
     date: "24-11-26",
     watermark: false,
     isBeta: false
@@ -2316,11 +2316,14 @@ import {
     node.innerText = APP.version;
   });
 
-  // 창 기능 테스트용
+  // 테스트 메뉴
   const winman = new LyraWindowManager();
   document.addEventListener("keydown", (e) => {
     if (e.target === body && e.shiftKey && e.code === "Slash") {
-      winman.reserve["window-about"].show();
+      winman.reserve["window-test"].show();
     };
   });
+  $("#test-checkbox-activate-old-menu", winman.reserve["window-test"].nodes.main).onchange = (e) => {
+    $("#menu-list").style["display"] = e.target.checked ? "flex" : "none";
+  };
 })();

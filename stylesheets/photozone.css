@@ -230,10 +230,14 @@
 #theme-3 > .namearea > div,
 #theme-4 > .namearea > div,
 #theme-5 > .namearea > div {
-  display: grid;
+  display: flex;
   position: relative;
-  place-items: center;
-  width: 240px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 30px 15px 30px;
+
+  min-width: 240px;
+  width: max-content;
   height: 100%;
 
   border-radius: 8px;
@@ -245,15 +249,14 @@
 #theme-4 > .namearea > div > p,
 #theme-5 > .namearea > div > p {
   display: flex;
+  position: absolute;
   align-items: center;
   justify-content: center;
-  position: absolute;
-  top: -10px;
 
   width: max-content;
   height: 100%;
 
-  color: var(--c-trickcal-font);
+  /* color: var(--c-trickcal-font); */
   font-size: 22pt;
   text-align: center;
   border-radius: 4px;
@@ -264,16 +267,22 @@
 #theme-3 > .namearea > div > .name,
 #theme-4 > .namearea > div > .name,
 #theme-5 > .namearea > div > .name {
+  position: relative;
+  z-index: 1;
+
+  color: var(--c-trickcal-font);
+}
+#theme-0 > .namearea > div > .outline,
+#theme-1 > .namearea > div > .outline,
+#theme-2 > .namearea > div > .outline,
+#theme-3 > .namearea > div > .outline,
+#theme-4 > .namearea > div > .outline,
+#theme-5 > .namearea > div > .outline {
+  position: absolute;
+  z-index: 0;
+
   color: var(--c-white);
   -webkit-text-stroke: 6px var(--c-white);
-}
-#theme-0 > .namearea > div > .ouline,
-#theme-1 > .namearea > div > .ouline,
-#theme-2 > .namearea > div > .ouline,
-#theme-3 > .namearea > div > .ouline,
-#theme-4 > .namearea > div > .ouline,
-#theme-5 > .namearea > div > .ouline {
-  color: var(--c-trickcal-font);
 }
 #theme-0 > .content-area,
 #theme-1 > .content-area,

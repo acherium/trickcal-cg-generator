@@ -18,6 +18,26 @@
   height: max-content;
 }
 
+#float-menu-area > .tip-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: max-content;
+
+  pointer-events: none;
+}
+
+#float-menu-area > .tip-row > .tip:not(:empty) {
+  padding: var(--p);
+
+  color: var(--c-black);
+  border-radius: var(--r);
+  background-color: var(--c-accent);
+  box-shadow: var(--op-menu-shadow);
+}
+
 #float-menu-area > .row {
   overflow-x: auto;
   overflow-y: hidden;

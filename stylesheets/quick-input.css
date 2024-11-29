@@ -1,0 +1,72 @@
+@charset "UTF-8";
+/* 빠른 대사입력 바 */
+#quick-input-area {
+  display: flex;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  top: 20%;
+  padding: var(--p);
+  gap: var(--p);
+  z-index: 99;
+
+  width: 100dvw;
+  height: max-content;
+
+  pointer-events: none;
+}
+
+#quick {
+  display: grid;
+  grid-template-columns: 36px minmax(0, auto);
+  padding: 20px;
+  place-items: center;
+  gap: var(--p);
+
+  max-width: calc(100dvw - var(--p) * 2);
+  width: 660px;
+  height: max-content;
+
+  border: solid 1px var(--c-border);
+  border-radius: var(--r-medium);
+  background-color: var(--c-main);
+  pointer-events: auto;
+}
+
+#input-quick {
+  padding: 0 var(--p);
+
+  width: 100%;
+
+  font-size: 18pt;
+  background-color: transparent;
+}
+#input-quick:focus { outline: unset; }
+
+#quick > .il { pointer-events: none; }
+
+/* 옵션 목록 */
+#quick-option-list {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  gap: var(--p);
+
+  max-width: calc(100dvw - var(--p) * 2);
+  width: 660px;
+  height: max-content;
+
+  border: solid 1px var(--c-border);
+  border-radius: var(--r-medium);
+  background-color: var(--c-main);
+  pointer-events: auto;
+}
+
+#quick-option-list > .desc {
+  margin-bottom: var(--m);
+
+  font-style: italic;
+  opacity: 0.5;
+  pointer-events: none;
+}

@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="./stylesheets/photozone.css">
   <link rel="stylesheet" href="./stylesheets/objects.css">
   <link rel="stylesheet" href="./stylesheets/search.css">
+  <link rel="stylesheet" href="./stylesheets/quick-input.css">
   <link rel="stylesheet" href="./stylesheets/splash.css">
   <link rel="stylesheet" href="./stylesheets/misc.css">
   <link rel="stylesheet" href="./stylesheets/menu.css">
@@ -955,8 +956,26 @@
       <h4 class="num"></h4>
       <div class="desc">
         키보드 'Tab' 또는 'Shift+Tab'으로 이동.<br>
-        'Enter'로 선택, 'ESC'로 검색 닫기.</div>
+        'Enter'로 선택, 'ESC'로 검색 닫기.
+      </div>
       <div class="slist"></div>
+    </div>
+  </div>
+  <div id="quick-input-area" style="display:none;">
+    <div id="quick">
+      <div class="il i-arrow-e"></div>
+      <input type="text" id="input-quick" placeholder="여기에 새 대사를 입력">
+    </div>
+    <div id="quick-option-list">
+      <div>
+        <h4>현재 발화자: <span class="name"></span></h4>
+        <p style="display:none;">Reserved Preset Index: <span class="index"></span></p>
+      </div>
+      <div class="desc">
+        키보드 'PgUp' 또는 'PgDown'으로 캐릭터 프리셋 사이클.<br>
+        'Enter'로 적용, 'ESC'로 입력창 닫기.<br>
+        주의: 이전 대사를 교체합니다.
+      </div>
     </div>
   </div>
   <div id="splash-area">

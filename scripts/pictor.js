@@ -11,7 +11,7 @@ import {
     name: "Project Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2022.3",
+    version: "2023",
     date: "24-11-29",
     watermark: false,
     isBeta: false
@@ -93,10 +93,11 @@ import {
   const SCALESTEPS = 0.2;
   const OPACITYMIN = 0;
   const OPACITYMAX = 100;
+  const DEFAULT_NAMEAREA_PALETTE_PRESET = "버터";
 
   // 데이터 템플릿
   const SLIDE_TEMPLATE = {
-    version: 6,
+    version: 7,
     strings: {
       name: "버터",
       content: "나오라고.",
@@ -123,7 +124,8 @@ import {
       },
       namearea: {
         pos: 1,
-        emotion: "none"
+        emotion: "none",
+        reservedPreset: null
       },
       select: {
         theme: 0
@@ -726,10 +728,15 @@ import {
         item.onclick = () => {
           setNameColor(char[1]);
           if (chkAutoName.checked) setName(char[0]);
-          // modalman.reserve["modal-color-preset"].close();
           modalman.reserve["modal-color-preset"].nodes.defaultCloseButton.click();
+          slide[current].assetOptions.namearea.reservedPreset = Array.from($a(".color-preset-item", presetList)).indexOf(item);
         };
       };
+    };
+
+    const k = Array.from($a(".color-preset-item", presetList)).findIndex((x) => x.innerText.startsWith(DEFAULT_NAMEAREA_PALETTE_PRESET));
+    if (k !== -1) {
+      slide[current].assetOptions.namearea.reservedPreset = k;
     };
   })();
   btnPreset.onclick = () => {
@@ -2254,7 +2261,7 @@ import {
       search.style["display"] = "flex";
       sresList.style["display"] = "none";
       $a("*", sres).forEach((x) => x.remove());
-      setTimeout(() => { inputSearch.focus(); }, COMMON_INTERVAL);
+      setTimeout(() => inputSearch.focus(), COMMON_INTERVAL);
     });
   };
   for (const btn of btnsSearch) {
@@ -2303,6 +2310,9 @@ import {
           $("button.item", sres).focus();
         }, COMMON_INTERVAL);
       };
+    } else if (e.code === "Enter") {
+      e.target.value = null;
+      search.style["display"] = "none";
     };
   };
   document.addEventListener("click", (e) => {
@@ -2312,6 +2322,68 @@ import {
         && e.target !== pSresLength) {
       search.style["display"] = "none";
       inputSearch.value = null;
+    };
+  });
+
+  // 빠른 대사입력 기능
+  const quick = $("#quick-input-area");
+  const quickBar = $("#quick");
+  const inputQuick = $("#input-quick");
+  const quickName = $a(".name", quick);
+  const quickIndex = $a(".index", quick);
+  const toggleQuick = () => {
+    setTimeout(() => {
+      const id = slide[current].assetOptions.namearea.reservedPreset;
+      for (const n of quickIndex) {
+        n.innerText = (id !== null) ? `${id}` : "초기화되지 않음";
+      };
+      for (const n of quickName) {
+        n.innerText = `${slide[current].strings.name}`;
+      };
+      quick.style["display"] = "flex";
+      setTimeout(() => inputQuick.focus(), COMMON_INTERVAL);
+    });
+  };
+  const cycleNameColor = (i) => {
+    const pid = slide[current].assetOptions.namearea.reservedPreset;
+    if (pid === null) {
+      new LyraNotification({ "icon": "warning", "text": "사도 색상표가 초기화되지 않았거나 문제가 발생하여 기능을 수행할 수 없습니다." }).show();
+      return;
+    };
+
+    const cp = $a(".color-preset-item", presetList);
+    if (cp[pid+i]) {
+      cp[pid+i].click();
+      slide[current].assetOptions.namearea.reservedPreset += i;
+      setTimeout(() => inputQuick.focus());
+      
+      for (const n of quickIndex) {
+        n.innerText = (pid !== null) ? `${pid}` : "초기화되지 않음";
+      };
+      for (const n of quickName) {
+        n.innerText = `${slide[current].strings.name}`;
+      };
+    };
+  };
+  inputQuick.onkeydown = (e) => {
+    if (e.code === "Enter") {
+      if (e.target.value?.length > 0) {
+        setContent(e.target.value);
+      };
+      quick.style["display"] = "none";
+      inputQuick.value = null;
+    } else if (e.code === "PageUp") {
+      cycleNameColor(-1);
+    } else if (e.code === "PageDown") {
+      cycleNameColor(1);
+    };
+  };
+  document.addEventListener("click", (e) => {
+    if (e.target !== quick
+        && e.target !== quickBar
+        && e.target !== inputQuick ) {
+      quick.style["display"] = "none";
+      inputQuick.value = null;
     };
   });
 
@@ -2351,6 +2423,10 @@ import {
       else if (e.code === "Space") {
         toggleSearch();
       }
+      // 빠른 대사입력
+      else if (e.code === "Enter") {
+        toggleQuick();
+      }
       // 슬라이드 이동
       else if (e.code === "PageUp") {
         setSlide(current-1);
@@ -2363,9 +2439,10 @@ import {
       };
     };
     // 메뉴 닫기
-    if (e.code === "Escape" && (currentMenu !== null || search.checkVisibility())) {
+    if (e.code === "Escape" && (currentMenu !== null || search.checkVisibility() || quick.checkVisibility())) {
       Array.from(tglMenus).find((x) => x.dataset.menu === currentMenu)?.click();
       search.style["display"] = "none";
+      quick.style["display"] = "none";
     };
   });
 

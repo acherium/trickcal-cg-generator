@@ -11,7 +11,7 @@ import {
     name: "Project Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2023.1",
+    version: "2024",
     date: "24-11-29",
     watermark: false,
     isBeta: false
@@ -2383,6 +2383,16 @@ import {
         && e.target !== inputQuick ) {
       quick.style["display"] = "none";
       inputQuick.value = null;
+    };
+  });
+
+  // 메뉴바 툴팁 기능
+  const menuTip = $("#float-menu-area .tip");
+  document.addEventListener("mousemove", (e) => {
+    if (e.target.dataset?.menuTip) {
+      menuTip.innerHTML = `${e.target.dataset.menuTip}${e.target.dataset.menuShortcut ? `<span class="key-hint">${e.target.dataset.menuShortcut}</span>` : ""}`;
+    } else {
+      menuTip.innerText = null;
     };
   });
 

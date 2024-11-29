@@ -11,7 +11,7 @@ import {
     name: "Project Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2021",
+    version: "2022",
     date: "24-11-29",
     watermark: false,
     isBeta: false
@@ -781,7 +781,7 @@ import {
   // 제목 표시기 기능
   const titleOutline = $("#photo-title-box-namearea > span:nth-child(1)");
   const titleName = $("#photo-title-box-namearea > span:nth-child(2)");
-  const title = $("#photo-title > span");
+  const titles = $a(".photo-title");
   const inputTitleName = $("#input-title-name");
   const inputTitle = $("#input-title-content");
   const setTitleName = (s) => {
@@ -792,7 +792,7 @@ import {
   };
   const setTitle = (s) => {
     slide[current].strings.title.content = s;
-    title.innerText = s;
+    for (const n of titles) n.innerText = s;
     inputTitle.value =s;
   };
   inputTitle.oninput = (c) => {
@@ -823,7 +823,7 @@ import {
   const comSelboxes = $a("#photo-select-area, #photo-select-area-revamped");
   const photoBtn = $("#photo-button-area");
   const chkPhotoBtn = $("#checkbox-toggle-photo-button");
-  const titleArea = $("#photo-title-box-area");
+  const titleAreas = $a("#photo-title-box-area, #photo-title-box-area-revamped");
   const chkTitle = $("#checkbox-toggle-title");
   const locAreas = $a("#photo-location-box-area, #photo-location-box-area-revamped");
   const chkLoc = $("#checkbox-toggle-location");
@@ -853,7 +853,7 @@ import {
   const toggleTitle = (b) => {
     slide[current].toggles.title = b;
     chkTitle.checked = b;
-    titleArea.style["display"] = b ? "flex" : "none";
+    for (const n of titleAreas) n.style["display"] = b ? "flex" : "none";
   };
   const toggleLocation = (b) => {
     slide[current].toggles.location = b;

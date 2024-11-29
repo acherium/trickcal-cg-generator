@@ -251,6 +251,10 @@
                     </label>
                 </div>
             </div>
+            <label>
+              <input type="checkbox" id="checkbox-toggle-content">
+              <p>대화창 표시</p>
+            </label>
             <div class="divline-row"></div>
             <h4>대화창 이름</h4>
             <div class="list-row wf">
@@ -365,10 +369,6 @@
                 <input type="range" id="range-scriptbox-opacity" min="0" max="100" step="10" value="0" autocomplete="off">
               </label>
             </div>
-            <label>
-              <input type="checkbox" id="checkbox-toggle-content">
-              <p>표시</p>
-            </label>
             <div class="divline-row"></div>
             <h4>PNG 이미지로 저장(대화창)</h4>
             <button id="button-download-script-box" class="f1 fjcc">
@@ -763,16 +763,22 @@
               </div>
             </div>
           </div>
-          <div id="photo-title-box-area">
+          <div id="photo-title-box-area" class="content-type-0">
             <img src="./assets/images/titlebox.png" id="photo-title-box-backdrop">
             <p id="photo-title">
               <img src="./assets/images/star.svg">
-              <span></span>
+              <span class="photo-title"></span>
             </p>
             <div id="photo-title-box-namearea">
               <span></span>
               <span></span>
             </div>
+          </div>
+          <div id="photo-title-box-area-revamped" class="content-type-1">
+            <img src="./assets/images/film.png" alt="Titlebox-revamped-backdrop" id="film" loading="lazy">
+            <img src="./assets/images/titlebox-revamped.svg" alt="Titlebox-revamped" id="photo-title-box-revamped">
+            <p class="photo-title title"></p>
+            <p class="photo-title outline"></p>
           </div>
           <div id="photo-location-box-area" class="content-type-0">
             <div class="shadow"></div>
@@ -953,7 +959,7 @@
       <div class="slist"></div>
     </div>
   </div>
-  <div id="splash-area">
+  <!-- <div id="splash-area">
     <div id="splash">
       <div class="desc-area">
         2차 창작물에 대한 규정을 준수하시기 바랍니다<br>
@@ -967,7 +973,7 @@
         <p>Build <span class="ver">-</span></p>
       </div>
     </div>
-  </div>
+  </div> -->
   <div id="window-test" class="window" lyra-width="300" lyra-height="500">
     <div class="body">
       <div class="title-bar">

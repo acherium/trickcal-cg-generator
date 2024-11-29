@@ -159,7 +159,7 @@ button { height: max-content; }
   top: 0;
   padding: var(--p);
 
-  height: calc(100% - (var(--i-menu-size) * 2) - (var(--p) * 2) - 4px);
+  height: 100%;
 }
 
 .menu {

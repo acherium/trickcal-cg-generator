@@ -104,6 +104,10 @@
 .float-menu > button.active { background-color: var(--c-accent); }
 .float-menu > .logo { background: no-repeat center center/32px url("../assets/essentials/logo-black.svg"); }
 
+@media screen and (max-width: 1500px) {
+  #menuzone > .wrap { height: calc(100% - (var(--i-menu-size) * 2) - (var(--p) * 2) - 4px); }
+}
+
 @media screen and (max-width: 700px) {
   #menuzone {
     position: absolute;

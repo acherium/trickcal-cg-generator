@@ -11,7 +11,7 @@ import {
     name: "Project Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2019.dev",
+    version: "2020.dev",
     date: "24-11-29",
     watermark: true,
     isBeta: true
@@ -122,7 +122,8 @@ import {
         theme: 0
       },
       namearea: {
-        pos: 1
+        pos: 1,
+        emotion: "none"
       },
       select: {
         theme: 0
@@ -606,6 +607,9 @@ import {
   const selNamepos = $("#select-namearea-position");
   const selNameposOps = $a("#select-namearea-position option");
   const inputName = $("#input-name");
+  const comNameEmotions = $a("#photo-script-box-area-revamped .emotion-wrap");
+  const selNameEmotions = $("#select-namearea-emotion");
+  const selNameEmotionOps = $a("#select-namearea-emotion option");
   const setName = (x) => {
     slide[current].strings.name = x;
     for (const n of comNames) n.innerText = x;
@@ -656,6 +660,15 @@ import {
       };
     };
   };
+  const setNameEmotion = (s) => {
+    slide[current].assetOptions.namearea.emotion = s;
+    for (const n of comNameEmotions) {
+      const classes = Array.from(n.classList).filter((x) => x !== "emotion-wrap");
+      n.classList.remove(classes.length ? classes : null);
+      n.classList.add(s);
+      Array.from(selNameEmotionOps).find((x) => x.value === s).selected = true;
+    };
+  };
   colpicNameRanges.forEach((range) => {
     range.oninput = (e) => {
       const type = range.className.toString().split(/ +/g)[1].trim();
@@ -681,6 +694,10 @@ import {
     setName(x.target.value);
   };
   inputName.onchange = (c) => {
+    refreshThumbnail(current, photozone);
+  };
+  selNameEmotions.onchange = (c) => {
+    setNameEmotion(c.target.value);
     refreshThumbnail(current, photozone);
   };
 
@@ -709,7 +726,8 @@ import {
         item.onclick = () => {
           setNameColor(char[1]);
           if (chkAutoName.checked) setName(char[0]);
-          modalman.reserve["modal-color-preset"].close();
+          // modalman.reserve["modal-color-preset"].close();
+          modalman.reserve["modal-color-preset"].nodes.defaultCloseButton.click();
         };
       };
     };
@@ -1488,6 +1506,7 @@ import {
     setName(x.strings.name);
     setNameColorRGB(x.color.namearea);
     setNamePos(x.assetOptions.namearea.pos);
+    setNameEmotion(x.assetOptions.namearea.emotion);
 
     setContent(x.strings.contentRaw);
 

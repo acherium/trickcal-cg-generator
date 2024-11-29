@@ -11,7 +11,7 @@ import {
     name: "Project Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2018.dev",
+    version: "2019.dev",
     date: "24-11-29",
     watermark: true,
     isBeta: true
@@ -149,9 +149,9 @@ import {
         b: 117
       },
       background: {
-        r: 255,
-        g: 255,
-        b: 255
+        r: 0,
+        g: 0,
+        b: 0
       }
     },
     toggles: {
@@ -161,7 +161,10 @@ import {
       content: true,
       select: false,
       photoButtons: true,
-      boxCenter: false
+      boxCenter: false,
+      borderVignetting: true,
+      borderVignettingHorizontal: true,
+      borderVignettingVertical: true
     },
     thumbnail: ""
   };
@@ -808,6 +811,12 @@ import {
   const chkLoc = $("#checkbox-toggle-location");
   const comContAreas = $a("#photo-script-box-area-revamped > .area, #photo-script-box-area");
   const chkContent = $("#checkbox-toggle-content");
+  const borderVignetting = $("#photo-border-vignetting-wrap");
+  const chkBorderVignetting = $("#checkbox-border-vignetting");
+  const borderVignettingHorizontal = $("#photo-border-vignetting-horizontal");
+  const chkBorderVignettingHorizontal = $("#checkbox-border-vignetting-horizontal");
+  const borderVignettingVertical = $("#photo-border-vignetting-vertical");
+  const chkBorderVignettingVertical = $("#checkbox-border-vignetting-vertical");
   const toggleNamearea = (b) => {
     slide[current].toggles.namearea = b;
     chkName.checked = b;
@@ -838,6 +847,21 @@ import {
     chkContent.checked = b;
     for (const n of comContAreas) n.style["visibility"] = b ? "visible" : "hidden";
   };
+  const toggleBorderVignetting = (b) => {
+    slide[current].toggles.borderVignetting = b;
+    chkBorderVignetting.checked = b;
+    borderVignetting.style["display"] = b ? "block" : "none";
+  };
+  const toggleBorderVignettingHorizontal = (b) => {
+    slide[current].toggles.borderVignettingHorizontal = b;
+    chkBorderVignettingHorizontal.checked = b;
+    borderVignettingHorizontal.style["display"] = b ? "block" : "none";
+  };
+  const toggleBorderVignettingVertical = (b) => {
+    slide[current].toggles.borderVignettingVertical = b;
+    chkBorderVignettingVertical.checked = b;
+    borderVignettingVertical.style["display"] = b ? "block" : "none";
+  };
   chkName.onchange = (c) => {
     toggleNamearea(c.target.checked);
     refreshThumbnail(current, photozone);
@@ -860,6 +884,18 @@ import {
   };
   chkContent.onchange = (c) => {
     toggleContent(c.target.checked);
+    refreshThumbnail(current, photozone);
+  };
+  chkBorderVignetting.onchange = (c) => {
+    toggleBorderVignetting(c.target.checked);
+    refreshThumbnail(current, photozone);
+  };
+  chkBorderVignettingHorizontal.onchange = (c) => {
+    toggleBorderVignettingHorizontal(c.target.checked);
+    refreshThumbnail(current, photozone);
+  };
+  chkBorderVignettingVertical.onchange = (c) => {
+    toggleBorderVignettingVertical(c.target.checked);
     refreshThumbnail(current, photozone);
   };
   
@@ -1472,6 +1508,9 @@ import {
     toggleTitle(x.toggles.title);
     toggleLocation(x.toggles.location);
     toggleContent(x.toggles.content);
+    toggleBorderVignetting(x.toggles.borderVignetting);
+    toggleBorderVignettingHorizontal(x.toggles.borderVignettingHorizontal);
+    toggleBorderVignettingVertical(x.toggles.borderVignettingVertical);
 
     objManager.current = {};
     objLayer.innerHTML = "";

@@ -11,8 +11,8 @@ import {
     name: "Project Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2017.dev",
-    date: "24-11-27",
+    version: "2018.dev",
+    date: "24-11-29",
     watermark: true,
     isBeta: true
   };
@@ -149,9 +149,9 @@ import {
         b: 117
       },
       background: {
-        r: 0,
-        g: 0,
-        b: 0
+        r: 255,
+        g: 255,
+        b: 255
       }
     },
     toggles: {

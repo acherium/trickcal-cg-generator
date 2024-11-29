@@ -240,7 +240,7 @@
   width: max-content;
   height: 100%;
 
-  border-radius: 8px;
+  border-radius: 20px 20px 10px 10px;
 }
 #theme-0 > .namearea > div > p,
 #theme-1 > .namearea > div > p,

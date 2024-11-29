@@ -11,7 +11,7 @@ import {
     name: "Project Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2023",
+    version: "2023.1",
     date: "24-11-29",
     watermark: false,
     isBeta: false
@@ -2354,7 +2354,6 @@ import {
     const cp = $a(".color-preset-item", presetList);
     if (cp[pid+i]) {
       cp[pid+i].click();
-      slide[current].assetOptions.namearea.reservedPreset += i;
       setTimeout(() => inputQuick.focus());
       
       for (const n of quickIndex) {

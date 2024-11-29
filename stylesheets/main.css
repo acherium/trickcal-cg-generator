@@ -7,6 +7,9 @@
   --c-accent: oklch(73.2% 0.16 31.9);
   --c-border: oklch(90% 0.01 317);
   --c-green: rgb(117, 153, 45);
+  --c-lightgreen: rgb(150, 201, 97);
+  --c-deepgreen: rgb(35, 117, 38);
+  --c-lime: rgb(250, 255, 214);
   --c-lightgreen: rgb(219, 237, 167);
   --c-backgroundgreen: rgb(239, 245, 219);
   --c-sub: rgb(239, 233, 241);

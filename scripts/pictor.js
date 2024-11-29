@@ -11,10 +11,10 @@ import {
     name: "Project Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2020.dev",
+    version: "2021",
     date: "24-11-29",
-    watermark: true,
-    isBeta: true
+    watermark: false,
+    isBeta: false
   };
 
   // 메뉴 접기/펼치기 기능 초기화
@@ -803,11 +803,11 @@ import {
   };
 
   // 위치 표시기 기능
-  const loc = $("#photo-location");
+  const loc = $a(".photo-location");
   const inputLoc = $("#input-location");
   const setLocation = (s) => {
     slide[current].strings.location = s;
-    loc.innerText = s;
+    for (const n of loc) n.innerHTML = s.split("").map((x) => `<span>${x}</span>`).join("");
     inputLoc.value = s;
   };
   inputLoc.oninput = (c) => {
@@ -825,7 +825,7 @@ import {
   const chkPhotoBtn = $("#checkbox-toggle-photo-button");
   const titleArea = $("#photo-title-box-area");
   const chkTitle = $("#checkbox-toggle-title");
-  const locArea = $("#photo-location-box-area");
+  const locAreas = $a("#photo-location-box-area, #photo-location-box-area-revamped");
   const chkLoc = $("#checkbox-toggle-location");
   const comContAreas = $a("#photo-script-box-area-revamped > .area, #photo-script-box-area");
   const chkContent = $("#checkbox-toggle-content");
@@ -858,7 +858,7 @@ import {
   const toggleLocation = (b) => {
     slide[current].toggles.location = b;
     chkLoc.checked = b;
-    locArea.style["display"] = b ? "flex" : "none";
+    for (const n of locAreas) n.style["display"] = b ? "flex" : "none";
   };
   const toggleContent = (b) => {
     slide[current].toggles.content = b;

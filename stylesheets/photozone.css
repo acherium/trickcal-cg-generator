@@ -100,22 +100,22 @@
   content: "";
 }
 #photo-border-vignetting-horizontal::before {
-  top: 0;
+  top: -1px;
 
   background: linear-gradient(180deg, var(--c-black), transparent);
 }
 #photo-border-vignetting-horizontal::after {
-  bottom: 0;
+  bottom: -1px;
 
   background: linear-gradient(0deg, var(--c-black), transparent);
 }
 #photo-border-vignetting-vertical::before {
-  left: 0;
+  left: -1px;
 
   background: linear-gradient(90deg, var(--c-black), transparent);
 }
 #photo-border-vignetting-vertical::after {
-  right: 0;
+  right: -1px;
 
   background: linear-gradient(270deg, var(--c-black), transparent);
 }
@@ -424,6 +424,7 @@
   display: grid;
   place-items: center;
   place-self: end;
+  bottom: -1px;
 
   width: 100%;
   height: 90%;

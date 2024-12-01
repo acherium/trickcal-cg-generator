@@ -20,6 +20,7 @@
   <link rel="stylesheet" href="./stylesheets/splash.css">
   <link rel="stylesheet" href="./stylesheets/misc.css">
   <link rel="stylesheet" href="./stylesheets/menu.css">
+  <link rel="stylesheet" href="./stylesheets/resource-gallery.css">
 
   <script type="module" src="./lyra/lyra-style-init.js"></script>
   <script src="./scripts/html2canvas-pro.min.js"></script>
@@ -388,6 +389,7 @@
           </div>
           <div class="wrap">
             <h4>개체</h4>
+            <button class="button-resource-gallery wf fjcc"><div class="i i-gallery"></div><p>리소스 갤러리</p></button>
             <div class="list-row wf">
               <button id="button-add-image" class="f1 fjcc"><div class="i i-plus"></div><p>사진</p></button>
               <button id="button-add-dialogue" class="f1 fjcc"><div class="i i-plus"></div><p>말풍선</p></button>
@@ -447,15 +449,17 @@
       <div class="wrap">
         <div id="menu-main" class="float-menu">
           <button class="toggle-menu toggle-menu-about logo" data-menu="menu-about" data-menu-tip="앱 정보" data-menu-shortcut="H"></button>
-          <div class="partition"></div>
-          <button class="button-search" data-menu-tip="대사 검색" data-menu-shortcut="Space"><div class="i i-search"></div></button>
           <button class="button-download-onmenu" data-menu-tip="현재 슬라이드 저장" data-menu-shortcut="K"><div class="i i-download"></div></button>
           <div class="partition"></div>
           <button class="toggle-menu toggle-menu-doc" data-menu="menu-doc" data-menu-tip="문서 및 출력" data-menu-shortcut="A"><div class="i i-document"></div></button>
           <button class="toggle-menu toggle-menu-slide" data-menu="menu-slide" data-menu-tip="슬라이드" data-menu-shortcut="S"><div class="i i-slide"></div></button>
-          <button class="toggle-menu toggle-menu-scriptbox" data-menu="menu-scriptbox" data-menu-tip="대화창" data-menu-shortcut="D"><div class="i i-star5"></div></button>
+          <button class="toggle-menu toggle-menu-scriptbox" data-menu="menu-scriptbox" data-menu-tip="대화창" data-menu-shortcut="D"><div class="i i-dialogue"></div></button>
           <button class="toggle-menu toggle-menu-elements" data-menu="menu-elements" data-menu-tip="배경 및 요소" data-menu-shortcut="F"><div class="i i-config"></div></button>
           <button class="toggle-menu toggle-menu-object" data-menu="menu-object" data-menu-tip="개체" data-menu-shortcut="G"><div class="i i-layer"></div></button>
+        </div>
+        <div id="menu-misc" class="float-menu">
+          <button class="button-search" data-menu-tip="대사 검색" data-menu-shortcut="Space"><div class="i i-search"></div></button>
+          <button class="button-resource-gallery" data-menu-tip="리소스 갤러리" data-menu-shortcut="\"><div class="i i-gallery"></div></button>
         </div>
         <div id="menu-zoom" class="float-menu">
           <button class="button-zoom-out" data-menu-tip="축소" data-menu-shortcut="-"><div class="i i-minus"></div></button>
@@ -941,6 +945,48 @@
       </div>
     </div>
   </div>
+  <div id="modal-resource-gallery" class="modal">
+    <div class="bg"></div>
+    <div class="body">
+      <div class="title">
+        <div class="icon il i-gallery"></div>
+        <h1>리소스 갤러리</h1>
+      </div>
+      <div class="content">
+        <div class="divline-row"></div>
+        <div id="resource-gallery">
+          <div class="resource-gallery-subdiv">
+            <p>이미지 리소스</p>
+            <div id="rg-image" class="item">
+              <img src="./assets/images/thumbnail-image.svg" alt="Thumbnail" class="thumbnail">
+              <p class="name">이미지</p>
+            </div>
+          </div>
+          <div class="resource-gallery-subdiv">
+            <p>기본 리소스</p>
+            <div id="rg-scriptbox" class="item">
+              <img src="./assets/images/thumbnail-scriptbox.svg" alt="Thumbnail" class="thumbnail">
+              <p class="name">대화창</p>
+            </div>
+            <div id="rg-dialogue" class="item">
+              <img src="./assets/images/thumbnail-dialogue.svg" alt="Thumbnail" class="thumbnail">
+              <p class="name">말풍선</p>
+            </div>
+            <div id="rg-sticker" class="item">
+              <img src="./assets/images/thumbnail-sticker.svg" alt="Thumbnail" class="thumbnail">
+              <p class="name">스티커</p>
+            </div>
+          </div>
+          <div class="resource-gallery-subdiv">
+            <p>필터</p>
+          </div>
+        </div>
+      </div>
+      <div class="controller">
+        <button class="close"></button>
+      </div>
+    </div>
+  </div>
   <div id="alert-downloading" class="alert" style="display: none;">
     <h3>저장중입니다</h3>
   </div>
@@ -1007,11 +1053,12 @@
         <h1>테스트 기능</h1>
         <p>테스트용 기능을 조작할 수 있습니다.</p>
         <div class="divline-row"></div>
-        <div class="list-column">
+        <div class="list-column fais">
           <label>
             <input type="checkbox" id="test-checkbox-activate-old-menu" autocomplete="off">
             <span>구형 메뉴바 활성화</span>
           </label>
+          <button class="button-resource-gallery"><p>리소스 갤러리 열기</p></button>
         </div>
       </div>
     </div>

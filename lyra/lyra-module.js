@@ -232,6 +232,7 @@ export class LyraModal {
       if (this._closeButtonIndex > -1) {
         this.nodes.buttons.splice(this._closeButtonIndex, 0, this.nodes.defaultCloseButton);
         this.nodes.buttons = this.nodes.buttons.filter((x) => x.classList.contains("close") ? x.remove() : x).filter((x) => x);
+        this.nodes.defaultCloseButton.classList.add("close");
       };
 
       // this.nodes.bg.addEventListener("click", () => this.close());

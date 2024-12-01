@@ -11,10 +11,10 @@ import {
     name: "Project Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2024.2",
-    date: "24-11-29",
-    watermark: false,
-    isBeta: false
+    version: "2025.dev",
+    date: "24-12-2",
+    watermark: true,
+    isBeta: true
   };
 
   // 메뉴 접기/펼치기 기능 초기화
@@ -977,6 +977,25 @@ import {
 
     contBar.style["display"] = "none";
   };
+  const callImageUploader = (i) => {
+    uploader.multiple = true;
+    uploader.onchange = (f) => {
+      uploader.multiple = null;
+      Array.from(f.target.files).forEach((file) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+          const $img = new Image();
+          $img.src = reader.result;
+          $img.onload = () => {
+            addObject(i, "image", { name: file.name, image: $img });
+            refreshThumbnail(i, photozone);
+          };
+        };
+      });
+    };
+    uploader.click();
+  };
   const addObject = (sid, t, params = {}, origin = null) => {
     const tslide = slide[sid];
     if (!tslide) return null;
@@ -1269,6 +1288,8 @@ import {
       objLayer.append(res.assets.body);
       objList.append(res.assets.label);
     };
+
+    selectItem(res.uid);
     return res;
   };
   const addObjectIterable = (a) => {
@@ -1870,23 +1891,7 @@ import {
   const btnAddSticker = $("#button-add-sticker");
   const btnResetImage = $("#button-reset-image");
   btnAddImage.onclick = () => {
-    uploader.multiple = true;
-    uploader.onchange = (f) => {
-      uploader.multiple = null;
-      Array.from(f.target.files).forEach((file) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => {
-          const $img = new Image();
-          $img.src = reader.result;
-          $img.onload = () => {
-            addObject(current, "image", { name: file.name, image: $img });
-            refreshThumbnail(current, photozone);
-          };
-        };
-      });
-    };
-    uploader.click();
+    callImageUploader(current);
   };
   btnAddDialogue.onclick = () => {
     addObject(current, "dialogue");
@@ -2386,6 +2391,43 @@ import {
     };
   });
 
+  // 리소스 갤러리 기능
+  const btnsGallery = $a(".button-resource-gallery");
+  const gallery = modalman.reserve["modal-resource-gallery"];
+  const gbtnImage = $("#rg-image", gallery.nodes.main);
+  const gbtnSbox = $("#rg-scriptbox", gallery.nodes.main);
+  const gbtnDialogue = $("#rg-dialogue", gallery.nodes.main);
+  const gbtnSticker = $("#rg-sticker", gallery.nodes.main);
+  const btnCloseGallery = $("button.close", gallery.nodes.main);
+  for (const btn of btnsGallery) {
+    btn.onclick = () => {
+      gallery.show();
+    };
+  };
+  gbtnImage.onclick = () => {
+    unselectItem();
+    callImageUploader(current);
+    btnCloseGallery.click();
+  };
+  gbtnSbox.onclick = () => {
+    unselectItem();
+    addObject(current, "dialogue");
+    refreshThumbnail(current, photozone);
+    btnCloseGallery.click();
+  };
+  gbtnDialogue.onclick = () => {
+    unselectItem();
+    addObject(current, "dialogue");
+    refreshThumbnail(current, photozone);
+    btnCloseGallery.click();
+  };
+  gbtnSticker.onclick = () => {
+    unselectItem();
+    addObject(current, "sticker");
+    refreshThumbnail(current, photozone);
+    btnCloseGallery.click();
+  };
+
   // 메뉴바 툴팁 기능
   const menuTip = $("#float-menu-area .tip");
   document.addEventListener("mousemove", (e) => {
@@ -2436,6 +2478,10 @@ import {
       else if (e.code === "Enter") {
         toggleQuick();
       }
+      // 리소스 갤러리
+      else if (e.code === "Backslash") {
+        gallery.show();
+      }
       // 슬라이드 이동
       else if (e.code === "PageUp") {
         setSlide(current-1);
@@ -2447,11 +2493,12 @@ import {
         setSlide(Object.keys(slide).length-1);
       };
     };
-    // 메뉴 닫기
-    if (e.code === "Escape" && (currentMenu !== null || search.checkVisibility() || quick.checkVisibility())) {
-      Array.from(tglMenus).find((x) => x.dataset.menu === currentMenu)?.click();
-      search.style["display"] = "none";
-      quick.style["display"] = "none";
+    // 메뉴 닫기 & 선택 취소
+    if (e.code === "Escape") {
+      if (search.checkVisibility()) search.style["display"] = "none";
+      else if (quick.checkVisibility()) quick.style["display"] = "none";
+      else if (objManager.selected !== null) unselectItem();
+      else if (currentMenu !== null) Array.from(tglMenus).find((x) => x.dataset.menu === currentMenu)?.click();
     };
   });
 

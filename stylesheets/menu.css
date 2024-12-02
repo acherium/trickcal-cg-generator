@@ -104,6 +104,10 @@
 .float-menu > button.active { background-color: var(--c-accent); }
 .float-menu > .logo { background: no-repeat center center/32px url("../assets/essentials/logo-black.svg"); }
 
+#i-image { background-image: url("../assets/images/thumbnail-image.svg"); }
+#i-dialogue { background-image: url("../assets/images/thumbnail-dialogue.svg"); }
+#i-sticker { background-image: url("../assets/images/thumbnail-sticker.svg"); }
+
 @media screen and (max-width: 1500px) {
   #menuzone > .wrap { height: calc(100% - (var(--i-menu-size) * 2) - (var(--p) * 2) - 4px); }
 }

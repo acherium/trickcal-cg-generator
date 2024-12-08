@@ -1177,71 +1177,12 @@ span.tm-b {
   cursor: ew-resize;
 }
 
-/* 컨트롤러 바 */
-/* #controller-bar {
+#photo-border {
   position: absolute;
-  bottom: 0;
-  padding: var(--p);
-  z-index: 1;
+  z-index: 8;
 
-  max-width: 100%;
-  width: max-content;
+  width: calc(100%);
+  height: calc(100%);
 
-  border-top: solid 1px var(--c-border);
-  border-left: solid 1px var(--c-border);
-  border-right: solid 1px var(--c-border);
-  border-radius: var(--r-medium) var(--r-medium) 0 0;
-  background-color: var(--c-main);
-}
-#controller-bar > .wrap {
-  display: flex;
-  width: max-content;
-}
-
-#controller-bar > .wrap > button { background-color: transparent; }
-
-#controller-bar > .wrap > .partition {
-  margin: 0 var(--m-large);
-
-  width: 1px;
-  height: 44px;
-
-  background-color: var(--c-button);
-} */
-
-/* 화면 컨트롤러 바 */
-#viewport-bar {
-  position: absolute;
-  top: 0;
-  padding: var(--p);
-  z-index: 1;
-  
-  max-width: 100%;
-  width: max-content;
-
-  border-bottom: solid 1px var(--c-border);
-  border-left: solid 1px var(--c-border);
-  border-right: solid 1px var(--c-border);
-  border-radius: 0 0 var(--r-medium) var(--r-medium);
-  background-color: var(--c-main);
-}
-#viewport-bar > .wrap {
-  display: flex;
-  width: max-content;
-}
-
-#viewport-bar > .wrap > button { background-color: transparent; }
-
-@media screen and (max-width: 700px) {
-  /* 컨트롤러 바 */
-  /* #controller-bar {
-    display: absolute;
-    overflow-x: scroll;
-
-    width: 100dvw;
-
-    border-left: unset;
-    border-right: unset;
-    border-radius: unset;
-  } */
+  outline: dashed 5px var(--c-accent);
 }

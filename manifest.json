@@ -6,7 +6,7 @@
   "start_url": "/trickcal-cg-generator/",
   "name": "트릭컬 스토리 대화창 생성기",
   "short_name": "트릭컬 CG 생성기",
-  "description": "모바일 게임 《트릭컬: 리바이브》의 인게임 스토리에서의 대화창 및 CG 씬과 유사한 규격의 이미지를 쉽게 제작하도록 돕는 웹기반 어플리케이션입니다.",
+  "description": "모바일 게임 '트릭컬: 리바이브'의 인게임 스토리에서의 대화창 및 CG 씬과 유사한 규격의 이미지를 쉽게 제작하도록 돕는 웹기반 어플리케이션입니다.",
   "icons": [
     {
       "src": "/trickcal-cg-generator/pwa/icons/maskable.png",

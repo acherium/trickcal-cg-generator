@@ -11,8 +11,8 @@ import {
     name: "Project Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2026",
-    date: "24-12-2",
+    version: "2027",
+    date: "24-12-8",
     watermark: false,
     isBeta: false
   };
@@ -2516,5 +2516,8 @@ import {
   });
   $("#test-checkbox-activate-old-menu", winman.reserve["window-test"].nodes.main).onchange = (e) => {
     $("#menu-list").style["display"] = e.target.checked ? "flex" : "none";
+  };
+  $("#test-checkbox-activate-script-box-type", winman.reserve["window-test"].nodes.main).onchange = (e) => {
+    $("#container-script-box-type").style["display"] = e.target.checked ? "flex" : "none";
   };
 })();

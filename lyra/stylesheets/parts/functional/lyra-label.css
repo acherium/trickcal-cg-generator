@@ -1,8 +1,8 @@
 @charset "UTF-8";
 input[type=checkbox], input[type=radio] { display: none; }
 
-label:has(input[type=checkbox]),
-label:has(input[type=radio]) {
+label:has(input[type=checkbox]):not(:has(.toggle)),
+label:has(input[type=radio]):not(:has(.toggle)) {
   display: flex;
   position: relative;
   align-items: center;
@@ -14,15 +14,15 @@ label:has(input[type=radio]) {
   width: fit-content;
   height: fit-content;
 }
-label:has(input[type=checkbox]) *,
-label:has(input[type=radio]) * {
+label:has(input[type=checkbox]):not(:has(.toggle)) *,
+label:has(input[type=radio]):not(:has(.toggle)) * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-label:has(input[type=checkbox])::before,
-label:has(input[type=radio])::before {
+label:has(input[type=checkbox]):not(:has(.toggle))::before,
+label:has(input[type=radio]):not(:has(.toggle))::before {
   box-sizing: border-box;
 
   width: 20px;
@@ -32,34 +32,110 @@ label:has(input[type=radio])::before {
   content: "";
 }
 
-label:has(input[type=checkbox])::before { border-radius: var(--r); }
-label:has(input[type=radio])::before { border-radius: 10px; }
+label:has(input[type=checkbox]):not(:has(.toggle))::before { border-radius: var(--r); }
+label:has(input[type=radio]):not(:has(.toggle))::before { border-radius: 10px; }
 
-label:has(input[type=checkbox]:not(:disabled)),
-label:has(input[type=radio]:not(:disabled)) { cursor: pointer; }
+label:has(input[type=checkbox]:not(:disabled)):not(:has(.toggle)),
+label:has(input[type=radio]:not(:disabled)):not(:has(.toggle)) { cursor: pointer; }
 
-label:has(input[type=checkbox]:not(:disabled))::before,
-label:has(input[type=radio]:not(:disabled))::before {
+label:has(input[type=checkbox]:not(:disabled)):not(:has(.toggle))::before,
+label:has(input[type=radio]:not(:disabled)):not(:has(.toggle))::before {
   transition: border var(--t-transition) linear;
   will-change: border;
 }
 
-label:has(input[type=checkbox]:not(:disabled))::before { border-radius: var(--r); }
+label:has(input[type=checkbox]:not(:disabled)):not(:has(.toggle))::before { border-radius: var(--r); }
 
-label:has(input[type=radio]:not(:disabled))::before { border: solid 2px var(--c-checkbox-border); }
+label:has(input[type=radio]:not(:disabled)):not(:has(.toggle))::before { border: solid 2px var(--c-checkbox-border); }
 
-label:has(input[type=checkbox]:not(:disabled)):hover::before,
-label:has(input[type=radio]:not(:disabled)):hover::before { border-color: var(--c-accent); }
+label:has(input[type=checkbox]:not(:disabled)):not(:has(.toggle)):hover::before,
+label:has(input[type=radio]:not(:disabled)):not(:has(.toggle)):hover::before { border-color: var(--c-accent); }
 
-label:has(input[type=checkbox]:not(:disabled):checked)::before { border: solid 6px var(--c-accent); }
+label:has(input[type=checkbox]:not(:disabled):checked):not(:has(.toggle))::before { border: solid 6px var(--c-accent); }
 
-label:has(input[type=radio]:not(:disabled):checked)::before { border: solid 6px var(--c-accent); }
+label:has(input[type=radio]:not(:disabled):checked):not(:has(.toggle))::before { border: solid 6px var(--c-accent); }
 
-label:has(input[type=checkbox]:disabled),
-label:has(input[type=radio]:disabled) { opacity: 0.5; }
+label:has(input[type=checkbox]:disabled):not(:has(.toggle)),
+label:has(input[type=radio]:disabled):not(:has(.toggle)) { opacity: 0.5; }
 
-label:has(input[type=checkbox]:disabled),
-label:has(input[type=radio]:disabled) { cursor: no-drop; }
+label:has(input[type=checkbox]:disabled):not(:has(.toggle)),
+label:has(input[type=radio]:disabled):not(:has(.toggle)) { cursor: no-drop; }
 
-label:has(input[type=checkbox]:disabled)::before,
-label:has(input[type=radio]:disabled)::before { background-color: var(--c-checkbox-border); }
+label:has(input[type=checkbox]:disabled):not(:has(.toggle))::before,
+label:has(input[type=radio]:disabled):not(:has(.toggle))::before { background-color: var(--c-checkbox-border); }
+
+label:has(input[type=checkbox]):has(.toggle),
+label:has(input[type=radio]):has(.toggle) {
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--m);
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+  width: fit-content;
+  height: fit-content;
+
+  cursor: pointer;
+}
+label:has(input[type=checkbox]):has(.toggle) *,
+label:has(input[type=radio]):has(.toggle) * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+label:has(input[type=checkbox]):has(.toggle) .toggle,
+label:has(input[type=radio]):has(.toggle) .toggle {
+  display: flex;
+  position: relative;
+  padding: var(--p-tiny);
+
+  width: 50px;
+  height: 30px;
+
+  border: solid 2px var(--c-checkbox-border);
+  border-radius: 15px;
+
+  transition: all ease-in-out var(--t-transition);
+}
+label:has(input[type=checkbox]):has(.toggle) .toggle::before,
+label:has(input[type=radio]):has(.toggle) .toggle::before {
+  position: relative;
+  margin-left: 0;
+
+  height: 100%;
+  aspect-ratio: 1/1;
+
+  border-radius: 50%;
+  background-color: var(--c-checkbox-border);
+  content: "";
+
+  transition: all ease-in-out var(--t-transition);
+}
+
+label:has(input[type=checkbox]:checked):has(.toggle) .toggle,
+label:has(input[type=radio]:checked):has(.toggle) .toggle {
+  border-color: var(--c-accent);
+  background-color: var(--c-accent);
+}
+label:has(input[type=checkbox]:checked):has(.toggle) .toggle::before,
+label:has(input[type=radio]:checked):has(.toggle) .toggle::before {
+  margin-left: auto;
+
+  background-color: var(--c-main);
+}
+
+label:has(input[type=checkbox]:not(:disabled):not(:checked)):has(.toggle):hover .toggle,
+label:has(input[type=radio]:not(:disabled):not(:checked)):has(.toggle):hover .toggle { border-color: var(--c-accent); }
+
+label:has(input[type=checkbox]:not(:disabled):not(:checked)):has(.toggle):hover .toggle::before,
+label:has(input[type=radio]:not(:disabled):not(:checked)):has(.toggle):hover .toggle::before { background-color: var(--c-accent); }
+
+label:has(input[type=checkbox]:disabled):has(.toggle),
+label:has(input[type=radio]:disabled):has(.toggle) { opacity: 0.5; }
+
+label:has(input[type=checkbox]:disabled):has(.toggle),
+label:has(input[type=radio]:disabled):has(.toggle) { cursor: no-drop; }

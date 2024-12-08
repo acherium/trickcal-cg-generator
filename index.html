@@ -172,11 +172,16 @@
             </div>
             <div class="divline-row"></div>
             <h4>배경 모서리 비네팅</h4>
-            <label><input type="checkbox" id="checkbox-border-vignetting" autocomplete="off" checked>배경 모서리 비네팅 활성화</label>
-            <label><input type="checkbox" id="checkbox-border-vignetting-horizontal" autocomplete="off" checked>상하 비네팅</label>
-            <label><input type="checkbox" id="checkbox-border-vignetting-vertical" autocomplete="off" checked>좌우 비네팅</label>
+            <label class="wf"><input type="checkbox" id="checkbox-border-vignetting" autocomplete="off" checked>배경 모서리 비네팅 활성화<div class="toggle"></div></label>
+            <label class="wf"><input type="checkbox" id="checkbox-border-vignetting-horizontal" autocomplete="off" checked>상하 비네팅<div class="toggle"></div></label>
+            <label class="wf"><input type="checkbox" id="checkbox-border-vignetting-vertical" autocomplete="off" checked>좌우 비네팅<div class="toggle"></div></label>
             <div class="divline-row"></div>
             <h4>선택지</h4>
+            <label class="wf">
+                <input type="checkbox" id="checkbox-toggle-select">
+                <p>선택 목록 표시</p>
+                <div class="toggle"></div>
+            </label>
             <div class="list-row wf">
               <label class="f1"><p>1</p><input type="text" id="select-option-0" class="select-option modal-input-text wf f1"></label>
               <button class="button-download-select" data-target="0"><div class="i i-download"></div></button>
@@ -198,12 +203,13 @@
                 </select>
               </div>
             </div>
-            <label>
-                <input type="checkbox" id="checkbox-toggle-select">
-                <p>선택 목록 표시</p>
-            </label>
             <div class="divline-row"></div>
             <h4>제목 표시기</h4>
+            <label id="toggle-title" class="wf">
+                <input type="checkbox" id="checkbox-toggle-title">
+                <p>제목 표시기 표시</p>
+                <div class="toggle"></div>
+            </label>
             <label class="f1 wf">
                 <p>제목</p>
                 <input type="text" id="input-title-name" class="f1 wf">
@@ -212,25 +218,23 @@
                 <p>내용</p>
                 <input type="text" id="input-title-content" class="f1 wf">
             </label>
-            <label id="toggle-title">
-                <input type="checkbox" id="checkbox-toggle-title">
-                <p>제목 표시기 표시</p>
-            </label>
             <div class="divline-row"></div>
             <h4>위치 표시기</h4>
+            <label id="toggle-location" class="wf">
+              <input type="checkbox" id="checkbox-toggle-location">
+              <p>위치 표시기 표시</p>
+              <div class="toggle"></div>
+            </label>
             <label class="f1 wf">
               <p>위치</p>
               <input type="text" id="input-location" class="f1 wf">
             </label>
-            <label id="toggle-location">
-              <input type="checkbox" id="checkbox-toggle-location">
-              <p>위치 표시기 표시</p>
-            </label>
             <div class="divline-row"></div>
             <h4>조작기</h4>
-            <label id="toggle-photo-button">
+            <label id="toggle-photo-button" class="wf">
               <input type="checkbox" id="checkbox-toggle-photo-button">
               <p>조작기 표시</p>
+              <div class="toggle"></div>
             </label>
           </div>
         </div>
@@ -240,25 +244,34 @@
             <button class="close"><div class="i i-deny"></div></button>
           </div>
           <div class="wrap">
-            <h4>대화창 모드</h4>
-            <div id="script-box-type" class="list listbox wf">
-                <div class="list-column wf">
-                    <label class="wf fjcs">
-                        <input type="radio" name="script-box-type" value="0">
-                        구형: 구 테마극장 스타일
-                    </label>
-                    <label class="wf fjcs">
-                        <input type="radio" name="script-box-type" value="1">
-                        신규: 개편 업데이트 이후 테마극장 스타일
-                    </label>
-                </div>
-            </div>
-            <label>
+            <label class="wf f1">
               <input type="checkbox" id="checkbox-toggle-content">
               <p>대화창 표시</p>
+              <div class="toggle"></div>
             </label>
             <div class="divline-row"></div>
+            <div id="container-script-box-type" class="list-column wf fais" style="display:none;">
+              <h4>대화창 모드</h4>
+              <div id="script-box-type" class="list listbox wf">
+                  <div class="list-column wf">
+                      <label class="wf fjcs">
+                          <input type="radio" name="script-box-type" value="0">
+                          구형: 구 테마극장 스타일
+                      </label>
+                      <label class="wf fjcs">
+                          <input type="radio" name="script-box-type" value="1">
+                          신규: 개편 업데이트 이후 테마극장 스타일
+                      </label>
+                  </div>
+              </div>
+              <div class="divline-row"></div>
+            </div>
             <h4>대화창 이름</h4>
+            <label class="wf">
+              <input type="checkbox" id="checkbox-toggle-namearea">
+              <p>이름표 표시</p>
+              <div class="toggle"></div>
+            </label>
             <div class="list-row wf">
               <label class="wf f1">
                 <p>이름</p>
@@ -312,10 +325,6 @@
                 <option value="idea">아이디어</option>
               </select>
             </div>
-            <label>
-              <input type="checkbox" id="checkbox-toggle-namearea">
-              <p>이름표 표시</p>
-            </label>
             <div class="divline-row"></div>
             <h4>대화창 내용</h4>
             <textarea id="input-content" class="input-content wf"></textarea>
@@ -1055,11 +1064,18 @@
         <h1>테스트 기능</h1>
         <p>테스트용 기능을 조작할 수 있습니다.</p>
         <div class="divline-row"></div>
-        <div class="list-column fais">
-          <label>
+        <div class="list-column fais wf">
+          <label class="wf">
             <input type="checkbox" id="test-checkbox-activate-old-menu" autocomplete="off">
             <span>구형 메뉴바 활성화</span>
+            <div class="toggle"></div>
           </label>
+          <label class="wf">
+            <input type="checkbox" id="test-checkbox-activate-script-box-type" autocomplete="off">
+            <span>대화창 모드 전환 활성화</span>
+            <div class="toggle"></div>
+          </label>
+          <div class="divline-row"></div>
           <button class="button-resource-gallery"><p>리소스 갤러리 열기</p></button>
         </div>
       </div>

@@ -143,6 +143,7 @@
               <button id="button-set-bg" class="f1 fjcc"><div class="i i-plus"></div><p>설정</p></button>
               <button id="button-remove-bg" class="f1 fjcc"><div class="i i-trash"></div><p>제거</p></button>
             </div>
+            <button id="button-modal-colorpicker-bg" class="wf fjcc"><div class="i i-palette"></div><p>색상 선택기 열기</p></button>
             <div class="list-row wf">
               <p>맞춤</p>
               <select id="select-bg-fit" class="wf f1">
@@ -154,22 +155,6 @@
             </div>
             <div class="divline-row"></div>
             <h4>배경 색상</h4>
-            <div id="colorpicker-bg" class="colorpicker">
-              <div class="left colorpicker-preview">
-                <p class="colorpicker-preview-value">#FFFFFF<br>255, 255, 255</p>
-              </div>
-              <div class="right">
-                <p>R</p>
-                <label class="colorpicker-range colorpicker-r-revamped"><input type="range" min="0" max="255" step="1" value="0" id="colorpicker-bg-r" class="colorpicker-range-input r"></label>
-                <input type="number" class="colorpicker-input colorpicker-input-r">
-                <p>G</p>
-                <label class="colorpicker-range colorpicker-g-revamped"><input type="range" min="0" max="255" step="1" value="0" id="colorpicker-bg-g" class="colorpicker-range-input g"></label>
-                <input type="number" class="colorpicker-input colorpicker-input-g">
-                <p>B</p>
-                <label class="colorpicker-range colorpicker-b-revamped"> <input type="range" min="0" max="255" step="1" value="0" id="colorpicker-bg-b" class="colorpicker-range-input b"></label>
-                <input type="number" class="colorpicker-input colorpicker-input-b">
-              </div>
-            </div>
             <div class="divline-row"></div>
             <h4>배경 모서리 비네팅</h4>
             <label class="wf"><input type="checkbox" id="checkbox-border-vignetting" autocomplete="off" checked>배경 모서리 비네팅 활성화<div class="toggle"></div></label>
@@ -249,6 +234,13 @@
               <p>대화창 표시</p>
               <div class="toggle"></div>
             </label>
+            <button id="button-download-script-box" class="wf fjcc">
+              <div class="i i-download"></div>
+              <p>PNG로 저장(대화창)</p>
+            </button>
+            <div class="list-row fjcc wf">
+              <span><small>Powered by <a href="https://github.com/yorickshan/html2canvas-pro" target="_blank">html2canvas-pro</a></small></span>
+            </div>
             <div class="divline-row"></div>
             <div id="container-script-box-type" class="list-column wf fais" style="display:none;">
               <h4>대화창 모드</h4>
@@ -266,7 +258,7 @@
               </div>
               <div class="divline-row"></div>
             </div>
-            <h4>대화창 이름</h4>
+            <h4>이름표</h4>
             <label class="wf">
               <input type="checkbox" id="checkbox-toggle-namearea">
               <p>이름표 표시</p>
@@ -277,24 +269,9 @@
                 <p>이름</p>
                 <input type="text" id="input-name" class="wf f1">
               </label>
-              <button id="button-color-preset" class="wfc fjcc"><div class="i i-palette"></div><p>사도 색상표</p></button>
+              <button class="button-color-preset" class="wfc fjcc"><div class="i i-palette"></div><p>사도 색상표</p></button>
             </div>
-            <div id="colorpicker-namearea" class="colorpicker">
-              <div class="left colorpicker-preview">
-                <p class="colorpicker-preview-value">#FFFFFF<br>255, 255, 255</p>
-              </div>
-              <div class="right">
-                <p>R</p>
-                <label class="colorpicker-range colorpicker-r-revamped"><input type="range" min="0" max="255" step="1" value="238" id="colorpicker-namearea-r" class="colorpicker-range-input r"></label>
-                <input type="number" class="colorpicker-input colorpicker-input-r">
-                <p>G</p>
-                <label class="colorpicker-range colorpicker-g-revamped"><input type="range" min="0" max="255" step="1" value="195" id="colorpicker-namearea-g" class="colorpicker-range-input g"></label>
-                <input type="number" class="colorpicker-input colorpicker-input-g">
-                <p>B</p>
-                <label class="colorpicker-range colorpicker-b-revamped"><input type="range" min="0" max="255" step="1" value="117" id="colorpicker-namearea-b" class="colorpicker-range-input b"></label>
-                <input type="number" class="colorpicker-input colorpicker-input-b">
-              </div>
-            </div>
+            <button id="button-modal-colorpicker-namearea" class="wf fjcc"><div class="i i-palette"></div><p>색상 선택기 열기</p></button>
             <div class="list-row content-type-1 wf">
               <p>위치</p>
               <select id="select-namearea-position" class="f1">
@@ -326,11 +303,11 @@
               </select>
             </div>
             <div class="divline-row"></div>
-            <h4>대화창 내용</h4>
+            <h4>내용</h4>
             <textarea id="input-content" class="input-content wf"></textarea>
             <button class="button-markdown-help wfc fjcc"><div class="i i-notification"></div><p>마크다운 문법 도움말</p></button>
             <div class="divline-row"></div>
-            <h4>대화창 형태</h4>
+            <h4>형태</h4>
             <div class="list-column content-type-0 wf">
               <div id="script-box-position" class="list-column listbox wf f1 fais">
                 <h4>위치</h4>
@@ -377,17 +354,8 @@
             <div class="list-row content-type-1 wf">
               <p>투명도</p>
               <label class="wf f1">
-                <input type="range" id="range-scriptbox-opacity" min="0" max="100" step="10" value="0" autocomplete="off">
+                <input type="range" id="range-scriptbox-opacity" min="0" max="100" step="10" value="100" autocomplete="off">
               </label>
-            </div>
-            <div class="divline-row"></div>
-            <h4>PNG 이미지로 저장(대화창)</h4>
-            <button id="button-download-script-box" class="f1 fjcc">
-              <div class="i i-download"></div>
-              <p>저장</p>
-            </button>
-            <div class="list-row fjcc wf">
-              <span><small>Powered by <a href="https://github.com/yorickshan/html2canvas-pro" target="_blank">html2canvas-pro</a></small></span>
             </div>
           </div>
         </div>
@@ -873,7 +841,7 @@
     </div>
   </div>
   <div id="modal-dialogue-quick" class="modal">
-    <div class="bg bg-none"></div>
+    <div class="bg"></div>
     <div class="body">
       <div class="title">
         <div class="icon il i-config"></div>
@@ -941,7 +909,7 @@
     </div>
   </div>
   <div id="modal-sticker-quick" class="modal">
-    <div class="bg bg-none"></div>
+    <div class="bg"></div>
     <div class="body">
       <div class="title">
         <div class="icon il i-config"></div>
@@ -991,6 +959,73 @@
           </div>
           <div class="resource-gallery-subdiv">
             <p>필터</p>
+          </div>
+        </div>
+      </div>
+      <div class="controller">
+        <button class="close"></button>
+      </div>
+    </div>
+  </div>
+  <div id="modal-colorpicker-namearea" class="modal">
+    <div class="bg"></div>
+    <div class="body">
+      <div class="title">
+        <div class="icon il i-palette"></div>
+        <h1>이름표 색상</h1>
+      </div>
+      <div class="content">
+        <div id="colorpicker-namearea" class="colorpicker">
+          <div class="left colorpicker-preview">
+            <p class="colorpicker-preview-value"></p>
+          </div>
+          <div class="right">
+            <p>R</p>
+            <label class="colorpicker-range colorpicker-r-revamped"><input type="range" min="0" max="255" step="1" value="238" id="colorpicker-namearea-r" class="colorpicker-range-input r"></label>
+            <input type="number" class="colorpicker-input colorpicker-input-r">
+            <p>G</p>
+            <label class="colorpicker-range colorpicker-g-revamped"><input type="range" min="0" max="255" step="1" value="195" id="colorpicker-namearea-g" class="colorpicker-range-input g"></label>
+            <input type="number" class="colorpicker-input colorpicker-input-g">
+            <p>B</p>
+            <label class="colorpicker-range colorpicker-b-revamped"><input type="range" min="0" max="255" step="1" value="117" id="colorpicker-namearea-b" class="colorpicker-range-input b"></label>
+            <input type="number" class="colorpicker-input colorpicker-input-b">
+            <p style="display:none;">A</p>
+            <label class="colorpicker-range colorpicker-a-revamped" style="display:none;"><input type="range" min="0" max="100" step="1" value="100" id="colorpicker-namearea-a" class="colorpicker-range-input a"></label>
+            <input type="number" class="colorpicker-input colorpicker-input-a" style="display:none;">
+          </div>
+        </div>
+      </div>
+      <div class="controller">
+        <button class="button-color-preset" class="wfc fjcc"><div class="i i-palette"></div><p>사도 색상표</p></button>
+        <button class="close"></button>
+      </div>
+    </div>
+  </div>
+  <div id="modal-colorpicker-bg" class="modal">
+    <div class="bg"></div>
+    <div class="body">
+      <div class="title">
+        <div class="icon il i-palette"></div>
+        <h1>배경 색상</h1>
+      </div>
+      <div class="content">
+        <div id="colorpicker-bg" class="colorpicker">
+          <div class="left colorpicker-preview">
+            <p class="colorpicker-preview-value"></p>
+          </div>
+          <div class="right">
+            <p>R</p>
+            <label class="colorpicker-range colorpicker-r-revamped"><input type="range" min="0" max="255" step="1" value="0" id="colorpicker-bg-r" class="colorpicker-range-input r"></label>
+            <input type="number" class="colorpicker-input colorpicker-input-r">
+            <p>G</p>
+            <label class="colorpicker-range colorpicker-g-revamped"><input type="range" min="0" max="255" step="1" value="0" id="colorpicker-bg-g" class="colorpicker-range-input g"></label>
+            <input type="number" class="colorpicker-input colorpicker-input-g">
+            <p>B</p>
+            <label class="colorpicker-range colorpicker-b-revamped"> <input type="range" min="0" max="255" step="1" value="0" id="colorpicker-bg-b" class="colorpicker-range-input b"></label>
+            <input type="number" class="colorpicker-input colorpicker-input-b">
+            <p style="display:none;">A</p>
+            <label class="colorpicker-range colorpicker-a-revamped" style="display:none;"><input type="range" min="0" max="100" step="1" value="100" id="colorpicker-namearea-a" class="colorpicker-range-input a"></label>
+            <input type="number" class="colorpicker-input colorpicker-input-a" style="display:none;">
           </div>
         </div>
       </div>

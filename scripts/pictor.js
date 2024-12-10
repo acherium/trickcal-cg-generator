@@ -11,8 +11,8 @@ import {
     name: "Project Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2027.2",
-    date: "24-12-8",
+    version: "2028",
+    date: "24-12-10",
     watermark: false,
     isBeta: false
   };
@@ -149,12 +149,14 @@ import {
       namearea: {
         r: 238,
         g: 195,
-        b: 117
+        b: 117,
+        a: 100
       },
       background: {
         r: 0,
         g: 0,
-        b: 0
+        b: 0,
+        a: 100
       }
     },
     toggles: {
@@ -271,6 +273,7 @@ import {
 
   // 슬라이드 데이터
   let slide = [];
+  let commonData = {};
   let current = 0;
 
   // 공통 변수/플래그
@@ -315,6 +318,17 @@ import {
     g = g.length === 1 ? `0${g}` : g;
     b = b.length === 1 ? `0${b}` : b;
     return `${r}${g}${b}`;
+  };
+  const RGBAtoHEX = (rgba) => {
+    let r = rgba.r.toString(16).toUpperCase();
+    let g = rgba.g.toString(16).toUpperCase();
+    let b = rgba.b.toString(16).toUpperCase();
+    let a = Math.floor(rgba.a/100*255).toString(16).toUpperCase();
+    r = r.length === 1 ? `0${r}` : r;
+    g = g.length === 1 ? `0${g}` : g;
+    b = b.length === 1 ? `0${b}` : b;
+    a = a.length === 1 ? `0${a}` : a;
+    return `${r}${g}${b}${a}`;
   };
   const HEXtoRGB = (hex) => {
     const r = Number(`0x${hex.substring(0, 2)}`);
@@ -362,6 +376,7 @@ import {
   const photozone = $("#photozone");
   const bg = $("#photo-bg");
   const selBgFit = $("#select-bg-fit");
+  const btnColpicBg = $("#button-modal-colorpicker-bg");
   const colpicBgPrev = $("#colorpicker-bg .colorpicker-preview");
   const colpicBgPrevVal = $("#colorpicker-bg .colorpicker-preview-value");
   const colpicBgRanges = $a("#colorpicker-bg .colorpicker-range-input");
@@ -400,21 +415,43 @@ import {
       n.value = Object.values(rgb)[i];
     });
   };
+  const setBackgroundColorRGBA = (rgba) => {
+    slide[current].color.background = rgba;
+    const hex = RGBAtoHEX(rgba);
+    const col = `rgba(${rgba.r},${rgba.g},${rgba.b},${rgba.a/100})`;
+    const afix = copy(rgba);
+    afix.a /= 100;
+    photozone.style["background-color"] = col;
+    colpicBgPrev.style["background-color"] = col;
+    colpicBgPrev.style["border-color"] = col;
+    colpicBgPrevVal.innerText = `#${hex}\n${Object.values(afix).join(", ")}`;
+    for (const range of colpicBgRanges) {
+      const type = range.className.toString().split(/ +/g)[1].trim();
+      setRange(range, rgba[type]);
+    };
+    Array.from(colpicBgInputs).forEach((n, i) => {
+      n.value = Object.values(rgba)[i];
+    });
+  };
+  btnColpicBg.onclick = () => {
+    modalman.reserve["modal-colorpicker-bg"].show();
+  };
   colpicBgRanges.forEach((range, i) => {
     range.oninput = (e) => {
         const type = range.className.toString().split(/ +/g)[1].trim();
         const newcol = copy(slide[current].color.background);
         newcol[type] = parseInt(e.target.value);
-        setBackgroundColor(newcol);
+        setBackgroundColorRGBA(newcol);
     };
   });
   colpicBgInputs.forEach((input, i) => {
     input.onchange = (c) => {
-      const rgb = Object.values(slide[current].color.background);
+      const rgba = Object.values(slide[current].color.background);
       let v = parseInt(c.target.value);
-      v = Number.isNaN(v) ? 0 : v < 0 ? 0 : v > 255 ? 255 : v;
-      rgb[i] = v;
-      setBackgroundColor(Object.fromEntries(rgb.map((x, j) => x = [ [ "r", "g", "b" ][j], x ])));
+      if (input.classList.contains("colorpicker-input-a")) v = Number.isNaN(v) ? 0 : v < 0 ? 0 : v > 100 ? 100 : v;
+      else v = Number.isNaN(v) ? 0 : v < 0 ? 0 : v > 255 ? 255 : v;
+      rgba[i] = v;
+      setBackgroundColorRGBA(Object.fromEntries(rgba.map((x, j) => x = [ [ "r", "g", "b", "a" ][j], x ])));
     };
   });
   btnBgSet.onclick = () => {
@@ -599,6 +636,7 @@ import {
   });
 
   // 대화창 이름표 조작 기능
+  const btnColpicName = $("#button-modal-colorpicker-namearea");
   const colpicNamePrev = $("#colorpicker-namearea .colorpicker-preview");
   const colpicNamePrevValue = $("#colorpicker-namearea .colorpicker-preview-value");
   const colpicNameRanges = $a("#colorpicker-namearea .colorpicker-range-input");
@@ -650,6 +688,24 @@ import {
       n.value = Object.values(rgb)[i];
     });
   };
+  const setNameColorRGBA = (rgba) => {
+    slide[current].color.namearea = rgba;
+    const hex = RGBAtoHEX(rgba);
+    const col = `rgba(${rgba.r},${rgba.g},${rgba.b},${rgba.a/100})`;
+    const afix = copy(rgba);
+    afix.a /= 100;
+    for (const n of comNameBgs) n.style["background-color"] = col;
+    colpicNamePrev.style["background-color"] = col;
+    colpicNamePrev.style["border-color"] = col;
+    colpicNamePrevValue.innerText = `#${hex}\n${Object.values(afix).join(", ")}`;
+    for (const range of colpicNameRanges) {
+      const type = range.className.toString().split(/ +/g)[1].trim();
+      setRange(range, rgba[type]);
+    };
+    Array.from(colpicNameInputs).forEach((n, i) => {
+      n.value = Object.values(rgba)[i];
+    });
+  };
   const setNamePos = (i) => {
     i = parseInt(i);
     if (i >= 0 && i < 3) {
@@ -671,21 +727,25 @@ import {
       Array.from(selNameEmotionOps).find((x) => x.value === s).selected = true;
     };
   };
+  btnColpicName.onclick = () => {
+    modalman.reserve["modal-colorpicker-namearea"].show();
+  };
   colpicNameRanges.forEach((range) => {
     range.oninput = (e) => {
       const type = range.className.toString().split(/ +/g)[1].trim();
       const newcol = copy(slide[current].color.namearea);
       newcol[type] = parseInt(e.target.value);
-      setNameColorRGB(newcol);
+      setNameColorRGBA(newcol);
     };
   });
   colpicNameInputs.forEach((input, i) => {
     input.onchange = (c) => {
-      const rgb = Object.values(slide[current].color.namearea);
+      const rgba = Object.values(slide[current].color.namearea);
       let v = parseInt(c.target.value);
-      v = Number.isNaN(v) ? 0 : v < 0 ? 0 : v > 255 ? 255 : v;
-      rgb[i] = v;
-      setNameColorRGB(Object.fromEntries(rgb.map((x, j) => x = [ [ "r", "g", "b" ][j], x ])));
+      if (input.classList.contains("colorpicker-input-a")) v = Number.isNaN(v) ? 0 : v < 0 ? 0 : v > 100 ? 100 : v;
+      else v = Number.isNaN(v) ? 0 : v < 0 ? 0 : v > 255 ? 255 : v;
+      rgba[i] = v;
+      setNameColorRGBA(Object.fromEntries(rgba.map((x, j) => x = [ [ "r", "g", "b", "a" ][j], x ])));
     };
   });
   selNamepos.onchange = (c) => {
@@ -704,7 +764,7 @@ import {
   };
 
   // 사도 색상표 기능 초기화
-  const btnPreset = $("#button-color-preset");
+  const btnsPreset = $a(".button-color-preset");
   const presetList = $("#color-preset-list");
   const chkAutoName = $("#checkbox-toggle-auto-change-name");
   (async() => {
@@ -739,8 +799,10 @@ import {
       slide[current].assetOptions.namearea.reservedPreset = k;
     };
   })();
-  btnPreset.onclick = () => {
-    modalman.reserve["modal-color-preset"].show();
+  for (const btn of btnsPreset) {
+    btn.onclick = () => {
+      modalman.reserve["modal-color-preset"].show();
+    };
   };
 
   // 대화창 내용 조작 기능
@@ -1526,13 +1588,13 @@ import {
 
     setBackground(x.assets.background);
     setBackgroundFit(x.values.backgroundFit);
-    setBackgroundColor(x.color.background);
+    setBackgroundColorRGBA(x.color.background);
 
     setTheme(x.assetOptions.scriptbox.theme);
     setSelboxTheme(x.assetOptions.select.theme);
 
     setName(x.strings.name);
-    setNameColorRGB(x.color.namearea);
+    setNameColorRGBA(x.color.namearea);
     setNamePos(x.assetOptions.namearea.pos);
     setNameEmotion(x.assetOptions.namearea.emotion);
 

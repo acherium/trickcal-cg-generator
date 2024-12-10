@@ -235,7 +235,7 @@ export class LyraModal {
         this.nodes.defaultCloseButton.classList.add("close");
       };
 
-      // this.nodes.bg.addEventListener("click", () => this.close());
+      this.nodes.bg.addEventListener("click", () => this.close());
     } else {
       this.nodes.main = create("div", { classes: [ "modal" ] });
       this.nodes.bg = append(create("div", { classes: [ "bg" ] }), this.nodes.main);
@@ -266,7 +266,7 @@ export class LyraModal {
 
   detectBlur = (e) => {
     if (!Array.from($a(".body *, .body", this.nodes.main)).includes(e.target)) {
-      this.close();
+      // this.close();
       document.removeEventListener("click", this.detectBlur);
     };
   };

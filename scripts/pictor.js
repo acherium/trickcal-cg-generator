@@ -11,7 +11,7 @@ import {
     name: "Project Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2030.1",
+    version: "2030.2",
     date: "24-12-10",
     watermark: false,
     isBeta: false
@@ -1427,10 +1427,10 @@ import {
     item.flags.visible = !item.flags.visible;
     if (item.flags.visible) {
       $(".i", button).className = "i i-toggle-on";
-      item.assets.body.classList.remove("force-hide");
+      item.assets.body.classList.remove("force-transparent");
     } else {
       $(".i", button).className = "i i-toggle-off";
-      item.assets.body.classList.add("force-hide");
+      item.assets.body.classList.add("force-transparent");
     };
     return item;
   };

@@ -48,6 +48,7 @@ body {
   height: 100dvh;
 }
 
+.force-transparent { opacity: 0 !important; }
 .force-hide { display: none !important; }
 .wfc { width: fit-content !important; }
 

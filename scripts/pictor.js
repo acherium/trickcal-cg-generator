@@ -11,7 +11,7 @@ import {
     name: "Project Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2029",
+    version: "2030",
     date: "24-12-10",
     watermark: false,
     isBeta: false
@@ -1163,16 +1163,12 @@ import {
       res.assets.label = create("div", {
         classes: [ "image-item" ],
         properties: {
-          innerHTML: `<div class="thumb"><img src="${res.assets.image}"></div>` +
+          innerHTML: `<button class="toggle"><div class="i i-toggle-on"></div></button>` +
+            `<div class="thumb"><img src="${res.assets.image}"></div>` +
             `<p>#${res.uid}: ${res.name}</p>` +
             `<button class="remove"><div class="i i-trash"></div></button>`
         }
       });
-      res.assets.label.addEventListener("click", (e) => {
-        if (e.target === res.assets.label && objManager.selected !== res.uid) selectItem(res.uid);
-        else unselectItem();
-      });
-      res.assets.label.querySelector("button.remove").addEventListener("click", () => removeObject(sid, uid));
 
       if (origin === null) tslide.assets.objects.push(res);
       objLayer.append(res.assets.body);
@@ -1314,16 +1310,12 @@ import {
       res.assets.label = create("div", {
         classes: [ "image-item" ],
         properties: {
-          innerHTML: `<div class="thumb"><img src="./assets/images/thumbnail-dialogue.svg"></div>` +
+          innerHTML: `<button class="toggle"><div class="i i-toggle-on"></div></button>` +
+            `<div class="thumb"><img src="./assets/images/thumbnail-dialogue.svg"></div>` +
             `<p>#${res.uid}: ${res.name}</p>` +
             `<button class="remove"><div class="i i-trash"></div></button>`
         }
       });
-      res.assets.label.addEventListener("click", (e) => {
-        if (e.target === res.assets.label && objManager.selected !== res.uid) selectItem(res.uid);
-        else unselectItem();
-      });
-      res.assets.label.querySelector("button.remove").addEventListener("click", () => removeObject(sid, uid));
         
       if (origin === null) tslide.assets.objects.push(res);
       objLayer.append(res.assets.body);
@@ -1388,21 +1380,27 @@ import {
       res.assets.label = create("div", {
         classes: [ "image-item" ],
         properties: {
-          innerHTML: `<div class="thumb"><img src="./assets/images/thumbnail-sticker.svg"></div>` +
+          innerHTML: `<button class="toggle"><div class="i i-toggle-on"></div></button>` +
+            `<div class="thumb"><img src="./assets/images/thumbnail-sticker.svg"></div>` +
             `<p>#${res.uid}: ${res.name}</p>` +
             `<button class="remove"><div class="i i-trash"></div></button>`
         }
       });
-      res.assets.label.addEventListener("click", (e) => {
-        if (e.target === res.assets.label && objManager.selected !== res.uid) selectItem(res.uid);
-        else unselectItem();
-      });
-      res.assets.label.querySelector("button.remove").addEventListener("click", () => removeObject(sid, uid));
 
       if (origin === null) tslide.assets.objects.push(res);
       objLayer.append(res.assets.body);
       objList.append(res.assets.label);
     };
+
+    res.assets.label.addEventListener("click", (e) => {
+      if (e.target === res.assets.label && objManager.selected !== res.uid) selectItem(res.uid);
+      else if (e.target === res.assets.label) unselectItem();
+    });
+    
+    const btnObjRemove = res.assets.label.querySelector("button.remove");
+    const btnObjToggle = res.assets.label.querySelector("button.toggle");
+    btnObjRemove.addEventListener("click", () => removeObject(sid, uid));
+    btnObjToggle.addEventListener("click", () => toggleObject(sid, uid, btnObjToggle));
 
     selectItem(res.uid);
     return res;
@@ -1419,6 +1417,21 @@ import {
     item.assets.body.remove();
     item.assets.label.remove();
     tslide.assets.objects = tslide.assets.objects.filter((x) => x.uid !== item.uid);
+    return item;
+  };
+  const toggleObject = (sid, oid, button) => {
+    const tslide = slide[sid];
+    if (!tslide) return null;
+    const item = tslide.assets.objects.find((x) => x.uid === oid);
+    if (!item) return null;
+    item.flags.visible = !item.flags.visible;
+    if (item.flags.visible) {
+      $(".i", button).className = "i i-toggle-on";
+      item.assets.body.classList.remove("force-hide");
+    } else {
+      $(".i", button).className = "i i-toggle-off";
+      item.assets.body.classList.add("force-hide");
+    };
     return item;
   };
   const addImagePos = (i, x, y) => {

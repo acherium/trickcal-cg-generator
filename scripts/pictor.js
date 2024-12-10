@@ -11,7 +11,7 @@ import {
     name: "Project Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2028",
+    version: "2029",
     date: "24-12-10",
     watermark: false,
     isBeta: false
@@ -97,7 +97,7 @@ import {
 
   // 데이터 템플릿
   const SLIDE_TEMPLATE = {
-    version: 7,
+    version: 8,
     strings: {
       name: "버터",
       content: "나오라고.",
@@ -157,6 +157,12 @@ import {
         g: 0,
         b: 0,
         a: 100
+      },
+      overlay: {
+        r: 0,
+        g: 0,
+        b: 0,
+        a: 0
       }
     },
     toggles: {
@@ -510,6 +516,53 @@ import {
       bg.src = "";
       refreshThumbnail(current, photozone);
   };
+
+  // 배경 오버레이 조작 기능
+  const ov = $("#photo-overlay-bg");
+  const btnColpicOv = $("#button-modal-colorpicker-overlay");
+  const colpicOvPrev = $("#colorpicker-overlay .colorpicker-preview");
+  const colpicOvPrevVal = $("#colorpicker-overlay .colorpicker-preview-value");
+  const colpicOvRanges = $a("#colorpicker-overlay .colorpicker-range-input");
+  const colpicOvInputs = $a("#colorpicker-overlay .colorpicker-input");
+  const setOverlayColorRGBA = (rgba) => {
+    slide[current].color.overlay = rgba;
+    const hex = RGBAtoHEX(rgba);
+    const col = `rgba(${rgba.r},${rgba.g},${rgba.b},${rgba.a/100})`;
+    const afix = copy(rgba);
+    afix.a /= 100;
+    ov.style["background-color"] = col;
+    colpicOvPrev.style["background-color"] = col;
+    colpicOvPrev.style["border-color"] = col;
+    colpicOvPrevVal.innerText = `#${hex}\n${Object.values(afix).join(", ")}`;
+    for (const range of colpicOvRanges) {
+      const type = range.className.toString().split(/ +/g)[1].trim();
+      setRange(range, rgba[type]);
+    };
+    Array.from(colpicOvInputs).forEach((n, i) => {
+      n.value = Object.values(rgba)[i];
+    });
+  };
+  btnColpicOv.onclick = () => {
+    modalman.reserve["modal-colorpicker-overlay"].show();
+  };
+  colpicOvRanges.forEach((range, i) => {
+    range.oninput = (e) => {
+        const type = range.className.toString().split(/ +/g)[1].trim();
+        const newcol = copy(slide[current].color.overlay);
+        newcol[type] = parseInt(e.target.value);
+        setOverlayColorRGBA(newcol);
+    };
+  });
+  colpicOvInputs.forEach((input, i) => {
+    input.onchange = (c) => {
+      const rgba = Object.values(slide[current].color.overlay);
+      let v = parseInt(c.target.value);
+      if (input.classList.contains("colorpicker-input-a")) v = Number.isNaN(v) ? 0 : v < 0 ? 0 : v > 100 ? 100 : v;
+      else v = Number.isNaN(v) ? 0 : v < 0 ? 0 : v > 255 ? 255 : v;
+      rgba[i] = v;
+      setOverlayColorRGBA(Object.fromEntries(rgba.map((x, j) => x = [ [ "r", "g", "b", "a" ][j], x ])));
+    };
+  });
 
   // 대화창 기본 조작 기능
   const radTypes = $a("#script-box-type input[type=radio]");
@@ -1590,6 +1643,8 @@ import {
     setBackgroundFit(x.values.backgroundFit);
     setBackgroundColorRGBA(x.color.background);
 
+    setOverlayColorRGBA(x.color.overlay);
+
     setTheme(x.assetOptions.scriptbox.theme);
     setSelboxTheme(x.assetOptions.select.theme);
 
@@ -1817,6 +1872,21 @@ import {
   flagThumbnail = false;
   slideList.classList.add("no-thumbnail");
   
+  // 슬라이드 크기 템플릿 버튼
+  const btnSlideSizePreset = $("#button-modal-slide-size-preset");
+  btnSlideSizePreset.onclick = () => {
+    modalman.reserve["modal-slide-size-preset"].show();
+  };
+  const btnsSlideSize = $a(".button-slide-size");
+  Array.from(btnsSlideSize).forEach((n) => {
+    n.onclick = () => {
+      const w = parseInt(n.dataset.width);
+      const h = parseInt(n.dataset.height);
+      setAreaSize(w, h);
+      refreshThumbnail(current, photozone);
+    };
+  });
+
   // 시작시 초기화
   const modalman = new LyraModalManager();
   const notiman = new LyraNotificationManager();
@@ -1877,17 +1947,6 @@ import {
   };
   inputMultiplier.value = multiplier;
   refreshSize();
-
-  // 슬라이드 크기 템플릿 버튼
-  const btnSlideSizes = $a(".button-slide-size");
-  Array.from(btnSlideSizes).forEach((n) => {
-    n.onclick = () => {
-      const w = parseInt(n.dataset.width);
-      const h = parseInt(n.dataset.height);
-      setAreaSize(w, h);
-      refreshThumbnail(current, photozone);
-    };
-  });
 
   // 슬라이드 추가, 복제 기능
   const btnAddSlide = $("#button-add-slide");

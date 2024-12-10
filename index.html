@@ -110,14 +110,7 @@
               <input type="number" id="input-slide-size-width" class="wf f1"><span>×</span><input type="number" id="input-slide-size-height" class="wf f1">
             </div>
             <button id="button-fit-to-bg-size" class="wf fjcc"><div class="i i-slide-size"></div>배경 이미지 비율에 맞춤</button>
-            <div class="divline-row"></div>
-            <h4>크기 프리셋</h4>
-            <div class="list-column wf">
-              <button class="button-slide-size wf f1 fjcc" data-width="1280" data-height="640"><div class="i i-config"></div><p>1280×640 (2:1)</p></button>
-              <button class="button-slide-size wf f1 fjcc" data-width="1280" data-height="720"><div class="i i-config"></div><p>1280×720 (16:9)</p></button>
-              <button class="button-slide-size wf f1 fjcc" data-width="1788" data-height="700"><div class="i i-config"></div><p>1788×700 (23:9)</p></button>
-              <button class="button-slide-size wf f1 fjcc" data-width="1280" data-height="1066"><div class="i i-config"></div><p>1280×1066 (6:5)</p></button>
-            </div>
+            <button id="button-modal-slide-size-preset" class="wf fjcc"><div class="i i-config"></div><p>크기 프리셋</p></button>
             <div class="divline-row"></div>
             <h4>목록</h4>
             <div class="list-row wf">
@@ -143,7 +136,8 @@
               <button id="button-set-bg" class="f1 fjcc"><div class="i i-plus"></div><p>설정</p></button>
               <button id="button-remove-bg" class="f1 fjcc"><div class="i i-trash"></div><p>제거</p></button>
             </div>
-            <button id="button-modal-colorpicker-bg" class="wf fjcc"><div class="i i-palette"></div><p>색상 선택기 열기</p></button>
+            <button id="button-modal-colorpicker-bg" class="wf fjcc"><div class="i i-palette"></div><p>배경 색상</p></button>
+            <button id="button-modal-colorpicker-overlay" class="wf fjcc"><div class="i i-palette"></div><p>오버레이 색상</p></button>
             <div class="list-row wf">
               <p>맞춤</p>
               <select id="select-bg-fit" class="wf f1">
@@ -154,17 +148,15 @@
               </select>
             </div>
             <div class="divline-row"></div>
-            <h4>배경 색상</h4>
-            <div class="divline-row"></div>
             <h4>배경 모서리 비네팅</h4>
-            <label class="wf"><input type="checkbox" id="checkbox-border-vignetting" autocomplete="off" checked>배경 모서리 비네팅 활성화<div class="toggle"></div></label>
+            <label class="wf"><input type="checkbox" id="checkbox-border-vignetting" autocomplete="off" checked>비네팅 활성화<div class="toggle"></div></label>
             <label class="wf"><input type="checkbox" id="checkbox-border-vignetting-horizontal" autocomplete="off" checked>상하 비네팅<div class="toggle"></div></label>
             <label class="wf"><input type="checkbox" id="checkbox-border-vignetting-vertical" autocomplete="off" checked>좌우 비네팅<div class="toggle"></div></label>
             <div class="divline-row"></div>
             <h4>선택지</h4>
             <label class="wf">
                 <input type="checkbox" id="checkbox-toggle-select">
-                <p>선택 목록 표시</p>
+                <p>표시</p>
                 <div class="toggle"></div>
             </label>
             <div class="list-row wf">
@@ -192,7 +184,7 @@
             <h4>제목 표시기</h4>
             <label id="toggle-title" class="wf">
                 <input type="checkbox" id="checkbox-toggle-title">
-                <p>제목 표시기 표시</p>
+                <p>표시</p>
                 <div class="toggle"></div>
             </label>
             <label class="f1 wf">
@@ -207,7 +199,7 @@
             <h4>위치 표시기</h4>
             <label id="toggle-location" class="wf">
               <input type="checkbox" id="checkbox-toggle-location">
-              <p>위치 표시기 표시</p>
+              <p>표시</p>
               <div class="toggle"></div>
             </label>
             <label class="f1 wf">
@@ -215,10 +207,10 @@
               <input type="text" id="input-location" class="f1 wf">
             </label>
             <div class="divline-row"></div>
-            <h4>조작기</h4>
+            <h4>조작 버튼</h4>
             <label id="toggle-photo-button" class="wf">
               <input type="checkbox" id="checkbox-toggle-photo-button">
-              <p>조작기 표시</p>
+              <p>표시</p>
               <div class="toggle"></div>
             </label>
           </div>
@@ -231,7 +223,7 @@
           <div class="wrap">
             <label class="wf f1">
               <input type="checkbox" id="checkbox-toggle-content">
-              <p>대화창 표시</p>
+              <p>표시</p>
               <div class="toggle"></div>
             </label>
             <button id="button-download-script-box" class="wf fjcc">
@@ -261,7 +253,7 @@
             <h4>이름표</h4>
             <label class="wf">
               <input type="checkbox" id="checkbox-toggle-namearea">
-              <p>이름표 표시</p>
+              <p>표시</p>
               <div class="toggle"></div>
             </label>
             <div class="list-row wf">
@@ -271,7 +263,7 @@
               </label>
               <button class="button-color-preset" class="wfc fjcc"><div class="i i-palette"></div><p>사도 색상표</p></button>
             </div>
-            <button id="button-modal-colorpicker-namearea" class="wf fjcc"><div class="i i-palette"></div><p>색상 선택기 열기</p></button>
+            <button id="button-modal-colorpicker-namearea" class="wf fjcc"><div class="i i-palette"></div><p>이름표 색상</p></button>
             <div class="list-row content-type-1 wf">
               <p>위치</p>
               <select id="select-namearea-position" class="f1">
@@ -452,6 +444,20 @@
     <div id="pos-layer">
       <div id="scale-layer">
         <div id="photozone">
+          <!--
+          Z-INDEX
+          0: photo-bg-area
+          0: photo-border-vignetting-wrap
+          1: photo-layer
+          1: photo-sokmaeum
+          2: photo-overlay-bg
+          6: photo-script-box-area-revamped
+          6: photo-title-box-area-revamped
+          6: photo-location-box-area-revamped
+          7: photo-button-area
+          8: photo-border
+          9: photo-item-controller-area
+          -->
           <div id="photo-bg-area">
             <img src="" id="photo-bg">
           </div>
@@ -464,6 +470,7 @@
             <img src="./assets/images/vignetting.svg" id="photo-vignetting">
             <img src="./assets/images/sokmaeum.svg" id="photo-button-sokmaeum">
           </div>
+          <div id="photo-overlay-bg"></div>
           <div id="photo-button-area">
             <img src="./assets/images/button-auto.png" class="photo-button">
             <img src="./assets/images/button-menu.png" class="photo-button">
@@ -1024,9 +1031,62 @@
             <label class="colorpicker-range colorpicker-b-revamped"> <input type="range" min="0" max="255" step="1" value="0" id="colorpicker-bg-b" class="colorpicker-range-input b"></label>
             <input type="number" class="colorpicker-input colorpicker-input-b">
             <p style="display:none;">A</p>
-            <label class="colorpicker-range colorpicker-a-revamped" style="display:none;"><input type="range" min="0" max="100" step="1" value="100" id="colorpicker-namearea-a" class="colorpicker-range-input a"></label>
+            <label class="colorpicker-range colorpicker-a-revamped" style="display:none;"><input type="range" min="0" max="100" step="1" value="100" id="colorpicker-bg-a" class="colorpicker-range-input a"></label>
             <input type="number" class="colorpicker-input colorpicker-input-a" style="display:none;">
           </div>
+        </div>
+      </div>
+      <div class="controller">
+        <button class="close"></button>
+      </div>
+    </div>
+  </div>
+  <div id="modal-colorpicker-overlay" class="modal">
+    <div class="bg"></div>
+    <div class="body">
+      <div class="title">
+        <div class="icon il i-palette"></div>
+        <h1>배경 색상</h1>
+      </div>
+      <div class="content">
+        <div id="colorpicker-overlay" class="colorpicker">
+          <div class="left colorpicker-preview">
+            <p class="colorpicker-preview-value"></p>
+          </div>
+          <div class="right">
+            <p>R</p>
+            <label class="colorpicker-range colorpicker-r-revamped"><input type="range" min="0" max="255" step="1" value="0" id="colorpicker-overlay-r" class="colorpicker-range-input r"></label>
+            <input type="number" class="colorpicker-input colorpicker-input-r">
+            <p>G</p>
+            <label class="colorpicker-range colorpicker-g-revamped"><input type="range" min="0" max="255" step="1" value="0" id="colorpicker-overlay-g" class="colorpicker-range-input g"></label>
+            <input type="number" class="colorpicker-input colorpicker-input-g">
+            <p>B</p>
+            <label class="colorpicker-range colorpicker-b-revamped"> <input type="range" min="0" max="255" step="1" value="0" id="colorpicker-overlay-b" class="colorpicker-range-input b"></label>
+            <input type="number" class="colorpicker-input colorpicker-input-b">
+            <p>A</p>
+            <label class="colorpicker-range colorpicker-a-revamped"><input type="range" min="0" max="100" step="1" value="0" id="colorpicker-overlay-a" class="colorpicker-range-input a"></label>
+            <input type="number" class="colorpicker-input colorpicker-input-a">
+          </div>
+        </div>
+      </div>
+      <div class="controller">
+        <button class="close"></button>
+      </div>
+    </div>
+  </div>
+  <div id="modal-slide-size-preset" class="modal">
+    <div class="bg"></div>
+    <div class="body">
+      <div class="title">
+        <div class="icon il i-config"></div>
+        <h1>크기 프리셋</h1>
+      </div>
+      <div class="content">
+        <div class="list-column wf">
+          <button class="button-slide-size wf f1 fjcc" data-width="1280" data-height="640"><div class="i i-config"></div><p>1280×640 (2:1)</p></button>
+          <button class="button-slide-size wf f1 fjcc" data-width="1280" data-height="720"><div class="i i-config"></div><p>1280×720 (16:9)</p></button>
+          <button class="button-slide-size wf f1 fjcc" data-width="1788" data-height="700"><div class="i i-config"></div><p>1788×700 (23:9)</p></button>
+          <button class="button-slide-size wf f1 fjcc" data-width="1280" data-height="1066"><div class="i i-config"></div><p>1280×1066 (6:5)</p></button>
         </div>
       </div>
       <div class="controller">

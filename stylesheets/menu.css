@@ -16,6 +16,8 @@
 
   width: 100%;
   height: max-content;
+
+  pointer-events: none;
 }
 
 #float-menu-area > .tip-row {
@@ -67,6 +69,7 @@
   border-radius: var(--r);
   background-color: var(--c-main);
   box-shadow: var(--op-menu-shadow);
+  pointer-events: auto;
 
   animation: cubic-bezier(.17, .67, .49, .99) 0.25s ani-float-menu-in;
 }

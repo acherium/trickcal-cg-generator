@@ -61,6 +61,18 @@
   height: 100%;
 }
 
+#photo-overlay-bg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 2;
+
+  width: 100%;
+  height: 100%;
+
+  pointer-events: none;
+}
+
 #photo-border-vignetting-wrap {
   position: absolute;
   left: 0;
@@ -145,6 +157,7 @@
   position: absolute;
   left: 0;
   top: 0;
+  z-index: 1;
   
   width: 100%;
   height: 100%;
@@ -1090,7 +1103,7 @@ span.tm-b {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 5;
+  z-index: 9;
   
   width: 100%;
   height: 100%;

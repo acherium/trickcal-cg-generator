@@ -397,6 +397,21 @@
     </div>
     <div class="row">
       <div class="wrap">
+        <div id="moveto-bar" class="float-menu">
+          <button id="button-controller-moveto-horizontal-left" data-menu-tip="수평 좌측에 맞춤"><div class="i i-align-horizontal-left"></div></button>
+          <button id="button-controller-moveto-horizontal-center" data-menu-tip="수평 중앙에 맞춤"><div class="i i-align-horizontal-center"></div></button>
+          <button id="button-controller-moveto-horizontal-right" data-menu-tip="수평 우측에 맞춤"><div class="i i-align-horizontal-right"></div></button>
+          <div class="partition"></div>
+          <button id="button-controller-moveto-vertical-top" data-menu-tip="수직 상단에 맞춤"><div class="i i-align-vertical-top"></div></button>
+          <button id="button-controller-moveto-vertical-middle" data-menu-tip="수직 중앙에 맞춤"><div class="i i-align-vertical-middle"></div></button>
+          <button id="button-controller-moveto-vertical-bottom" data-menu-tip="수직 하단에 맞춤"><div class="i i-align-vertical-bottom"></div></button>
+          <div class="partition"></div>
+          <button id="button-controller-moveto-center" data-menu-tip="슬라이드 중앙에 맞춤"><div class="i i-align-center"></div></button>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="wrap">
         <div id="controller-bar" class="float-menu">
           <button id="button-controller-bottommost" data-menu-tip="맨 아래로"><div class="i i-bottommost"></div></button>
           <button id="button-controller-bottom" data-menu-tip="아래로"><div class="i i-bottom"></div></button>
@@ -406,12 +421,12 @@
           <button id="button-controller-flip-horizontal" data-menu-tip="좌우 반전"><div class="i i-flip-horizontal"></div></button>
           <button id="button-controller-flip-vertical" data-menu-tip="상하 반전"><div class="i i-flip-vertical"></div></button>
           <input type="checkbox" id="checkbox-toggle-controller-darker">
-          <button id="controller-toggle-darker" data-menu-tip="어둡게"><div class="i i-invert"></div></button>
+          <button id="controller-toggle-darker" data-menu-tip="어둡게" style="display:none;"><div class="i i-invert"></div></button>
           <div class="partition"></div>
           <button id="button-controller-reset" data-menu-tip="위치 및 크기 초기화"><div class="i i-rescue"></div></button>
           <button id="button-controller-remove" data-menu-tip="삭제"><div class="i i-trash"></div></button>
           <div class="partition"></div>
-          <button id="button-controller-unselect" data-menu-tip="선택 해제"><div class="i i-deny"></div></button>
+          <button id="button-controller-unselect" data-menu-tip="선택 해제" data-menu-shortcut="ESC"><div class="i i-deny"></div></button>
         </div>
       </div>
     </div>

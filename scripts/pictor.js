@@ -11,7 +11,7 @@ import {
     name: "Project Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2031",
+    version: "2032",
     date: "24-12-11",
     watermark: false,
     isBeta: false
@@ -1056,6 +1056,14 @@ import {
   const btnContUnselect = $("#button-controller-unselect");
   const btnContAddon = $("#button-controller-additional");
   const btnContImgChange = $("#button-controller-change");
+  const movetoBar = $("#moveto-bar");
+  const btnMovetoHoriLeft = $("#button-controller-moveto-horizontal-left");
+  const btnMovetoHoriCenter = $("#button-controller-moveto-horizontal-center");
+  const btnMovetoHoriRight = $("#button-controller-moveto-horizontal-right");
+  const btnMovetoVertTop = $("#button-controller-moveto-vertical-top");
+  const btnMovetoVertMiddle = $("#button-controller-moveto-vertical-middle");
+  const btnMovetoVertBottom = $("#button-controller-moveto-vertical-bottom");
+  const btnMovetoCenter = $("#button-controller-moveto-center");
   const inputDialogue = $("#input-dialogue-content");
   const selSticker = $("#select-sticker-style");
   const selectItem = (i) => {
@@ -1087,6 +1095,7 @@ import {
     };
 
     contBar.style["display"] = null;
+    movetoBar.style["display"] = null;
   };
   const unselectItem = () => {
     objManager.selected = null;
@@ -1100,6 +1109,7 @@ import {
     btnContImgChange.onclick = null;
 
     contBar.style["display"] = "none";
+    movetoBar.style["display"] = "none";
   };
   const fetchImageUploader = () => {
     return new Promise((resolve, reject) => {
@@ -1263,7 +1273,13 @@ import {
         const tmtitle = tmodal.nodes.title.querySelector("h1");
         tmtitle.innerText = `#${res.uid}: ${res.name}@${sid}`;
         inputDialogue.value = res.assets.data.contentRaw;
-        inputDialogue.oninput = (e) => res.applyContent(e.target.value);
+        inputDialogue.oninput = (e) => {
+          res.applyContent(e.target.value);
+          const drect = e.target.getBoundingClientRect();
+          res.rect.width = drect.width;
+          res.rect.height = drect.height;
+          refreshController();
+        };
 
         const sizeRadios = Array.from($a("input.object-dialogue-sizing", tmodal.nodes.content));
         for (const i in sizeRadios) {
@@ -1432,6 +1448,7 @@ import {
     btnObjToggle.addEventListener("click", () => toggleObject(sid, uid, btnObjToggle));
 
     selectItem(res.uid);
+    btnMovetoCenter.click();
     return res;
   };
   const addObjectIterable = (a) => {
@@ -1486,18 +1503,20 @@ import {
     return item;
   };
   const addImagePos = (i, x, y) => {
-    const item = slide[current].assets.objects.find((x) => x.uid === objManager.selected);
+    const item = slide[current].assets.objects.find((x) => x.uid === i);
     if (!item) return;
     item.rect.x += x;
     item.rect.y += y;
     item.doRefresh();
+    if (objManager.selected === i) refreshController();
   };
   const setImagePos = (i, x, y) => {
-    const item = slide[current].assets.objects.find((x) => x.uid === objManager.selected);
+    const item = slide[current].assets.objects.find((x) => x.uid === i);
     if (!item) return;
-    item.rect.x = x;
-    item.rect.y = y;
+    if (x !== null) item.rect.x = x;
+    if (y !== null) item.rect.y = y;
     item.doRefresh();
+    if (objManager.selected === i) refreshController();
   };
   const addControllerPos = (x, y) => {
     const originX = parseInt(cont.style["left"]);
@@ -1544,6 +1563,12 @@ import {
     addControllerPos(x, y);
     cont.style["width"] = `${w}px`;
     cont.style["height"] = `${h}px`;
+  };
+  const refreshController = () => {
+    const item = slide[current].assets.objects.find((x) => x.uid === objManager.selected);
+    if (!item) return;
+    setControllerPos(item.rect.x, item.rect.y);
+    setControllerSize(0, 0, item.rect.width, item.rect.height);
   };
   const moveToBottommost = (sid, oid) => {
     const list = slide[sid].assets.objects;
@@ -2334,6 +2359,46 @@ import {
   };
   btnContUnselect.onclick = () => {
     unselectItem();
+  };
+  btnMovetoHoriLeft.onclick = () => {
+    const tslide = slide[current];
+    const item = tslide.assets.objects.find((x) => x.uid === objManager.selected);
+    if (!item) return;
+    setImagePos(item.uid, 0, null);
+  };
+  btnMovetoHoriCenter.onclick = () => {
+    const tslide = slide[current];
+    const item = tslide.assets.objects.find((x) => x.uid === objManager.selected);
+    if (!item) return;
+    setImagePos(item.uid, (tslide.area.width - item.rect.width)/2, null);
+  };
+  btnMovetoHoriRight.onclick = () => {
+    const tslide = slide[current];
+    const item = tslide.assets.objects.find((x) => x.uid === objManager.selected);
+    if (!item) return;
+    setImagePos(item.uid, tslide.area.width - item.rect.width, null);
+  };
+  btnMovetoVertTop.onclick = () => {
+    const tslide = slide[current];
+    const item = tslide.assets.objects.find((x) => x.uid === objManager.selected);
+    if (!item) return;
+    setImagePos(item.uid, null, 0);
+  };
+  btnMovetoVertMiddle.onclick = () => {
+    const tslide = slide[current];
+    const item = tslide.assets.objects.find((x) => x.uid === objManager.selected);
+    if (!item) return;
+    setImagePos(item.uid, null, (tslide.area.height - item.rect.height)/2);
+  };
+  btnMovetoVertBottom.onclick = () => {
+    const tslide = slide[current];
+    const item = tslide.assets.objects.find((x) => x.uid === objManager.selected);
+    if (!item) return;
+    setImagePos(item.uid, null, tslide.area.height - item.rect.height);
+  };
+  btnMovetoCenter.onclick = () => {
+    btnMovetoHoriCenter.click();
+    btnMovetoVertMiddle.click();
   };
 
   // 화면 이동

@@ -52,6 +52,7 @@
   text-overflow: ellipsis;
   pointer-events: none;
 }
+.image-item > p > * { color: inherit; }
 .image-item-darker {
   filter: brightness(0.3);
 }

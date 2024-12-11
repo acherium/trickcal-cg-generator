@@ -131,10 +131,9 @@
             <button class="close"><div class="i i-deny"></div></button>
           </div>
           <div class="wrap">
-            <h4>배경 이미지</h4>
             <div class="list-row wf">
-              <button id="button-set-bg" class="f1 fjcc"><div class="i i-plus"></div><p>설정</p></button>
-              <button id="button-remove-bg" class="f1 fjcc"><div class="i i-trash"></div><p>제거</p></button>
+              <button id="button-set-bg" class="f1 fjcc"><div class="i ii-image"></div><p>이미지 설정</p></button>
+              <button id="button-remove-bg" class="f1 fjcc"><div class="i i-trash"></div><p>이미지 제거</p></button>
             </div>
             <button id="button-modal-colorpicker-bg" class="wf fjcc"><div class="i i-palette"></div><p>배경 색상</p></button>
             <button id="button-modal-colorpicker-overlay" class="wf fjcc"><div class="i i-palette"></div><p>오버레이 색상</p></button>
@@ -363,9 +362,9 @@
               <button id="button-reset-image" class=""><div class="i i-trash"></div></button>
             </div>
             <div class="list-row wf">
-              <button id="button-add-image" class="f1 fjcc"><div id="i-image" class="i"></div><p>사진</p></button>
-              <button id="button-add-dialogue" class="f1 fjcc"><div id="i-dialogue" class="i"></div><p>말풍선</p></button>
-              <button id="button-add-sticker" class="f1 fjcc"><div id="i-sticker" class="i"></div><p>스티커</p></button>
+              <button id="button-add-image" class="f1 fjcc"><div class="i ii-image"></div><p>사진</p></button>
+              <button id="button-add-dialogue" class="f1 fjcc"><div class="i ii-dialogue"></div><p>말풍선</p></button>
+              <button id="button-add-sticker" class="f1 fjcc"><div class="i ii-sticker"></div><p>스티커</p></button>
             </div>
             <div id="image-item-list">
             </div>
@@ -447,10 +446,10 @@
           <!--
           Z-INDEX
           0: photo-bg-area
-          0: photo-border-vignetting-wrap
           1: photo-layer
           1: photo-sokmaeum
-          2: photo-overlay-bg
+          2: photo-border-vignetting-wrap
+          3: photo-overlay-bg
           6: photo-script-box-area-revamped
           6: photo-title-box-area-revamped
           6: photo-location-box-area-revamped
@@ -791,9 +790,10 @@
               <div id="resize-point-5" class="resize-point"></div>
               <div id="resize-point-6" class="resize-point"></div>
               <div id="resize-point-7" class="resize-point"></div>
-              <button id="button-controller-additional">
-                <div class="i i-config"></div>
-              </button>
+              <div id="photo-controller-button-area">
+                <button id="button-controller-additional"><div class="i i-config"></div></button>
+                <button id="button-controller-change"><div class="i ii-image"></div></button>
+              </div>
             </div>
           </div>
           <div id="photo-border"></div>

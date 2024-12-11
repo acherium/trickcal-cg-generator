@@ -11,8 +11,8 @@ import {
     name: "Project Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2030.2",
-    date: "24-12-10",
+    version: "2031",
+    date: "24-12-11",
     watermark: false,
     isBeta: false
   };
@@ -1055,6 +1055,7 @@ import {
   const btnContRemove = $("#button-controller-remove");
   const btnContUnselect = $("#button-controller-unselect");
   const btnContAddon = $("#button-controller-additional");
+  const btnContImgChange = $("#button-controller-change");
   const inputDialogue = $("#input-dialogue-content");
   const selSticker = $("#select-sticker-style");
   const selectItem = (i) => {
@@ -1078,6 +1079,12 @@ import {
       btnContAddon.style["display"] = "none";
       btnContAddon.onclick = null;
     };
+    if (item.type === "image") {
+      btnContImgChange.style["display"] = "flex";
+      btnContImgChange.onclick = () => {
+        changeItemImage(current, i);
+      };
+    };
 
     contBar.style["display"] = null;
   };
@@ -1089,8 +1096,30 @@ import {
     btnContDarker.classList.remove("controller-active");
     btnContAddon.style["display"] = "none";
     btnContAddon.onclick = null;
+    btnContImgChange.style["display"] = "none";
+    btnContImgChange.onclick = null;
 
     contBar.style["display"] = "none";
+  };
+  const fetchImageUploader = () => {
+    return new Promise((resolve, reject) => {
+      uploader.multiple = true;
+      uploader.onchange = (f) => {
+        uploader.multiple = null;
+        Array.from(f.target.files).forEach((file) => {
+          const reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onload = () => {
+            const res = {
+              name: file.name,
+              image: reader.result
+            };
+            resolve(res);
+          };
+        });
+      };
+      uploader.click();
+    });
   };
   const callImageUploader = (i) => {
     uploader.multiple = true;
@@ -1165,7 +1194,7 @@ import {
         properties: {
           innerHTML: `<button class="toggle"><div class="i i-toggle-on"></div></button>` +
             `<div class="thumb"><img src="${res.assets.image}"></div>` +
-            `<p>#${res.uid}: ${res.name}</p>` +
+            `<p>#<span class="oid">${res.uid}</span>: <span class="name">${res.name}</span></p>` +
             `<button class="remove"><div class="i i-trash"></div></button>`
         }
       });
@@ -1312,7 +1341,7 @@ import {
         properties: {
           innerHTML: `<button class="toggle"><div class="i i-toggle-on"></div></button>` +
             `<div class="thumb"><img src="./assets/images/thumbnail-dialogue.svg"></div>` +
-            `<p>#${res.uid}: ${res.name}</p>` +
+            `<p>#<span class="oid">${res.uid}</span>: <span class="name">${res.name}</span></p>` +
             `<button class="remove"><div class="i i-trash"></div></button>`
         }
       });
@@ -1382,7 +1411,7 @@ import {
         properties: {
           innerHTML: `<button class="toggle"><div class="i i-toggle-on"></div></button>` +
             `<div class="thumb"><img src="./assets/images/thumbnail-sticker.svg"></div>` +
-            `<p>#${res.uid}: ${res.name}</p>` +
+            `<p>#<span class="oid">${res.uid}</span>: <span class="name">${res.name}</span></p>` +
             `<button class="remove"><div class="i i-trash"></div></button>`
         }
       });
@@ -1407,6 +1436,28 @@ import {
   };
   const addObjectIterable = (a) => {
     for (const obj of a) addObject(current, obj.type, {}, obj);
+  };
+  const changeItemImage = (sid, oid) => {
+    const tslide = slide[sid];
+    if (!tslide) return null;
+    const item = tslide.assets.objects.find((x) => x.uid === oid);
+    if (!item) return null;
+
+    fetchImageUploader().then((res) => {
+      item.assets.body.src = res.image;
+      item.assets.image = res.image;
+      $(".thumb > img", item.assets.label).src = res.image;
+      changeObjectName(sid, oid, res.name);
+    });
+  };
+  const changeObjectName = (sid, oid, s) => {
+    const tslide = slide[sid];
+    if (!tslide) return null;
+    const item = tslide.assets.objects.find((x) => x.uid === oid);
+    if (!item) return null;
+
+    item.name = s;
+    $(".name", item.assets.label).innerText = s;
   };
   const removeObject = (sid, oid) => {
     const tslide = slide[sid];

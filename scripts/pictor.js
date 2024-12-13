@@ -11,7 +11,7 @@ import {
     name: "Project Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2033",
+    version: "2034",
     date: "24-12-13",
     watermark: false,
     isBeta: false
@@ -2240,7 +2240,7 @@ import {
       const x = m.clientX - offsetX - ppos.x;
       const y = m.clientY - offsetY - ppos.y;
       const d = Math.atan2(y, x) * 180 / Math.PI + 180;
-      setImageRotate(item.uid, d);
+      setImageRotate(item.uid, d - 90);
     };
     rotatePoint.onpointerup = () => {
       refreshThumbnail(current, photozone);

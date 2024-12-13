@@ -1111,16 +1111,21 @@ span.tm-b {
   pointer-events: none;
 }
 
-#photo-item-controller {
+#photo-item-controller { position: absolute; }
+
+#photo-controller-point-area {
   display: flex;
   position: absolute;
-  
-  border: solid 2px black;
-  outline: solid 2px var(--c-accent);
+  align-items: center;
+  justify-content: center;
 
-  background-color: rgba(177, 0, 255, 0.1);
+  width: 100%;
+  height:100%;
+
+  border: solid 2px var(--c-accent);
+  background-color: oklch(100% 0 0/0.1);
   cursor: move;
-  pointer-events: all;
+  pointer-events: auto;
 }
 
 #photo-controller-button-area {
@@ -1132,6 +1137,8 @@ span.tm-b {
 
   width: max-content;
   height: max-content;
+
+  pointer-events: auto;
 }
 
 #button-controller-additional {
@@ -1146,56 +1153,65 @@ span.tm-b {
   width: 12px;
   height: 12px;
 
-  border: solid 2px black;
-  background-color: white;
+  border: solid 2px var(--c-accent);
+  background-color: var(--c-white);
 }
 #resize-point-0 {
-  top: -8px;
-  left: -8px;
+  top: -7px;
+  left: -7px;
 
   cursor: nwse-resize;
 }
 #resize-point-1 {
-  top: -8px;
-  right: -8px;
+  top: -7px;
+  right: -7px;
 
   cursor: nesw-resize;
 }
 #resize-point-2 {
-  bottom: -8px;
-  left: -8px;
+  bottom: -7px;
+  left: -7px;
 
   cursor: nesw-resize;
 }
 #resize-point-3 {
-  bottom: -8px;
-  right: -8px;
+  bottom: -7px;
+  right: -7px;
 
   cursor: nwse-resize;
 }
 #resize-point-4 {
-  top: -8px;
-  left: calc(50% - 6px);
+  top: -7px;
 
   cursor: ns-resize;
 }
 #resize-point-5 {
-  top: calc(50% - 6px);
-  right: -8px;
+  right: -7px;
 
   cursor: ew-resize;
 }
 #resize-point-6 {
-  bottom: -8px;
-  left: calc(50% - 6px);
+  bottom: -7px;
 
   cursor: ns-resize;
 }
 #resize-point-7 {
-  bottom: calc(50% - 6px);
-  left: -8px;
+  left: -7px;
 
   cursor: ew-resize;
+}
+
+#rotation-point {
+  position: absolute;
+  left: -40px;
+
+  width: 20px;
+  height: 20px;
+
+  border: solid 2px var(--c-accent);
+  border-radius: 50%;
+  background-color: var(--c-white);
+  cursor: grab;
 }
 
 #photo-border {

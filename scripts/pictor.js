@@ -11,8 +11,8 @@ import {
     name: "Project Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2032",
-    date: "24-12-11",
+    version: "2033",
+    date: "24-12-13",
     watermark: false,
     isBeta: false
   };
@@ -1043,6 +1043,7 @@ import {
   const objLayer = $("#photo-layer");
   const objList = $("#image-item-list");
   const cont = $("#photo-item-controller");
+  const contp = $("#photo-controller-point-area");
   const contBar = $("#controller-bar");
   const btnContBottommost = $("#button-controller-bottommost");
   const btnContBottom = $("#button-controller-bottom");
@@ -1072,8 +1073,7 @@ import {
     if (!item) return null;
 
     objManager.selected = i;
-    setControllerPos(item.rect.x, item.rect.y);
-    setControllerSize(0, 0, item.rect.width, item.rect.height);
+    refreshController();
     cont.style["display"] = "flex";
     item.assets.label.classList.add("active-image-item");
     
@@ -1334,7 +1334,7 @@ import {
         const bound = res.assets.body.getBoundingClientRect();
         res.rect.width = bound.width;
         res.rect.height = bound.height;
-        setControllerSize(0, 0, res.rect.width, res.rect.height);
+        // setControllerSize(0, 0, res.rect.width, res.rect.height);
           
         if (res.assets.data.theme === 0) {
           res.assets.body.style["transform"] = `translate(${res.rect.x}px, ${res.rect.y}px) ` +
@@ -1518,19 +1518,12 @@ import {
     item.doRefresh();
     if (objManager.selected === i) refreshController();
   };
-  const addControllerPos = (x, y) => {
-    const originX = parseInt(cont.style["left"]);
-    const originY = parseInt(cont.style["top"]);
-    // controller.style["transform"] = `translate(${originX + x}px, ${originY + y}px)`;
-    cont.style["top"] = `${originY + y}px`;
-    cont.style["left"] = `${originX + x}px`;
-  };
-  const setControllerPos = (x, y) => {
-    objManager.rect.x = x;
-    objManager.rect.y = y;
-    // controller.style["transform"] = `translate(${x}px, ${y}px)`;
-    cont.style["top"] = `${y}px`;
-    cont.style["left"] = `${x}px`;
+  const setImageRotate = (i, d) => {
+    const item = slide[current].assets.objects.find((x) => x.uid === i);
+    if (!item) return;
+    if (d !== null) item.rect.rotate = d;
+    item.doRefresh();
+    if (objManager.selected === i) refreshController();
   };
   const addImageSize = (i, x, y, w, h) => {
     const item = slide[current].assets.objects.find((x) => x.uid === objManager.selected);
@@ -1550,25 +1543,14 @@ import {
     item.assets.body.style["width"] = `${w}px`;
     item.assets.body.style["height"] = `${h}px`;
   };
-  const addControllerSize = (x, y, w, h) => {
-    objManager.rect.width += w;
-    objManager.rect.height += h;
-    addControllerPos(x, y);
-    cont.style["width"] = `${objManager.rect.width}px`;
-    cont.style["height"] = `${objManager.rect.height}px`;
-  };
-  const setControllerSize = (x, y, w, h) => {
-    objManager.rect.width = w;
-    objManager.rect.height = h;
-    addControllerPos(x, y);
-    cont.style["width"] = `${w}px`;
-    cont.style["height"] = `${h}px`;
-  };
   const refreshController = () => {
     const item = slide[current].assets.objects.find((x) => x.uid === objManager.selected);
     if (!item) return;
-    setControllerPos(item.rect.x, item.rect.y);
-    setControllerSize(0, 0, item.rect.width, item.rect.height);
+    objManager.rect = copy(item.rect);
+    cont.style["width"] = `${objManager.rect.width}px`;
+    cont.style["height"] = `${objManager.rect.height}px`;
+    cont.style["transform"] = `translate(${objManager.rect.x}px, ${objManager.rect.y}px)`;
+    contp.style["transform"] = `rotate(${objManager.rect.rotate}deg)`;
   };
   const moveToBottommost = (sid, oid) => {
     const list = slide[sid].assets.objects;
@@ -1656,8 +1638,8 @@ import {
     if (!item) return null;
     setImagePos(oid, item.rectOrigin.x, item.rectOrigin.y);
     setImageSize(oid, 0, 0, item.rectOrigin.width, item.rectOrigin.height);
-    setControllerPos(item.rectOrigin.x, item.rectOrigin.y);
-    setControllerSize(0, 0, item.rectOrigin.width, item.rectOrigin.height);
+    setImageRotate(oid, item.rectOrigin.rotate);
+    refreshController();
   };
 
   // 슬라이드 조작 기능
@@ -2120,34 +2102,34 @@ import {
   };
 
   // 개체 컨트롤러 이동&크기 변경 기능
-  const resizePoints = $a("#photo-item-controller > .resize-point");
-  cont.onpointerdown = (p) => {
-    if (p.target !== cont) return;
+  const resizePoints = $a("#photo-controller-point-area > .resize-point");
+  const rotatePoint = $("#rotation-point");
+  contp.onpointerdown = (p) => {
+    if (p.target !== contp) return;
     if (p.pointerType === "mouse" && p.buttons !== 1) return;
-    cont.setPointerCapture(p.pointerId);
+    contp.setPointerCapture(p.pointerId);
     let flag = true;
-    cont.onpointermove = (m) => {
+    contp.onpointermove = (m) => {
       flag = false;
       const item = slide[current].assets.objects.find((x) => x.uid === objManager.selected);
       if (!item) return;
       item.rect.x += m.movementX;
       item.rect.y += m.movementY;
       setImagePos(item.uid, item.rect.x, item.rect.y);
-      setControllerPos(item.rect.x, item.rect.y);
     };
-    cont.onpointerup = () => {
+    contp.onpointerup = () => {
       if (flag) unselectItem();
-      if (cont.hasPointerCapture(p.pointerId)) cont.releasePointerCapture(p.pointerId);
+      if (contp.hasPointerCapture(p.pointerId)) contp.releasePointerCapture(p.pointerId);
       refreshThumbnail(current, photozone);
-      cont.onpointermove = null;
-      cont.onpointerup = null;
+      contp.onpointermove = null;
+      contp.onpointerup = null;
     };
   };
-  cont.ontouchstart = (t) => {
-    if (t.touches[0].target !== cont) return;
+  contp.ontouchstart = (t) => {
+    if (t.touches[0].target !== contp) return;
     let ox = t.touches[0].clientX;
     let oy = t.touches[0].clientY;
-    cont.ontouchmove = (m) => {
+    contp.ontouchmove = (m) => {
       const item = slide[current].assets.objects.find((x) => x.uid === objManager.selected);
       if (!item) return;
       const x = m.touches[0].clientX;
@@ -2159,12 +2141,11 @@ import {
       item.rect.x += mx;
       item.rect.y += my;
       setImagePos(item.uid, item.rect.x, item.rect.y);
-      setControllerPos(item.rect.x, item.rect.y);
     };
-    cont.ontouchend = () => {
+    contp.ontouchend = () => {
       refreshThumbnail(current, photozone);
-      cont.ontouchmove = null;
-      cont.ontouchend = null;
+      contp.ontouchmove = null;
+      contp.ontouchend = null;
     };
   };
   Array.from(resizePoints).forEach(($n, i) => {
@@ -2177,61 +2158,25 @@ import {
         const mx = m.movementX;
         const my = m.movementY;
         if (i === 0) {
-          if (item.rect.width + mx*-1 >= SIZEMIN) {
-            addImageSize(item.uid, mx, 0, mx*-1, 0);
-            addControllerSize(mx, 0, mx*-1, 0);
-          };
-          if (item.rect.height + my*-1 >= SIZEMIN) {
-            addImageSize(item.uid, 0, my, 0, my*-1);
-            addControllerSize(0, my, 0, my*-1);
-          };
+          if (item.rect.width + mx*-1 >= SIZEMIN) addImageSize(item.uid, mx, 0, mx*-1, 0);
+          if (item.rect.height + my*-1 >= SIZEMIN) addImageSize(item.uid, 0, my, 0, my*-1);
         } else if (i === 1) {
-          if (item.rect.width + mx >= SIZEMIN) {
-            addImageSize(item.uid, 0, 0, mx, 0);
-            addControllerSize(0, 0, mx, 0);
-          };
-          if (item.rect.height + my*-1 >= SIZEMIN) {
-            addImageSize(item.uid, 0, my, 0, my*-1);
-            addControllerSize(0, my, 0, my*-1);
-          };
+          if (item.rect.width + mx >= SIZEMIN) addImageSize(item.uid, 0, 0, mx, 0);
+          if (item.rect.height + my*-1 >= SIZEMIN) addImageSize(item.uid, 0, my, 0, my*-1);
         } else if (i === 2) {
-          if (item.rect.width + mx*-1 >= SIZEMIN) {
-            addImageSize(item.uid, mx, 0, mx*-1, 0);
-            addControllerSize(mx, 0, mx*-1, 0);
-          };
-          if (item.rect.height + my >= SIZEMIN) {
-            addImageSize(item.uid, 0, 0, 0, my);
-            addControllerSize(0, 0, 0, my);
-          };
+          if (item.rect.width + mx*-1 >= SIZEMIN) addImageSize(item.uid, mx, 0, mx*-1, 0);
+          if (item.rect.height + my >= SIZEMIN) addImageSize(item.uid, 0, 0, 0, my);
         } else if (i === 3) {
-          if (item.rect.width + mx >= SIZEMIN) {
-            addImageSize(item.uid, 0, 0, mx, 0);
-            addControllerSize(0, 0, mx, 0);
-          };
-          if (item.rect.height + my >= SIZEMIN) {
-            addImageSize(item.uid, 0, 0, 0, my);
-            addControllerSize(0, 0, 0, my);
-          };
+          if (item.rect.width + mx >= SIZEMIN) addImageSize(item.uid, 0, 0, mx, 0);
+          if (item.rect.height + my >= SIZEMIN) addImageSize(item.uid, 0, 0, 0, my);
         } else if (i === 4) {
-          if (item.rect.height + my*-1 >= SIZEMIN) {
-            addImageSize(item.uid, 0, my, 0, my*-1);
-            addControllerSize(0, my, 0, my*-1);
-          };
+          if (item.rect.height + my*-1 >= SIZEMIN) addImageSize(item.uid, 0, my, 0, my*-1);
         } else if (i === 5) {
-          if (item.rect.width + mx >= SIZEMIN) {
-            addImageSize(item.uid, 0, 0, mx, 0);
-            addControllerSize(0, 0, mx, 0);
-          };
+          if (item.rect.width + mx >= SIZEMIN) addImageSize(item.uid, 0, 0, mx, 0);
         } else if (i === 6) {
-          if (item.rect.height + my >= SIZEMIN) {
-            addImageSize(item.uid, 0, 0, 0, my);
-            addControllerSize(0, 0, 0, my);
-          };
+          if (item.rect.height + my >= SIZEMIN) addImageSize(item.uid, 0, 0, 0, my);
         } else if (i === 7) {
-          if (item.rect.width + mx*-1 >= SIZEMIN) {
-            addImageSize(item.uid, mx, 0, mx*-1, 0);
-            addControllerSize(mx, 0, mx*-1, 0);
-          };
+          if (item.rect.width + mx*-1 >= SIZEMIN) addImageSize(item.uid, mx, 0, mx*-1, 0);
         };
       };
       $n.onpointerup = () => {
@@ -2255,61 +2200,25 @@ import {
           ox = x;
           oy = y;
           if (i === 0) {
-            if (item.rect.width + mx*-1 >= SIZEMIN) {
-              addImageSize(item.uid, mx, 0, mx*-1, 0);
-              addControllerSize(mx, 0, mx*-1, 0);
-            };
-            if (item.rect.height + my*-1 >= SIZEMIN) {
-              addImageSize(item.uid, 0, my, 0, my*-1);
-              addControllerSize(0, my, 0, my*-1);
-            };
+            if (item.rect.width + mx*-1 >= SIZEMIN) addImageSize(item.uid, mx, 0, mx*-1, 0);
+            if (item.rect.height + my*-1 >= SIZEMIN) addImageSize(item.uid, 0, my, 0, my*-1);
           } else if (i === 1) {
-            if (item.rect.width + mx >= SIZEMIN) {
-              addImageSize(item.uid, 0, 0, mx, 0);
-              addControllerSize(0, 0, mx, 0);
-            };
-            if (item.rect.height + my*-1 >= SIZEMIN) {
-              addImageSize(item.uid, 0, my, 0, my*-1);
-              addControllerSize(0, my, 0, my*-1);
-            };
+            if (item.rect.width + mx >= SIZEMIN) addImageSize(item.uid, 0, 0, mx, 0);
+            if (item.rect.height + my*-1 >= SIZEMIN) addImageSize(item.uid, 0, my, 0, my*-1);
           } else if (i === 2) {
-            if (item.rect.width + mx*-1 >= SIZEMIN) {
-              addImageSize(item.uid, mx, 0, mx*-1, 0);
-              addControllerSize(mx, 0, mx*-1, 0);
-            };
-            if (item.rect.height + my >= SIZEMIN) {
-              addImageSize(item.uid, 0, 0, 0, my);
-              addControllerSize(0, 0, 0, my);
-            };
+            if (item.rect.width + mx*-1 >= SIZEMIN) addImageSize(item.uid, mx, 0, mx*-1, 0);
+            if (item.rect.height + my >= SIZEMIN) addImageSize(item.uid, 0, 0, 0, my);
           } else if (i === 3) {
-            if (item.rect.width + mx >= SIZEMIN) {
-              addImageSize(item.uid, 0, 0, mx, 0);
-              addControllerSize(0, 0, mx, 0);
-            };
-            if (item.rect.height + my >= SIZEMIN) {
-              addImageSize(item.uid, 0, 0, 0, my);
-              addControllerSize(0, 0, 0, my);
-            };
+            if (item.rect.width + mx >= SIZEMIN) addImageSize(item.uid, 0, 0, mx, 0);
+            if (item.rect.height + my >= SIZEMIN) addImageSize(item.uid, 0, 0, 0, my);
           } else if (i === 4) {
-            if (item.rect.height + my*-1 >= SIZEMIN) {
-              addImageSize(item.uid, 0, my, 0, my*-1);
-              addControllerSize(0, my, 0, my*-1);
-            };
+            if (item.rect.height + my*-1 >= SIZEMIN) addImageSize(item.uid, 0, my, 0, my*-1);
           } else if (i === 5) {
-            if (item.rect.width + mx >= SIZEMIN) {
-              addImageSize(item.uid, 0, 0, mx, 0);
-              addControllerSize(0, 0, mx, 0);
-            };
+            if (item.rect.width + mx >= SIZEMIN) addImageSize(item.uid, 0, 0, mx, 0);
           } else if (i === 6) {
-            if (item.rect.height + my >= SIZEMIN) {
-              addImageSize(item.uid, 0, 0, 0, my);
-              addControllerSize(0, 0, 0, my);
-            };
+            if (item.rect.height + my >= SIZEMIN) addImageSize(item.uid, 0, 0, 0, my);
           } else if (i === 7) {
-            if (item.rect.width + mx*-1 >= SIZEMIN) {
-              addImageSize(item.uid, mx, 0, mx*-1, 0);
-              addControllerSize(mx, 0, mx*-1, 0);
-            };
+            if (item.rect.width + mx*-1 >= SIZEMIN) addImageSize(item.uid, mx, 0, mx*-1, 0);
           };
         };
         $n.ontouchend = () => {
@@ -2319,6 +2228,26 @@ import {
         };
     };
   });
+  rotatePoint.onpointerdown = (p) => {
+    if (p.pointerType === "mouse" && p.buttons !== 1) return;
+    rotatePoint.setPointerCapture(p.pointerId);
+    rotatePoint.onpointermove = (m) => {
+      const item = slide[current].assets.objects.find((x) => x.uid === objManager.selected);
+      if (!item || !item.flags.sizeAdjustable) return;
+      const ppos = photozone.getBoundingClientRect();
+      const offsetX = item.rect.x + item.rect.width / 2;
+      const offsetY = item.rect.y + item.rect.height / 2;
+      const x = m.clientX - offsetX - ppos.x;
+      const y = m.clientY - offsetY - ppos.y;
+      const d = Math.atan2(y, x) * 180 / Math.PI + 180;
+      setImageRotate(item.uid, d);
+    };
+    rotatePoint.onpointerup = () => {
+      refreshThumbnail(current, photozone);
+      rotatePoint.onpointermove = null;
+      rotatePoint.onpointerup = null;
+    };
+  };
 
   // 개체 컨트롤 바 기능
   btnContBottommost.onclick = () => {

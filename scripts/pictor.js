@@ -8,10 +8,10 @@ import {
 (() => {
   // 앱 정보
   const APP = {
-    name: "Project Pictor",
+    name: "Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2035",
+    version: "2035.1",
     date: "24-12-13",
     watermark: false,
     isBeta: false

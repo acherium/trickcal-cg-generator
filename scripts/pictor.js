@@ -11,7 +11,7 @@ import {
     name: "Project Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2034",
+    version: "2035",
     date: "24-12-13",
     watermark: false,
     isBeta: false
@@ -220,7 +220,8 @@ import {
       darker: null,
       sizeAdjustable: null
     },
-    additionalMethod: null
+    additionalMethod: null,
+    opacity: null
   };
   const BG_FIT_OPTIONS = [ "align-center", "fit-height", "fit-width", "fill" ];
   const SCRIPT_MARKDOWN = [
@@ -1067,6 +1068,7 @@ import {
   const btnMovetoCenter = $("#button-controller-moveto-center");
   const inputDialogue = $("#input-dialogue-content");
   const selSticker = $("#select-sticker-style");
+  const rangeOpacity = $("#controller-opacity");
   const selectItem = (i) => {
     Array.from($a(".active-image-item")).forEach((n) => n.classList.remove("active-image-item"));
     const item = slide[current].assets.objects.find((x) => x.uid === i);
@@ -1076,6 +1078,8 @@ import {
     refreshController();
     cont.style["display"] = "flex";
     item.assets.label.classList.add("active-image-item");
+
+    setRange(rangeOpacity, Math.floor(item.opacity * 100));
     
     for (const item of contBar.querySelectorAll("button, input")) item.removeAttribute("disabled");
     if (item.flags.darker) btnContDarker.classList.add("controller-active");
@@ -1092,6 +1096,9 @@ import {
       btnContImgChange.onclick = () => {
         changeItemImage(current, i);
       };
+    } else {
+      btnContImgChange.style["display"] = "none";
+      btnContImgChange.onclick = null;
     };
 
     contBar.style["display"] = null;
@@ -1161,6 +1168,7 @@ import {
       if (k === "id") res.id = params[k];
       else if (k === "class") res.class = params[k];
     };
+    res.opacity = 1;
 
     if (t === "image") {
       if (origin === null && ( typeof params.name === "undefined" || params.name.constructor !== String ||
@@ -1196,6 +1204,7 @@ import {
         res.assets.body.style["transform"] = `translate(${res.rect.x}px, ${res.rect.y}px) ` +
           `rotate(${res.rect.rotate}deg) ` +
           `scale(${res.rect.flip.horizontal ? -1 : 1}, ${res.rect.flip.vertical ? -1 : 1})`;
+        res.assets.body.style["opacity"] = `${res.opacity}`;
       };
       res.doRefresh();
 
@@ -1344,6 +1353,7 @@ import {
           res.assets.body.style["transform"] = `translate(${res.rect.x}px, ${res.rect.y}px) ` +
             `scale(${res.rect.flip.horizontal ? -1 : 1}, ${res.rect.flip.vertical ? -1 : 1})`;
         };
+        res.assets.body.style["opacity"] = `${res.opacity}`;
       };
       res.applyContent = (s) => {
         res.assets.data.contentRaw = s;
@@ -1412,6 +1422,7 @@ import {
         res.assets.body.style["transform"] = `translate(${res.rect.x}px, ${res.rect.y}px) ` +
           `rotate(${res.rect.rotate}deg) ` +
           `scale(${res.rect.flip.horizontal ? -1 : 1}, ${res.rect.flip.vertical ? -1 : 1})`;
+        res.assets.body.style["opacity"] = `${res.opacity}`;
       };
       res.applySticker = (s) => {
         if (!Object.keys(EMOTE_STICKERS_REVAMPED).includes(s)) return;
@@ -1524,6 +1535,12 @@ import {
     if (d !== null) item.rect.rotate = d;
     item.doRefresh();
     if (objManager.selected === i) refreshController();
+  };
+  const setImageOpacity = (i, x) => {
+    const item = slide[current].assets.objects.find((x) => x.uid === i);
+    if (!item) return;
+    if (x !== null) item.opacity = x;
+    item.doRefresh();
   };
   const addImageSize = (i, x, y, w, h) => {
     const item = slide[current].assets.objects.find((x) => x.uid === objManager.selected);
@@ -2247,6 +2264,11 @@ import {
       rotatePoint.onpointermove = null;
       rotatePoint.onpointerup = null;
     };
+  };
+  rangeOpacity.oninput = (e) => {
+    const item = slide[current].assets.objects.find((x) => x.uid === objManager.selected);
+    if (!item) return;
+    setImageOpacity(item.uid, parseInt(e.target.value)/100);
   };
 
   // 개체 컨트롤 바 기능

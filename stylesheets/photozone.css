@@ -1101,8 +1101,8 @@ span.tm-b {
 /* 컨트롤러 */
 #photo-item-controller-area {
   position: absolute;
-  top: 0;
   left: 0;
+  top: 0;
   z-index: 9;
   
   width: 100%;
@@ -1110,8 +1110,14 @@ span.tm-b {
 
   pointer-events: none;
 }
+#photo-item-controller-area * { font-family: "Pretendard GOV Variable"; }
 
-#photo-item-controller { position: absolute; }
+#photo-item-controller {
+  display: flex;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+}
 
 #photo-controller-point-area {
   display: flex;
@@ -1128,11 +1134,12 @@ span.tm-b {
   pointer-events: auto;
 }
 
-#photo-controller-button-area {
+#photo-controller-menu-area {
   display: flex;
   position: absolute;
-  left: 0;
-  bottom: -55px;
+  flex-direction: column;
+  align-items: center;
+  bottom: -100px;
   gap: var(--p-tiny);
 
   width: max-content;
@@ -1141,11 +1148,7 @@ span.tm-b {
   pointer-events: auto;
 }
 
-#button-controller-additional {
-
-  width: 44px;
-  height: 44px;
-}
+#label-controller-opacity { width: 150px; }
 
 .resize-point {
   position: absolute;

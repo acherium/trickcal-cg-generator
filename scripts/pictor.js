@@ -11,7 +11,7 @@ import {
     name: "Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2036",
+    version: "2036.1",
     date: "24-12-20",
     watermark: false,
     isBeta: false
@@ -309,7 +309,7 @@ import {
   };
   const initComOps = () => {
     if (getComOps() === null) {
-      saveComOps();
+      saveComOps(false);
     };
     const res = getComOps();
     for (const key of Object.keys(comOps.flags)) {

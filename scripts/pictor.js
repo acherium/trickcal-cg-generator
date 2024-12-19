@@ -11,7 +11,7 @@ import {
     name: "Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2036.2",
+    version: "2036.3",
     date: "24-12-20",
     watermark: false,
     isBeta: false
@@ -2771,6 +2771,8 @@ import {
         toggleMenu("menu-object");
       } else if (e.code === "KeyH") {
         toggleMenu("menu-about");
+      } else if (e.code === "Delete") {
+        toggleMenu("menu-config");
       }
       // 확대/축소
       else if (e.code === "Minus") {

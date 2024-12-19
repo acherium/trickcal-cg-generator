@@ -11,7 +11,7 @@ import {
     name: "Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2035.2",
+    version: "2035.3",
     date: "24-12-19",
     watermark: false,
     isBeta: false
@@ -1058,8 +1058,8 @@ import {
   const btnContUnselect = $("#button-controller-unselect");
   const btnContAddon = $("#button-controller-additional");
   const btnContImgChange = $("#button-controller-change");
-  const btnContRemoveAlt = $("#button-controller-remove");
-  const btnContUnselectAlt = $("#button-controller-unselect");
+  const btnContRemoveAlt = $("#button-controller-remove-alt");
+  const btnContUnselectAlt = $("#button-controller-unselect-alt");
   const movetoBar = $("#moveto-bar");
   const btnMovetoHoriLeft = $("#button-controller-moveto-horizontal-left");
   const btnMovetoHoriCenter = $("#button-controller-moveto-horizontal-center");

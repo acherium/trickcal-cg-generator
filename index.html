@@ -33,19 +33,53 @@
       <div class="wrap">
         <div id="logo"><div></div><span>트릭컬 테마극장 생성기</span></div>
         <div class="partition"></div>
+        <button class="toggle-menu toggle-menu-config" data-menu="menu-config"><div class="i i-config"></div><span>설정<span class="key-hint">None</span></span></button>
+        <div class="partition"></div>
         <button class="button-search" id="button-search"><div class="i i-search"></div><span>대사 검색<span class="key-hint">Space</span></span></button>
         <button class="button-download-onmenu" id="button-download-onmenu"><div class="i i-download"></div><span>현재 슬라이드 저장<span class="key-hint">K</span></span></button>
         <div class="partition"></div>
         <button class="toggle-menu toggle-menu-doc" data-menu="menu-doc"><div class="i i-document"></div><span>문서 및 출력<span class="key-hint">A</span></span></button>
         <button class="toggle-menu toggle-menu-slide" data-menu="menu-slide"><div class="i i-slide"></div><span>슬라이드<span class="key-hint">S</span></span></button>
-        <button class="toggle-menu toggle-menu-scriptbox" data-menu="menu-scriptbox"><div class="i i-star5"></div><span>대화창<span class="key-hint">D</span></span></button>
-        <button class="toggle-menu toggle-menu-elements" data-menu="menu-elements"><div class="i i-config"></div><span>배경 및 요소<span class="key-hint">F</span></span></button>
+        <button class="toggle-menu toggle-menu-scriptbox" data-menu="menu-scriptbox"><div class="i i-dialogue"></div><span>대화창<span class="key-hint">D</span></span></button>
+        <button class="toggle-menu toggle-menu-elements" data-menu="menu-elements"><div class="i i-star5"></div><span>배경 및 요소<span class="key-hint">F</span></span></button>
         <button class="toggle-menu toggle-menu-object" data-menu="menu-object"><div class="i i-layer"></div><span>개체<span class="key-hint">G</span></span></button>
         <button class="toggle-menu toggle-menu-about" data-menu="menu-about"><div class="i i-notification"></div><span>앱 정보<span class="key-hint">H</span></span></button>
       </div>
     </div>
     <div id="menuzone">
       <div class="wrap">
+        <div id="menu-config" class="menu">
+          <div class="title">
+            <h2>설정</h2>
+            <button class="close"><div class="i i-deny"></div></button>
+          </div>
+          <div class="wrap">
+            <h4>워터마크</h4>
+            <label class="wf f1">
+              <input type="checkbox" id="checkbox-toggle-watermark" class="common-option-toggle" data-connected-option="toggleWatermark" autocomplete="off">
+              <p>표시</p>
+              <div class="toggle"></div>
+            </label>
+            <label class="wf f1">
+              <p>내용</p>
+              <input type="text" id="input-watermark" class="wf f1 common-option-input" data-connected-option="watermarkString" autocomplete="off">
+            </label>
+            <div class="list-row wf">
+              <p>가나다</p>
+              <select id="select-watermark-position" class="wf f1 common-option-input" data-connected-option="watermarkPosition" autocomplete="off">
+                <option value="0">좌상단</option>
+                <option value="1">중앙</option>
+              </select>
+            </div>
+            <div class="divline-row"></div>
+            <h4>설정 관리</h4>
+            <div class="list-row wf">
+              <button id="button-save-common-option" class="f1 fjcc"><div class="i i-export"></div><p>저장</p></button>
+              <button id="button-reset-common-option" class="f1 fjcc"><div class="i i-trash"></div><p>초기화</p></button>
+            </div>
+            <p>설정은 자동 저장됩니다.</p>
+          </div>
+        </div>
         <div id="menu-doc" class="menu">
           <div class="title">
             <h2>문서 및 출력</h2>
@@ -434,12 +468,13 @@
       <div class="wrap">
         <div id="menu-main" class="float-menu">
           <button class="toggle-menu toggle-menu-about logo" data-menu="menu-about" data-menu-tip="앱 정보" data-menu-shortcut="H"></button>
+          <button class="toggle-menu toggle-menu-config" data-menu="menu-config" data-menu-tip="설정" data-menu-shortcut="None"><div class="i i-config"></div></button>
           <button class="button-download-onmenu" data-menu-tip="현재 슬라이드 저장" data-menu-shortcut="K"><div class="i i-download"></div></button>
           <div class="partition"></div>
           <button class="toggle-menu toggle-menu-doc" data-menu="menu-doc" data-menu-tip="문서 및 출력" data-menu-shortcut="A"><div class="i i-document"></div></button>
           <button class="toggle-menu toggle-menu-slide" data-menu="menu-slide" data-menu-tip="슬라이드" data-menu-shortcut="S"><div class="i i-slide"></div></button>
           <button class="toggle-menu toggle-menu-scriptbox" data-menu="menu-scriptbox" data-menu-tip="대화창" data-menu-shortcut="D"><div class="i i-dialogue"></div></button>
-          <button class="toggle-menu toggle-menu-elements" data-menu="menu-elements" data-menu-tip="배경 및 요소" data-menu-shortcut="F"><div class="i i-config"></div></button>
+          <button class="toggle-menu toggle-menu-elements" data-menu="menu-elements" data-menu-tip="배경 및 요소" data-menu-shortcut="F"><div class="i i-star5"></div></button>
           <button class="toggle-menu toggle-menu-object" data-menu="menu-object" data-menu-tip="개체" data-menu-shortcut="G"><div class="i i-layer"></div></button>
         </div>
         <div id="menu-misc" class="float-menu">
@@ -471,6 +506,7 @@
           7: photo-button-area
           8: photo-border
           9: photo-item-controller-area
+          10: photo-watermark
           -->
           <div id="photo-bg-area">
             <img src="" id="photo-bg">
@@ -824,6 +860,9 @@
             </div>
           </div>
           <div id="photo-border"></div>
+          <div id="photo-watermark">
+            <p class="photo-watermark-text">가나다</p>
+          </div>
         </div>
       </div>
     </div>

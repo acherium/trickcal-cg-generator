@@ -11,8 +11,8 @@ import {
     name: "Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2035.3",
-    date: "24-12-19",
+    version: "2036",
+    date: "24-12-20",
     watermark: false,
     isBeta: false
   };
@@ -278,9 +278,117 @@ import {
     lastUpdate: null
   };
 
+  // 공통 설정 처리
+  const notiman = new LyraNotificationManager();
+  const comOpsOrigin = {
+    flags: {
+      toggleWatermark: false
+    },
+    values: {
+      watermarkString: "워터마크 내용",
+      watermarkPosition: "0"
+    }
+  };
+  const comOps = copy(comOpsOrigin);
+  const comOpControlNodes = {
+    flags: {},
+    values: {}
+  };
+  const getComOps = () => {
+    return JSON.parse(window.localStorage.getItem("option"));
+  };
+  const saveComOps = (alert = true, data = comOps) => {
+    const res = JSON.stringify(data);
+    window.localStorage.setItem("option", res);
+    if (alert) {
+      new LyraNotification({
+        icon: "export",
+        text: "공통 설정을 저장했습니다."
+      }).show();
+    };
+  };
+  const initComOps = () => {
+    if (getComOps() === null) {
+      saveComOps();
+    };
+    const res = getComOps();
+    for (const key of Object.keys(comOps.flags)) {
+      if (res.flags !== undefined && res.flags[key] !== undefined && res.flags[key] !== null) comOps.flags[key] = res.flags[key];
+    };
+    for (const key of Object.keys(comOps.values)) {
+      if (res.values !== undefined && res.values[key] !== undefined && res.values[key] !== null) comOps.values[key] = res.values[key];
+    };
+    saveComOps(false);
+  };
+  initComOps();
+  const tglsComOp = $a(".common-option-toggle");
+  const inputsComOp = $a(".common-option-input");
+  const btnSaveComOps = $("#button-save-common-option");
+  const btnResetComOps = $("#button-reset-common-option");
+  comOpControlNodes.flags = Object.fromEntries(Array.from(tglsComOp).map((x) => [ x.dataset.connectedOption, x ]));
+  comOpControlNodes.values = Object.fromEntries(Array.from(inputsComOp).map((x) => [ x.dataset.connectedOption, x ]));
+  for (const key of Object.keys(comOpControlNodes.flags)) {
+    const node = comOpControlNodes.flags[key];
+    node.onchange = (e) => {
+      comOps.flags[key] = e.target.checked;
+      saveComOps(false);
+    };
+    node.checked = comOps.flags[key];
+  };
+  for (const key of Object.keys(comOpControlNodes.values)) {
+    const node = comOpControlNodes.values[key];
+    node.onchange = (e) => {
+      comOps.values[key] = e.target.value;
+      saveComOps(false);
+    };
+    node.value = comOps.values[key];
+  };
+  btnSaveComOps.onclick = () => {
+    saveComOps();
+  };
+  btnResetComOps.onclick = () => {
+    saveComOps(false, comOpsOrigin);
+    new LyraNotification({
+      icon: "export",
+      text: "초기화된 설정 값을 적용하려면 현재 페이지를 새로고침하세요.",
+      autoClose: false,
+      buttons: [
+        new LyraButton({
+          icon: "clockwise",
+          text: "새로고침",
+          events: {
+            click: () => location.reload()
+          }
+        })
+      ]
+    }).show();
+  };
+
+  // 공통 설정 초기화
+  const watermarkArea = $("#photo-watermark");
+  const watermarks = $a(".photo-watermark-text");
+  const chkTglWatermark = $("#checkbox-toggle-watermark");
+  const inputWatermark = $("#input-watermark");
+  const selWatermarkPos = $("#select-watermark-position");
+  chkTglWatermark.addEventListener("change", (e) => {
+    watermarkArea.style["display"] = e.target.checked ? null : "none";
+  });
+  inputWatermark.addEventListener("input", () => {
+    for (const node of watermarks) {
+      node.innerText = inputWatermark.value;
+    };
+  });
+  selWatermarkPos.addEventListener("change", (e) => {
+    watermarkArea.className = `p${e.target.value}`;
+  });
+  watermarkArea.style["display"] = comOps.flags.toggleWatermark ? null : "none";
+  watermarkArea.className = `p${comOps.values.watermarkPosition}`;
+  for (const node of watermarks) {
+    node.innerText = comOps.values.watermarkString;
+  };
+
   // 슬라이드 데이터
   let slide = [];
-  let commonData = {};
   let current = 0;
 
   // 공통 변수/플래그
@@ -1979,7 +2087,6 @@ import {
 
   // 시작시 초기화
   const modalman = new LyraModalManager();
-  const notiman = new LyraNotificationManager();
   createSlide();
 
   // PNG 이미지 출력

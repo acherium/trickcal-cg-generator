@@ -1151,6 +1151,26 @@ span.tm-b {
 
 #label-controller-opacity { width: 150px; }
 
+#photo-watermark {
+  display: grid;
+  position: absolute;
+  padding: 20px;
+  z-index: 10;
+  place-items: start;
+
+  width: 100%;
+  height: 100%;
+
+  pointer-events: none;
+}
+#photo-watermark.p0 { place-items: start; }
+#photo-watermark.p1 { place-items: center; }
+#photo-watermark * {
+  font-size: 36pt;
+  color: var(--c-n6);
+  opacity: 0.2;
+}
+
 .resize-point {
   position: absolute;
 

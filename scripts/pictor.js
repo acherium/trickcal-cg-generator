@@ -11,8 +11,8 @@ import {
     name: "Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2035.1",
-    date: "24-12-13",
+    version: "2035.2",
+    date: "24-12-19",
     watermark: false,
     isBeta: false
   };
@@ -1058,6 +1058,8 @@ import {
   const btnContUnselect = $("#button-controller-unselect");
   const btnContAddon = $("#button-controller-additional");
   const btnContImgChange = $("#button-controller-change");
+  const btnContRemoveAlt = $("#button-controller-remove");
+  const btnContUnselectAlt = $("#button-controller-unselect");
   const movetoBar = $("#moveto-bar");
   const btnMovetoHoriLeft = $("#button-controller-moveto-horizontal-left");
   const btnMovetoHoriCenter = $("#button-controller-moveto-horizontal-center");
@@ -2350,6 +2352,13 @@ import {
   btnMovetoCenter.onclick = () => {
     btnMovetoHoriCenter.click();
     btnMovetoVertMiddle.click();
+  };
+  btnContRemoveAlt.onclick = () => {
+    removeObject(current, objManager.selected);
+    refreshThumbnail(current, photozone);
+  };
+  btnContUnselectAlt.onclick = () => {
+    unselectItem();
   };
 
   // 화면 이동

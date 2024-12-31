@@ -76,9 +76,12 @@
   height: max-content;
 
   /* outline: solid 1px var(--c-border); */
-  border-radius: var(--r-medium);
-  background-color: var(--c-main);
+  /* border-radius: var(--r-medium); */
+  border-radius: var(--modal-radius);
+  /* background-color: var(--c-main); */
+  background-color: var(--modal-background);
   /* box-shadow: 0 0 10px var(--c-shadow); */
+  box-shadow: var(--modal-shadow);
   pointer-events: auto;
 
   animation: 0.15s var(--af-sweep-in) ani-window-in both;
@@ -119,6 +122,8 @@
   position: relative;
   padding: var(--p-tiny);
   overflow-y: scroll;
+
+  background-color: var(--c-main);
 }
 
 .modal > .body > .controller {

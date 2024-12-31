@@ -11,10 +11,10 @@ import {
     name: "Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2037",
+    version: "2038",
     date: "24-12-31",
-    watermark: false,
-    isBeta: false
+    watermark: true,
+    isBeta: true
   };
 
   // 메뉴 접기/펼치기 기능 초기화

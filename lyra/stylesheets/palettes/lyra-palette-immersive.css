@@ -1,7 +1,25 @@
 @charset "UTF-8";
 :root {
+  --main: oklch(100% 0 0);
+  
+  --font-color: oklch(0% 0 0);
+
   --button-minimum: 44px;
   --button-padding: 12px;
   --button-gap: 4px;
   --button-radius: 22px;
+  --button-background: oklch(from var(--c-accent) l c h/0.1);
+
+  --modal-radius: 34px;
+  --modal-background: oklch(from var(--c-accent) 95% 0.009 h);
+  --modal-shadow: 0 0 10px oklch(0% 0 0 / 0.5);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --main: oklch(0% 0 0);
+
+    --font-color: oklch(100% 0 0);
+
+    --modal-background: oklch(from var(--c-accent) 25% 0.009 h);
+  }
 }

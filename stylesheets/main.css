@@ -27,7 +27,7 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --c-border: oklch(30% 0.01 317);
-      --c-sub: rgb(24, 23, 24);
+    --c-sub: rgb(24, 23, 24);
   }
 }
 

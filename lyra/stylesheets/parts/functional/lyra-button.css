@@ -7,24 +7,25 @@ button {
   position: relative;
   align-items: center;
   justify-content: flex-start;
-  gap: var(--m);
-  /* gap: var(--button-gap); */
+  /* gap: var(--m); */
+  gap: var(--button-gap);
   margin: 0;
-  padding: var(--p-large);
-  /* padding: var(--button-padding); */
+  /* padding: var(--p-large); */
+  padding: var(--button-padding);
   overflow: hidden;
   box-sizing: border-box;
 
-  min-width: 44px;
-  height: 44px;
-  /* min-width: var(--button-minimum); */
-  /* min-height: var(--button-minimum); */
+  /* min-width: 44px; */
+  /* height: 44px; */
+  min-width: var(--button-minimum);
+  min-height: var(--button-minimum);
 
   color: var(--c-font);
   border: none;
-  border-radius: var(--r);
-  /* border-radius: var(--button-radius); */
-  background-color: var(--c-button);
+  /* border-radius: var(--r); */
+  border-radius: var(--button-radius);
+  /* background-color: var(--c-button); */
+  background-color: var(--button-background);
 }
 
 button.accent { background-color: var(--c-accent); }

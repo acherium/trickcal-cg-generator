@@ -19,6 +19,7 @@
 
   --c-main: var(--c-white);
   --c-font: var(--c-black);
+  --c-border: oklch(90% 0.01 317);
   --c-button: oklch(94% 0.01 317);
   --c-button-cover: var(--c-black);
   --c-button-cover-disabled: oklch(100% 0 0 / 0.5);
@@ -74,6 +75,7 @@
   :root {
       --c-main: var(--c-black);
       --c-font: var(--c-white);
+      --c-border: oklch(30% 0.01 317);
       --c-button: oklch(20% 0 325);
       --c-button-cover: var(--c-white);
       --c-button-cover-disabled: oklch(0% 0 0 / 0.5);

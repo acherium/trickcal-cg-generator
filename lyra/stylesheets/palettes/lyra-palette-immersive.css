@@ -1,0 +1,7 @@
+@charset "UTF-8";
+:root {
+  --button-minimum: 44px;
+  --button-padding: 12px;
+  --button-gap: 4px;
+  --button-radius: 22px;
+}

@@ -23,11 +23,16 @@ label:has(input[type=radio]):not(:has(.toggle)) * {
 
 label:has(input[type=checkbox]):not(:has(.toggle))::before,
 label:has(input[type=radio]):not(:has(.toggle))::before {
+  display: grid;
+  place-items: start center;
   box-sizing: border-box;
 
   width: 20px;
   height: 20px;
+  line-height: 16px;
 
+  color: var(--c-main);
+  font-weight: 700;
   border: solid 2px var(--c-checkbox-border);
   content: "";
 }
@@ -51,7 +56,12 @@ label:has(input[type=radio]:not(:disabled)):not(:has(.toggle))::before { border:
 label:has(input[type=checkbox]:not(:disabled)):not(:has(.toggle)):hover::before,
 label:has(input[type=radio]:not(:disabled)):not(:has(.toggle)):hover::before { border-color: var(--c-accent); }
 
-label:has(input[type=checkbox]:not(:disabled):checked):not(:has(.toggle))::before { border: solid 6px var(--c-accent); }
+/* label:has(input[type=checkbox]:not(:disabled):checked):not(:has(.toggle))::before { border: solid 6px var(--c-accent); } */
+label:has(input[type=checkbox]:not(:disabled):checked):not(:has(.toggle))::before {
+  border-color: var(--c-accent);
+  background-color: var(--c-accent);
+  content: "✓";
+}
 
 label:has(input[type=radio]:not(:disabled):checked):not(:has(.toggle))::before { border: solid 6px var(--c-accent); }
 

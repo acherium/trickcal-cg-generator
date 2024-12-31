@@ -2,15 +2,15 @@
 a:focus { outline: solid 2px var(--c-accent); }
 
 a {
-  display: inline-flex;
+  /* display: inline-flex; */
   align-items: baseline;
-  position: relative;
+  /* position: relative; */
 
   color: var(--c-blue);
   text-decoration: underline dotted 2px;
 }
 
-a::before {
+/* a::before {
   display: inline-block;
   align-self: flex-end;
   margin: 0 0.2em 1px 0.2em;
@@ -21,9 +21,9 @@ a::before {
   content: "";
   background: no-repeat top/1em var(--i-arrow-ne-white);
   background-color: var(--c-accent);
-}
+} */
 
-a::after {
+/* a::after {
   position: absolute;
   left: 0;
   top: 0;
@@ -39,8 +39,8 @@ a::after {
 
   transition: opacity var(--t-transition) linear;
   will-change: opacity;
-}
+} */
 
-a:hover::after, a:focus::after { opacity: 0.1; }
+/* a:hover::after, a:focus::after { opacity: 0.1; } */
 
 a:visited { color: var(--c-accent); }

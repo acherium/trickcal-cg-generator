@@ -55,7 +55,8 @@ body {
 span.key-hint {
   display: inline-block;
   margin-left: var(--m);
-  padding: var(--p-small) var(--p);
+  /* padding: var(--p-small) var(--p); */
+  padding: 2px 5px;
 
   font-weight: 600;
   color: var(--c-accent);

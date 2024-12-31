@@ -1,6 +1,6 @@
 @charset "UTF-8";
 input:disabled { cursor: no-drop; }
-input:focus {outline: solid 2px var(--c-accent); }
+input:focus { outline: solid 2px var(--c-accent); }
 
 label:has(input) * {
   margin: 0;

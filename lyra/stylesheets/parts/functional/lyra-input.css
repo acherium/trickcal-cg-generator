@@ -18,8 +18,8 @@ input[type=number] {
   font-size: inherit;
   color: var(--c-font);
   border: none;
-  border-radius: var(--r);
-  background-color: var(--c-button);
+  border-radius: var(--input-radius);
+  background-color: var(--input-background);
   appearance: textfield;
 }
 input[type=text] *,
@@ -48,8 +48,8 @@ label:has(input[type=number]) {
   height: fit-content;
 
   border: solid 2px var(--c-button);
-  border-radius: var(--r);
-  background-color: var(--c-button);
+  border-radius: var(--input-radius);
+  background-color: var(--input-background);
 }
 
 label:has(input[type=text]) > *:not(:last-child),
@@ -63,6 +63,7 @@ label:has(input[type=number]) > input[type=number] {
   border: none;
   border-left: solid 2px var(--c-checkbox-border);
   border-radius: 0;
+  background-color: transparent;
 }
 
 label:has(input[type=text]:focus),

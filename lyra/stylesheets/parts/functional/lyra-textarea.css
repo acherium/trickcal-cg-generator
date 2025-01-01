@@ -10,8 +10,8 @@ textarea {
   font-size: inherit;
   color: var(--c-font);
   border: none;
-  border-radius: var(--r);
-  background-color: var(--c-button);
+  border-radius: var(--input-radius);
+  background-color: var(--input-background);
 }
 
 textarea::placeholder {

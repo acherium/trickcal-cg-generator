@@ -4,6 +4,7 @@
   src: url("../assets/fonts/ONE Mobile POP.ttf");
 }
 :root {
+  --accent: oklch(73.2% 0.16 31.9);
   --c-accent: oklch(73.2% 0.16 31.9);
   --c-border: oklch(90% 0.01 317);
   --c-green: rgb(117, 153, 45);

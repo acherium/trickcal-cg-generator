@@ -1148,6 +1148,7 @@ span.tm-b {
   pointer-events: auto;
 }
 #photo-controller-menu-area > .list-row { gap: var(--p-tiny); }
+#photo-controller-menu-area button { background-color: var(--main); }
 
 #label-controller-opacity { width: 150px; }
 

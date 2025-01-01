@@ -120,9 +120,10 @@
 .modal > .body > .content {
   grid-area: content;
   position: relative;
-  padding: var(--p-tiny);
+  padding: var(--modal-inner-padding);
   overflow-y: scroll;
 
+  border-radius: var(--modal-inner-radius);
   background-color: var(--c-main);
 }
 

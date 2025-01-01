@@ -107,6 +107,7 @@
 .float-menu > button:focus { outline: unset; }
 .float-menu > button.active { background-color: var(--c-accent); }
 .float-menu > .logo { background: no-repeat center center/32px url("../assets/essentials/logo-black.svg"); }
+@media (prefers-color-scheme: dark) { .float-menu > .logo { background-image: url("../assets/essentials/logo-white.svg");} }
 
 .ii-image { background-image: url("../assets/images/thumbnail-image.svg"); }
 .ii-dialogue { background-image: url("../assets/images/thumbnail-dialogue.svg"); }

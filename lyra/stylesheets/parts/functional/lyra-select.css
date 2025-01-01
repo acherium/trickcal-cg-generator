@@ -7,10 +7,13 @@ select {
   padding: 10px;
   box-sizing: border-box;
 
+  min-width: var(--select-minimum);
+  min-height: var(--select-minimum);
+
   font-size: 12pt;
   border: 0;
-  border-radius: 4px;
-  background-color: var(--c-button);
+  border-radius: var(--select-radius);
+  background-color: var(--select-background);
   cursor: pointer;
   
   transition: all 0.1s;

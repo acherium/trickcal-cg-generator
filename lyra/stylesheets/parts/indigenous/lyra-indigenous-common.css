@@ -16,7 +16,7 @@
   content: "";
 }
 
-.bg-acrylic::before {
+/* .bg-acrylic::before {
   background: repeat url("../../../assets/essentials/noise.png");
   opacity: 0.02;
-}
+} */

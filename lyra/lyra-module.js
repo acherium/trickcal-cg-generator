@@ -3,14 +3,14 @@
 export const LYRA_NAME = "Lyra Engine";
 export const LYRA_AUTHOR = "Acherium";
 export const LYRA_CONTACT = "acherium@pm.me";
-export const LYRA_VERSION = "1112";
-export const LYRA_DATE = "24-12-8";
+export const LYRA_VERSION = "1113";
+export const LYRA_DATE = "25-1-1";
 
 export const COMMON_INTERVAL = 30;
 export const ANIMATION_INTERVAL = 30;
 export const TOOLTIP_DURATION = 10000;
 export const TOOLTIP_ANIMATION_DURATION = 150;
-export const WINDOW_ANIMATION_DURATION = 150;
+export const WINDOW_ANIMATION_DURATION = 250;
 export const WINDOW_ANIMATION_DURATION_LONG = 500;
 export const DEFAULT_NOTIFICATION_DURATION = 5000;
 export const DEFAULT_IMAGE_SLIDER_INTERVAL = 5000;

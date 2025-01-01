@@ -84,7 +84,7 @@
   box-shadow: var(--modal-shadow);
   pointer-events: auto;
 
-  animation: 0.15s var(--af-sweep-in) ani-window-in both;
+  animation: 0.25s var(--modal-ani-in) ani-window-in both;
   will-change: transform, opacity;
 }
 

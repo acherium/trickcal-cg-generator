@@ -11,7 +11,7 @@ import {
     name: "Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2039",
+    version: "2040",
     date: "25-1-1",
     watermark: false,
     isBeta: false

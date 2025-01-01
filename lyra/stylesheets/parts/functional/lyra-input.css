@@ -42,12 +42,12 @@ label:has(input[type=text]),
 label:has(input[type=number]) {
   display: flex;
   align-items: center;
-  padding: var(--p);
+  padding: var(--label-padding);
 
   width: fit-content;
   height: fit-content;
 
-  border: solid 2px var(--c-button);
+  border: unset;
   border-radius: var(--input-radius);
   background-color: var(--input-background);
 }
@@ -61,7 +61,7 @@ label:has(input[type=number]) > input[type=number] {
   padding: var(--p-small) var(--p-small) var(--p-small) var(--p);
 
   border: none;
-  border-left: solid 2px var(--c-checkbox-border);
+  border-left: solid 2px var(--input-background);
   border-radius: 0;
   background-color: transparent;
 }

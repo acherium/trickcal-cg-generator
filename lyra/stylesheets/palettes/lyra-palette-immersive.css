@@ -21,9 +21,12 @@
   --select-radius: 22px;
   --select-background: oklch(from var(--accent) l 0.2 h/0.1);
 
+  --label-padding: 10px;
+
   --modal-radius: 34px;
   --modal-background: oklch(from var(--accent) 95% 0.009 h);
   --modal-shadow: 0 0 10px oklch(0% 0 0 / 0.5);
+  --modal-ani-in: cubic-bezier(0.17, 0.67, 0.17, 1);
 
   --modal-inner-padding: 8px;
   --modal-inner-radius: 22px;

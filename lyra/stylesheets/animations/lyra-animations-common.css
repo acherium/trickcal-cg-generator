@@ -17,7 +17,7 @@
 }
 @keyframes ani-window-in {
   from {
-      transform: scale(0.98) translateY(3px);
+      transform: scale(0.9) translateY(3px);
       opacity: 0;
   }
   to {
@@ -31,7 +31,7 @@
       opacity: 1;
   }
   to {
-      transform: scale(0.98) translateY(3px);
+      transform: scale(0.9) translateY(3px);
       opacity: 0;
   }
 }

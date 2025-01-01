@@ -18,3 +18,5 @@ select {
   
   transition: all 0.1s;
 }
+
+option { background-color: var(--main); }

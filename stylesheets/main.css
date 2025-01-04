@@ -227,7 +227,8 @@ button { height: max-content; }
   height: max-content;
 }
 .menu > .wrap > *:not(:last-child) { margin-bottom: var(--m); }
-.menu > .wrap > h4:not(:first-child) { margin-top: calc(var(--m-large) * 2); }
+.menu > .wrap > h4:not(:first-child),
+.menu > .wrap > .menu-title:not(:first-child) { margin-top: calc(var(--m-large) * 2); }
 .menu > .wrap > .divline-row { margin-top: var(--m-large); }
 
 /* 메뉴 - 슬라이드 */

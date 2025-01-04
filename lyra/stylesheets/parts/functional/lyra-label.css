@@ -101,26 +101,26 @@ label:has(input[type=checkbox]):has(.toggle) .toggle,
 label:has(input[type=radio]):has(.toggle) .toggle {
   display: flex;
   position: relative;
-  padding: var(--p-tiny);
+  padding: var(--toggle-padding);
 
-  width: 50px;
-  height: 30px;
+  width: var(--toggle-width);
+  height: var(--toggle-height);
 
-  border: solid 2px var(--c-checkbox-border);
-  border-radius: 15px;
+  border-radius: var(--toggle-radius);
+  background-color: var(--toggle-background);
 
   transition: all ease-in-out var(--t-transition);
 }
 label:has(input[type=checkbox]):has(.toggle) .toggle::before,
 label:has(input[type=radio]):has(.toggle) .toggle::before {
   position: relative;
-  margin-left: 0;
+  left: 0px;
 
   height: 100%;
   aspect-ratio: 1/1;
 
   border-radius: 50%;
-  background-color: var(--c-checkbox-border);
+  background-color: var(--toggle-background);
   content: "";
 
   transition: all ease-in-out var(--t-transition);
@@ -133,7 +133,7 @@ label:has(input[type=radio]:checked):has(.toggle) .toggle {
 }
 label:has(input[type=checkbox]:checked):has(.toggle) .toggle::before,
 label:has(input[type=radio]:checked):has(.toggle) .toggle::before {
-  margin-left: auto;
+  left: calc(var(--toggle-width) - var(--toggle-height));
 
   background-color: var(--c-main);
 }

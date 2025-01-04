@@ -23,6 +23,12 @@
 
   --label-padding: 10px;
 
+  --toggle-width: 50px;
+  --toggle-height: 30px;
+  --toggle-padding: 4px;
+  --toggle-radius: calc(var(--toggle-height) / 2);
+  --toggle-background: oklch(from var(--accent) l 0.2 h/0.3);
+
   --modal-radius: 34px;
   --modal-background: oklch(from var(--accent) 95% 0.009 h);
   --modal-shadow: 0 0 10px oklch(0% 0 0 / 0.5);

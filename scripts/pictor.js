@@ -11,7 +11,7 @@ import {
     name: "Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2044",
+    version: "2044.1",
     date: "25-1-5",
     watermark: false,
     isBeta: false
@@ -1613,7 +1613,7 @@ import {
         classes: [ "image-item" ],
         properties: {
           innerHTML: `<button class="toggle"><div class="i i-toggle-on"></div></button>` +
-            `<div class="thumb"><img src="./assets/images/thumbnail-image.svg"></div>` +
+            `<div class="thumb"><img src="./assets/images/thumbnail-filter.svg"></div>` +
             `<p>#<span class="oid">${res.uid}</span>: <span class="name">${res.name}</span></p>` +
             `<button class="remove"><div class="i i-trash"></div></button>`
         }

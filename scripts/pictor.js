@@ -11,7 +11,7 @@ import {
     name: "Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2044.2",
+    version: "2045",
     date: "25-1-5",
     watermark: false,
     isBeta: false
@@ -422,6 +422,71 @@ import {
     y: 0
   };
 
+  // 워터마크 수정 여부 체크
+  const chkWatermarkOrigin = $("#photo-tcag-watermark");
+  const cwsOrigin = {
+    "display": "block",
+    "position": "absolute",
+    "visibility": "visible",
+    "overflow": "visible",
+    "top": "10px",
+    "z-index": "9000",
+    "width": "50px",
+    "height": "50px",
+    "background-image": `url("https://acherium.github.io/trickcal-cg-generator/assets/essentials/watermark.svg")`,
+    "background-image-alt": `url("https://127.0.0.1:5500/assets/essentials/watermark.svg")`,
+    "background-position": "50% 50%",
+    "background-size": "80%",
+    "background-repeat": "no-repeat",
+    "opacity": "0.1",
+    "animation-webkit": "0s ease 0s 1 normal none running none"
+  };
+  const parityChk = () => {
+    const chkWatermark = $("#photo-tcag-watermark");
+    if (!chkWatermark) {
+      callHalt();
+      return false;
+    };
+    const cws = getComputedStyle(chkWatermark);
+    if (
+      cws["display"] !== cwsOrigin["display"] ||
+      cws["position"] !== cwsOrigin["position"] ||
+      cws["visibility"] !== cwsOrigin["visibility"] ||
+      cws["overflow"] !== cwsOrigin["overflow"] ||
+      cws["top"] !== cwsOrigin["top"] ||
+      cws["z-index"] !== cwsOrigin["z-index"] ||
+      cws["width"] !== cwsOrigin["width"] ||
+      cws["height"] !== cwsOrigin["height"] ||
+      (cws["background-image"] !== cwsOrigin["background-image"] && cws["background-image"] !== cwsOrigin["background-image-alt"]) ||
+      cws["background-position"] !== cwsOrigin["background-position"] ||
+      cws["background-size"] !== cwsOrigin["background-size"] ||
+      cws["background-repeat"] !== cwsOrigin["background-repeat"] ||
+      cws["opacity"] !== cwsOrigin["opacity"] ||
+      cws["transform"] !== "none" ||
+      cws["filter"] !== "none" ||
+      (cws["animation"] !== "none" && cws["animation"] !== cwsOrigin["animation-webkit"])
+    ) {
+      callHalt();
+      return false;
+    } else {
+      return true;
+    };
+  };
+  const callHalt = () => {
+    body.innerHTML = "";
+    append(create("div", {
+      id: "parity-check-failed",
+      properties: {
+        innerHTML: `<div class="wrap">` +
+          `<h1>웹사이트가 수정되었거나<br>올바르게 불러오지 못했습니다.</h1>` +
+          `<p>작동이 중지되었습니다.</p>` +
+          `<p>계속하려면 새로고침하세요.<br>작업 중인 내용이 모두 초기화됩니다.</p>` +
+          `</div>`
+      }
+    }));
+  };
+  chkWatermarkOrigin.style["opacity"] = "0";
+
   // 기능부
   // 기본 함수 선언
   const INTtoHEX = (i) => {
@@ -460,6 +525,8 @@ import {
     return str;
   };
   const exportPNG = (node, scale = multiplier) => {
+    chkWatermarkOrigin.style["opacity"] = null;
+    if (!parityChk()) return;
     html2canvas(node, {
       scale: scale,
       backgroundColor: null,
@@ -477,6 +544,7 @@ import {
       l.click();
       l.remove();
       alertDownload.style["display"] = "none";
+      chkWatermarkOrigin.style["opacity"] = "0";
     });
   };
   const setRange = (node, i) => {
@@ -2169,6 +2237,7 @@ import {
   btnSavePNGall.onclick = () => {
     let i = 0;
     alertDownload.style["display"] = "flex";
+    chkWatermarkOrigin.style["opacity"] = null;
     const l = document.createElement("a");
     document.body.append(l);
     const cb = () => {
@@ -2197,6 +2266,7 @@ import {
       } else {
         l.remove();
         alertDownload.style["display"] = "none";
+        chkWatermarkOrigin.style["opacity"] = "0";
         document.documentElement.focus();
       };
     };

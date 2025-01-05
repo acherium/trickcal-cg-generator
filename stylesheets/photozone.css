@@ -1172,6 +1172,22 @@ span.tm-b {
   opacity: 0.2;
 }
 
+#photo-tcag-watermark {
+  position: absolute;
+  top: 10px;
+  z-index: 9000;
+
+  width: 50px;
+  height: 50px;
+
+  background: no-repeat center/80% url("../assets/essentials/watermark.svg");
+  opacity: 0.1;
+
+  transform: none;
+  filter: none;
+  animation: none;
+}
+
 .resize-point {
   position: absolute;
 

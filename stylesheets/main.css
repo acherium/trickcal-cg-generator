@@ -534,6 +534,29 @@ main {
   color: white;
 }
 
+/* 수정 감지 오류 */
+#parity-check-failed {
+  display: grid;
+  position: relative;
+  place-items: center;
+  padding: 20px;
+  
+  width: 100dvw;
+  height: 100dvh;
+
+  background-color: var(--c-main);
+}
+#parity-check-failed > .wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow: hidden;
+
+  max-width: 100%;
+  max-height: 100%;
+  width: 800px;
+}
+
 @media screen and (max-width: 700px) {
   /* 초기화 */
   body { flex-direction: column-reverse; }

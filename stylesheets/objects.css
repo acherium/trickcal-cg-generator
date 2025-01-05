@@ -244,7 +244,7 @@
 
 .object-dialogue.positioning-0 > .bg-area > .arrow-10,
 .object-dialogue.positioning-0 > .bg-area > .arrow-20 {
-  left: 20px;
+  left: 10%;
   top: -8px;
 
   transform: scaleY(-1);
@@ -252,7 +252,7 @@
 
 .object-dialogue.positioning-1 > .bg-area > .arrow-10,
 .object-dialogue.positioning-1 > .bg-area > .arrow-20 {
-  right: 30px;
+  right: 10%;
   top: -8px;
 
   transform: scaleY(-1) scaleX(-1);
@@ -260,13 +260,13 @@
 
 .object-dialogue.positioning-2 > .bg-area > .arrow-10,
 .object-dialogue.positioning-2 > .bg-area > .arrow-20 {
-  left: 20px;
+  left: 10%;
   bottom: -8px;
 }
 
 .object-dialogue.positioning-3 > .bg-area > .arrow-10,
 .object-dialogue.positioning-3 > .bg-area > .arrow-20 {
-  right: 30px;
+  right: 10%;
   bottom: -8px;
 
   transform: scaleX(-1);

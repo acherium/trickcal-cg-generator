@@ -576,6 +576,9 @@ main {
     width: 100%;
     height: calc(100dvh - 53px);
   } */
+   
+  /* 사도 색상표 */
+  .color-preset-subdiv { grid-template-columns: repeat(2, 50%); }
 }
 
 #window-test > .body > .contents { padding: var(--p); }

@@ -11,8 +11,8 @@ import {
     name: "Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2045.2",
-    date: "25-1-5",
+    version: "2045.3",
+    date: "25-1-6",
     watermark: false,
     isBeta: false
   };
@@ -445,7 +445,7 @@ import {
   const parityChk = () => {
     const chkWatermark = $("#photo-tcag-watermark");
     if (!chkWatermark) {
-      callHalt();
+      callHalt("워터마크 요소가 삭제되었거나 찾을 수 없습니다.");
       return false;
     };
     const cws = getComputedStyle(chkWatermark);
@@ -472,21 +472,22 @@ import {
       cws["filter"] !== "none" ||
       (cws["animation"] !== "none" && cws["animation"] !== cwsOrigin["animation-webkit"])
     ) {
-      callHalt();
+      callHalt("워터마크 요소의 속성이 훼손되었습니다.");
       return false;
     } else {
       return true;
     };
   };
-  const callHalt = () => {
+  const callHalt = (reason) => {
     body.innerHTML = "";
     append(create("div", {
       id: "parity-check-failed",
       properties: {
         innerHTML: `<div class="wrap">` +
           `<h1>웹사이트가 수정되었거나<br>올바르게 불러오지 못했습니다.</h1>` +
-          `<p>작동이 중지되었습니다.</p>` +
+          ( (typeof reason !== "undefined" && reason.constructor === String && reason.length > 0) ? `<p><strong>사유: ${reason}</strong></p>` : "" ) +
           `<p>계속하려면 새로고침하세요.<br>작업 중인 내용이 모두 초기화됩니다.</p>` +
+          `<p>작동이 중지되었습니다.</p>` +
           `</div>`
       }
     }));
@@ -2950,7 +2951,7 @@ import {
         btnSavePNGall.click();
       }
       // 검색
-      else if (e.code === "Space") {
+      else if (!e.ctrlKey && !e.altKey && e.code === "Space") {
         toggleSearch();
       }
       // 빠른 대사입력
@@ -2978,6 +2979,12 @@ import {
       else if (quick.checkVisibility()) quick.style["display"] = "none";
       else if (objManager.selected !== null) unselectItem();
       else if (currentMenu !== null) Array.from(tglMenus).find((x) => x.dataset.menu === currentMenu)?.click();
+    };
+    // 사이트 중지 테스트용
+    if (currentMenu === "menu-about") {
+      if (e.ctrlKey && e.altKey && e.code === "Space") {
+        callHalt("사용자의 호출로 사이트가 중지되었습니다.");
+      };
     };
   });
 

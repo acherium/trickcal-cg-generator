@@ -11,7 +11,7 @@ import {
     name: "Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2045.1",
+    version: "2045.2",
     date: "25-1-5",
     watermark: false,
     isBeta: false
@@ -439,7 +439,7 @@ import {
     "background-position": "50% 50%",
     "background-size": "80%",
     "background-repeat": "no-repeat",
-    "opacity": "0.1",
+    "opacity": "0.05",
     "animation-webkit": "0s ease 0s 1 normal none running none"
   };
   const parityChk = () => {

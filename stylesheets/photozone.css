@@ -1184,7 +1184,7 @@ span.tm-b {
   height: 50px;
 
   background: no-repeat center/80% url("../assets/essentials/watermark.svg");
-  opacity: 0.1;
+  opacity: 0.05;
 
   transform: none;
   filter: none;

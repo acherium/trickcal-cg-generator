@@ -11,7 +11,7 @@ import {
     name: "Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2043",
+    version: "2044",
     date: "25-1-5",
     watermark: false,
     isBeta: false
@@ -218,7 +218,8 @@ import {
     flags: {
       visible: null,
       darker: null,
-      sizeAdjustable: null
+      sizeAdjustable: null,
+      movable: null
     },
     additionalMethod: null,
     opacity: null
@@ -267,6 +268,9 @@ import {
     "14-panic": "공황",
     "15-disappoint": "실망",
     "16-idea": "아이디어"
+  };
+  const FILTER_NAMES = {
+    "cinemascope": "시네마스코프 레터박스"
   };
 
   // 변수 선언
@@ -1301,6 +1305,7 @@ import {
       res.flags.visible = origin ? origin.flags.visible : true;
       res.flags.darker = origin ? origin.flags.darker : false;
       res.flags.sizeAdjustable = origin ? origin.flags.sizeAdjustable : true;
+      res.flags.movable = origin ? origin.flags.movable : true;
 
       res.assets.body = create("img", { id: res.id || "", classes: res.class });
       res.assets.body.style["left"] = `${res.rectOrigin.x}px`;
@@ -1358,6 +1363,7 @@ import {
       res.flags.visible = origin ? origin.flags.visible : true;
       res.flags.darker = origin ? origin.flags.darker : false;
       res.flags.sizeAdjustable = origin ? origin.flags.sizeAdjustable : false;
+      res.flags.movable = origin ? origin.flags.movable : true;
 
       res.assets.body = create("div", {
         id: res.id || "",
@@ -1504,6 +1510,7 @@ import {
       res.flags.visible = origin ? origin.flags.visible : true;
       res.flags.darker = origin ? origin.flags.darker : false;
       res.flags.sizeAdjustable = origin ? origin.flags.sizeAdjustable : true;
+      res.flags.movable = origin ? origin.flags.movable : true;
 
       res.assets.body = create("div", {
           id: res.id || "",
@@ -1556,6 +1563,65 @@ import {
       if (origin === null) tslide.assets.objects.push(res);
       objLayer.append(res.assets.body);
       objList.append(res.assets.label);
+    } else if (t === "filter") {
+      res.class.push("object-filter");
+      res.name = origin?.name || `필터${FILTER_NAMES[params?.type] ? ` - ${FILTER_NAMES[params.type]}` : ""}`;
+      res.type = origin?.type || "filter",
+      res.sort = tslide.assets.objects.length;
+
+      res.rectOrigin.x = origin ? origin.rectOrigin.x : 0;
+      res.rectOrigin.y = origin ? origin.rectOrigin.y : 0;
+      res.rectOrigin.width = origin ? origin.rect.width : 160;
+      res.rectOrigin.height = origin ? origin.rect.height : 160;
+      res.rectOrigin.rotate = origin ? origin.rect.rotate : 0;
+      res.rectOrigin.flip.horizontal = origin ? origin.rect.flip.horizontal : false;
+      res.rectOrigin.flip.vertical = origin ? origin.rect.flip.vertical : false;
+      res.rect = JSON.parse(JSON.stringify(origin ? origin.rect : res.rectOrigin));
+      res.flags.visible = origin ? origin.flags.visible : true;
+      res.flags.darker = origin ? origin.flags.darker : false;
+      res.flags.sizeAdjustable = origin ? origin.flags.sizeAdjustable : false;
+      res.flags.movable = origin ? origin.flags.movable : false;
+
+      if (params && typeof params.type !== "undefined") {
+        if (params.type === "cinemascope") {
+          res.class.push("cinemascope");
+        };
+      };
+
+      res.assets.body = create("div", {
+          id: res.id || "",
+          classes: res.class
+      });
+      res.assets.body.style["left"] = `${res.rectOrigin.x}px`;
+      res.assets.body.style["top"] = `${res.rectOrigin.y}px`;
+      res.assets.body.style["width"] = `${res.rect.width}px`;
+      res.assets.body.style["height"] = `${res.rect.height}px`;
+      res.assets.body.addEventListener("click", () => selectItem(res.uid));
+      res.assets.data.stickerNodes = res.assets.body.querySelectorAll("img");
+
+      res.additionalMethod = null;
+
+      res.doRefresh = () => {
+        res.assets.body.style["transform"] = `translate(${res.rect.x}px, ${res.rect.y}px) ` +
+          `rotate(${res.rect.rotate}deg) ` +
+          `scale(${res.rect.flip.horizontal ? -1 : 1}, ${res.rect.flip.vertical ? -1 : 1})`;
+        res.assets.body.style["opacity"] = `${res.opacity}`;
+      };
+      res.doRefresh();
+        
+      res.assets.label = create("div", {
+        classes: [ "image-item" ],
+        properties: {
+          innerHTML: `<button class="toggle"><div class="i i-toggle-on"></div></button>` +
+            `<div class="thumb"><img src="./assets/images/thumbnail-image.svg"></div>` +
+            `<p>#<span class="oid">${res.uid}</span>: <span class="name">${res.name}</span></p>` +
+            `<button class="remove"><div class="i i-trash"></div></button>`
+        }
+      });
+
+      if (origin === null) tslide.assets.objects.push(res);
+      objLayer.append(res.assets.body);
+      objList.append(res.assets.label);
     };
 
     res.assets.label.addEventListener("click", (e) => {
@@ -1568,7 +1634,7 @@ import {
     btnObjRemove.addEventListener("click", () => removeObject(sid, uid));
     btnObjToggle.addEventListener("click", () => toggleObject(sid, uid, btnObjToggle));
 
-    selectItem(res.uid);
+    if (t !== "filter") selectItem(res.uid);
     btnMovetoCenter.click();
     return res;
   };
@@ -1626,6 +1692,7 @@ import {
   const addImagePos = (i, x, y) => {
     const item = slide[current].assets.objects.find((x) => x.uid === i);
     if (!item) return;
+    if (!item.flags.movable) return;
     item.rect.x += x;
     item.rect.y += y;
     item.doRefresh();
@@ -1634,6 +1701,7 @@ import {
   const setImagePos = (i, x, y) => {
     const item = slide[current].assets.objects.find((x) => x.uid === i);
     if (!item) return;
+    if (!item.flags.movable) return;
     if (x !== null) item.rect.x = x;
     if (y !== null) item.rect.y = y;
     item.doRefresh();
@@ -2239,6 +2307,7 @@ import {
       flag = false;
       const item = slide[current].assets.objects.find((x) => x.uid === objManager.selected);
       if (!item) return;
+      if (!item.flags.movable) return;
       item.rect.x += m.movementX;
       item.rect.y += m.movementY;
       setImagePos(item.uid, item.rect.x, item.rect.y);
@@ -2258,6 +2327,7 @@ import {
     contp.ontouchmove = (m) => {
       const item = slide[current].assets.objects.find((x) => x.uid === objManager.selected);
       if (!item) return;
+      if (!item.flags.movable) return;
       const x = m.touches[0].clientX;
       const y = m.touches[0].clientY;
       const mx = x - ox;
@@ -2715,6 +2785,8 @@ import {
   const gbtnSbox = $("#rg-scriptbox", gallery.nodes.main);
   const gbtnDialogue = $("#rg-dialogue", gallery.nodes.main);
   const gbtnSticker = $("#rg-sticker", gallery.nodes.main);
+  const gbtnFtDefault = $("#rg-filter-default", gallery.nodes.main);
+  const gbtnFtCinemascope = $("#rg-filter-cinemascope", gallery.nodes.main);
   const btnCloseGallery = $("button.close", gallery.nodes.main);
   for (const btn of btnsGallery) {
     btn.onclick = () => {
@@ -2741,6 +2813,18 @@ import {
   gbtnSticker.onclick = () => {
     unselectItem();
     addObject(current, "sticker");
+    refreshThumbnail(current, photozone);
+    btnCloseGallery.click();
+  };
+  gbtnFtDefault.onclick = () => {
+    unselectItem();
+    addObject(current, "filter");
+    refreshThumbnail(current, photozone);
+    btnCloseGallery.click();
+  };
+  gbtnFtCinemascope.onclick = () => {
+    unselectItem();
+    addObject(current, "filter", { type: "cinemascope" });
     refreshThumbnail(current, photozone);
     btnCloseGallery.click();
   };

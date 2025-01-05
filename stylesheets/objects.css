@@ -275,6 +275,19 @@
 .object-dialogue.positioning-4 > .bg-area > .arrow-10,
 .object-dialogue.positioning-4 > .bg-area > .arrow-20 { display: none; }
 
+.object-filter {
+  overflow: visible;
+
+  width: 100% !important;
+  height: 100% !important;
+
+  background-color: red;
+  pointer-events: none !important;
+}
+.object-filter.cinemascope {
+  background: no-repeat center/100% url("../assets/theater/cinemascope.svg") transparent;
+}
+
 .active-image-item::before {
   position: absolute;
   top: 0;

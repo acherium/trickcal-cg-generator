@@ -1174,7 +1174,10 @@ span.tm-b {
 
 #photo-tcag-watermark {
   position: absolute;
+  left: 10px;
   top: 10px;
+  right: 0px;
+  bottom: 0px;
   z-index: 9000;
 
   width: 50px;

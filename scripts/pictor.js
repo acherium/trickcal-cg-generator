@@ -11,7 +11,7 @@ import {
     name: "Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2045",
+    version: "2045.1",
     date: "25-1-5",
     watermark: false,
     isBeta: false
@@ -429,6 +429,7 @@ import {
     "position": "absolute",
     "visibility": "visible",
     "overflow": "visible",
+    "left": "10px",
     "top": "10px",
     "z-index": "9000",
     "width": "50px",
@@ -453,7 +454,12 @@ import {
       cws["position"] !== cwsOrigin["position"] ||
       cws["visibility"] !== cwsOrigin["visibility"] ||
       cws["overflow"] !== cwsOrigin["overflow"] ||
+      cws["margin"] !== "0px" ||
+      cws["padding"] !== "0px" ||
+      cws["left"] !== cwsOrigin["left"] ||
       cws["top"] !== cwsOrigin["top"] ||
+      cws["right"] !== "0px" ||
+      cws["bottom"] !== "0px" ||
       cws["z-index"] !== cwsOrigin["z-index"] ||
       cws["width"] !== cwsOrigin["width"] ||
       cws["height"] !== cwsOrigin["height"] ||

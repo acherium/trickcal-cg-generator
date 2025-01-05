@@ -1246,5 +1246,6 @@ span.tm-b {
   width: calc(100%);
   height: calc(100%);
 
-  outline: dashed 5px var(--c-accent);
+  outline: dashed 4px var(--c-accent);
+  opacity: 0.5;
 }

@@ -3,7 +3,7 @@
   --c-menu-shadow: oklch(0% 0 0/0.1);
   --op-menu-shadow: 0 2px 3px var(--c-menu-shadow);
 
-  --i-menu-size: 54px;
+  --i-menu-size: 48px;
 }
 
 #float-menu-area {
@@ -61,15 +61,18 @@
 
 .float-menu {
   display: flex;
+  padding: var(--p-small);
   overflow: hidden;
 
   width: max-content;
-  height: calc(var(--i-menu-size) + 2px);
+  height: calc(var(--i-menu-size) + 2px + var(--p-small)*2);
 
   border: solid 1px var(--c-border);
-  border-radius: var(--r);
-  background-color: var(--c-main);
+  /* border-radius: var(--r); */
+  border-radius: calc((var(--i-menu-size) + 2px + var(--p-small)*2)/2);
+  background-color: oklch(from var(--c-main) l c h/0.9);
   box-shadow: var(--op-menu-shadow);
+  backdrop-filter: blur(30px);
   pointer-events: auto;
 
   animation: cubic-bezier(.17, .67, .49, .99) 0.25s ani-float-menu-in;
@@ -87,6 +90,7 @@
 }
 
 .float-menu > .partition {
+  margin: 0 var(--p);
   width: 1px;
   height: 100%;
 
@@ -101,7 +105,7 @@
   min-width: var(--i-menu-size);
   min-height: var(--i-menu-size);
   
-  border-radius: unset;
+  border-radius: calc(var(--i-menu-size)/2);
   background-color: unset;
 }
 .float-menu > button:focus { outline: unset; }
@@ -113,8 +117,8 @@
 .ii-dialogue { background-image: url("../assets/images/thumbnail-dialogue.svg"); }
 .ii-sticker { background-image: url("../assets/images/thumbnail-sticker.svg"); }
 
-@media screen and (max-width: 1500px) {
-  #menuzone > .wrap { height: calc(100% - (var(--i-menu-size) * 2) - (var(--p) * 2) - 4px); }
+@media screen and (max-width: 1600px) {
+  #menuzone > .wrap { height: calc(100dvh - var(--i-menu-size) - var(--p)*2); }
 }
 
 @media screen and (max-width: 700px) {
@@ -124,7 +128,7 @@
     top: 0;
 
     width: 100%;
-    height: calc(100dvh - var(--i-menu-size) - var(--p));
+    height: calc(100dvh - var(--i-menu-size) - var(--p)*2);
 
     pointer-events: none;
   }

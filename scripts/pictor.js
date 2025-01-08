@@ -11,7 +11,7 @@ import {
     name: "Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2046",
+    version: "2046.1",
     date: "25-1-8",
     docType: "Pictor Project File",
     docVersion: 9,
@@ -2164,6 +2164,7 @@ import {
         slide: slide
       }
     };
+    raw.data.show.lastUpdate = Date.now();
     const res = JSON.stringify(raw, null, 2);
 
     const blob = new Blob([ res ], { type: "application/json" });

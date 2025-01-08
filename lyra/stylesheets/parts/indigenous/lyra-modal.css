@@ -89,7 +89,7 @@
   display: grid;
   position: relative;
   grid-template-columns: 45px minmax(0px, auto);
-  grid-template-rows: 45px;
+  grid-template-rows: minmax(0px, auto);
   place-items: center start;
   overflow: hidden;
 

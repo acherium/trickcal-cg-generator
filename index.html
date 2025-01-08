@@ -85,22 +85,28 @@
             <button class="close"><div class="i i-deny"></div></button>
           </div>
           <div class="wrap">
-            <h4>문서 정보</h4>
+            <h4>문서</h4>
             <label class="wf f1">
               <p>제목</p>
               <input type="text" id="show-name" class="wf f1" value="">
             </label>
-            <div class="divline-row"></div>
-            <h4>브라우저에 저장</h4>
             <div class="list-row wf">
-              <button id="button-save" class="f1 fjcc">
-                <div class="i i-export"></div>
-                <p>저장</p>
-              </button>
-              <button id="button-load" class="f1 fjcc">
-                <div class="i i-import"></div>
-                <p>불러오기</p>
-              </button>
+              <button id="button-save-file" class="f1 fjcc"><div class="i i-save"></div><p>저장</p></button>
+              <button id="button-open-file" class="f1 fjcc"><div class="i i-open"></div><p>불러오기</p></button>
+            </div>
+            <div class="list-column wf fais" style="display:none;">
+              <div class="divline-row"></div>
+              <h4>브라우저에 저장</h4>
+              <div class="list-row wf">
+                <button id="button-save" class="f1 fjcc">
+                  <div class="i i-export"></div>
+                  <p>저장</p>
+                </button>
+                <button id="button-load" class="f1 fjcc">
+                  <div class="i i-import"></div>
+                  <p>불러오기</p>
+                </button>
+              </div>
             </div>
             <div class="divline-row"></div>
             <h4>PNG 이미지로 저장</h4>

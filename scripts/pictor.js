@@ -11,8 +11,10 @@ import {
     name: "Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2045.3",
-    date: "25-1-6",
+    version: "2046",
+    date: "25-1-8",
+    docType: "Pictor Project File",
+    docVersion: 9,
     watermark: false,
     isBeta: false
   };
@@ -97,7 +99,6 @@ import {
 
   // 데이터 템플릿
   const SLIDE_TEMPLATE = {
-    version: 8,
     strings: {
       name: "버터",
       content: "나오라고.",
@@ -276,7 +277,7 @@ import {
   // 변수 선언
   // 쇼 데이터
   let show = {
-    version: 6,
+    version: APP.docVersion,
     name: "무제",
     lastSlide: 0,
     lastUpdate: null
@@ -2089,6 +2090,8 @@ import {
   // 문서 저장/불러오기 기능
   const btnSave = $("#button-save");
   const btnLoad = $("#button-load");
+  const btnSaveFile = $("#button-save-file");
+  const btnOpenFile = $("#button-open-file");
   const inputDocName = $("#show-name");
   const initStore = () => {
     if (window.localStorage.getItem("show") === null ||
@@ -2150,6 +2153,78 @@ import {
       }).show();
     };
   };
+  const saveFile = () => {
+    const raw = {
+      info: {
+        type: APP.docType,
+        version: APP.docVersion
+      },
+      data: {
+        show: show,
+        slide: slide
+      }
+    };
+    const res = JSON.stringify(raw, null, 2);
+
+    const blob = new Blob([ res ], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const date = Date.now();
+
+    const l = append(create("a"));
+    l.href = url;
+    l.download = `PICTORPROJ-${show.name}-${date}.json`;
+    l.click();
+    l.remove();
+  };
+  const openFile = () => {
+    uploader.multiple = null;
+    uploader.onchange = (f) => {
+      const file = f.target.files[0];
+      const reader = new FileReader();
+      reader.readAsText(file);
+      reader.onload = () => {
+        if (file.type !== "application/json") {
+          new LyraNotification({ icon: "warning", text: "파일이 올바른 JSON 파일이 아닙니다." }).show();
+          return;
+        };
+        const res = JSON.parse(reader.result);
+        if (typeof res !== "object" || typeof res.info !== "object" || typeof res.data !== "object" || res.info.type !== APP.docType) {
+          new LyraNotification({ icon: "warning", text: "파일이 올바른 프로젝트 파일이 아닙니다." }).show();
+          return;
+        };
+        if (res.info.version !== APP.docVersion) {
+          new LyraNotification({ icon: "warning", text: "파일 버전이 호환되지 않아 파일을 불러올 수 없습니다." }).show();
+          return;
+        };
+        
+        if (typeof res.data.show === "object" &&
+          typeof res.data.show.version === "number" &&
+          typeof res.data.show.name === "string" &&
+          typeof res.data.show.lastSlide === "number") {
+          show = res.data.show;
+          setDocName(show.name);
+          new LyraNotification({
+            icon: "import",
+            text: "문서 정보를 성공적으로 불러왔습니다."
+          }).show();
+          if (typeof res.data.slide === "object" || res.data.slide.constructor === Array) {
+            slide = res.data.slide;
+            setSlide(show.lastSlide);
+            new LyraNotification({
+              icon: "import",
+              text: "슬라이드 정보를 성공적으로 불러왔습니다."
+            }).show();
+          };
+        } else {
+          new LyraNotification({
+            icon: "warning",
+            text: "불러올 문서가 없습니다."
+          }).show();
+        };
+      };
+    };
+    uploader.click();
+  };
   const setDocName = (s) => {
     show.name = s;
     inputDocName.value = s;
@@ -2192,6 +2267,12 @@ import {
   };
   btnLoad.onclick = () => {
     loadLast();
+  };
+  btnSaveFile.onclick = () => {
+    saveFile();
+  };
+  btnOpenFile.onclick = () => {
+    openFile();
   };
   inputDocName.onchange = (c) => {
     setDocName(c.target.value);

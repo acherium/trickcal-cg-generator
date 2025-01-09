@@ -11,8 +11,8 @@ import {
     name: "Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2046.2",
-    date: "25-1-9",
+    version: "2046.3",
+    date: "25-1-10",
     docType: "Pictor Project File",
     docVersion: 9,
     watermark: false,
@@ -653,6 +653,7 @@ import {
   });
   btnBgSet.onclick = () => {
     uploader.multiple = null;
+    uploader.accept = "image/*";
     uploader.onchange = (f) => {
       const file = f.target.files[0];
       const reader = new FileReader();
@@ -1313,6 +1314,7 @@ import {
   const fetchImageUploader = () => {
     return new Promise((resolve, reject) => {
       uploader.multiple = true;
+      uploader.accept = "image/*";
       uploader.onchange = (f) => {
         uploader.multiple = null;
         Array.from(f.target.files).forEach((file) => {
@@ -1332,6 +1334,7 @@ import {
   };
   const callImageUploader = (i) => {
     uploader.multiple = true;
+    uploader.accept = "image/*";
     uploader.onchange = (f) => {
       uploader.multiple = null;
       Array.from(f.target.files).forEach((file) => {
@@ -2181,6 +2184,7 @@ import {
   };
   const openFile = () => {
     uploader.multiple = null;
+    uploader.accept = "application/json";
     uploader.onchange = (f) => {
       const file = f.target.files[0];
       const reader = new FileReader();

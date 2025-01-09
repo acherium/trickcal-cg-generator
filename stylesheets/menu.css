@@ -68,7 +68,6 @@
   height: calc(var(--i-menu-size) + 2px + var(--p-small)*2);
 
   border: solid 1px var(--c-border);
-  /* border-radius: var(--r); */
   border-radius: calc((var(--i-menu-size) + 2px + var(--p-small)*2)/2);
   background-color: oklch(from var(--c-main) l c h/0.9);
   box-shadow: var(--op-menu-shadow);

@@ -82,6 +82,91 @@
   /* background-color: var(--c-main); */
 }
 
+#immersive-splash-area {
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  padding: var(--p);
+  left: 0;
+  top: 0;
+  z-index: 10000;
+
+  width: 100%;
+  height: auto;
+}
+
+#immersive-splash {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: var(--p-small);
+
+  max-width: 100dvw;
+  min-height: calc(var(--i-menu-size) + 2px + var(--p-small)*2);
+  width: auto;
+  height: auto;
+  
+  border: solid 1px var(--c-border);
+  border-radius: calc((var(--i-menu-size) + 2px + var(--p-small)*2)/2);
+  background-color: oklch(from var(--c-main) l c h/0.9);
+  box-shadow: var(--op-menu-shadow);
+  backdrop-filter: blur(30px);
+  
+  animation: cubic-bezier(.17, .67, .49, .99) 0.25s ani-splash-in;
+}
+@keyframes ani-splash-in {
+  from {
+    transform: translateY(-10%) scale(0.9);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+#immersive-splash > .app-info {
+  display: flex;
+  align-items: center;
+  padding: var(--p-large);
+  gap: var(--p);
+}
+#immersive-splash > .app-info > .logo {
+  width: 32px;
+  height: 32px;
+
+  background: no-repeat center/100% url("../assets/essentials/logo-black.svg");
+}
+@media (prefers-color-scheme: dark) { #immersive-splash > .app-info > .logo { background-image: url("../assets/essentials/logo-white.svg"); } }
+#immersive-splash > .app-info > p > span {
+  font-size: 10pt;
+  opacity: 0.75;
+}
+
+#immersive-splash > .regulation-alert {
+  padding: var(--p-tiny) var(--p) var(--p) var(--p);
+  
+  font-size: 10pt;
+  opacity: 0.75;
+}
+
+#immersive-splash > .button-area { display: flex; }
+
+#immersive-splash button {
+  padding: unset;
+  justify-content: center;
+  padding: var(--p-large);
+  
+  min-width: var(--i-menu-size);
+  min-height: var(--i-menu-size);
+  
+  border-radius: calc(var(--i-menu-size)/2);
+  background-color: unset;
+}
+#immersive-splash button:focus { outline: unset; }
+
 @media screen and (max-width: 700px) {
   #splash-area {
     padding: 0;

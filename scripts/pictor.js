@@ -11,8 +11,8 @@ import {
     name: "Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2046.1",
-    date: "25-1-8",
+    version: "2046.2",
+    date: "25-1-9",
     docType: "Pictor Project File",
     docVersion: 9,
     watermark: false,
@@ -96,6 +96,8 @@ import {
   const OPACITYMIN = 0;
   const OPACITYMAX = 100;
   const DEFAULT_NAMEAREA_PALETTE_PRESET = "버터";
+  const SPLASH_TIMEOUT = 10000;
+  const SPLASH_TIMEOUT_ANIMATION_DURATION = 500;
 
   // 데이터 템플릿
   const SLIDE_TEMPLATE = {
@@ -3074,6 +3076,39 @@ import {
   $a(".ver").forEach((node) => {
     node.innerText = APP.version;
   });
+
+  // 스플래시 화면
+  const splash = $("#immersive-splash");
+  const btnOpenOnSplash = $("#button-splash-open");
+  const btnCloseSplash = $("#button-splash-close");
+  const closeSplash = () => {
+    splash.style["pointer-events"] = "none";
+    splash.animate([
+      {
+        "transform": "translateY(0%) scale(1)",
+        "opacity": "1"
+      },
+      {
+        "transform": "translateY(-10%) scale(0.9)",
+        "opacity": "0"
+      }
+    ], {
+      duration: SPLASH_TIMEOUT_ANIMATION_DURATION,
+      fill: "both",
+      easing: "cubic-bezier(0.55, 0.02, 0.76, 0.53)"
+    });
+    setTimeout(() => {
+      splash.parentNode.remove();
+    }, SPLASH_TIMEOUT_ANIMATION_DURATION + COMMON_INTERVAL);
+  };
+  btnOpenOnSplash.onclick = () => {
+    closeSplash();
+    openFile();
+  };
+  btnCloseSplash.onclick = () => {
+    closeSplash();
+  };
+  setTimeout(closeSplash, SPLASH_TIMEOUT);
 
   // 테스트 메뉴
   const winman = new LyraWindowManager();

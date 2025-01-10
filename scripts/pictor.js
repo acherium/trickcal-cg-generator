@@ -1,6 +1,6 @@
 import {
   LYRA_NAME, LYRA_AUTHOR, LYRA_VERSION, LYRA_DATE,
-  body, $, $a, create, append, copy,
+  body, $, $a, create, append, copy, revoke,
   LyraButton, LyraModal, LyraModalManager, LyraNotification, LyraNotificationManager, LyraWindowManager,
   COMMON_INTERVAL, ANIMATION_INTERVAL,
 } from "../lyra/lyra-module.js";
@@ -11,7 +11,7 @@ import {
     name: "Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2046.3",
+    version: "2047",
     date: "25-1-10",
     docType: "Pictor Project File",
     docVersion: 9,
@@ -98,6 +98,9 @@ import {
   const DEFAULT_NAMEAREA_PALETTE_PRESET = "버터";
   const SPLASH_TIMEOUT = 10000;
   const SPLASH_TIMEOUT_ANIMATION_DURATION = 500;
+  const CONTEXT_MENU_ANIMATION_DURATION = 200;
+  const CONTEXT_MENU_AREA_INNER_PADDING = 8;
+  const REGULATION_LINK = "https://epidgames.oqupie.com/portal/2399/article/71098";
 
   // 데이터 템플릿
   const SLIDE_TEMPLATE = {
@@ -568,8 +571,120 @@ import {
     };
   };
 
-  // 배경 조작 기능
+  // 파일 업로더
   const uploader = $("#uploader");
+  const bgUploader = $("#bg-uploader");
+  const imageUploader = $("#image-uploader");
+  const imageFetcher = $("#image-fetcher");
+  const projUploader = $("#project-uploader");
+  bgUploader.onchange = (f) => {
+    const file = f.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      setBackground(reader.result);
+      bgUploader.onchange = null;
+
+      const _$res = new Image();
+      _$res.src = reader.result;
+      _$res.onload = () => {
+        const ratioRes = Math.floor(_$res.width / _$res.height * RATIOCHECKER) / RATIOCHECKER;
+        const ratioArea = Math.floor(slide[current].area.width / slide[current].area.height * RATIOCHECKER) / RATIOCHECKER;
+        if (ratioRes !== ratioArea) {
+          new LyraNotification({
+            icon: "notification",
+            text: "슬라이드의 비율과 배경으로 설정한 이미지의 비율이 맞지 않습니다.\n슬라이드 비율을 이미지에 맞추시겠습니까?",
+            buttons: [
+              new LyraButton({
+                icon: "arrow-e",
+                text: "이미지 비율에 맞춤",
+                events: {
+                  click: () => btnFitToBg.click()
+                }
+              })
+            ]
+          }).show();
+        } else if ((ratioRes === ratioArea || _$res.width !== slide[current].area.width) && slide[current].values.backgroundFit !== "fill") {
+          new LyraNotification({
+            icon: "notification",
+            text: "슬라이드의 크기와 배경으로 설정한 이미지의 크기가 맞지 않습니다.\n슬라이드 크기를 이미지에 맞추시겠습니까?",
+            buttons: [
+              new LyraButton({
+                icon: "arrow-e",
+                text: "이미지 비율에 맞춤",
+                events: {
+                  click: () => btnFitToBg.click()
+                }
+              })
+            ]
+          }).show();
+        };
+      };
+
+    };
+  };
+  imageUploader.onchange = (f) => {
+    imageUploader.multiple = null;
+    Array.from(f.target.files).forEach((file) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        const $img = new Image();
+        $img.src = reader.result;
+        $img.onload = () => {
+          addObject(current, "image", { name: file.name, image: $img });
+          refreshThumbnail(current, photozone);
+        };
+      };
+    });
+  };
+  projUploader.onchange = (f) => {
+    const file = f.target.files[0];
+    const reader = new FileReader();
+    reader.readAsText(file);
+    reader.onload = () => {
+      if (file.type !== "application/json") {
+        new LyraNotification({ icon: "warning", text: "파일이 올바른 JSON 파일이 아닙니다." }).show();
+        return;
+      };
+      const res = JSON.parse(reader.result);
+      if (typeof res !== "object" || typeof res.info !== "object" || typeof res.data !== "object" || res.info.type !== APP.docType) {
+        new LyraNotification({ icon: "warning", text: "파일이 올바른 프로젝트 파일이 아닙니다." }).show();
+        return;
+      };
+      if (res.info.version !== APP.docVersion) {
+        new LyraNotification({ icon: "warning", text: "파일 버전이 호환되지 않아 파일을 불러올 수 없습니다." }).show();
+        return;
+      };
+      
+      if (typeof res.data.show === "object" &&
+        typeof res.data.show.version === "number" &&
+        typeof res.data.show.name === "string" &&
+        typeof res.data.show.lastSlide === "number") {
+        show = res.data.show;
+        setDocName(show.name);
+        new LyraNotification({
+          icon: "import",
+          text: "문서 정보를 성공적으로 불러왔습니다."
+        }).show();
+        if (typeof res.data.slide === "object" || res.data.slide.constructor === Array) {
+          slide = res.data.slide;
+          setSlide(show.lastSlide);
+          new LyraNotification({
+            icon: "import",
+            text: "슬라이드 정보를 성공적으로 불러왔습니다."
+          }).show();
+        };
+      } else {
+        new LyraNotification({
+          icon: "warning",
+          text: "불러올 문서가 없습니다."
+        }).show();
+      };
+    };
+  };
+
+  // 배경 조작 기능
   const photozone = $("#photozone");
   const bg = $("#photo-bg");
   const selBgFit = $("#select-bg-fit");
@@ -652,59 +767,11 @@ import {
     };
   });
   btnBgSet.onclick = () => {
-    uploader.multiple = null;
-    uploader.accept = "image/*";
-    uploader.onchange = (f) => {
-      const file = f.target.files[0];
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        setBackground(reader.result);
-        uploader.onchange = null;
-
-        const _$res = new Image();
-        _$res.src = reader.result;
-        _$res.onload = () => {
-          const ratioRes = Math.floor(_$res.width / _$res.height * RATIOCHECKER) / RATIOCHECKER;
-          const ratioArea = Math.floor(slide[current].area.width / slide[current].area.height * RATIOCHECKER) / RATIOCHECKER;
-          if (ratioRes !== ratioArea) {
-            new LyraNotification({
-              icon: "notification",
-              text: "슬라이드의 비율과 배경으로 설정한 이미지의 비율이 맞지 않습니다.\n슬라이드 비율을 이미지에 맞추시겠습니까?",
-              buttons: [
-                new LyraButton({
-                  icon: "arrow-e",
-                  text: "이미지 비율에 맞춤",
-                  events: {
-                    click: () => btnFitToBg.click()
-                  }
-                })
-              ]
-            }).show();
-          } else if ((ratioRes === ratioArea || _$res.width !== slide[current].area.width) && slide[current].values.backgroundFit !== "fill") {
-            new LyraNotification({
-              icon: "notification",
-              text: "슬라이드의 크기와 배경으로 설정한 이미지의 크기가 맞지 않습니다.\n슬라이드 크기를 이미지에 맞추시겠습니까?",
-              buttons: [
-                new LyraButton({
-                  icon: "arrow-e",
-                  text: "이미지 비율에 맞춤",
-                  events: {
-                    click: () => btnFitToBg.click()
-                  }
-                })
-              ]
-            }).show();
-          };
-        };
-
-      };
-    };
-    uploader.click();
+    bgUploader.click();
   };
   btnBgRemove.onclick = () => {
       slide[current].assets.background = "";
-      uploader.value = null;
+      bgUploader.value = null;
       bg.src = "";
       refreshThumbnail(current, photozone);
   };
@@ -1313,10 +1380,7 @@ import {
   };
   const fetchImageUploader = () => {
     return new Promise((resolve, reject) => {
-      uploader.multiple = true;
-      uploader.accept = "image/*";
-      uploader.onchange = (f) => {
-        uploader.multiple = null;
+      imageFetcher.onchange = (f) => {
         Array.from(f.target.files).forEach((file) => {
           const reader = new FileReader();
           reader.readAsDataURL(file);
@@ -1329,30 +1393,13 @@ import {
           };
         });
       };
-      uploader.click();
+      imageFetcher.click();
     });
   };
   const callImageUploader = (i) => {
-    uploader.multiple = true;
-    uploader.accept = "image/*";
-    uploader.onchange = (f) => {
-      uploader.multiple = null;
-      Array.from(f.target.files).forEach((file) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => {
-          const $img = new Image();
-          $img.src = reader.result;
-          $img.onload = () => {
-            addObject(i, "image", { name: file.name, image: $img });
-            refreshThumbnail(i, photozone);
-          };
-        };
-      });
-    };
-    uploader.click();
+    imageUploader.click(i);
   };
-  const addObject = (sid, t, params = {}, origin = null) => {
+  const addObject = (sid, t, params = {}, origin = null, select = true) => {
     const tslide = slide[sid];
     if (!tslide) return null;
     if (typeof t === "undefined" || t.constructor !== String) return null;
@@ -1715,12 +1762,12 @@ import {
     btnObjRemove.addEventListener("click", () => removeObject(sid, uid));
     btnObjToggle.addEventListener("click", () => toggleObject(sid, uid, btnObjToggle));
 
-    if (t !== "filter") selectItem(res.uid);
-    btnMovetoCenter.click();
+    if (select && t !== "filter") selectItem(res.uid);
+    if (origin === null) btnMovetoCenter.click();
     return res;
   };
   const addObjectIterable = (a) => {
-    for (const obj of a) addObject(current, obj.type, {}, obj);
+    for (const obj of a) addObject(current, obj.type, {}, obj, false);
   };
   const changeItemImage = (sid, oid) => {
     const tslide = slide[sid];
@@ -2183,54 +2230,7 @@ import {
     l.remove();
   };
   const openFile = () => {
-    uploader.multiple = null;
-    uploader.accept = "application/json";
-    uploader.onchange = (f) => {
-      const file = f.target.files[0];
-      const reader = new FileReader();
-      reader.readAsText(file);
-      reader.onload = () => {
-        if (file.type !== "application/json") {
-          new LyraNotification({ icon: "warning", text: "파일이 올바른 JSON 파일이 아닙니다." }).show();
-          return;
-        };
-        const res = JSON.parse(reader.result);
-        if (typeof res !== "object" || typeof res.info !== "object" || typeof res.data !== "object" || res.info.type !== APP.docType) {
-          new LyraNotification({ icon: "warning", text: "파일이 올바른 프로젝트 파일이 아닙니다." }).show();
-          return;
-        };
-        if (res.info.version !== APP.docVersion) {
-          new LyraNotification({ icon: "warning", text: "파일 버전이 호환되지 않아 파일을 불러올 수 없습니다." }).show();
-          return;
-        };
-        
-        if (typeof res.data.show === "object" &&
-          typeof res.data.show.version === "number" &&
-          typeof res.data.show.name === "string" &&
-          typeof res.data.show.lastSlide === "number") {
-          show = res.data.show;
-          setDocName(show.name);
-          new LyraNotification({
-            icon: "import",
-            text: "문서 정보를 성공적으로 불러왔습니다."
-          }).show();
-          if (typeof res.data.slide === "object" || res.data.slide.constructor === Array) {
-            slide = res.data.slide;
-            setSlide(show.lastSlide);
-            new LyraNotification({
-              icon: "import",
-              text: "슬라이드 정보를 성공적으로 불러왔습니다."
-            }).show();
-          };
-        } else {
-          new LyraNotification({
-            icon: "warning",
-            text: "불러올 문서가 없습니다."
-          }).show();
-        };
-      };
-    };
-    uploader.click();
+    projUploader.click();
   };
   const setDocName = (s) => {
     show.name = s;
@@ -2774,6 +2774,97 @@ import {
   };
   setScale(1);
 
+  // 화면 우클릭 메뉴
+  const conxMenu = $("#main-context-menu");
+  const btnConxMenuAddImage = $("#button-cm-add-image");
+  const btnConxMenuAddDialogue = $("#button-cm-add-dialogue");
+  const btnConxMenuAddSticker = $("#button-cm-add-sticker");
+  const btnConxMenuCreateSlide = $("#button-cm-create-slide");
+  const btnConxMenuSetBg = $("#button-cm-set-bg");
+  const openContextMenu = (e) => {
+    append(conxMenu);
+    const rect = conxMenu.getBoundingClientRect();
+    let x = e.clientX;
+    let y = e.clientY;
+
+    x = ((x + rect.width) > (window.innerWidth - CONTEXT_MENU_AREA_INNER_PADDING)) ? (window.innerWidth - CONTEXT_MENU_AREA_INNER_PADDING - rect.width) :
+    (x < CONTEXT_MENU_AREA_INNER_PADDING) ? CONTEXT_MENU_AREA_INNER_PADDING : x;
+    y = ((y + rect.height) > (window.innerHeight - CONTEXT_MENU_AREA_INNER_PADDING)) ? (window.innerHeight - CONTEXT_MENU_AREA_INNER_PADDING - rect.height) :
+    (y < CONTEXT_MENU_AREA_INNER_PADDING) ? CONTEXT_MENU_AREA_INNER_PADDING : y;
+    
+    document.addEventListener("click", closeContextMenu, { once: true });
+
+    conxMenu.animate([
+      {
+        "transform": `translate(${x - 20}px, ${y - 20}px) scale(0.9)`,
+        "opacity": "0"
+      },
+      {
+        "transform": `translate(${x}px, ${y}px) scale(1)`,
+        "opacity": "1"
+      }
+    ], {
+      duration: CONTEXT_MENU_ANIMATION_DURATION,
+      fill: "both",
+      easing: "cubic-bezier(0.17, 0.67, 0.49, 0.99)"
+    });
+    conxMenu.style["pointer-events"] = "auto";
+  };
+  const closeContextMenu = (e) => {
+    if (e.target === conxMenu) return;
+    // document.removeEventListener("click", closeContextMenu);
+
+    conxMenu.animate([
+      {
+        "transform": "translate(0px, 0px) scale(1)"
+      },
+      {
+        "transform": "translate(-20px, -20px) scale(0.9)"
+      }
+    ], {
+      duration: CONTEXT_MENU_ANIMATION_DURATION,
+      fill: "both",
+      easing: "cubic-bezier(0.55, 0.02, 0.76, 0.53)",
+      composite: "add"
+    });
+    conxMenu.animate([
+      {
+        "opacity": "1"
+      },
+      {
+        "opacity": "0"
+      }
+    ], {
+      duration: CONTEXT_MENU_ANIMATION_DURATION,
+      fill: "both",
+      easing: "cubic-bezier(0.55, 0.02, 0.76, 0.53)"
+    });
+    conxMenu.style["pointer-events"] = "none";
+  };
+  main.oncontextmenu = (e) => {
+    openContextMenu(e);
+    return false;
+  };
+  conxMenu.oncontextmenu = (e) => {
+    openContextMenu(e);
+    return false;
+  };
+  btnConxMenuAddImage.onclick = () => {
+    btnAddImage.click();
+  };
+  btnConxMenuAddDialogue.onclick = () => {
+    btnAddDialogue.click();
+  };
+  btnConxMenuAddSticker.onclick = () => {
+    btnAddSticker.click();
+  };
+  btnConxMenuCreateSlide.onclick = () => {
+    btnAddSlide.click();
+  };
+  btnConxMenuSetBg.onclick = () => {
+    btnBgSet.click();
+  };
+
   // 화면 컨트롤러 기능
   const btnsZoomOut = $a(".button-zoom-out");
   const btnsZoomReset = $a(".button-zoom-reset");
@@ -3113,6 +3204,12 @@ import {
     closeSplash();
   };
   setTimeout(closeSplash, SPLASH_TIMEOUT);
+
+  // 2차 창작 규정
+  const regulationLinks = $a(".regulation-link");
+  for (const a of regulationLinks) {
+    a.href = REGULATION_LINK;
+  };
 
   // 테스트 메뉴
   const winman = new LyraWindowManager();

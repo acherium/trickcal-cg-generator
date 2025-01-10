@@ -164,6 +164,8 @@ button { height: max-content; }
   padding: var(--p);
 
   height: 100%;
+
+  pointer-events: none;
 }
 
 .menu {
@@ -181,6 +183,7 @@ button { height: max-content; }
   border-radius: calc((var(--i-menu-size) + 2px + var(--p-small)*2)/2);
   animation: cubic-bezier(.17, .67, .49, .99) 0.25s ani-window-in;
   box-shadow: var(--op-menu-shadow);
+  pointer-events: auto;
 
   /* background-color: var(--c-main); */
   background-color: oklch(from var(--c-main) l c h/0.95);

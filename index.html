@@ -21,6 +21,7 @@
   <link rel="stylesheet" href="./stylesheets/misc.css">
   <link rel="stylesheet" href="./stylesheets/menu.css">
   <link rel="stylesheet" href="./stylesheets/resource-gallery.css">
+  <link rel="stylesheet" href="./stylesheets/context-menu.css">
 
   <script type="module" src="./lyra/lyra-style-init.js"></script>
   <script src="./scripts/html2canvas-pro.min.js"></script>
@@ -28,6 +29,10 @@
 </head>
 <body>
   <input type="file" id="uploader" class="force-hide">
+  <input type="file" name="bg-uploader" id="bg-uploader" class="force-hide" accept="image/*">
+  <input type="file" name="image-uploader" id="image-uploader" class="force-hide" accept="image/*" multiple>
+  <input type="file" name="image-fetcher" id="image-fetcher" class="force-hide" accept="image/*">
+  <input type="file" name="project-uploader" id="project-uploader" class="force-hide" accept="application/json">
   <div id="menu-area">
     <div id="menu-list" style="display:none;">
       <div class="wrap">
@@ -417,7 +422,7 @@
             <p>'트릭컬: 리바이브(Trickcal RE:VIVE)'는 ㈜에피드게임즈의 상표입니다.</p><br>
             <div class="divline-row"></div>
             <p>관련 링크</p>
-            <a href="https://epidgames.oqupie.com/portal/2399/article/71098" target="_blank">트릭컬: 리바이브 2차 창작물 활용 범위에 대한 안내</a><br>
+            <a class="regulation-link" target="_blank">트릭컬: 리바이브 2차 창작물 활용 범위에 대한 안내</a><br>
             <a href="https://github.com/acherium" target="_blank">GitHub</a>
           </div>
         </div>
@@ -867,6 +872,21 @@
       </div>
     </div>
   </main>
+  <div id="main-context-menu" class="context-menu">
+    <div class="list-row">
+      <button class="button-resource-gallery"><div class="i i-gallery"></div></button>
+      <button id="button-cm-add-image"><div class="i ii-image"></div></button>
+      <button id="button-cm-add-dialogue"><div class="i ii-dialogue"></div></button>
+      <button id="button-cm-add-sticker"><div class="i ii-sticker"></div></button>
+    </div>
+    <div class="divline-row"></div>
+    <div class="list-column wf">
+      <button id="button-cm-create-slide" class="wf fjcs"><div class="i i-create-slide"></div><p>슬라이드 추가</p></button>
+      <button id="button-cm-set-bg" class="wf fjcs"><span class="i ii-image"></span><p>배경 이미지 설정</p></button>
+      <button class="button-zoom-reset wf fjcs"><div class="i i-rescue"></div><p>뷰포트 초기화</p></button>
+    </div>
+    <a class="regulation-link" target="_blank">2차 창작물 활용 범위</a>
+  </div>
   <div id="modal-color-preset" class="modal">
     <div class="bg bg-acrylic"></div>
     <div class="body">
@@ -1232,7 +1252,7 @@
         <button id="button-splash-close"><div class="i i-deny"></div><p>닫기</p></button>
       </div>
       <span class="regulation-alert">
-        2차 창작물에 대한 규정을 준수하시기 바랍니다<br>
+        <a class="regulation-link" target="_blank">2차 창작물에 대한 규정</a>을 준수하시기 바랍니다<br>
         자세한 내용은 '앱 정보(H)'메뉴를 확인하세요
       </span>
     </div>

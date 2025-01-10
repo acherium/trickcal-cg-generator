@@ -93,6 +93,8 @@
 
   width: 100%;
   height: auto;
+  
+  pointer-events: none;
 }
 
 #immersive-splash {
@@ -112,6 +114,7 @@
   background-color: oklch(from var(--c-main) l c h/0.9);
   box-shadow: var(--op-menu-shadow);
   backdrop-filter: blur(30px);
+  pointer-events: auto;
   
   animation: cubic-bezier(.17, .67, .49, .99) 0.25s ani-splash-in;
 }

@@ -11,7 +11,7 @@ import {
     name: "Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2048",
+    version: "2048.1",
     date: "25-1-10",
     docType: "Pictor Project File",
     docVersion: 9,
@@ -287,7 +287,16 @@ import {
     lastSlide: 0,
     lastUpdate: null
   };
-
+  
+  // 키보드 이벤트 처리
+  const keys = {};
+  document.addEventListener("keydown", (e) => {
+    keys[e.key] = true;
+  });
+  document.addEventListener("keyup", (e) => {
+    if (keys[e.key]) delete keys[e.key];
+  });
+  
   // 공통 설정 처리
   const notiman = new LyraNotificationManager();
   const comOpsOrigin = {
@@ -2316,6 +2325,27 @@ import {
     };
   });
 
+  // 실험실
+  const btnTest = $("#button-test-menu");
+  document.addEventListener("keydown", (e) => {
+    if (e.target === body && e.shiftKey && e.code === "Slash") {
+      modalman.reserve["modal-experimental"].show();
+    };
+  });
+  $("#test-checkbox-activate-old-menu").onchange = (e) => {
+    $("#menu-list").style["display"] = e.target.checked ? null : "none";
+  };
+  $("#test-checkbox-activate-script-box-type").onchange = (e) => {
+    $("#container-script-box-type").style["display"] = e.target.checked ? null : "none";
+  };
+  $("#test-checkbox-activate-save-on-browser").onchange = (e) => {
+    $("#container-save-on-browser").style["display"] = e.target.checked ? null : "none";
+  };
+  $("#test-checkbox-activate-zoom-control-bar").onchange = (e) => {
+    $("#menu-zoom").style["display"] = e.target.checked ? null : "none";
+  };
+  btnTest.onclick = () => { modalman.reserve["modal-experimental"].show(); };
+
   // 시작시 초기화
   const modalman = new LyraModalManager();
   createSlide();
@@ -2776,6 +2806,7 @@ import {
 
   // 화면 우클릭 메뉴
   const conxMenu = $("#main-context-menu");
+  const conxMenuSecrets = $a(`*[data-secret="true"]`, conxMenu);
   const btnConxMenuAddImage = $("#button-cm-add-image");
   const btnConxMenuAddDialogue = $("#button-cm-add-dialogue");
   const btnConxMenuAddSticker = $("#button-cm-add-sticker");
@@ -2793,6 +2824,9 @@ import {
     (y < CONTEXT_MENU_AREA_INNER_PADDING) ? CONTEXT_MENU_AREA_INNER_PADDING : y;
     
     document.addEventListener("click", closeContextMenu);
+    for (const node of conxMenuSecrets) {
+      node.style["display"] = keys["Control"] ? null : "none";
+    };
 
     conxMenu.animate([
       {
@@ -3212,19 +3246,5 @@ import {
   const regulationLinks = $a(".regulation-link");
   for (const a of regulationLinks) {
     a.href = REGULATION_LINK;
-  };
-
-  // 테스트 메뉴
-  const winman = new LyraWindowManager();
-  document.addEventListener("keydown", (e) => {
-    if (e.target === body && e.shiftKey && e.code === "Slash") {
-      winman.reserve["window-test"].show();
-    };
-  });
-  $("#test-checkbox-activate-old-menu", winman.reserve["window-test"].nodes.main).onchange = (e) => {
-    $("#menu-list").style["display"] = e.target.checked ? "flex" : "none";
-  };
-  $("#test-checkbox-activate-script-box-type", winman.reserve["window-test"].nodes.main).onchange = (e) => {
-    $("#container-script-box-type").style["display"] = e.target.checked ? "flex" : "none";
   };
 })();

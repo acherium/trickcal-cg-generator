@@ -11,7 +11,7 @@ import {
     name: "Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2047",
+    version: "2048",
     date: "25-1-10",
     docType: "Pictor Project File",
     docVersion: 9,
@@ -2792,7 +2792,7 @@ import {
     y = ((y + rect.height) > (window.innerHeight - CONTEXT_MENU_AREA_INNER_PADDING)) ? (window.innerHeight - CONTEXT_MENU_AREA_INNER_PADDING - rect.height) :
     (y < CONTEXT_MENU_AREA_INNER_PADDING) ? CONTEXT_MENU_AREA_INNER_PADDING : y;
     
-    document.addEventListener("click", closeContextMenu, { once: true });
+    document.addEventListener("click", closeContextMenu);
 
     conxMenu.animate([
       {
@@ -2811,8 +2811,11 @@ import {
     conxMenu.style["pointer-events"] = "auto";
   };
   const closeContextMenu = (e) => {
-    if (e.target === conxMenu) return;
-    // document.removeEventListener("click", closeContextMenu);
+    if (
+      e.target === conxMenu ||
+      (typeof e.target.dataset.contextMenu !== "undefined" && e.target.dataset.contextMenu === "maintain")
+    ) return;
+    document.removeEventListener("click", closeContextMenu);
 
     conxMenu.animate([
       {

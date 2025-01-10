@@ -485,7 +485,7 @@
           <button class="button-search" data-menu-tip="대사 검색" data-menu-shortcut="Space"><div class="i i-search"></div></button>
           <button class="button-resource-gallery" data-menu-tip="리소스 갤러리" data-menu-shortcut="\"><div class="i i-gallery"></div></button>
         </div>
-        <div id="menu-zoom" class="float-menu">
+        <div id="menu-zoom" class="float-menu" style="display:none;">
           <button class="button-zoom-out" data-menu-tip="축소" data-menu-shortcut="-"><div class="i i-minus"></div></button>
           <button class="button-zoom-reset" data-menu-tip="뷰포트 초기화" data-menu-shortcut="Backspace"><div class="i i-search"></div><p class="scale"></p></button>
           <button class="button-zoom-in" data-menu-tip="확대" data-menu-shortcut="="><div class="i i-plus"></div></button>
@@ -880,10 +880,16 @@
       <button id="button-cm-add-sticker"><div class="i ii-sticker"></div></button>
     </div>
     <div class="divline-row"></div>
+    <div class="list-row">
+      <button class="button-zoom-out" data-context-menu="maintain"><span class="i i-minus"></span></button>
+      <button class="button-zoom-reset" data-context-menu="maintain"><span class="i i-search"></span><p class="scale"></p></button>
+      <button class="button-zoom-in" data-context-menu="maintain"><span class="i i-plus"></span></button>
+    </div>
+    <div class="divline-row"></div>
     <div class="list-column wf">
       <button id="button-cm-create-slide" class="wf fjcs"><div class="i i-create-slide"></div><p>슬라이드 추가</p></button>
       <button id="button-cm-set-bg" class="wf fjcs"><span class="i ii-image"></span><p>배경 이미지 설정</p></button>
-      <button class="button-zoom-reset wf fjcs"><div class="i i-rescue"></div><p>뷰포트 초기화</p></button>
+      <button class="button-zoom-reset wf fjcs" style="display:none;"><div class="i i-rescue"></div><p>뷰포트 초기화</p></button>
     </div>
     <a class="regulation-link" target="_blank">2차 창작물 활용 범위</a>
   </div>

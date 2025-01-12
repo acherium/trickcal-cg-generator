@@ -2,10 +2,17 @@
 :root {
   --lyra: oklch(59% 0.3 309);
   --accent: var(--lyra);
-
+  
   --main: oklch(100% 0 0);
-
+  --main-alt: oklch(0% 0 0);
+  
   --font-color: oklch(0% 0 0);
+  
+  --acryl-border: solid 1px oklch(from var(--main-alt) l c h/0.15);
+  --acryl-background: oklch(from var(--main) l c h/0.9);
+  --acryl-background-alt: oklch(from var(--main-alt) l c h/0.15);
+  --acryl-shadow: 0 2px 5px oklch(from var(--main-alt) l c h/0.05);
+  --acryl-blur: blur(30px);
 
   --input-minimum: 44px;
   --input-radius: 22px;
@@ -37,6 +44,16 @@
 
   --modal-inner-padding: 8px;
   --modal-inner-radius: 22px;
+
+  --menuset-padding: 4px;
+  --menuset-gap: 2px;
+  --menuset-size: 48px;
+  --menuset-radius: calc((var(--menuset-size) + 2px + var(--menuset-padding)*2)/2);
+  --menuset-border: var(--acryl-border);
+  --menuset-background: var(--acryl-background);
+  --menuset-background-alt: var(--acryl-background-alt);
+  --menuset-shadow: var(--acryl-shadow);
+  --menuset-filter: var(--acryl-blur);
 }
 @media (prefers-color-scheme: dark) {
   :root {

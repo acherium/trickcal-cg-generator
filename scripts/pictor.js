@@ -11,8 +11,8 @@ import {
     name: "Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2048.2",
-    date: "25-1-12",
+    version: "2048.3",
+    date: "25-1-14",
     docType: "Pictor Project File",
     docVersion: 9,
     watermark: false,
@@ -101,6 +101,7 @@ import {
   const CONTEXT_MENU_ANIMATION_DURATION = 200;
   const CONTEXT_MENU_AREA_INNER_PADDING = 8;
   const REGULATION_LINK = "https://epidgames.oqupie.com/portal/2399/article/71098";
+  const INITIAL = "TTG";
 
   // 데이터 템플릿
   const SLIDE_TEMPLATE = {
@@ -559,7 +560,7 @@ import {
     }).then((c) => {
       const l = document.createElement("a");
       const d = Date.now();
-      const filename = `TCAG-${d}.png`;
+      const filename = `${INITIAL}-${d}.png`;
       document.body.append(l);
       l.href = c.toDataURL("image/png");
       l.download = filename;
@@ -2379,7 +2380,7 @@ import {
           }).then((c) => {
             l.href = c.toDataURL("image/png");
             const d = Date.now();
-            const filename = `TCAG-${d}.png`;
+            const filename = `${INITIAL}-${d}.png`;
             l.download = filename;
             l.click();
             setTimeout(() => {

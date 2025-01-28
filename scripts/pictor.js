@@ -11,8 +11,8 @@ import {
     name: "Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2048.3",
-    date: "25-1-14",
+    version: "2048.4",
+    date: "25-1-28",
     docType: "Pictor Project File",
     docVersion: 9,
     watermark: false,
@@ -2333,9 +2333,6 @@ import {
       modalman.reserve["modal-experimental"].show();
     };
   });
-  $("#test-checkbox-activate-old-menu").onchange = (e) => {
-    $("#menu-list").style["display"] = e.target.checked ? null : "none";
-  };
   $("#test-checkbox-activate-script-box-type").onchange = (e) => {
     $("#container-script-box-type").style["display"] = e.target.checked ? null : "none";
   };

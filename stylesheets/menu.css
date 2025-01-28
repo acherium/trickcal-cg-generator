@@ -22,6 +22,7 @@
 }
 #menuzone {
   position: relative;
+  z-index: 1;
 
   height: 100%;
 }
@@ -367,6 +368,14 @@
 .ii-image { background-image: url("../assets/images/thumbnail-image.svg"); }
 .ii-dialogue { background-image: url("../assets/images/thumbnail-dialogue.svg"); }
 .ii-sticker { background-image: url("../assets/images/thumbnail-sticker.svg"); }
+
+/* 상단 메뉴 */
+#top-menu {
+  position: absolute;
+  top: var(--p);
+  left: var(--p);
+  z-index: 0;
+}
 
 @media screen and (max-width: 1600px) {
   #menuzone > .wrap { height: calc(100dvh - var(--i-menu-size) - var(--p)*2); }

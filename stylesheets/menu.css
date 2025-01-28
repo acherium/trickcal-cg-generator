@@ -20,7 +20,11 @@
 
   pointer-events: none;
 }
-#menuzone { position: relative; }
+#menuzone {
+  position: relative;
+
+  height: 100%;
+}
 #menuzone > .wrap {
   /* position: absolute;
   left: 0;

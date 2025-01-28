@@ -11,7 +11,7 @@ import {
     name: "Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2049",
+    version: "2050",
     date: "25-1-28",
     docType: "Pictor Project File",
     docVersion: 9,
@@ -21,6 +21,7 @@ import {
 
   // 메뉴 접기/펼치기 기능 초기화
   let currentMenu = null;
+  const menuzone = $("#menuzone");
   const tglMenus = $a("button.toggle-menu");
   const btnCloseMenus = $a(".menu button.close");
   const btnsSavePNGOnmenu = $a(".button-download-onmenu");
@@ -31,6 +32,7 @@ import {
     if (currentMenu === s) {
       for (const btn of targetBtns) btn.classList.remove("active");
       target.style["display"] = "none";
+      menuzone.style["display"] = "none";
       currentMenu = null;
     } else {
       const prevBtns = Array.from(tglMenus).filter((x) => x.dataset.menu === currentMenu);
@@ -40,6 +42,7 @@ import {
       };
       for (const btn of targetBtns) btn.classList.add("active");
       target.style["display"] = "flex";
+      menuzone.style["display"] = "flex";
       currentMenu = s;
     };
   };

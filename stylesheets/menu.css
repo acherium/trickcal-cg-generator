@@ -261,8 +261,10 @@
 }
 
 /* 메뉴 - 앱 정보 */
-#about-thumbnail {
+.about-thumbnail {
+  max-height: 200px;
   width: 100%;
+  object-fit: contain;
 
   border-bottom: solid 2px var(--c-lyra);
 }

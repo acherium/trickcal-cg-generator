@@ -11,8 +11,8 @@ import {
     name: "Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2050",
-    date: "25-1-28",
+    version: "2051",
+    date: "25-1-29",
     docType: "Pictor Project File",
     docVersion: 9,
     watermark: false,
@@ -25,6 +25,9 @@ import {
   const tglMenus = $a("button.toggle-menu");
   const btnCloseMenus = $a(".menu button.close");
   const btnsSavePNGOnmenu = $a(".button-download-onmenu");
+  const btnAbout = $("#button-about");
+  const btnSaveFileOnmenu = $("#button-save-file-onmenu");
+  const btnOpenFileOnmenu = $("#button-open-file-onmenu");
   const toggleMenu = (s) => {
     const target = $(`#${s}.menu`);
     if (!target) return;
@@ -62,15 +65,30 @@ import {
       btnSavePNG.click();
     };
   };
+  btnAbout.onclick = () => {
+    modalman.reserve["modal-about"].show();
+  };
+  btnSaveFileOnmenu.onclick = () => {
+    btnSaveFile.click();
+  };
+  btnOpenFileOnmenu.onclick = () => {
+    btnOpenFile.click();
+  };
 
   // 앱 정보 기록
-  const aboutApp = $("#about-app");
-  const aboutLyra = $("#about-lyra");
-  const aboutDesc = $("#about-desc");
+  const aboutApp = $a(".about-app");
+  const aboutLyra = $a(".about-lyra");
+  const aboutDesc = $a(".about-desc");
   const desc = $("#desc");
-  aboutApp.innerText = `${APP.name}\nBuild ${APP.version}@${APP.date}`;
-  aboutLyra.innerText = `${LYRA_NAME} by ${LYRA_AUTHOR}\nBuild ${LYRA_VERSION}@${LYRA_DATE}`;
-  aboutDesc.innerText = desc.content;
+  for (const p of aboutApp) {
+    p.innerText = `${APP.name}\nBuild ${APP.version}@${APP.date}`;
+  };
+  for (const p of aboutLyra) {
+    p.innerText = `${LYRA_NAME} by ${LYRA_AUTHOR}\nBuild ${LYRA_VERSION}@${LYRA_DATE}`;
+  };
+  for (const p of aboutDesc) {
+    p.innerText = desc.content;
+  };
 
   // 워터마크
   if (APP.watermark) {
@@ -105,6 +123,12 @@ import {
   const CONTEXT_MENU_AREA_INNER_PADDING = 8;
   const REGULATION_LINK = "https://epidgames.oqupie.com/portal/2399/article/71098";
   const INITIAL = "TTG";
+
+  // 2차 창작 규정
+  const regulationLinks = $a(".regulation-link");
+  for (const a of regulationLinks) {
+    a.href = REGULATION_LINK;
+  };
 
   // 데이터 템플릿
   const SLIDE_TEMPLATE = {
@@ -2342,9 +2366,6 @@ import {
   $("#test-checkbox-activate-save-on-browser").onchange = (e) => {
     $("#container-save-on-browser").style["display"] = e.target.checked ? null : "none";
   };
-  $("#test-checkbox-activate-zoom-control-bar").onchange = (e) => {
-    $("#menu-zoom").style["display"] = e.target.checked ? null : "none";
-  };
   btnTest.onclick = () => { modalman.reserve["modal-experimental"].show(); };
 
   // 시작시 초기화
@@ -3148,7 +3169,8 @@ import {
       } else if (e.code === "KeyG") {
         toggleMenu("menu-object");
       } else if (e.code === "KeyH") {
-        toggleMenu("menu-about");
+        // toggleMenu("menu-about");
+        btnAbout.click();
       } else if (e.code === "Delete") {
         toggleMenu("menu-config");
       }
@@ -3242,10 +3264,4 @@ import {
     closeSplash();
   };
   setTimeout(closeSplash, SPLASH_TIMEOUT);
-
-  // 2차 창작 규정
-  const regulationLinks = $a(".regulation-link");
-  for (const a of regulationLinks) {
-    a.href = REGULATION_LINK;
-  };
 })();

@@ -11,7 +11,7 @@ import {
     name: "Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2051.2",
+    version: "2051.4",
     date: "25-1-30",
     docType: "Pictor Project File",
     docVersion: 9,

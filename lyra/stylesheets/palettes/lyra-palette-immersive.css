@@ -37,7 +37,7 @@
   --toggle-background: oklch(from var(--accent) l 0.2 h/0.3);
 
   --modal-padding: 24px;
-  --modal-radius: 34px;
+  --modal-radius: 26px;
   --modal-border: oklch(from var(--accent) 90% 0.009 h);
   --modal-background: oklch(from var(--accent) 95% 0.009 h);
   --modal-shadow: 0 0 10px oklch(0% 0 0 / 0.5);

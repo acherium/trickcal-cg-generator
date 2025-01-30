@@ -133,7 +133,7 @@
   justify-content: flex-end;
   flex-wrap: wrap;
   gap: var(--m);
-  padding: var(--modal-padding);
+  padding: var(--modal-inner-padding);
 
   border-top: solid 1px var(--modal-border);
 }

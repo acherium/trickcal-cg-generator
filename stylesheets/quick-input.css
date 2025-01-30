@@ -29,8 +29,12 @@
   height: max-content;
 
   border: solid 1px var(--c-border);
-  border-radius: var(--r-medium);
-  background-color: var(--c-main);
+  /* border-radius: var(--r-medium); */
+  border-radius: 43px;
+  /* background-color: var(--c-main); */
+  background: oklch(from var(--c-main) l c h/0.9);
+  box-shadow: var(--op-menu-shadow);
+  backdrop-filter: blur(30px);
   pointer-events: auto;
 }
 
@@ -40,6 +44,7 @@
   width: 100%;
 
   font-size: 18pt;
+  border-radius: unset;
   background-color: transparent;
 }
 #input-quick:focus { outline: unset; }

@@ -38,6 +38,7 @@
 
   --modal-padding: 24px;
   --modal-radius: 34px;
+  --modal-border: oklch(from var(--accent) 90% 0.009 h);
   --modal-background: oklch(from var(--accent) 95% 0.009 h);
   --modal-shadow: 0 0 10px oklch(0% 0 0 / 0.5);
   --modal-ani-in: cubic-bezier(0.17, 0.67, 0.17, 1);
@@ -61,6 +62,7 @@
 
     --font-color: oklch(100% 0 0);
 
+    --modal-border: oklch(from var(--accent) 30% 0.009 h);
     --modal-background: oklch(from var(--accent) 25% 0.009 h);
   }
 }

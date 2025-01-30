@@ -65,13 +65,13 @@
       "controller";
   grid-template-columns: minmax(0px, 700px);
   grid-template-rows: minmax(0px, auto) minmax(0px, 1fr) minmax(0px, auto);
-  row-gap: var(--m-large);
+  /* row-gap: var(--m-large); */
   margin: var(--m);
-  padding: var(--modal-padding);
+  /* padding: var(--modal-padding); */
   box-sizing: content-box;
 
-  max-width: calc(100dvw - var(--modal-padding)*2 - var(--m)*2);
-  max-height: calc(100dvh - var(--modal-padding)*2 - var(--m)*2);
+  max-width: calc(100dvw - var(--m-large)*2);
+  max-height: calc(100dvh - var(--m-large)*2);
   width: auto;
   height: max-content;
 
@@ -91,10 +91,13 @@
   grid-template-columns: 45px minmax(0px, auto);
   grid-template-rows: minmax(0px, auto);
   place-items: center start;
+  padding: var(--modal-padding);
   overflow: hidden;
 
   max-width: inherit;
   width: 100%;
+
+  border-bottom: solid 1px var(--modal-border);
 }
 
 .modal > .body > .title > h1 {
@@ -116,10 +119,11 @@
 .modal > .body > .content {
   grid-area: content;
   position: relative;
-  padding: var(--modal-inner-padding);
+  /* padding: var(--modal-inner-padding); */
+  padding: var(--modal-padding);
   overflow-y: scroll;
 
-  border-radius: var(--modal-inner-radius);
+  /* border-radius: var(--modal-inner-radius); */
   background-color: var(--c-main);
 }
 
@@ -129,6 +133,15 @@
   justify-content: flex-end;
   flex-wrap: wrap;
   gap: var(--m);
+  padding: var(--modal-padding);
+
+  border-top: solid 1px var(--modal-border);
 }
 
 .modal.w500 > .body { width: 500px; }
+
+@media screen and (max-width: 700px) {
+  .modal > .body > .content {
+    padding: var(--modal-inner-padding);
+  }
+}

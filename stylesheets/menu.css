@@ -408,4 +408,7 @@
 
     pointer-events: auto;
   }
+ 
+  /* 사도 색상표 */
+  .color-preset-subdiv { grid-template-columns: repeat(2, 50%); }
 }

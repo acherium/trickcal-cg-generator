@@ -13,6 +13,7 @@
   --acryl-background-alt: oklch(from var(--main-alt) l c h/0.15);
   --acryl-shadow: 0 2px 5px oklch(from var(--main-alt) l c h/0.05);
   --acryl-blur: blur(30px);
+  --acryl-blur-light: blur(15px);
 
   --input-minimum: 44px;
   --input-radius: 22px;

@@ -1,4 +1,8 @@
 @charset "UTF-8";
+:root {
+  --header-height: 61px;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -14,7 +18,6 @@ html, body {
 body {
   display: grid;
   position: relative;
-  grid-template-rows: minmax(0, auto) minmax(0, 1fr);
 }
 
 .pad {
@@ -26,42 +29,81 @@ body {
 /* 상단 메뉴 */
 header {
   display: flex;
-  position: relative;
+  position: absolute;
   padding: var(--p);
   gap: var(--p-small);
+  z-index: 2;
+
+  width: 100%;
+  height: var(--header-height);
   
   border-bottom: solid 1px var(--modal-border);
-  background-color: var(--main);
+  background-color: var(--acryl-background);
+  backdrop-filter: var(--acryl-blur-light);
 }
 
-header button:focus {
+header button:focus,
+header a:focus {
   outline: none;
 }
 #button-menu { display: none; }
 
-#logo {
+header a {
   display: flex;
+  position: relative;
   align-items: center;
+  justify-content: flex-start;
+  gap: var(--button-gap);
+  margin: 0;
   padding: var(--button-padding);
-  gap: var(--p);
+  overflow: hidden;
+  box-sizing: border-box;
 
+  min-width: var(--button-minimum);
+  min-height: var(--button-minimum);
   height: var(--button-minimum);
 
-  font-size: 1.3rem;
-  font-weight: bold;
+  color: var(--c-font);
   text-decoration: none;
+  border: unset;
   border-radius: var(--button-radius);
-  user-select: none;
-
-  transition: all ease-in-out 0.1s;
-}
-#logo:hover {
   background-color: var(--button-background);
 }
+header a > * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 
-#logo > div {
-  height: 160%;
-  aspect-ratio: 1/1;
+  pointer-events: none;
+}
+header a::before {
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  width: 100%;
+  height: 100%;
+
+  border-radius: inherit;
+  background-color: var(--c-button-cover);
+  opacity: 0;
+  content: "";
+
+  transition: opacity var(--t-transition) linear;
+  will-change: opacity;
+}
+header a:hover::before { opacity: 0.1; }
+
+#logo {
+  gap: var(--p);
+
+  font-weight: bold;
+  background-color: transparent;
+}
+
+#icon {
+  width: 30px;
+  height: 30px;
 
   background: no-repeat center/100% url("../../assets/essentials/logo-accent.svg");
 }
@@ -78,11 +120,14 @@ header button:focus {
   overflow-y: scroll;
   z-index: 1;
 
+  margin-top: var(--header-height);
+
   width: 300px;
-  height: 100%;
+  height: calc(100% - var(--header-height));
 
   border-right: solid 1px var(--modal-border);
-  background-color: var(--main);
+  background-color: var(--acryl-background);
+  backdrop-filter: var(--acryl-blur-light);
 }
 
 #menu > ol {
@@ -170,7 +215,7 @@ main {
 }
 
 article {
-  padding: 70px 0;
+  padding: calc(70px + var(--header-height)) 0 70px;
 }
 
 footer {
@@ -213,6 +258,10 @@ article > .wrap,
 }
 
 @media screen and (max-width: 1200px) {
+  .mobile-hide {
+    display: none !important;
+  }
+  
   /* 상단 메뉴 */
   #button-menu { display: flex; }
 
@@ -236,7 +285,7 @@ article > .wrap,
   }
 
   article {
-    padding: 50px 0;
+    padding: calc(50px + var(--header-height)) 0 50px;
   }
 
   /* 글 영역 */

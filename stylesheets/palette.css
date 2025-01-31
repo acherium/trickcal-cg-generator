@@ -1,0 +1,33 @@
+@charset "UTF-8";
+@font-face {
+  font-family: "ONE Mobile POP";
+  src: url("../assets/fonts/ONE Mobile POP.ttf");
+}
+:root {
+  --accent: oklch(73.2% 0.16 31.9);
+  --c-accent: oklch(73.2% 0.16 31.9);
+  --c-border: oklch(90% 0.01 317);
+  --c-green: rgb(117, 153, 45);
+  --c-lightgreen: rgb(150, 201, 97);
+  --c-deepgreen: rgb(35, 117, 38);
+  --c-lime: rgb(250, 255, 214);
+  --c-lightgreen: rgb(219, 237, 167);
+  --c-backgroundgreen: rgb(239, 245, 219);
+  --c-sub: rgb(239, 233, 241);
+  --c-trickcal-font: rgb(52, 51, 52);
+  --c-trickcal-font-main: rgb(52, 51, 52);
+  --c-trickcal-font-sokmaeum: rgb(167, 98, 178);
+  --c-trickcal-font-gray: rgb(212, 212, 212);
+  --c-trickcal-font-red: rgb(245, 84, 113);
+  --c-trickcal-font-green: rgb(110, 160, 9);
+  --c-trickcal-font-blue: rgb(30, 119, 228);
+  --c-trickcal-font-yellow: rgb(248, 161, 0);
+  --c-trickcal-font-purple: rgb(112, 29, 217);
+  --c-trickcal-shadow: rgba(0, 0, 0, 0.5);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --c-border: oklch(30% 0.01 317);
+    --c-sub: rgb(24, 23, 24);
+  }
+}

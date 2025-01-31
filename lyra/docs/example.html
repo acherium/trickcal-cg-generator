@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pavo</title>
+  <link rel="shortcut icon" href="./lyra/assets/essentials/favicon.svg" type="image/x-icon">
+
+  <link rel="stylesheet" href="./lyra/lyra-styles.css">
+  <link rel="stylesheet" href="./lyra/docs/pavo-styles.css">
+
+  <script type="module" src="./lyra/lyra-style-init.js"></script>
+  <script type="module" src="./lyra/docs/pavo.js" defer></script>
+</head>
+<body>
+  <header>
+    <button id="button-menu"><span class="i i-menu"></span></button>
+    <a id="logo" href="#">
+      <div></div>
+      <span>Docs</span>
+    </a>
+    <div class="pad"></div>
+    <button><div class="i i-search"></div></button>
+  </header>
+  <div id="main">
+    <aside id="menu">
+      <ol>
+        <li><a href="#init">첫 페이지</a></li>
+        <li><a href="#test">테스트</a></li>
+      </ol>
+    </aside>
+    <main>
+      <div class="scroll">
+        <article>
+          <div class="wrap">
+            <h1 id="title"></h1>
+            <div id="content"></div>
+          </div>
+        </article>
+        <footer>
+          <div class="wrap">
+            <p><small>&copy; 2025. Acherium All rights reserved.</small></p>
+          </div>
+        </footer>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

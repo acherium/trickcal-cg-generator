@@ -1,0 +1,246 @@
+@charset "UTF-8";
+* {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100dvw;
+  height: 100dvh;
+}
+
+body {
+  display: grid;
+  position: relative;
+  grid-template-rows: minmax(0, auto) minmax(0, 1fr);
+}
+
+.pad {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+}
+
+/* 상단 메뉴 */
+header {
+  display: flex;
+  position: relative;
+  padding: var(--p);
+  gap: var(--p-small);
+  
+  border-bottom: solid 1px var(--modal-border);
+  background-color: var(--main);
+}
+
+header button:focus {
+  outline: none;
+}
+#button-menu { display: none; }
+
+#logo {
+  display: flex;
+  align-items: center;
+  padding: var(--button-padding);
+  gap: var(--p);
+
+  height: var(--button-minimum);
+
+  font-size: 1.3rem;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: var(--button-radius);
+  user-select: none;
+
+  transition: all ease-in-out 0.1s;
+}
+#logo:hover {
+  background-color: var(--button-background);
+}
+
+#logo > div {
+  height: 160%;
+  aspect-ratio: 1/1;
+
+  background: no-repeat center/100% url("../../assets/essentials/logo-accent.svg");
+}
+
+/* 주 영역 */
+#main {
+  display: flex;
+  position: relative;
+}
+
+/* 주 메뉴 */
+#menu {
+  position: relative;
+  overflow-y: scroll;
+  z-index: 1;
+
+  width: 300px;
+  height: 100%;
+
+  border-right: solid 1px var(--modal-border);
+  background-color: var(--main);
+}
+
+#menu > ol {
+  display: flex;
+  flex-direction: column;
+  margin: var(--p);
+
+  height: max-content;
+
+  list-style: none;
+}
+
+#menu > ol > li a {
+  display: inline-block;
+  padding: var(--button-padding);
+
+  width: 100%;
+  height: var(--button-minimum);
+
+  color: inherit;
+  text-decoration: none;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  border-radius: var(--button-radius);
+  opacity: 0.6;
+
+  transition: all ease-in-out 0.1s;
+}
+#menu > ol > li a:hover {
+  background-color: var(--button-background);
+  opacity: 1;
+}
+#menu > ol > li a:focus {
+  outline: unset;
+}
+#menu > ol > li a::before {
+  display: inline-block;
+  margin-right: var(--p);
+  margin-bottom: 1px;
+  box-sizing: border-box;
+
+  width: 8px;
+  height: 8px;
+
+  border: solid 1px var(--font-color);
+  border-radius: 50%;
+  content: "";
+}
+
+#menu > ol > li a.active {
+  background-color: var(--button-background);
+}
+#menu > ol > li a.active::before {
+  border: solid 1px var(--accent);
+  background-color: var(--accent);
+  content: "";
+}
+
+/* 주 화면 */
+main {
+  position: relative;
+  overflow-y: scroll;
+  z-index: 0;
+
+  width: 100%;
+  height: 100%;
+
+  background-color: var(--main);
+}
+
+.scroll {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  min-height: 100%;
+  width: 100%;
+}
+
+.wrap {
+  margin: 0 auto;
+
+  max-width: 760px;
+  width: 100%;
+}
+
+article {
+  padding: 70px 0;
+}
+
+footer {
+  padding: var(--p);
+
+  text-align: center;
+  border-top: solid 1px var(--modal-border);
+  opacity: 0.5;
+}
+
+/* 글 영역 */
+article > .wrap,
+#content {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  gap: 30px;
+}
+
+#title {
+  padding-bottom: 50px;
+
+  font-size: 2rem;
+  border-bottom: solid 1px var(--modal-border);
+}
+
+/* 로딩 효과 */
+.loading {
+  display: flex;
+  flex-direction: column;
+  gap: var(--p-large);
+}
+.loading > div {
+  max-width: 100%;
+  width: 500px;
+  height: 1.5rem;
+
+  border-radius: var(--r);
+  background-color: var(--button-background);
+}
+
+@media screen and (max-width: 1200px) {
+  /* 상단 메뉴 */
+  #button-menu { display: flex; }
+
+  /* 주 메뉴 */
+  #menu {
+    display: none;
+    position: absolute;
+
+    width: 100%;
+
+    border-right: none;
+  }
+  #menu.show {
+    display: block;
+  }
+
+  /* 주 화면 */
+  .wrap {
+    max-width: unset;
+    width: 90%;
+  }
+
+  article {
+    padding: 50px 0;
+  }
+
+  /* 글 영역 */
+  #title {
+    padding-bottom: 30px;
+  }
+}

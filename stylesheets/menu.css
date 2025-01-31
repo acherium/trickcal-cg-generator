@@ -376,9 +376,9 @@
 .float-menu > .logo { background: no-repeat center center/32px url("../assets/essentials/logo-black.svg"); }
 @media (prefers-color-scheme: dark) { .float-menu > .logo { background-image: url("../assets/essentials/logo-white.svg");} }
 
-.ii-image { background-image: url("../assets/images/thumbnail-image.svg"); }
-.ii-dialogue { background-image: url("../assets/images/thumbnail-dialogue.svg"); }
-.ii-sticker { background-image: url("../assets/images/thumbnail-sticker.svg"); }
+.ii-image { background-image: url("../assets/theater/thumbnails/thumbnail-image.svg"); }
+.ii-dialogue { background-image: url("../assets/theater/thumbnails/thumbnail-dialogue.svg"); }
+.ii-sticker { background-image: url("../assets/theater/thumbnails/thumbnail-sticker.svg"); }
 
 @media screen and (max-width: 1600px) {
   #menuzone > .wrap { height: calc(100dvh - var(--i-menu-size) - var(--p)*4); }

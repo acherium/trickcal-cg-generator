@@ -285,7 +285,7 @@
   pointer-events: none !important;
 }
 .object-filter.cinemascope {
-  background: no-repeat center/100% url("../assets/theater/cinemascope.svg") transparent;
+  background: no-repeat center/100% url("../assets/theater/filter/cinemascope.svg") transparent;
 }
 
 .active-image-item::before {

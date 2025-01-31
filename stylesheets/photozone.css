@@ -643,14 +643,6 @@
 .photo-script-box > .shadow {
   opacity: 0.3;
 }
-/* #photo-script-box-0 > .shadow { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox0-dark.svg"); }
-#photo-script-box-0 > .script-box { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox0-light.svg"); }
-#photo-script-box-1 > .shadow { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox1-dark.svg"); }
-#photo-script-box-1 > .script-box { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox1-light.svg"); }
-#photo-script-box-2 > .shadow { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox2-dark.svg"); }
-#photo-script-box-2 > .script-box { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox2-light.svg"); }
-#photo-script-box-3 > .shadow { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox3-dark.svg"); }
-#photo-script-box-3 > .script-box { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox3-light.svg"); } */
 
 .photo-script-box-sokmaeum-0 .shadow {
   transform: translate(3px, 3px);
@@ -658,14 +650,6 @@
 .photo-script-box-sokmaeum-1 .shadow, .photo-script-box-sokmaeum-2 .shadow {
   transform: translate(-10px, 10px);
 }
-/* .photo-script-box-sokmaeum-2 > #photo-script-box-0 > .shadow { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox0-light.svg"); }
-.photo-script-box-sokmaeum-2 > #photo-script-box-0 > .script-box { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox0-dark.svg"); }
-.photo-script-box-sokmaeum-2 > #photo-script-box-1 > .shadow { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox1-light.svg"); }
-.photo-script-box-sokmaeum-2 > #photo-script-box-1 > .script-box { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox1-dark.svg"); }
-.photo-script-box-sokmaeum-2 > #photo-script-box-2 > .shadow { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox2-light.svg"); }
-.photo-script-box-sokmaeum-2 > #photo-script-box-2 > .script-box { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox2-dark.svg"); }
-.photo-script-box-sokmaeum-2 > #photo-script-box-3 > .shadow { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox3-light.svg"); }
-.photo-script-box-sokmaeum-2 > #photo-script-box-3 > .script-box { background: no-repeat 0 / 100% 100% url("../assets/images/scriptbox3-dark.svg"); } */
 .photo-script-box-sokmaeum-2 .arrow {
   filter: invert(1);
 }

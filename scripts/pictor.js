@@ -11,8 +11,8 @@ import {
     name: "Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2051.4",
-    date: "25-1-30",
+    version: "2052",
+    date: "25-1-31",
     docType: "Pictor Project File",
     docVersion: 9,
     watermark: false,
@@ -926,6 +926,7 @@ import {
   };
   const vig = $("#photo-vignetting");
   const sok = $("#photo-button-sokmaeum");
+  const SCRIPTBOX_STYLES_OLD = [ "default", "thought", "shout", "square" ];
   const setBoxPos = (i) => {
     if (i < 0 && i > 8) return;
     slide[current].scriptbox.pos = i;
@@ -935,8 +936,8 @@ import {
   const setBoxStyle = (i) => {
     slide[current].scriptbox.style = i;
     rabSboxStyle[i].click();
-    sbox.shadow.src = `./assets/images/scriptbox${i}-${slide[current].scriptbox.sokmaeum === 2 ? "light" : "dark"}.svg`;
-    sbox.bg.src = `./assets/images/scriptbox${i}-${slide[current].scriptbox.sokmaeum === 2 ? "dark" : "light"}.svg`;
+    sbox.shadow.src = `./assets/theater/scriptbox-old/scriptbox-${slide[current].scriptbox.sokmaeum === 2 ? "white" : "black"}-${SCRIPTBOX_STYLES_OLD[i]}.svg`;
+    sbox.bg.src = `./assets/theater/scriptbox-old/scriptbox-${slide[current].scriptbox.sokmaeum === 2 ? "black" : "white"}-${SCRIPTBOX_STYLES_OLD[i]}.svg`;
   };
   const setSokmaeumStyle = (i) => {
     if (i === 0) {
@@ -945,24 +946,24 @@ import {
       vig.style["display"] = "none";
       sok.style["display"] = "none";
       contArea.className = `photo-script-box-pos-${slide[current].scriptbox.pos} photo-script-box-sokmaeum-${i}`;
-      sbox.shadow.src = `./assets/images/scriptbox${slide[current].scriptbox.style}-dark.svg`;
-      sbox.bg.src = `./assets/images/scriptbox${slide[current].scriptbox.style}-light.svg`;
+      sbox.shadow.src = `./assets/theater/scriptbox-old/scriptbox-${slide[current].scriptbox.sokmaeum === 2 ? "white" : "black"}-${SCRIPTBOX_STYLES_OLD[i]}.svg`;
+      sbox.bg.src = `./assets/theater/scriptbox-old/scriptbox-${slide[current].scriptbox.sokmaeum === 2 ? "black" : "white"}-${SCRIPTBOX_STYLES_OLD[i]}.svg`;
     } else if (i === 1) {
       slide[current].scriptbox.sokmaeum = i;
       rabSokStyle[i].click();
       vig.style["display"] = "none";
       sok.style["display"] = "block";
       contArea.className = `photo-script-box-pos-${slide[current].scriptbox.pos} photo-script-box-sokmaeum-${i}`;
-      sbox.shadow.src = `./assets/images/scriptbox${slide[current].scriptbox.style}-dark.svg`;
-      sbox.bg.src = `./assets/images/scriptbox${slide[current].scriptbox.style}-light.svg`;
+      sbox.shadow.src = `./assets/theater/scriptbox-old/scriptbox-${slide[current].scriptbox.sokmaeum === 2 ? "white" : "black"}-${SCRIPTBOX_STYLES_OLD[i]}.svg`;
+      sbox.bg.src = `./assets/theater/scriptbox-old/scriptbox-${slide[current].scriptbox.sokmaeum === 2 ? "black" : "white"}-${SCRIPTBOX_STYLES_OLD[i]}.svg`;
     } else if (i === 2) {
       slide[current].scriptbox.sokmaeum = i;
       rabSokStyle[i].click();
       vig.style["display"] = "block";
       sok.style["display"] = "none";
       contArea.className = `photo-script-box-pos-${slide[current].scriptbox.pos} photo-script-box-sokmaeum-${i}`;
-      sbox.shadow.src = `./assets/images/scriptbox${slide[current].scriptbox.style}-light.svg`;
-      sbox.bg.src = `./assets/images/scriptbox${slide[current].scriptbox.style}-dark.svg`;
+      sbox.shadow.src = `./assets/theater/scriptbox-old/scriptbox-${slide[current].scriptbox.sokmaeum === 2 ? "white" : "black"}-${SCRIPTBOX_STYLES_OLD[i]}.svg`;
+      sbox.bg.src = `./assets/theater/scriptbox-old/scriptbox-${slide[current].scriptbox.sokmaeum === 2 ? "black" : "white"}-${SCRIPTBOX_STYLES_OLD[i]}.svg`;
     };
   };
   rabSboxPos.forEach((radio) => {
@@ -1179,7 +1180,7 @@ import {
     i = parseInt(i);
     if (i >= 0 && i < 2) {
       slide[current].assetOptions.select.theme = i;
-      for (const n of selboxBgs) n.src= `./assets/images/option-${i}.svg`;
+      for (const n of selboxBgs) n.src= `./assets/theater/option/option${i === 1 ? "-chat" : ""}.svg`;
       Array.from(selSelboxThemeOps).find((n) => n.value === `${i}`).selected = true;
     };
   };
@@ -1545,18 +1546,18 @@ import {
       res.assets.body.addEventListener("click", () => selectItem(res.uid));
 
       res.assets.data.bgs = append(create("div", { classes: [ "bg-area" ] }), res.assets.body);
-      append(create("img", { classes: [ "bg-10" ], properties: { src: "./assets/images/dialogue-10.svg" } }), res.assets.data.bgs);
-      append(create("img", { classes: [ "bg-11" ], properties: { src: "./assets/images/dialogue-11.svg" } }), res.assets.data.bgs);
-      append(create("img", { classes: [ "bg-12" ], properties: { src: "./assets/images/dialogue-12.svg" } }), res.assets.data.bgs);
-      append(create("img", { classes: [ "bg-13" ], properties: { src: "./assets/images/dialogue-13.svg" } }), res.assets.data.bgs);
-      append(create("img", { classes: [ "arrow-10" ], properties: { src: "./assets/images/dialogue-arrow-10.svg" } }), res.assets.data.bgs);
-      append(create("img", { classes: [ "next-10" ], properties: { src: "./assets/images/next-green.svg" } }), res.assets.data.bgs);
-      append(create("img", { classes: [ "bg-20" ], properties: { src: "./assets/images/dialogue-20.svg" } }), res.assets.data.bgs);
-      append(create("img", { classes: [ "bg-21" ], properties: { src: "./assets/images/dialogue-21.svg" } }), res.assets.data.bgs);
-      append(create("img", { classes: [ "bg-22" ], properties: { src: "./assets/images/dialogue-22.svg" } }), res.assets.data.bgs);
-      append(create("img", { classes: [ "bg-23" ], properties: { src: "./assets/images/dialogue-23.svg" } }), res.assets.data.bgs);
-      append(create("img", { classes: [ "arrow-20" ], properties: { src: "./assets/images/dialogue-arrow-20.svg" } }), res.assets.data.bgs);
-      append(create("img", { classes: [ "next-20" ], properties: { src: "./assets/images/next-purple.svg" } }), res.assets.data.bgs);
+      append(create("img", { classes: [ "bg-10" ], properties: { src: "./assets/theater/dialogue/dialogue-white-small.svg" } }), res.assets.data.bgs);
+      append(create("img", { classes: [ "bg-11" ], properties: { src: "./assets/theater/dialogue/dialogue-white-medium.svg" } }), res.assets.data.bgs);
+      append(create("img", { classes: [ "bg-12" ], properties: { src: "./assets/theater/dialogue/dialogue-white-long.svg" } }), res.assets.data.bgs);
+      append(create("img", { classes: [ "bg-13" ], properties: { src: "./assets/theater/dialogue/dialogue-white-extralong.svg" } }), res.assets.data.bgs);
+      append(create("img", { classes: [ "arrow-10" ], properties: { src: "./assets/theater/dialogue/dialogue-arrow-white.svg" } }), res.assets.data.bgs);
+      append(create("img", { classes: [ "next-10" ], properties: { src: "./assets/theater/scriptbox/next-green.svg" } }), res.assets.data.bgs);
+      append(create("img", { classes: [ "bg-20" ], properties: { src: "./assets/theater/dialogue/dialogue-purple-small.svg" } }), res.assets.data.bgs);
+      append(create("img", { classes: [ "bg-21" ], properties: { src: "./assets/theater/dialogue/dialogue-purple-medium.svg" } }), res.assets.data.bgs);
+      append(create("img", { classes: [ "bg-22" ], properties: { src: "./assets/theater/dialogue/dialogue-purple-long.svg" } }), res.assets.data.bgs);
+      append(create("img", { classes: [ "bg-23" ], properties: { src: "./assets/theater/dialogue/dialogue-purple-extralong.svg" } }), res.assets.data.bgs);
+      append(create("img", { classes: [ "arrow-20" ], properties: { src: "./assets/theater/dialogue/dialogue-arrow-purple.svg" } }), res.assets.data.bgs);
+      append(create("img", { classes: [ "next-20" ], properties: { src: "./assets/theater/scriptbox/next-purple.svg" } }), res.assets.data.bgs);
 
       res.additionalMethod = () => {
         const tmodal = modalman.reserve["modal-dialogue-quick"];
@@ -1647,7 +1648,7 @@ import {
         classes: [ "image-item" ],
         properties: {
           innerHTML: `<button class="toggle"><div class="i i-toggle-on"></div></button>` +
-            `<div class="thumb"><img src="./assets/images/thumbnail-dialogue.svg"></div>` +
+            `<div class="thumb"><img src="./assets/theater/thumbnails/thumbnail-dialogue.svg"></div>` +
             `<p>#<span class="oid">${res.uid}</span>: <span class="name">${res.name}</span></p>` +
             `<button class="remove"><div class="i i-trash"></div></button>`
         }
@@ -1678,11 +1679,11 @@ import {
       res.flags.movable = origin ? origin.flags.movable : true;
 
       res.assets.body = create("div", {
-          id: res.id || "",
-          classes: res.class,
-          properties: {
-              innerHTML: Object.keys(EMOTE_STICKERS_REVAMPED).map((x) => `<img src="./assets/images/emotion-${x}.svg" class="${x}">`).join("")
-          }
+        id: res.id || "",
+        classes: res.class,
+        properties: {
+          innerHTML: Object.keys(EMOTE_STICKERS_REVAMPED).map((x) => `<img src="./assets/theater/emotion/emotion-${x}.svg" class="${x}">`).join("")
+        }
       });
       res.assets.body.style["left"] = `${res.rectOrigin.x}px`;
       res.assets.body.style["top"] = `${res.rectOrigin.y}px`;
@@ -1719,7 +1720,7 @@ import {
         classes: [ "image-item" ],
         properties: {
           innerHTML: `<button class="toggle"><div class="i i-toggle-on"></div></button>` +
-            `<div class="thumb"><img src="./assets/images/thumbnail-sticker.svg"></div>` +
+            `<div class="thumb"><img src="./assets/theater/thumbnails/thumbnail-sticker.svg"></div>` +
             `<p>#<span class="oid">${res.uid}</span>: <span class="name">${res.name}</span></p>` +
             `<button class="remove"><div class="i i-trash"></div></button>`
         }
@@ -1778,7 +1779,7 @@ import {
         classes: [ "image-item" ],
         properties: {
           innerHTML: `<button class="toggle"><div class="i i-toggle-on"></div></button>` +
-            `<div class="thumb"><img src="./assets/images/thumbnail-filter.svg"></div>` +
+            `<div class="thumb"><img src="./assets/theater/thumbnails/thumbnail-filter.svg"></div>` +
             `<p>#<span class="oid">${res.uid}</span>: <span class="name">${res.name}</span></p>` +
             `<button class="remove"><div class="i i-trash"></div></button>`
         }

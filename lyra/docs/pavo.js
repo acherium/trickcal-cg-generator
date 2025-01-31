@@ -4,9 +4,7 @@ import {
 
 (() => {
   // 선언부
-  const ORIGIN = `${location.origin}`;
-  const PAVODIR = `${ORIGIN}/lyra/docs`;
-  const VIEWDIR = `${PAVODIR}/views`;
+  const VIEWDIR = `./views`;
   const INITIAL_VIEW = "init";
 
   // 모바일 메뉴 토글 기능
@@ -27,7 +25,6 @@ import {
   
   // 해시 링크 처리
   const view = $("article > .wrap");
-  console.log(view);
   const setView = (s) => {
     s = s.replace(/#/g, "") || INITIAL_VIEW;
     view.innerHTML = `<div class="loading"><div></div><div></div><div></div></div>`;

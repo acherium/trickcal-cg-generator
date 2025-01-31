@@ -79,6 +79,7 @@
   }
 }
 #menuzone > input[type=checkbox]:checked+.menu { display: block; }
+.menu label:has(input[type=range]) { background: unset; }
 
 .menu > .title {
   display: flex;
@@ -262,11 +263,9 @@
 
 /* 메뉴 - 앱 정보 */
 .about-thumbnail {
-  max-height: 200px;
+  max-height: 150px;
   width: 100%;
   object-fit: contain;
-
-  border-bottom: solid 2px var(--c-lyra);
 }
 
 /* 플로팅 메뉴 */

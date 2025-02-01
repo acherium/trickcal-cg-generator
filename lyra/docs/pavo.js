@@ -1,5 +1,5 @@
 import {
-  $, $a, append,
+  $, $a, create, append,
   time, now,
   LyraStateManager,
   LYRA_NAME, LYRA_AUTHOR, LYRA_CONTACT, LYRA_VERSION, LYRA_DATE
@@ -8,7 +8,7 @@ import {
 (() => {
   // 선언부
   const VIEWDIR = `./views`;
-  const INITIAL_VIEW = "welcome";
+  const INITIAL_VIEW = "main";
 
   // 표현식 값
   const EXPRESSIONS = {
@@ -55,8 +55,8 @@ import {
       menu.classList.remove("show");
     });
   };
-  
-  // 해시 링크 처리
+
+  // 뷰 처리
   const view = $("article > .wrap");
   const setView = (s) => {
     s = s.replace(/#/g, "") || INITIAL_VIEW;
@@ -75,6 +75,30 @@ import {
         };
         view.textContent = "";
         view.insertAdjacentHTML("beforeend", res);
+
+        for (const node of $a("img:not([nofig])", view)) {
+          if (node.parentNode.nodeName !== "FIGURE") {
+            const fig = create("figure");
+            node.parentNode.insertBefore(fig, node);
+            append(node, fig);
+
+            if (node.getAttribute("nocaption") === null) {
+              const caption = node.getAttribute("caption") || node.alt;
+              if (caption) {
+                const figcaption = create("figcaption", { properties: { innerText: caption } });
+                append(figcaption, fig);
+              };
+            };
+          };
+        };
+
+        for (const img of $a("img:not([noanchor])", view)) {
+          if (img.parentNode.nodeName !== "A") {
+            const anchor = create("a", { properties: { href: img.src, target: "_blank" } });
+            img.parentNode.insertBefore(anchor, img);
+            append(img, anchor);
+          };
+        };
       } else {
         view.innerHTML = `<h1 id="title">문제가 발생했습니다</h1>` +
           `<div id="content"><p>문제 종류: ${res.status} ${res.statusText}</p></div>`;
@@ -88,10 +112,16 @@ import {
       node.classList.add("active");
     };
   };
+  
+  // 해시 링크, 뷰 처리
   addEventListener("hashchange", (e) => {
     setView(location.hash);
   });
 
   // 초기화
+  const copyYear = $("#copy-year");
+  const copyAuthor = $("#copy-author");
   setView(location.hash || INITIAL_VIEW);
+  copyYear.innerText = now("YYYY");
+  copyAuthor.innerText = LYRA_AUTHOR;
 })();

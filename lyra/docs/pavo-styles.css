@@ -130,10 +130,28 @@ header a:hover::before { opacity: 0.1; }
   backdrop-filter: var(--acryl-blur-light);
 }
 
+#menu > h1 {
+  margin: var(--p-large);
+  padding: var(--p-large) 0 var(--p);
+
+  border-bottom: solid 1px var(--modal-border);
+  font-size: 1em;
+  user-select: none;
+}
+
+#menu > h2 {
+  margin: var(--p-large);
+  padding: var(--p-large) 0 var(--p);
+
+  color: oklch(from var(--font-color) l c h/0.6);
+  font-size: 1em;
+  user-select: none;
+}
+
 #menu > ol {
   display: flex;
   flex-direction: column;
-  margin: var(--p);
+  margin: var(--p-large);
 
   height: max-content;
 
@@ -161,7 +179,7 @@ header a:hover::before { opacity: 0.1; }
   opacity: 1;
 }
 #menu > ol > li a:focus {
-  outline: unset;
+  outline: none;
 }
 #menu > ol > li a::before {
   display: inline-block;
@@ -215,7 +233,12 @@ main {
 }
 
 article {
-  padding: calc(70px + var(--header-height)) 0 70px;
+  overflow: unset;
+
+  padding: calc(50px + var(--header-height)) 0 70px;
+}
+article * {
+  overflow: unset;
 }
 
 footer {
@@ -235,14 +258,61 @@ article > .wrap,
   display: flex;
   position: relative;
   flex-direction: column;
-  gap: 30px;
+  gap: 15px;
 }
 
 #title {
-  padding-bottom: 50px;
+  padding: 20px 0 50px;
+  margin-bottom: 15px;
 
   font-size: 2rem;
   border-bottom: solid 1px var(--modal-border);
+}
+
+article figure,
+article figure * {
+  max-width: 100%;
+}
+
+article figure img {
+  border-radius: var(--r);
+}
+
+article figure a {
+  text-decoration: none;
+}
+article figure a:focus {
+  outline: none;
+}
+
+article figure > figcaption {
+  margin-top: var(--p);
+
+  font-size: small;
+  font-style: italic;
+  text-align: center;
+  opacity: 0.5;
+}
+
+article hr {
+  margin: 15px 0;
+  
+  height: 1px;
+
+  border: none;
+  background-color: var(--modal-border);
+}
+
+article ol,
+article ul {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-left: 1em;
+}
+
+article .pad {
+  min-height: 30px;
 }
 
 /* 로딩 효과 */
@@ -293,6 +363,6 @@ article > .wrap,
 
   /* 글 영역 */
   #title {
-    padding-bottom: 30px;
+    padding: 10px 0 30px;
   }
 }

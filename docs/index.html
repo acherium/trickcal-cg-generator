@@ -12,23 +12,35 @@
 
   <script type="module" src="../lyra/lyra-style-init.js"></script>
   <script type="module" src="../lyra/docs/pavo.js" defer></script>
+  <script type="module" src="./scripts/docs.js" defer></script>
 </head>
 <body>
   <header>
     <button id="button-menu"><span class="i i-menu"></span></button>
+    <!-- <a href="../"><div class="i i-arrow-w"></div></a> -->
+    <button id="button-close"><span class="i i-arrow-w"></span></button>
     <a id="logo" href="#">
       <div id="icon" class="i"></div>
       <p class="mobile-hide">가이드북</p>
     </a>
     <div class="pad"></div>
-    <button><div class="i i-search"></div></button>
-    <a href="../"><div class="i i-arrow-ne"></div></a>
+    <!-- <button><div class="i i-search"></div></button> -->
   </header>
   <div id="main">
     <aside id="menu">
+      <h1>목차</h1>
+      <h2>간단 설명</h2>
       <ol>
-        <li><a href="#welcome">첫 페이지</a></li>
+        <li><a href="#main">간단 가이드북</a></li>
+      </ol>
+      <h2>기능별 설명</h2>
+      <ol>
+        <li><a href="#markdown">마크다운 문법</a></li>
         <li><a href="#test">테스트</a></li>
+      </ol>
+      <h2>기타</h2>
+      <ol>
+        <li><a href="#about">앱 정보</a></li>
       </ol>
     </aside>
     <main>
@@ -41,7 +53,7 @@
         </article>
         <footer>
           <div class="wrap">
-            <p><small>&copy; 2025. Acherium All rights reserved.</small></p>
+            <p><small>&copy; <span id="copy-year"></span>. <span id="copy-author"></span> All rights reserved.</small></p>
           </div>
         </footer>
       </div>

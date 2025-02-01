@@ -3,7 +3,7 @@
 export const LYRA_NAME = "Lyra Engine";
 export const LYRA_AUTHOR = "Acherium";
 export const LYRA_CONTACT = "acherium@pm.me";
-export const LYRA_VERSION = "1122";
+export const LYRA_VERSION = "1123";
 export const LYRA_DATE = "25-2-1";
 
 export const COMMON_INTERVAL = 30;
@@ -126,6 +126,49 @@ export const append = (node, target = body) => target.appendChild(node);
  */
 export const revoke = (node) => node.parentNode.removeChild(node);
 
+/**
+ * 시간을 문자열로 출력합니다.
+ * @param {string | Date} [time] 시간.
+ * @param {string} [format] 시간 형식. 제공되지 않으면 기본적으로 "YYYY-MM-DD HH:mm:ss.i" 형식으로 출력합니다.
+ * @returns {string}
+ */
+export const time = (time, format = "YYYY-MM-DD HH:mm:ss.i") => {
+  const d = time ? new Date(time) : new Date();
+
+  const exps = {
+    "YYYY": `${d.getFullYear()}`,
+    "MM": `${d.getMonth() + 1}`.padStart(2, "0"),
+    "DD": `${d.getMonth() + 1}`.padStart(2, "0"),
+    "M": `${d.getMonth() + 1}`,
+    "D": `${d.getDate()}`,
+    "HH": `${d.getHours()}`.padStart(2, "0"),
+    "H": `${d.getHours()}`,
+    "hh": `${d.getHours() / 12 >= 1 ? d.getHours() - 12 : d.getHours()}`.padStart(2, "0"),
+    "h": `${d.getHours() / 12 >= 1 ? d.getHours() - 12 : d.getHours()}`,
+    "mm": `${d.getMinutes()}`.padStart(2, "0"),
+    "m": `${d.getMinutes()}`,
+    "ss": `${d.getSeconds()}`.padStart(2, "0"),
+    "s": `${d.getSeconds()}`,
+    "i": `${d.getMilliseconds()}`,
+    "A": `${d.getHours() / 12 >= 1 ? "PM" : "AM"}`
+  };
+
+  for (const exp of Object.keys(exps)) {
+    format = `${format}`.replace(new RegExp(exp, "g"), exps[exp]);
+  };
+
+  return format;
+};
+
+/**
+ * 현재 시간을 출력합니다.
+ * @param {string} [format] 시간 형식. 제공되지 않으면 기본적으로 "YYYY-MM-DD HH:mm:ss.i" 형식으로 출력합니다.
+ * @returns {string}
+ */
+export const now = (format) => {
+  return time(new Date(), format);
+};
+
 
 // 각종 클래스들
 export class LyraElement {
@@ -138,6 +181,40 @@ export class LyraElement {
   constructor(tag, params = { attributes: {}, events: {} }) {
     this.$ = create(tag, params);
     return this;
+  };
+};
+
+export class LyraStateManager {
+  constructor() {
+    this.storage = {};
+
+    return this;
+  };
+
+  set = (name, value) => {
+    this.storage[name] = value;
+    const regex = new RegExp(`%${name}%`, "g");
+
+    for (const node of $a("*:not(script)", body)) {
+      if (regex.exec(node.innerHTML)) {
+        node.innerHTML = node.innerHTML.replace(regex, `<span class="__${name}">${value}</span>`);
+      };
+    };
+
+    for (const node of $a(`span.__${name}`,  body)) {
+      node.innerText = `${value}`;
+    };
+
+    return this;
+  };
+
+  remove = (name) => {
+    delete this.storage[name];
+    return this;
+  };
+
+  get = (name) => {
+    return this.storage[name];
   };
 };
 

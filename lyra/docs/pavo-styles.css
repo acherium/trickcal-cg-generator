@@ -223,6 +223,9 @@ footer {
 
   text-align: center;
   border-top: solid 1px var(--modal-border);
+}
+
+footer p {
   opacity: 0.5;
 }
 

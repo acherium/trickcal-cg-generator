@@ -1,11 +1,44 @@
 import {
-  $, $a
+  $, $a, append,
+  time, now,
+  LyraStateManager,
+  LYRA_NAME, LYRA_AUTHOR, LYRA_CONTACT, LYRA_VERSION, LYRA_DATE
 } from "../lyra-module.js";
 
 (() => {
   // 선언부
   const VIEWDIR = `./views`;
-  const INITIAL_VIEW = "init";
+  const INITIAL_VIEW = "welcome";
+
+  // 표현식 값
+  const EXPRESSIONS = {
+    "app": () => LYRA_NAME,
+    "author": () => LYRA_AUTHOR,
+    "contact": () => LYRA_CONTACT,
+    "version": () => LYRA_VERSION,
+    "verdate": () => LYRA_DATE,
+    "now": () => now(),
+    "date": () => now("YYYY-MM-DD"),
+    "time": () => now("HH:mm:ss"),
+    "time12": () => now("hh:mm:ss A"),
+    "time24": () => now("HH:mm:ss"),
+    "datetime": () => now("YYYY-MM-DD HH:mm:ss"),
+    "datetime12": () => now("YYYY-MM-DD hh:mm:ss A"),
+    "datetime24": () => now("YYYY-MM-DD HH:mm:ss"),
+    "YYYY": () => now("YYYY"),
+    "MM": () => now("MM"),
+    "DD": () => now("DD"),
+    "HH": () => now("HH"),
+    "H": () => now("H"),
+    "hh": () => now("hh"),
+    "h": () => now("h"),
+    "mm": () => now("mm"),
+    "m": () => now("m"),
+    "ss": () => now("ss"),
+    "s": () => now("s"),
+    "i": () => now("i"),
+    "A": () => now("A")
+  };
 
   // 모바일 메뉴 토글 기능
   const btnMenu = $("#button-menu");
@@ -37,18 +70,11 @@ import {
       };
     }).then((res) => {
       if (typeof res === "string") {
-        const html = new DOMParser().parseFromString(res, "text/html");
-        const title = $("title", html);
-        const content = $("main", html);
-
-        view.innerHTML = "";
-
-        if (title) {
-          view.innerHTML += `<h1 id="title">${title.innerHTML}</h1>`;
+        for (const exp of Object.keys(EXPRESSIONS)) {
+          res = res.replace(new RegExp(`%${exp}%`, "g"), EXPRESSIONS[exp]());
         };
-        if (content) {
-          view.innerHTML += `<div id="content">${content.innerHTML}</div>`;
-        };
+        view.textContent = "";
+        view.insertAdjacentHTML("beforeend", res);
       } else {
         view.innerHTML = `<h1 id="title">문제가 발생했습니다</h1>` +
           `<div id="content"><p>문제 종류: ${res.status} ${res.statusText}</p></div>`;

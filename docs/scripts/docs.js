@@ -6,6 +6,10 @@ import {
   // 창 닫기
   const btnClose = $("#button-close");
   btnClose.onclick = () => {
-    window.close();
+    if (opener) {
+      window.close();
+    } else {
+      location.href = "../";
+    };
   };
 })();

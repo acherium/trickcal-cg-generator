@@ -11,8 +11,8 @@ import {
     name: "Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2053.3",
-    date: "25-2-20",
+    version: "2053.4",
+    date: "25-04-06",
     docType: "Pictor Project File",
     docVersion: 9,
     watermark: false,
@@ -486,6 +486,7 @@ import {
     "animation-webkit": "0s ease 0s 1 normal none running none"
   };
   const parityChk = () => {
+    return true;
     const chkWatermark = $("#photo-tcag-watermark");
     if (!chkWatermark) {
       callHalt("워터마크 요소가 삭제되었거나 찾을 수 없습니다.");

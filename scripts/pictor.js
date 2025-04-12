@@ -11,8 +11,8 @@ import {
     name: "Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2053.4",
-    date: "25-04-06",
+    version: "2053.4b",
+    date: "25-04-12",
     docType: "Pictor Project File",
     docVersion: 9,
     watermark: false,
@@ -121,7 +121,7 @@ import {
   const SPLASH_TIMEOUT_ANIMATION_DURATION = 500;
   const CONTEXT_MENU_ANIMATION_DURATION = 200;
   const CONTEXT_MENU_AREA_INNER_PADDING = 8;
-  const REGULATION_LINK = "https://epidgames.oqupie.com/portal/2399/article/71098";
+  const REGULATION_LINK = "https://epidgames.oqupie.com/portal/2399/article/73315";
   const INITIAL = "TTG";
 
   // 2차 창작 규정

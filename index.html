@@ -24,6 +24,9 @@
   <link rel="stylesheet" href="./stylesheets/resource-gallery.css">
   <link rel="stylesheet" href="./stylesheets/context-menu.css">
 
+  <link rel="stylesheet" href="./stylesheets/monat-icons/lyra-icons-master.css">
+  <style>:root { --icon: var(--c-font); }</style>
+
   <script type="module" src="./lyra/lyra-style-init.js"></script>
   <script src="./scripts/html2canvas-pro.min.js"></script>
   <script type="module" src="./scripts/pictor.js" defer></script>
@@ -376,7 +379,7 @@
           <div class="wrap">
             <!-- <h4>개체</h4> -->
             <div class="list-row wf">
-              <button class="button-resource-gallery f1 fjcc"><div class="i i-gallery"></div><p>리소스 갤러리</p></button>
+              <button class="button-resource-gallery f1 fjcc"><i class="gallery"></i><p>리소스 갤러리</p></button>
               <button id="button-reset-image" class=""><div class="i i-trash"></div></button>
             </div>
             <div class="list-row wf">
@@ -412,7 +415,7 @@
       <div id="top-menu" class="float-menu">
         <button id="button-about" class="logo" data-menu-tip="앱 정보" data-menu-shortcut="H"></button>
         <!-- <button class="toggle-menu toggle-menu-about logo" data-menu="menu-about" data-menu-tip="앱 정보" data-menu-shortcut="H"></button> -->
-        <button class="button-search" data-menu-tip="대사 검색" data-menu-shortcut="Space"><div class="i i-search"></div></button>
+        <button class="button-search" data-menu-tip="대사 검색" data-menu-shortcut="Space"><i class="search"></i></button>
         <button class="button-download-onmenu" data-menu-tip="현재 슬라이드 저장" data-menu-shortcut="K"><div class="i i-download"></div></button>
         <div class="partition"></div>
         <button id="button-save-file-onmenu" data-menu-tip="저장"><div class="i i-save"></div></button>
@@ -469,7 +472,7 @@
           <button class="toggle-menu toggle-menu-elements" data-menu="menu-elements" data-menu-tip="배경 및 요소" data-menu-shortcut="F"><div class="i i-star5"></div></button>
           <button class="toggle-menu toggle-menu-object" data-menu="menu-object" data-menu-tip="개체" data-menu-shortcut="G"><div class="i i-layer"></div></button>
           <div class="partition"></div>
-          <button class="button-resource-gallery" data-menu-tip="리소스 갤러리" data-menu-shortcut="\"><div class="i i-gallery"></div></button>
+          <button class="button-resource-gallery" data-menu-tip="리소스 갤러리" data-menu-shortcut="\"><i class="gallery"></i></button>
           <button class="toggle-menu toggle-menu-config" data-menu="menu-config" data-menu-tip="설정" data-menu-shortcut="Delete"><div class="i i-config"></div></button>
         </div>
       </div>
@@ -845,7 +848,7 @@
   </main>
   <div id="main-context-menu" class="context-menu">
     <div class="list-row">
-      <button class="button-resource-gallery"><div class="i i-gallery"></div></button>
+      <button class="button-resource-gallery"><i class="gallery"></i></button>
       <button id="button-cm-add-image"><div class="i ii-image"></div></button>
       <button id="button-cm-add-dialogue"><div class="i ii-dialogue"></div></button>
       <button id="button-cm-add-sticker"><div class="i ii-sticker"></div></button>
@@ -853,7 +856,7 @@
     <div class="divline-row"></div>
     <div class="list-row">
       <button class="button-zoom-out" data-context-menu="maintain"><span class="i i-minus"></span></button>
-      <button class="button-zoom-reset" data-context-menu="maintain"><span class="i i-search"></span><p class="scale"></p></button>
+      <button class="button-zoom-reset" data-context-menu="maintain"><i class="search"></i><p class="scale"></p></button>
       <button class="button-zoom-in" data-context-menu="maintain"><span class="i i-plus"></span></button>
     </div>
     <div class="divline-row"></div>
@@ -998,7 +1001,7 @@
     <div class="bg bg-acrylic"></div>
     <div class="body">
       <div class="title">
-        <div class="icon il i-gallery"></div>
+        <il class="icon gallery"></il>
         <h1>리소스 갤러리</h1>
       </div>
       <div class="content">
@@ -1201,7 +1204,7 @@
         <div class="divline-row"></div>
         <p class="about-app"></p>
         <p class="about-desc"></p>
-        <p>Acherium 제작, <i>클뜯 요소 없음&trade;.</i></p>
+        <p>Acherium 제작, 클뜯 요소 없음&trade;.</p>
         <p>'트릭컬: 리바이브(Trickcal RE:VIVE)'는 ㈜에피드게임즈의 상표입니다.</p>
         <div class="divline-row"></div>
         <a class="regulation-link" target="_blank">- 트릭컬: 리바이브 2차 창작물 활용 범위에 대한 안내</a>
@@ -1223,7 +1226,7 @@
   </div>
   <div id="search-area" style="display:none;">
     <div id="search">
-      <div class="il i-search"></div>
+      <il class="search"></il>
       <input type="text" id="input-search" placeholder="여기에 대사를 입력하여 검색">
     </div>
     <div id="search-result-list">

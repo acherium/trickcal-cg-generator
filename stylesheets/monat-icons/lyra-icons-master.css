@@ -1,0 +1,31 @@
+@charset "UTF-8";
+@import url("./lyra-icons.css");
+/* 공통 애니메이션 */
+@keyframes ani-rotate-common {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* 로딩 휠 애니메이션 */
+.loading-wheel {
+  transform-origin: center;
+  animation: linear 1s both infinite ani-rotate-common;
+}
+
+/* 모래시계 애니메이션 */
+:is(i, il).hourglass-spin {
+  transform-origin: center;
+  animation: linear 2s both infinite ani-rotate-hourglass;
+}
+@keyframes ani-rotate-hourglass {
+  0% { transform: rotate(0deg); }
+  50% { transform: rotate(180deg); }
+  100% { transform: rotate(180deg); }
+}
+
+/* 다크모드 인디케이터 */
+:is(i, il).misc-darkmode-indicator { mask-image: var(--lyra-icon-sun); }
+:root[forcedarkmode] :is(i, il).misc-darkmode-indicator { mask-image: var(--lyra-icon-moon); }
+@media (prefers-color-scheme: dark) {
+  :is(i, il).misc-darkmode-indicator { mask-image: var(--lyra-icon-moon); }
+}

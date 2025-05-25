@@ -11,8 +11,8 @@ import {
     name: "Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2053.4d",
-    date: "25-05-14",
+    version: "2053.4e",
+    date: "25-05-25",
     docType: "Pictor Project File",
     docVersion: 9,
     watermark: false,
@@ -209,7 +209,7 @@ import {
       boxCenter: false,
       borderVignetting: true,
       borderVignettingHorizontal: true,
-      borderVignettingVertical: true
+      borderVignettingVertical: false
     },
     thumbnail: ""
   };

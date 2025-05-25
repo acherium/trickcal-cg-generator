@@ -11,7 +11,7 @@ import {
     name: "Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2053.4e",
+    version: "2053.4f",
     date: "25-05-25",
     docType: "Pictor Project File",
     docVersion: 9,
@@ -441,7 +441,7 @@ import {
   // 공통 변수/플래그
   let scale = 1;
   let uniqueInt = 0;
-  let multiplier = 1;
+  let multiplier = 2;
   let flagMobileMenu = null;
   let flagThumbnail = true;
 

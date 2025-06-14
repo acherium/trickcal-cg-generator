@@ -11,8 +11,8 @@ import {
     name: "Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2053.4f",
-    date: "25-05-25",
+    version: "2053.4g",
+    date: "25-06-15",
     docType: "Pictor Project File",
     docVersion: 9,
     watermark: false,
@@ -207,6 +207,7 @@ import {
       select: false,
       photoButtons: true,
       boxCenter: false,
+      backgroundImage: true,
       borderVignetting: true,
       borderVignettingHorizontal: true,
       borderVignettingVertical: false
@@ -620,7 +621,7 @@ import {
     reader.readAsDataURL(file);
     reader.onload = () => {
       setBackground(reader.result);
-      bgUploader.onchange = null;
+      bgUploader.value = null;
 
       const _$res = new Image();
       _$res.src = reader.result;
@@ -736,8 +737,12 @@ import {
     slide[current].assets.background = f;
     bg.src = f || "";
     refreshThumbnail(current, photozone);
-    if (f) {
-      bg.style["display"] = null;
+    if (slide[current].toggles.backgroundImage) {
+      if (f) {
+        bg.style["display"] = null;
+      } else {
+        bg.style["display"] = "none";
+      };
     } else {
       bg.style["display"] = "none";
     };
@@ -804,13 +809,14 @@ import {
     };
   });
   btnBgSet.onclick = () => {
+    bgUploader.value = null;
     bgUploader.click();
   };
   btnBgRemove.onclick = () => {
-      slide[current].assets.background = "";
-      bgUploader.value = null;
-      bg.src = "";
-      refreshThumbnail(current, photozone);
+    slide[current].assets.background = "";
+    bgUploader.value = null;
+    bg.src = "";
+    refreshThumbnail(current, photozone);
   };
 
   // 배경 오버레이 조작 기능
@@ -889,6 +895,7 @@ import {
       const outsiders = Array.from(sboxAreas).filter((n) => n !== target);
       for (const n of outsiders) n.style["display"] = "none";
       target.style["display"] = "grid";
+      target.parentElement.dataset.theme = i;
       Array.from(selSboxTheme.querySelectorAll("option")).find((n) => n.value === `${i}`).selected = true;
     };
   };
@@ -1248,6 +1255,7 @@ import {
   const chkLoc = $("#checkbox-toggle-location");
   const comContAreas = $a("#photo-script-box-area-revamped > .area, #photo-script-box-area");
   const chkContent = $("#checkbox-toggle-content");
+  const chkTglBgImg = $("#checkbox-bg-image");
   const borderVignetting = $("#photo-border-vignetting-wrap");
   const chkBorderVignetting = $("#checkbox-border-vignetting");
   const borderVignettingHorizontal = $("#photo-border-vignetting-horizontal");
@@ -1283,6 +1291,11 @@ import {
     slide[current].toggles.content = b;
     chkContent.checked = b;
     for (const n of comContAreas) n.style["visibility"] = b ? "visible" : "hidden";
+  };
+  const toggleBackgroundImage = (b) => {
+    slide[current].toggles.backgroundImage = b;
+    chkTglBgImg.checked = b;
+    bg.style["display"] = b ? null : "none";
   };
   const toggleBorderVignetting = (b) => {
     slide[current].toggles.borderVignetting = b;
@@ -1321,6 +1334,10 @@ import {
   };
   chkContent.onchange = (c) => {
     toggleContent(c.target.checked);
+    refreshThumbnail(current, photozone);
+  };
+  chkTglBgImg.onchange = (c) => {
+    toggleBackgroundImage(c.target.checked);
     refreshThumbnail(current, photozone);
   };
   chkBorderVignetting.onchange = (c) => {
@@ -2104,6 +2121,7 @@ import {
     toggleTitle(x.toggles.title);
     toggleLocation(x.toggles.location);
     toggleContent(x.toggles.content);
+    toggleBackgroundImage(x.toggles.backgroundImage);
     toggleBorderVignetting(x.toggles.borderVignetting);
     toggleBorderVignettingHorizontal(x.toggles.borderVignettingHorizontal);
     toggleBorderVignettingVertical(x.toggles.borderVignettingVertical);

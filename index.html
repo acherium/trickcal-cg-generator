@@ -27,16 +27,18 @@
   <link rel="stylesheet" href="./stylesheets/monat-icons/lyra-icons-master.css">
   <style>:root { --icon: var(--c-font); }</style>
 
-  <script type="module" src="./lyra/lyra-style-init.js"></script>
   <script src="./scripts/html2canvas-pro.min.js"></script>
+  <script src="./scripts/rasterizeHTML.allinone.js"></script>
+  
+  <script type="module" src="./lyra/lyra-style-init.js"></script>
   <script type="module" src="./scripts/pictor.js" defer></script>
 </head>
 <body>
-  <input type="file" id="uploader" class="force-hide">
-  <input type="file" name="bg-uploader" id="bg-uploader" class="force-hide" accept="image/*">
-  <input type="file" name="image-uploader" id="image-uploader" class="force-hide" accept="image/*" multiple>
-  <input type="file" name="image-fetcher" id="image-fetcher" class="force-hide" accept="image/*">
-  <input type="file" name="project-uploader" id="project-uploader" class="force-hide" accept="application/json">
+  <input type="file" id="uploader" class="force-hide" autocomplete="off">
+  <input type="file" name="bg-uploader" id="bg-uploader" class="force-hide" accept="image/*" autocomplete="off">
+  <input type="file" name="image-uploader" id="image-uploader" class="force-hide" accept="image/*" multiple autocomplete="off">
+  <input type="file" name="image-fetcher" id="image-fetcher" class="force-hide" accept="image/*" autocomplete="off">
+  <input type="file" name="project-uploader" id="project-uploader" class="force-hide" accept="application/json" autocomplete="off">
   <div id="menu-area">
     <div id="menuzone" style="display: none;">
       <div class="wrap">
@@ -159,6 +161,7 @@
             <button class="close"><div class="i i-deny"></div></button>
           </div>
           <div class="wrap">
+            <label class="wf menu-title"><input type="checkbox" id="checkbox-bg-image" autocomplete="off" checked><h4>배경 이미지 표시</h4><div class="toggle"></div></label>
             <div class="list-row wf">
               <button id="button-set-bg" class="f1 fjcc"><div class="i ii-image"></div><p>이미지 설정</p></button>
               <button id="button-remove-bg" class="f1 fjcc"><div class="i i-trash"></div><p>이미지 제거</p></button>
@@ -745,6 +748,13 @@
               <div class="bg"></div>
               <div class="content-area">
                 <img src="./assets/theater/scriptbox/next-white.svg" class="arrow">
+                <p class="main"></p>
+              </div>
+            </div>
+            <div id="theme-8" class="area" data-theme-name="전체 화면">
+              <div class="bg"></div>
+              <div class="content-area">
+                <p class="main"></p>
                 <p class="main"></p>
               </div>
             </div>

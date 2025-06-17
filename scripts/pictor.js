@@ -11,8 +11,8 @@ import {
     name: "Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2053.4h",
-    date: "25-06-15",
+    version: "2053.4i",
+    date: "25-06-17",
     docType: "Pictor Project File",
     docVersion: 9,
     watermark: false,
@@ -467,7 +467,7 @@ import {
   };
 
   // 워터마크 수정 여부 체크
-  const chkWatermarkOrigin = $("#photo-tcag-watermark");
+  // const chkWatermarkOrigin = $("#photo-tcag-watermark");
   const cwsOrigin = {
     "display": "block",
     "position": "absolute",
@@ -576,7 +576,7 @@ import {
     return str;
   };
   const exportPNG = (node, scale = multiplier) => {
-    chkWatermarkOrigin.style["opacity"] = null;
+    // chkWatermarkOrigin.style["opacity"] = null;
     if (!parityChk()) return;
     html2canvas(node, {
       scale: scale,
@@ -595,7 +595,7 @@ import {
       l.click();
       l.remove();
       alertDownload.style["display"] = "none";
-      chkWatermarkOrigin.style["opacity"] = "0";
+      // chkWatermarkOrigin.style["opacity"] = "0";
     });
   };
   const setRange = (node, i) => {
@@ -2403,7 +2403,7 @@ import {
   btnSavePNGall.onclick = () => {
     let i = 0;
     alertDownload.style["display"] = "flex";
-    chkWatermarkOrigin.style["opacity"] = null;
+    // chkWatermarkOrigin.style["opacity"] = null;
     const l = document.createElement("a");
     document.body.append(l);
     const cb = () => {
@@ -2432,7 +2432,7 @@ import {
       } else {
         l.remove();
         alertDownload.style["display"] = "none";
-        chkWatermarkOrigin.style["opacity"] = "0";
+        // chkWatermarkOrigin.style["opacity"] = "0";
         document.documentElement.focus();
       };
     };

@@ -11,11 +11,11 @@ import {
     name: "Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2053.4i",
-    date: "25-06-17",
+    version: "2053.4j",
+    date: "25-07-05",
     docType: "Pictor Project File",
     docVersion: 9,
-    watermark: false,
+    watermark: true,
     isBeta: false
   };
 

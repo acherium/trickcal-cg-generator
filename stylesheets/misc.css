@@ -1,5 +1,10 @@
 @charset "UTF-8";
 #modal-color-preset .controller {
   align-items: center;
-  justify-content: space-between;
+  justify-content: end;
+}
+
+#modal-color-preset .controller label {
+  position: absolute;
+  left: 15px;
 }

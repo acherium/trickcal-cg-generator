@@ -11,8 +11,8 @@ import {
     name: "Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2053.4j",
-    date: "25-07-05",
+    version: "2054",
+    date: "25-07-27",
     docType: "Pictor Project File",
     docVersion: 9,
     watermark: true,
@@ -1122,45 +1122,53 @@ import {
 
   // 사도 색상표 기능 초기화
   const btnsPreset = $a(".button-color-preset");
+  const btnRefreshPreset = $("#button-refresh-color-preset");
   const presetList = $("#color-preset-list");
   const chkAutoName = $("#checkbox-toggle-auto-change-name");
-  (async() => {
-    const RACEDATA = await fetch("https://acherium.github.io/trickcal-chardata/trace-all.json").then((res) => res.ok ? res.json() : {});
-    if (Object.values(RACEDATA).length === 0) new LyraNotification({ icon: "critical", text: "RACEDATA 파일을 불러오지 못했습니다." }).show();
-    const CHARDATA = await fetch("https://acherium.github.io/trickcal-chardata/tchar-all-min.json").then((res) => res.ok ? res.json() : {});
-    if (Object.values(CHARDATA).length === 0) new LyraNotification({ icon: "critical", text: "CHARDATA 파일을 불러오지 못했습니다." }).show();
-    const PALETTE = await Object.fromEntries(Object.values(RACEDATA).map((x) => [ x.id, { name: x.name.ko, char: Object.values(CHARDATA).filter((y) => y.data.race === x.id).map((y) => [ y.name.ko, y.data.color]).filter((y) => y[1])}]));
+  const importColPresets = () => {
+    presetList.innerHTML = "";
 
-    for (const race of Object.values(PALETTE)) {
-      const subdiv = append(create("div", { classes: [ "color-preset-subdiv" ] }), presetList);
-      append(create("p", { properties: { innerText: race.name} }), subdiv);
-      for (const char of race.char) {
-        const item = append(create("div", {
-          classes: [ "color-preset-item" ],
-          properties: {
-            style: `border-color: #${char[1]}`,
-            innerHTML: `${char[0]}<br><span>#${char[1]}</span>`
-          }
-        }), subdiv);
-        item.onclick = () => {
-          setNameColor(char[1]);
-          if (chkAutoName.checked) setName(char[0]);
-          modalman.reserve["modal-color-preset"].nodes.defaultCloseButton.click();
-          slide[current].assetOptions.namearea.reservedPreset = Array.from($a(".color-preset-item", presetList)).indexOf(item);
+    import("./nametag-colors.js").then((js) => {
+      const data = js.default;
+  
+      for (const [ raceCode, race ] of Object.entries(data.race)) {
+        const $race = append(create("div", { classes: [ "color-preset-subdiv" ], }), presetList);
+        append(create("p", { properties: { innerText: race.name.ko, } }), $race);
+
+        for (const [ charCode, char ] of Object.entries(race.char)) {
+          const $item = append(
+            create("div", {
+              classes: [ "color-preset-item" ],
+              properties: {
+                style: `border-color: #${char.color}`,
+                innerHTML: `${char.name.ko}<br><span>#${char.color}</span>`,
+              },
+            }),
+            $race
+          );
+
+          $item.onclick = () => {
+            setNameColor(char.color);
+            if (chkAutoName.checked) setName(char.name.ko);
+            modalman.reserve["modal-color-preset"].nodes.defaultCloseButton.click();
+            slide[current].assetOptions.namearea.reservedPreset = Array.from($a(".color-preset-item", presetList)).indexOf($item);
+          };
         };
       };
-    };
-
-    const k = Array.from($a(".color-preset-item", presetList)).findIndex((x) => x.innerText.startsWith(DEFAULT_NAMEAREA_PALETTE_PRESET));
-    if (k !== -1) {
-      slide[current].assetOptions.namearea.reservedPreset = k;
-    };
-  })();
+    }).catch((error) => {
+      new LyraNotification({ icon: "critical", text: "데이터를 불러오지 못했습니다." }).show();
+      console.log(error);
+    });
+  };
   for (const btn of btnsPreset) {
     btn.onclick = () => {
       modalman.reserve["modal-color-preset"].show();
     };
   };
+  btnRefreshPreset.onclick = () => {
+    importColPresets();
+  };
+  importColPresets();
 
   // 대화창 내용 조작 기능
   const comConts = $a(`#script-content, #photo-script-box-area-revamped .content-area .main, #photo-script-box-area-revamped .content-area .outline`);

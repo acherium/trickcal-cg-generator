@@ -1,5 +1,5 @@
 const colors = {
-  "date": "25-07-27",
+  "date": "25-07-31",
   "race": {
     "race.fairy": {
       "code": "fairy",
@@ -449,6 +449,14 @@ const colors = {
             "en": "Rohne"
           },
           "color": "C1B4B7"
+        },
+        "char.rohnemayor": {
+          "code": "rohnemayor",
+          "name": {
+            "ko": "로네(시장)",
+            "en": "Rohne(Mayor)"
+          },
+          "color": "7053BC"
         },
         "char.maestro": {
           "code": "maestro",

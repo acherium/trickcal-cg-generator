@@ -1,0 +1,43 @@
+@charset "UTF-8";
+/* 드롭 영역 */
+#file-drop-position-area {
+  display: none;
+  position: absolute;
+  flex-direction: column;
+  left: 0;
+  top: 0;
+  gap: 10px;
+  padding: 10px;
+  z-index: 9999;
+
+  width: 100dvw;
+  height: 100dvh;
+
+  pointer-events: none;
+  touch-action: none;
+}
+
+#file-drop-position-area > :is(.top, .bottom) {
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 100%;
+  flex: 1;
+
+  font-size: 20pt;
+  font-weight: 600;
+  color: var(--c-font);
+  border-radius: 26px;
+  background-color: oklch(from var(--c-main) l c h/0.5);
+  opacity: 0.5;
+
+  box-shadow: 5px 0 30px oklch(from var(--c-font) l c h/0.5);
+  backdrop-filter: blur(30px);
+}
+
+#file-drop-position-area > :is(.top, .bottom).active {
+  opacity: 1;
+}

@@ -11,11 +11,11 @@ import {
     name: "Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2054.2",
-    date: "25-07-31",
+    version: "2055",
+    date: "25-08-02",
     docType: "Pictor Project File",
     docVersion: 9,
-    watermark: true,
+    watermark: false,
     isBeta: false
   };
 
@@ -121,7 +121,7 @@ import {
   const SPLASH_TIMEOUT_ANIMATION_DURATION = 500;
   const CONTEXT_MENU_ANIMATION_DURATION = 200;
   const CONTEXT_MENU_AREA_INNER_PADDING = 8;
-  const REGULATION_LINK = "https://epidgames.oqupie.com/portal/2399/article/73315";
+  const REGULATION_LINK = "https://epidgames.oqupie.com/portal/2399";
   const INITIAL = "TTG";
 
   // 2차 창작 규정
@@ -864,6 +864,97 @@ import {
       rgba[i] = v;
       setOverlayColorRGBA(Object.fromEntries(rgba.map((x, j) => x = [ [ "r", "g", "b", "a" ][j], x ])));
     };
+  });
+
+  // 드래그 이미지 업로드 기능
+  const dropArea = $("#file-drop-position-area");
+  const dropAreaTop = $(".top", dropArea);
+  const dropAreaBottom = $(".bottom", dropArea);
+  const dropDragEnd = () => {
+    dropArea.style["display"] = "none";
+
+    document.removeEventListener("dragend", dropDragEnd);
+    document.removeEventListener("dragleave", dropDragEnd);
+  };
+  document.addEventListener("dragover", (drag) => {
+    drag.preventDefault();
+    dropArea.style["display"] = "flex";
+
+    if (innerHeight / 2 > drag.pageY) {
+      dropAreaTop.classList.add("active");
+      dropAreaBottom.classList.remove("active");
+    } else {
+      dropAreaTop.classList.remove("active");
+      dropAreaBottom.classList.add("active");
+    };
+
+    document.addEventListener("dragend", dropDragEnd);
+    document.addEventListener("dragleave", dropDragEnd);
+  });
+  document.addEventListener("drop", (drop) => {
+    drop.preventDefault();
+    dropArea.style["display"] = "none";
+
+    dropAreaTop.classList.remove("active");
+    dropAreaBottom.classList.remove("active");
+
+    const file = drop.dataTransfer.files[0];
+    if (!file || !file.type.includes("image/")) return;
+    
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      if (innerHeight / 2 > drop.pageY) {
+        setBackground(reader.result);
+        
+        const _$res = new Image();
+        _$res.src = reader.result;
+        _$res.onload = () => {
+          const ratioRes = Math.floor(_$res.width / _$res.height * RATIOCHECKER) / RATIOCHECKER;
+          const ratioArea = Math.floor(slide[current].area.width / slide[current].area.height * RATIOCHECKER) / RATIOCHECKER;
+          if (ratioRes !== ratioArea) {
+            new LyraNotification({
+              icon: "notification",
+              text: "슬라이드의 비율과 배경으로 설정한 이미지의 비율이 맞지 않습니다.\n슬라이드 비율을 이미지에 맞추시겠습니까?",
+              buttons: [
+                new LyraButton({
+                  icon: "arrow-e",
+                  text: "이미지 비율에 맞춤",
+                  events: {
+                    click: () => btnFitToBg.click()
+                  }
+                })
+              ]
+            }).show();
+          } else if ((ratioRes === ratioArea || _$res.width !== slide[current].area.width) && slide[current].values.backgroundFit !== "fill") {
+            new LyraNotification({
+              icon: "notification",
+              text: "슬라이드의 크기와 배경으로 설정한 이미지의 크기가 맞지 않습니다.\n슬라이드 크기를 이미지에 맞추시겠습니까?",
+              buttons: [
+                new LyraButton({
+                  icon: "arrow-e",
+                  text: "이미지 비율에 맞춤",
+                  events: {
+                    click: () => btnFitToBg.click()
+                  }
+                })
+              ]
+            }).show();
+          };
+        };
+      } else {
+        const img = new Image();
+
+        console.log(file);
+        img.onload = () => {
+          addObject(current, "image", { image: img, name: file.name, });
+        };
+
+        img.src = reader.result;
+      };
+    };
+
+    reader.readAsDataURL(file);
   });
 
   // 대화창 기본 조작 기능

@@ -11,12 +11,12 @@ import {
     name: "Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2055",
+    version: "2056",
     date: "25-08-02",
     docType: "Pictor Project File",
     docVersion: 9,
-    watermark: false,
-    isBeta: false
+    watermark: true,
+    isBeta: true
   };
 
   // 메뉴 접기/펼치기 기능 초기화
@@ -154,7 +154,7 @@ import {
     },
     assetOptions: {
       scriptbox: {
-        theme: 0
+        theme: 9
       },
       namearea: {
         pos: 1,
@@ -1091,7 +1091,7 @@ import {
   const colpicNameInputs = $a("#colorpicker-namearea .colorpicker-input");
   const comNames = $a("#photo-script-box-area-revamped .namearea .name, #photo-script-box-area-revamped .namearea .outline, #photo-script-box-namebox span");
   const comNameareas = $a("#photo-script-box-area-revamped .namearea");
-  const comNameBgs = $a("#photo-script-box-area-revamped .namearea > div,#photo-script-box-name-backdrop");
+  const comNameBgs = $a("#photo-script-box-area-revamped :is(.namearea > div, .profile-area), #photo-script-box-name-backdrop");
   const selNamepos = $("#select-namearea-position");
   const selNameposOps = $a("#select-namearea-position option");
   const inputName = $("#input-name");

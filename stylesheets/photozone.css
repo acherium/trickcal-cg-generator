@@ -734,10 +734,20 @@
 }
 #theme-9 .content-area {
   position: absolute;
+  left: 150px;
 
-  left: 160px;
+  max-width: 410px;
 
   font-size: 16pt;
+}
+#theme-9 .arrow {
+  position: absolute;
+  right: 45px;
+  bottom: 5px;
+
+  width: 25px;
+
+  opacity: 0.9;
 }
 
 .namearea-pos-0 {

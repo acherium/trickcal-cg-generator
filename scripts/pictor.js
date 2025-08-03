@@ -11,7 +11,7 @@ import {
     name: "Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2056",
+    version: "2056.1001",
     date: "25-08-02",
     docType: "Pictor Project File",
     docVersion: 9,
@@ -154,7 +154,7 @@ import {
     },
     assetOptions: {
       scriptbox: {
-        theme: 9
+        theme: 0
       },
       namearea: {
         pos: 1,

@@ -38,6 +38,7 @@
   <input type="file" name="bg-uploader" id="bg-uploader" class="force-hide" accept="image/*" autocomplete="off">
   <input type="file" name="image-uploader" id="image-uploader" class="force-hide" accept="image/*" multiple autocomplete="off">
   <input type="file" name="image-fetcher" id="image-fetcher" class="force-hide" accept="image/*" autocomplete="off">
+  <input type="file" name="profile-uploader" id="profile-uploader" class="force-hide" accept="image/*" autocomplete="off">
   <input type="file" name="project-uploader" id="project-uploader" class="force-hide" accept="application/json" autocomplete="off">
   <div id="menu-area">
     <div id="menuzone" style="display: none;">
@@ -371,6 +372,25 @@
               <label class="wf f1">
                 <input type="range" id="range-scriptbox-opacity" min="0" max="100" step="10" value="100" autocomplete="off">
               </label>
+            </div>
+            <div class="list-column content-type-1 for-profile-theme wf fais">
+              <div class="divline-row"></div>
+              <h4>프로필 사진</h4>
+              <div class="list-row wf">
+                <button id="button-set-profile" class="f1 fjcc"><div class="i ii-image"></div><p>이미지 설정</p></button>
+                <button id="button-unset-profile" class="fjcc"><div class="i i-counter-clockwise"></div></button>
+              </div>
+              <div class="list-row wf">
+                <p>형태</p>
+                <select id="select-profile-overflow-cut" class="f1" value="0" autocomplete="off">
+                  <option value="0">원형으로 자르기</option>
+                  <option value="1">하단만 원형으로 자르기</option>
+                  <option value="2">상단만 원형으로 자르기</option>
+                  <option value="3">좌측만 원형으로 자르기</option>
+                  <option value="4">우측만 원형으로 자르기</option>
+                  <option value="5">자르지 않음</option>
+                </select>
+              </div>
             </div>
           </div>
         </div>

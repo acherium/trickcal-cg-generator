@@ -11,10 +11,10 @@ import {
     name: "Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2056.1001",
-    date: "25-08-02",
+    version: "2057.1000",
+    date: "25-08-06",
     docType: "Pictor Project File",
-    docVersion: 9,
+    docVersion: 10,
     watermark: true,
     isBeta: true
   };
@@ -150,11 +150,13 @@ import {
     assets: {
       background: "",
       thumbnail: "",
+      profile: "",
       objects: []
     },
     assetOptions: {
       scriptbox: {
-        theme: 0
+        theme: 9,
+        profileOverflow: 0,
       },
       namearea: {
         pos: 1,
@@ -614,6 +616,7 @@ import {
   const bgUploader = $("#bg-uploader");
   const imageUploader = $("#image-uploader");
   const imageFetcher = $("#image-fetcher");
+  const profileUploader = $("#profile-uploader");
   const projUploader = $("#project-uploader");
   bgUploader.onchange = (f) => {
     const file = f.target.files[0];
@@ -675,6 +678,16 @@ import {
         };
       };
     });
+  };
+  profileUploader.onchange = (f) => {
+    const file = f.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      setProfile(reader.result);
+    };
+
+    reader.readAsDataURL(file);
   };
   projUploader.onchange = (f) => {
     const file = f.target.files[0];
@@ -989,6 +1002,12 @@ import {
       target.parentElement.dataset.theme = i;
       Array.from(selSboxTheme.querySelectorAll("option")).find((n) => n.value === `${i}`).selected = true;
     };
+
+    if (i === 9) {
+      profileSetWrap.style["display"] = null;
+    } else {
+      profileSetWrap.style["display"] = "none";
+    };
   };
   const setBoxOpacity = (i) => {
     i = (i > OPACITYMAX) ? OPACITYMAX : (i < OPACITYMIN) ? OPACITYMIN : i;
@@ -1209,6 +1228,36 @@ import {
   selNameEmotions.onchange = (c) => {
     setNameEmotion(c.target.value);
     refreshThumbnail(current, photozone);
+  };
+
+  // 대화창 프로필 조작 기능
+  const profileSetWrap = $(".for-profile-theme");
+  const btnSetProfile = $("#button-set-profile");
+  const btnUnsetProfile = $("#button-unset-profile");
+  const selProfileOverflow = $("#select-profile-overflow-cut");
+  const profile = $("#profile-image-area");
+  const setProfile = (url) => {
+    if (!url.length) return unsetProfile();
+    slide[current].assets.profile = url;
+    profile.src = url;
+  };
+  const unsetProfile = () => {
+    slide[current].assets.profile = "";
+    profile.src = "./assets/theater/dialogue/dialogue-profile-placeholder.svg";
+  };
+  const setProfileOverflow = (i) => {
+    slide[current].assetOptions.scriptbox.profileOverflow = parseInt(i);
+    profile.dataset.overflowCut = i;
+  };
+  btnSetProfile.onclick = () => {
+    profileUploader.value = null;
+    profileUploader.click();
+  };
+  btnUnsetProfile.onclick = () => {
+    unsetProfile();
+  };
+  selProfileOverflow.onchange = () => {
+    setProfileOverflow(selProfileOverflow.value);
   };
 
   // 사도 색상표 기능 초기화
@@ -2202,6 +2251,9 @@ import {
     setNameEmotion(x.assetOptions.namearea.emotion);
 
     setContent(x.strings.contentRaw);
+
+    setProfile(x.assets.profile);
+    setProfileOverflow(x.assetOptions.scriptbox.profileOverflow);
 
     setBoxPos(x.scriptbox.pos);
     setBoxStyle(x.scriptbox.style);

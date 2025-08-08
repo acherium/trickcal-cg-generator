@@ -1,5 +1,5 @@
 const colors = {
-  "date": "25-07-31",
+  "date": "25-08-08",
   "race": {
     "race.fairy": {
       "code": "fairy",
@@ -361,6 +361,14 @@ const colors = {
             "en": "Renewa"
           },
           "color": "43475D"
+        },
+        "char.r41_renewaawaken": {
+          "code": "r41_renewaawaken",
+          "name": {
+            "ko": "R41 리뉴아",
+            "en": "R41 Renewa"
+          },
+          "color": "42475B"
         },
         "char.elena": {
           "code": "elena",

@@ -11,12 +11,12 @@ import {
     name: "Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2057.1000",
-    date: "25-08-06",
+    version: "2057.1001",
+    date: "25-08-08",
     docType: "Pictor Project File",
-    docVersion: 10,
-    watermark: true,
-    isBeta: true
+    docVersion: 9,
+    watermark: false,
+    isBeta: false
   };
 
   // 메뉴 접기/펼치기 기능 초기화

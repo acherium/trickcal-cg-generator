@@ -11,8 +11,8 @@ import {
     name: "Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2057.1001",
-    date: "25-08-08",
+    version: "2058.1000",
+    date: "25-08-09",
     docType: "Pictor Project File",
     docVersion: 9,
     watermark: false,
@@ -111,7 +111,7 @@ import {
   const HEIGHTMAX = 2000;
   const RATIOCHECKER = 1000;
   const THUMBNAIL_QUEUE_INTERVAL = 3000;
-  const SCALEMIN = 0.2;
+  const SCALEMIN = 1;
   const SCALEMAX = 2;
   const SCALESTEPS = 0.2;
   const OPACITYMIN = 0;

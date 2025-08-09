@@ -16,7 +16,7 @@
   height: max-content;
   
   border: solid 1px var(--c-border);
-  border-radius: calc((var(--i-menu-size) + 2px + var(--p-small)*2)/2);
+  border-radius: 12px;
   background-color: oklch(from var(--c-main) l c h/0.9);
   box-shadow: var(--op-menu-shadow);
   backdrop-filter: blur(30px);
@@ -30,12 +30,12 @@
 .context-menu button {
   padding: unset;
   justify-content: center;
-  padding: var(--p-large);
+  padding: var(--p);
   
-  min-width: var(--i-menu-size);
-  min-height: var(--i-menu-size);
+  min-width: 40px;
+  min-height: 40px;
   
-  border-radius: calc(var(--i-menu-size)/2);
+  border-radius: 8px;
   background-color: unset;
 }
 .context-menu button:focus { outline: unset; }

@@ -86,7 +86,6 @@
   display: flex;
   position: absolute;
   justify-content: center;
-  padding: var(--p);
   left: 0;
   top: 0;
   z-index: 10000;
@@ -109,8 +108,8 @@
   width: auto;
   height: auto;
   
-  border: solid 1px var(--c-border);
-  border-radius: calc((var(--i-menu-size) + 2px + var(--p-small)*2)/2);
+  /* border: solid 1px var(--c-border); */
+  border-radius: 0 0 12px 12px;
   background-color: oklch(from var(--c-main) l c h/0.9);
   box-shadow: var(--op-menu-shadow);
   backdrop-filter: blur(30px);
@@ -160,12 +159,12 @@
 #immersive-splash button {
   padding: unset;
   justify-content: center;
-  padding: var(--p-large);
+  padding: var(--p);
   
-  min-width: var(--i-menu-size);
-  min-height: var(--i-menu-size);
+  min-width: 36px;
+  min-height: 36px;
   
-  border-radius: calc(var(--i-menu-size)/2);
+  border-radius: 8px;
   background-color: unset;
 }
 #immersive-splash button:focus { outline: unset; }

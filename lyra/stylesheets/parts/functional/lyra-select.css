@@ -4,11 +4,11 @@ select:disabled { cursor: no-drop; }
 
 select {
   margin: 0;
-  padding: 10px;
+  padding: 8px;
   box-sizing: border-box;
 
   min-width: var(--select-minimum);
-  min-height: var(--select-minimum);
+  height: var(--select-minimum);
 
   font-size: 12pt;
   border: 0;

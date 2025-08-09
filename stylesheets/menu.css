@@ -3,15 +3,14 @@
   --c-menu-shadow: oklch(0% 0 0/0.1);
   --op-menu-shadow: 0 2px 3px var(--c-menu-shadow);
 
-  --i-menu-size: 48px;
+  --i-menu-size: 40px;
 }
 
 /* 주 메뉴 영역 */
 #menu-area {
   display: flex;
   position: absolute;
-  padding: var(--p);
-  gap: var(--p);
+  padding: 0;
   top: 0;
   left: 0;
   z-index: 1;
@@ -38,6 +37,7 @@
 
 #sidezone {
   position: relative;
+  padding: var(--p);
   z-index: 0;
 
   width: 100%;
@@ -56,9 +56,9 @@
   height: 100%;
 
   /* outline: solid 1px var(--c-border); */
-  border: solid 1px var(--c-border);
+  /* border: solid 1px var(--c-border); */
   /* border-radius: var(--r); */
-  border-radius: calc((var(--i-menu-size) + 2px + var(--p-small)*2)/2);
+  border-radius: 0 12px 12px 0;
   animation: cubic-bezier(.17, .67, .49, .99) 0.25s ani-window-in;
   box-shadow: var(--op-menu-shadow);
   pointer-events: auto;
@@ -331,7 +331,7 @@
   height: calc(var(--i-menu-size) + 2px + var(--p-small)*2);
 
   border: solid 1px var(--c-border);
-  border-radius: calc((var(--i-menu-size) + 2px + var(--p-small)*2)/2);
+  border-radius: 12px;
   background-color: oklch(from var(--c-main) l c h/0.9);
   box-shadow: var(--op-menu-shadow);
   backdrop-filter: blur(30px);
@@ -407,12 +407,12 @@
 .float-menu > a {
   padding: unset;
   justify-content: center;
-  padding: var(--p-large);
+  padding: var(--p);
   
   min-width: var(--i-menu-size);
   min-height: var(--i-menu-size);
   
-  border-radius: calc(var(--i-menu-size)/2);
+  border-radius: 8px;
   background-color: unset;
 }
 .float-menu > button:focus,

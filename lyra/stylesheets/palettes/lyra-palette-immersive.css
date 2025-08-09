@@ -15,21 +15,21 @@
   --acryl-blur: blur(30px);
   --acryl-blur-light: blur(15px);
 
-  --input-minimum: 44px;
-  --input-radius: 22px;
+  --input-minimum: 36px;
+  --input-radius: 8px;
   --input-background: oklch(from var(--accent) l 0.2 h/0.1);
 
-  --button-minimum: 44px;
-  --button-padding: 12px;
+  --button-minimum: 40px;
+  --button-padding: 10px;
   --button-gap: 4px;
-  --button-radius: 22px;
+  --button-radius: 8px;
   --button-background: oklch(from var(--accent) l 0.2 h/0.1);
 
-  --select-minimum: 44px;
-  --select-radius: 22px;
+  --select-minimum: 36px;
+  --select-radius: 8px;
   --select-background: oklch(from var(--accent) l 0.2 h/0.1);
 
-  --label-padding: 10px;
+  --label-padding: 8px;
 
   --toggle-width: 50px;
   --toggle-height: 30px;
@@ -49,7 +49,7 @@
 
   --menuset-padding: 4px;
   --menuset-gap: 2px;
-  --menuset-size: 48px;
+  --menuset-size: 40px;
   --menuset-radius: calc((var(--menuset-size) + 2px + var(--menuset-padding)*2)/2);
   --menuset-border: var(--acryl-border);
   --menuset-background: var(--acryl-background);

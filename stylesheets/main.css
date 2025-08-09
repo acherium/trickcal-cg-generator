@@ -35,7 +35,7 @@ span.key-hint {
 input[type=text], input[type=number] { height: 44px; }
 label:has(input[type=text]) > input,
 label:has(input[type=number]) > input { height: 24px; }
-select { height: 44px; }
+select { height: 40px; }
 button { height: max-content; }
 
 .modal .content {

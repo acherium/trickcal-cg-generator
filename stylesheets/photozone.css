@@ -1444,3 +1444,21 @@ span.tm-b {
   outline: dashed 4px var(--c-accent);
   opacity: 0.5;
 }
+
+#button-download-script-box-inline {
+  display: none;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  z-index: 2;
+
+  background-color: var(--main);
+}
+
+#button-download-script-box-inline * {
+  font-family: "Pretendard GOV Variable";
+}
+
+#photo-script-box-area-revamped:hover #button-download-script-box-inline {
+  display: flex;
+}

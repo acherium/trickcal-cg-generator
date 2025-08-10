@@ -11,8 +11,8 @@ import {
     name: "Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2058.1000",
-    date: "25-08-09",
+    version: "2058.1001",
+    date: "25-08-10",
     docType: "Pictor Project File",
     docVersion: 9,
     watermark: false,
@@ -2648,6 +2648,7 @@ import {
 
   // 대화창 이미지로 저장
   const btnSavePNGSbox = $("#button-download-script-box");
+  const btnSavePNGSboxInline = $("#button-download-script-box-inline");
   btnSavePNGSbox.onclick = () => {
     if (slide[current].values.type === 0) {
       const target = $("#photo-script-box-area");
@@ -2656,6 +2657,11 @@ import {
       const target = $("#photo-script-box-area-revamped");
       if (slide[current].toggles.content) exportPNG(target, 3);
     };
+  };
+  btnSavePNGSboxInline.onclick = (click) => {
+    click.preventDefault();
+    click.stopImmediatePropagation();
+    btnSavePNGSbox.click();
   };
 
   // 개체 메뉴 기능

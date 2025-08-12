@@ -5,18 +5,20 @@ import {
   COMMON_INTERVAL, ANIMATION_INTERVAL,
 } from "../lyra/lyra-module.js";
 
+import { lget, lset } from "./modules/localStorageController.js";
+
 (() => {
   // 앱 정보
   const APP = {
     name: "Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2058.1001",
+    version: "2059.1000",
     date: "25-08-10",
     docType: "Pictor Project File",
     docVersion: 9,
-    watermark: false,
-    isBeta: false
+    watermark: true,
+    isBeta: true,
   };
 
   // 메뉴 접기/펼치기 기능 초기화

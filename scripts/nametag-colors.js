@@ -1,5 +1,5 @@
 const colors = {
-  "date": "25-08-15",
+  "date": "25-08-23",
   "race": {
     "race.fairy": {
       "code": "fairy",
@@ -199,7 +199,7 @@ const colors = {
             "ko": "우로스",
             "en": "Ouros"
           },
-          "color": "A1AD88"
+          "color": "B61510"
         },
         "char.lion": {
           "code": "lion",

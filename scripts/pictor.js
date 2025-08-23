@@ -13,12 +13,12 @@ import { lget, lset } from "./modules/localStorageController.js";
     name: "Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2059.1001",
-    date: "25-08-15",
+    version: "2059.1002",
+    date: "25-08-23",
     docType: "Pictor Project File",
     docVersion: 9,
-    watermark: true,
-    isBeta: true,
+    watermark: false,
+    isBeta: false,
   };
 
   // 메뉴 접기/펼치기 기능 초기화

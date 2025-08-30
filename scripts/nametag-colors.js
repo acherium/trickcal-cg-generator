@@ -1,5 +1,5 @@
 const colors = {
-  "date": "25-08-23",
+  "date": "25-08-30",
   "race": {
     "race.fairy": {
       "code": "fairy",
@@ -562,6 +562,14 @@ const colors = {
             "en": "Naia"
           },
           "color": "91D2EB"
+        },
+        "char.scizor": {
+          "code": "scizor",
+          "name": {
+            "ko": "시저",
+            "en": "Scizor"
+          },
+          "color": "5A5B5A"
         },
         "char.meluna": {
           "code": "meluna",

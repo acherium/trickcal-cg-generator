@@ -13,8 +13,8 @@ import { lget, lset } from "./modules/localStorageController.js";
     name: "Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2059.1003",
-    date: "25-08-30",
+    version: "2060.1000",
+    date: "25-09-04",
     docType: "Pictor Project File",
     docVersion: 9,
     watermark: false,
@@ -893,6 +893,9 @@ import { lget, lset } from "./modules/localStorageController.js";
   };
   document.addEventListener("dragover", (drag) => {
     drag.preventDefault();
+    const item = drag.dataTransfer.items[0];
+    if (!item || !item.type.includes("image/")) return;
+
     dropArea.style["display"] = "flex";
 
     if (innerHeight / 2 > drag.pageY) {

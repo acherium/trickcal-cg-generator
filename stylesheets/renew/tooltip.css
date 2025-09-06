@@ -1,6 +1,5 @@
 @charset "UTF-8";
 
-/* Tooltip element */
 :root {
   --tooltip-text-color: oklch(0% 0 0);
   --tooltip-text-color-alt: oklch(100% 0 0);
@@ -17,6 +16,7 @@
   }
 }
 
+/* Tooltip element */
 .tooltip {
   display: flex;
   position: fixed;
@@ -37,11 +37,9 @@
   border-radius: 4px;
   background-color: var(--tooltip-background-color);
   box-shadow: 0 2px 2px var(--tooltip-border-color);
-  backdrop-filter: blur(10px);
+  backdrop-filter: var(--acrylic);
 
   pointer-events: none;
-
-  animation: linear 0.15s both ani-tooltip-in;
 }
 
 .tooltip > span {
@@ -67,14 +65,4 @@
 
   background: repeat center url("../../assets/essentials/noise.png");
   opacity: 0.01;
-}
-
-@keyframes ani-tooltip-in {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
 }

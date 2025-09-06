@@ -1,0 +1,80 @@
+@charset "UTF-8";
+
+/* Tooltip element */
+:root {
+  --tooltip-text-color: oklch(0% 0 0);
+  --tooltip-text-color-alt: oklch(100% 0 0);
+  --tooltip-border-color: oklch(0% 0 0/0.1);
+  --tooltip-background-color: oklch(100% 0 0/0.9);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --tooltip-text-color: oklch(100% 0 0);
+    --tooltip-text-color-alt: oklch(0% 0 0);
+    --tooltip-border-color: oklch(100% 0 0/0.1);
+    --tooltip-background-color: oklch(0% 0 0/0.9);
+  }
+}
+
+.tooltip {
+  display: flex;
+  position: fixed;
+  align-items: center;
+  justify-content: center;
+  left: 0;
+  top: 0;
+  gap: 4px;
+  padding: 8px 10px;
+  z-index: 100;
+  overflow: hidden;
+
+  width: max-content;
+  height: max-content;
+
+  color: var(--tooltip-text-color);
+  border: solid 1px var(--tooltip-border-color);
+  border-radius: 4px;
+  background-color: var(--tooltip-background-color);
+  box-shadow: 0 2px 2px var(--tooltip-border-color);
+  backdrop-filter: blur(10px);
+
+  pointer-events: none;
+
+  animation: linear 0.15s both ani-tooltip-in;
+}
+
+.tooltip > span {
+  padding: 1px 3px;
+
+  font-size: 0.8em;
+  color: var(--tooltip-text-color-alt);
+  border-radius: 4px;
+  background-color: var(--tooltip-text-color);
+}
+
+.tooltip::before {
+  content: "";
+
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: -1;
+
+  width: 100%;
+  height: 100%;
+
+  background: repeat center url("../../assets/essentials/noise.png");
+  opacity: 0.01;
+}
+
+@keyframes ani-tooltip-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}

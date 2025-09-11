@@ -579,6 +579,14 @@ const colors = {
           },
           "color": "BCD190"
         },
+        "char.mute": {
+          "code": "mute",
+          "name": {
+            "ko": "뮤트",
+            "en": "Mute"
+          },
+          "color": "47BAAB"
+        },
         "char.bigwood": {
           "code": "bigwood",
           "name": {

@@ -3,6 +3,8 @@
 @import url("./error-alert.css");
 @import url("./tooltip.css");
 
+@import url("./components/menu.css");
+
 :root {
   --acrylic: blur(50px);
 }

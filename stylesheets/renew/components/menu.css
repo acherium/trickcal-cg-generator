@@ -1,0 +1,137 @@
+@charset "UTF-8";
+
+:root {
+  --menu-text-color: oklch(0% 0 0);
+  --menu-text-color-alt: oklch(100% 0 0);
+  --menu-border-color: oklch(0% 0 0/0.1);
+  --menu-background-color: oklch(100% 0 0/0.9);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --menu-text-color: oklch(100% 0 0);
+    --menu-text-color-alt: oklch(0% 0 0);
+    --menu-border-color: oklch(100% 0 0/0.1);
+    --menu-background-color: oklch(0% 0 0/0.9);
+  }
+}
+
+/* Menu element */
+#rf-menu-area {
+  display: grid;
+  position: fixed;
+  grid-template-rows: minmax(0, 1fr) minmax(49px, auto);
+  left: 0;
+  top: 0;
+  z-index: 1;
+
+  width: 100%;
+  height: 100%;
+
+  pointer-events: none;
+}
+
+:is(#rf-menu-area-top, #rf-menu-area-bottom) {
+  position: relative;
+}
+
+.rf-menu-wrap {
+  display: flex;
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding: 8px;
+
+  width: 100%;
+  height: 100%;
+}
+
+.rf-menu-wrap.left { justify-content: start; }
+.rf-menu-wrap.center { justify-content: center; }
+.rf-menu-wrap.right { justify-content: end; }
+
+.rf-menu-wrap.top { align-items: start; }
+.rf-menu-wrap.middle { align-items: center; }
+.rf-menu-wrap.bottom { align-items: end; }
+
+.rf-menu {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  overflow: hidden;
+
+  max-width: 100%;
+  max-height: 100%;
+  min-height: max-content;
+  width: 400px;
+  height: max-content;
+
+  border: solid 1px var(--menu-border-color);
+  border-radius: 4px;
+  background-color: var(--menu-background-color);
+  backdrop-filter: var(--acrylic);
+  box-shadow: 0 2px 2px var(--error-alert-border-color);
+
+  pointer-events: auto;
+}
+
+.rf-menu-top {
+  display: grid;
+  grid-template-columns: minmax(0, auto) minmax(0, 1fr) minmax(0, auto);
+  position: relative;
+  padding: 4px;
+
+  width: 100%;
+  height: 30px;
+}
+
+.rf-menu-top > button {
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+
+  min-width: unset;
+  min-height: unset;
+  width: 24px;
+  height: 24px;
+
+  border-radius: 12px;
+  background-color: transparent;
+}
+
+.rf-menu-drag-area {
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 100%;
+
+  cursor: grab;
+}
+
+.rf-menu-drag-area::before {
+  content: "";
+
+  display: block;
+  position: relative;
+
+  width: 40px;
+  height: 6px;
+
+  border-radius: 3px;
+  background-color: oklch(from var(--menu-text-color) l c h/0.2);
+}
+
+.rf-menu-drag-area:active { cursor: grabbing; }
+
+.rf-menu-center {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+
+  width: 100%;
+  min-height: 200px;
+  height: max-content;
+}

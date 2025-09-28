@@ -233,6 +233,14 @@ const colors = {
           },
           "color": "9AAABF"
         },
+        "char.tighero": {
+          "code": "tighero",
+          "name": {
+            "ko": "티그(영웅)",
+            "en": "Tig(Hero)"
+          },
+          "color": "496BFF"
+        },
         "char.rufo": {
           "code": "rufo",
           "name": {

@@ -1014,6 +1014,14 @@ const colors = {
             "en": "Guest"
           },
           "color": "A1AD88"
+        },
+        "char.noone": {
+          "code": "noone",
+          "name": {
+            "ko": "겨우살이",
+            "en": "No one"
+          },
+          "color": "FFFFFF"
         }
       }
     }

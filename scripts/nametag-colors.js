@@ -626,6 +626,14 @@ const colors = {
             "en": "Gabia"
           },
           "color": "8A5350"
+        },
+        "char.mirro": {
+          "code": "mirro",
+          "name": {
+            "ko": "미로",
+            "en": "Mirro"
+          },
+          "color": "AE396D"
         }
       }
     },

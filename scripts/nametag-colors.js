@@ -627,11 +627,11 @@ const colors = {
           },
           "color": "8A5350"
         },
-        "char.mirro": {
-          "code": "mirro",
+        "char.miro": {
+          "code": "miro",
           "name": {
             "ko": "미로",
-            "en": "Mirro"
+            "en": "Miro"
           },
           "color": "AE396D"
         }
@@ -981,6 +981,14 @@ const colors = {
             "en": "Barie"
           },
           "color": "973B58"
+        },
+        "char.asana": {
+          "code": "asana",
+          "name": {
+            "ko": "아사나",
+            "en": "Asana"
+          },
+          "color": "FC864C"
         }
       }
     },

@@ -289,6 +289,14 @@ const colors = {
           },
           "color": "64443E"
         },
+        "char.benibeni": {
+          "code": "benibeni",
+          "name": {
+            "ko": "베니(베니)",
+            "en": "Beni(Beni)"
+          },
+          "color": "FBBE42"
+        },
         "char.mago": {
           "code": "mago",
           "name": {

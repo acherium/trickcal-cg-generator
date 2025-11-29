@@ -1,0 +1,61 @@
+@charset "UTF-8";
+
+:root, :root.light-mode {
+  --loading-screen-background: oklch(100% 0 0);
+  --loading-screen-text: oklch(60% 0 0);
+  --loading-screen-icon-shadow: oklch(0% 0 0/0.3);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --loading-screen-background: oklch(0% 0 0);
+    --loading-screen-text: oklch(40% 0 0);
+    --loading-screen-icon-shadow: oklch(100% 0 0/0.3);
+  }
+}
+
+:root.dark-mode {
+  --loading-screen-background: oklch(0% 0 0);
+  --loading-screen-text: oklch(40% 0 0);
+  --loading-screen-icon-shadow: oklch(100% 0 0/0.3);
+}
+
+#init-loading-screen {
+  display: flex;
+  position: fixed;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  left: 0;
+  top: 0;
+  z-index: 10000;
+
+  width: 100%;
+  height: 100%;
+
+  background-color: var(--loading-screen-background);
+}
+
+#init-loading-screen > .icon {
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+
+  width: 128px;
+  height: 128px;
+
+  border-radius: 12px;
+  background: no-repeat center/96px url("../../assets/essentials/logo-accent-alt.svg") var(--accent);
+  box-shadow: 0 5px 10px var(--loading-screen-icon-shadow);
+}
+
+#init-loading-progress { width: 300px; }
+
+#init-loading-description {
+  font-size: 12pt;
+  text-align: center;
+  color: var(--loading-screen-text);
+}

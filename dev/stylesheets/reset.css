@@ -1,0 +1,34 @@
+@charset "UTF-8";
+
+@import url("../assets/fonts/WantedSans/webfonts/variable/complete/WantedSansVariable.css");
+@import url("../assets/fonts/PretendardGOV/web/variable/pretendardvariable-gov.css");
+@font-face {
+  font-family: "ONE Mobile POP";
+  src: url("../assets/fonts/OneMobilePOP/ONE_Mobile_POP.ttf");
+}
+
+:root {
+  --accent: oklch(73.2% 0.16 31.9);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  
+  font-family: "Wanted Sans Variable", "Pretendard GOV Variable", sans-serif;
+}
+
+html { overflow: hidden; }
+
+body {
+  display: flex;
+  position: relative;
+  
+  width: 100dvw;
+  height: 100dvh;
+}
+
+[data-font="wanted-sans"] { font-family: "Wanted Sans Variable"; }
+[data-font="pretendard-gov"] { font-family: "Pretendard GOV Variable"; }
+[data-font="one-mobile-pop"] { font-family: "ONE Mobile POP"; }

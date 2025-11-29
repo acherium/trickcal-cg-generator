@@ -1,0 +1,20 @@
+@charset "UTF-8";
+
+#app-watermark {
+  position: fixed;
+  right: 10px;
+  top: 10px;
+  padding: 6px 8px;
+  z-index: 100000;
+
+  width: max-content;
+  height: max-content;
+
+  text-align: right;
+  color: oklch(100% 0 0);
+  border-radius: 4px;
+  background-color: oklch(0% 0 0);
+  opacity: 0.2;
+
+  pointer-events: none;
+}

@@ -1,0 +1,53 @@
+@charset "UTF-8";
+
+:root, :root.light-mode {
+  --progress-bar-background: oklch(from var(--accent) l c h/0.2);
+  --progress-bar-gauge: var(--accent);
+  --progress-transition-duration: 0.1s;
+  --progress-animation-duration: 3s;
+}
+
+progress-bar {
+  display: block;
+  position: relative;
+  overflow: hidden;
+
+  height: 12px;
+
+  border-radius: 6px;
+  background-color: var(--progress-bar-background);
+  cursor: progress;
+}
+
+progress-bar > div {
+  position: relative;
+  overflow: hidden;
+
+  width: 0%;
+  height: 100%;
+
+  border-radius: 6px;
+  background-color: var(--progress-bar-gauge);
+
+  transition: width ease-in-out var(--progress-transition-duration);
+}
+
+progress-bar > div::before {
+  content: "";
+
+  display: block;
+  position: absolute;
+
+  width: 100%;
+  height: 100%;
+
+  background-image: linear-gradient(90deg, transparent, oklch(100% 0 0/0.5), transparent);
+
+  animation: linear var(--progress-animation-duration) infinite both ani-progress-on-going;
+}
+
+@keyframes ani-progress-on-going {
+  0% { transform: translateX(-100%); }
+  50% { transform: translateX(200%); }
+  100% { transform: translateX(200%); }
+}

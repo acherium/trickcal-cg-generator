@@ -1,0 +1,7 @@
+{
+  "init": {
+    "assets": "Initializing assets...",
+    "scripts": "Initializing scripts...",
+    "welcome": "Welcome"
+  }
+}

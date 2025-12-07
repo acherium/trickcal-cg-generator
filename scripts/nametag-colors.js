@@ -521,6 +521,14 @@ const colors = {
             "en": "Taida"
           },
           "color": "DA9796"
+        },
+        "char.heidi": {
+          "code": "heidi",
+          "name": {
+            "ko": "하이디",
+            "en": "Heidi"
+          },
+          "color": "A79B93"
         }
       }
     },

@@ -1,5 +1,5 @@
 const colors = {
-  "date": "25-12-21",
+  "date": "26-01-04",
   "race": {
     "race.fairy": {
       "code": "fairy",
@@ -1062,6 +1062,14 @@ const colors = {
             "en": "No one"
           },
           "color": "FFFFFF"
+        },
+        "char.yomi": {
+          "code": "yomi",
+          "name": {
+            "ko": "요미",
+            "en": "Yomi"
+          },
+          "color": "8B78BF"
         }
       }
     }

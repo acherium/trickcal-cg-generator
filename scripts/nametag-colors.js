@@ -708,6 +708,14 @@ const colors = {
           },
           "color": "9DBAC1"
         },
+        "char.shadytwisted": {
+          "code": "shadytwisted",
+          "name": {
+            "ko": "셰이디(역전)",
+            "en": "Shady(Twisted)"
+          },
+          "color": "353143"
+        },
         "char.rim": {
           "code": "rim",
           "name": {

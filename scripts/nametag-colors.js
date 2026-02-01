@@ -869,6 +869,14 @@ const colors = {
           },
           "color": "A8BBC8"
         },
+        "char.dayapureshine": {
+          "code": "dayapureshine",
+          "name": {
+            "ko": "다야(퓨어샤인)",
+            "en": "Daya(PureShine)"
+          },
+          "color": "77C8F7"
+        },
         "char.opal": {
           "code": "opal",
           "name": {

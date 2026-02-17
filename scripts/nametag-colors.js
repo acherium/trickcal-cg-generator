@@ -658,6 +658,14 @@ const colors = {
             "en": "Ayla"
           },
           "color": "908984"
+        },
+        "char.inkle": {
+          "code": "inkle",
+          "name": {
+            "ko": "잉클",
+            "en": "Inkle"
+          },
+          "color": "0E0E10"
         }
       }
     },

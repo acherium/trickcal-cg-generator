@@ -458,6 +458,14 @@ const colors = {
           },
           "color": "926F6E"
         },
+        "char.ameliar41": {
+          "code": "ameliar41",
+          "name": {
+            "ko": "아멜리아(R41)",
+            "en": "Amelia(R41)"
+          },
+          "color": "E34BF8"
+        },
         "char.orr": {
           "code": "orr",
           "name": {

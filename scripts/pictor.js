@@ -13,7 +13,7 @@ import { lget, lset } from "./modules/localStorageController.js";
     name: "Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2060.1018",
+    version: "2060.1019",
     date: "26-03-01",
     docType: "Pictor Project File",
     docVersion: 9,

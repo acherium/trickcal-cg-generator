@@ -336,6 +336,14 @@ const colors = {
             "en": "Yumimi"
           },
           "color": "C0B4B6"
+        },
+        "char.sparrot": {
+          "code": "sparrot",
+          "name": {
+            "ko": "스패럿",
+            "en": "Sparrot"
+          },
+          "color": "A1AE87"
         }
       }
     },

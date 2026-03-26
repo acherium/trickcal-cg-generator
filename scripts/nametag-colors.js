@@ -80,6 +80,14 @@ const colors = {
           },
           "color": "847592"
         },
+        "char.nerrage": {
+          "code": "nerrage",
+          "name": {
+            "ko": "네르(빡침)",
+            "en": "Ner(Rage)"
+          },
+          "color": "716A8F"
+        },
         "char.shoupan": {
           "code": "shoupan",
           "name": {

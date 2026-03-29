@@ -64,6 +64,14 @@ const colors = {
           },
           "color": "F09D7D"
         },
+        "char.erpinroyale": {
+          "code": "erpinroyale",
+          "name": {
+            "ko": "에르핀(왕도)",
+            "en": "Erpin(Royale)"
+          },
+          "color": "CE4079"
+        },
         "char.ashur": {
           "code": "ashur",
           "name": {

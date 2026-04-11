@@ -213,7 +213,7 @@ const colors = {
           "code": "uros",
           "name": {
             "ko": "우로스",
-            "en": "Ouros"
+            "en": "Uros"
           },
           "color": "B61510"
         },
@@ -425,6 +425,14 @@ const colors = {
             "en": "Haley"
           },
           "color": "E83B92"
+        },
+        "char.haleysane": {
+          "code": "haleysane",
+          "name": {
+            "ko": "헤일리(멀쩡)",
+            "en": "Haley(Sane)"
+          },
+          "color": "397192"
         },
         "char.risty": {
           "code": "risty",

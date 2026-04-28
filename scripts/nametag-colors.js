@@ -964,6 +964,14 @@ const colors = {
             "en": "Pira"
           },
           "color": "7B5B2F"
+        },
+        "char.aragnia": {
+          "code": "aragnia",
+          "name": {
+            "ko": "아라그니아",
+            "en": "Aragnia"
+          },
+          "color": "608DFE"
         }
       }
     },

@@ -13,8 +13,8 @@ import { lget, lset } from "./modules/localStorageController.js";
     name: "Pictor",
     author: "Acherium",
     contact: "acherium@pm.me",
-    version: "2060.1025",
-    date: "26-04-28",
+    version: "2061.1000",
+    date: "26-05-03",
     docType: "Pictor Project File",
     docVersion: 9,
     watermark: false,
@@ -1663,11 +1663,15 @@ import { lget, lset } from "./modules/localStorageController.js";
         classes: [ "image-item" ],
         properties: {
           innerHTML: `<button class="toggle"><div class="i i-toggle-on"></div></button>` +
-            `<div class="thumb"><img src="${res.assets.image}"></div>` +
+            `<div class="thumb"></div>` +
             `<p>#<span class="oid">${res.uid}</span>: <span class="name">${res.name}</span></p>` +
             `<button class="remove"><div class="i i-trash"></div></button>`
         }
       });
+      const $labelThumbWrap = $(".thumb", res.assets.label);
+      const $labelThumbnail = create("img");
+      $labelThumbnail.src = res.assets.image;
+      append($labelThumbnail, $labelThumbWrap);
 
       if (origin === null) tslide.assets.objects.push(res);
       objLayer.append(res.assets.body);
@@ -2293,7 +2297,8 @@ import { lget, lset } from "./modules/localStorageController.js";
   const refreshSlideList = () => {
     slideList.innerHTML = "";
     slideList.innerHTML = slide.map((d, i) => {
-      return `<div id="slide-item-${i}" class="slide-item"><div class="thumb"><img src="${d.assets.thumbnail}"></div>` +
+      // return `<div id="slide-item-${i}" class="slide-item"><div class="thumb"><img src="${d.assets.thumbnail}"></div>` +
+      return `<div id="slide-item-${i}" class="slide-item"><div class="thumb"></div>` +
         `<div class="slide-item-menu"><p>${i+1}</p><button class="remove"><div class="i i-deny"></div></button></div></div>`;
     }).join("");
     Array.from(slideList.querySelectorAll(".slide-item")).forEach((n, i) => {

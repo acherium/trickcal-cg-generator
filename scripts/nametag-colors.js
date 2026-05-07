@@ -1070,6 +1070,14 @@ const colors = {
           },
           "color": "A0385A"
         },
+        "char.levigraduate": {
+          "code": "levigraduate",
+          "name": {
+            "ko": "레비(졸업)",
+            "en": "Levi(Graduate)"
+          },
+          "color": "854553"
+        },
         "char.barie": {
           "code": "barie",
           "name": {

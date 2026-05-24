@@ -378,6 +378,14 @@ const colors = {
           },
           "color": "808191"
         },
+        "char.edrehab": {
+          "code": "edrehab",
+          "name": {
+            "ko": "이드(재활)",
+            "en": "Ed(Rehab)"
+          },
+          "color": "CAC7DE"
+        },
         "char.nata": {
           "code": "nata",
           "name": {

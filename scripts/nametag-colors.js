@@ -851,6 +851,14 @@ const colors = {
             "en": "Maison"
           },
           "color": "916F6D"
+        },
+        "char.kishya": {
+          "code": "kishya",
+          "name": {
+            "ko": "키샤",
+            "en": "Kishya"
+          },
+          "color": "E04F81"
         }
       }
     },

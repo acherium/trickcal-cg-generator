@@ -1159,6 +1159,14 @@ const colors = {
           },
           "color": "FFFFFF"
         },
+        "char.missing": {
+          "code": "missing",
+          "name": {
+            "ko": "니펠",
+            "en": "Nifhel"
+          },
+          "color": "975650"
+        },
         "char.yomi": {
           "code": "yomi",
           "name": {

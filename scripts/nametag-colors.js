@@ -988,6 +988,14 @@ const colors = {
             "en": "Aragnia"
           },
           "color": "608DFE"
+        },
+        "char.silvia": {
+          "code": "silvia",
+          "name": {
+            "ko": "실비아",
+            "en": "Silvia"
+          },
+          "color": "CBD0DC"
         }
       }
     },

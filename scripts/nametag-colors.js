@@ -159,6 +159,14 @@ const colors = {
             "en": "Carren"
           },
           "color": "DA9796"
+        },
+        "char.skea": {
+          "code": "skea",
+          "name": {
+            "ko": "스키아",
+            "en": "Skea"
+          },
+          "color": "314642"
         }
       }
     },

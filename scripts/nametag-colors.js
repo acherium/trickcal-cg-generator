@@ -722,6 +722,14 @@ const colors = {
             "en": "Inkle"
           },
           "color": "0E0E10"
+        },
+        "char.nicole": {
+          "code": "nicole",
+          "name": {
+            "ko": "니콜",
+            "en": "Nicole"
+          },
+          "color": "B2996C"
         }
       }
     },

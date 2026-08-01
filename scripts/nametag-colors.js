@@ -80,6 +80,14 @@ const colors = {
           },
           "color": "E6838D"
         },
+        "char.ashurmagi": {
+          "code": "ashurmagi",
+          "name": {
+            "ko": "에슈르(마도)",
+            "en": "Ashur(Magi)"
+          },
+          "color": "E26077"
+        },
         "char.ner": {
           "code": "ner",
           "name": {

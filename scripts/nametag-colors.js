@@ -738,6 +738,14 @@ const colors = {
             "en": "Nicole"
           },
           "color": "B2996C"
+        },
+        "char.aurora": {
+          "code": "aurora",
+          "name": {
+            "ko": "오로라",
+            "en": "Aurora"
+          },
+          "color": "9CA3F3"
         }
       }
     },

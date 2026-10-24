@@ -175,6 +175,14 @@ const colors = {
             "en": "Skea"
           },
           "color": "314642"
+        },
+        "char.ronnie": {
+          "code": "ronnie",
+          "name": {
+            "ko": "로니",
+            "en": "Ronnie"
+          },
+          "color": "9CAA9E"
         }
       }
     },
@@ -374,6 +382,22 @@ const colors = {
           "name": {
             "ko": "스패럿",
             "en": "Sparrot"
+          },
+          "color": "AE2358"
+        },
+        "char.callamori": {
+          "code": "callamori",
+          "name": {
+            "ko": "칼라모리",
+            "en": "Callamori"
+          },
+          "color": "A1AE87"
+        },
+        "char.orica": {
+          "code": "orica",
+          "name": {
+            "ko": "오리카",
+            "en": "Orica"
           },
           "color": "A1AE87"
         }
@@ -611,6 +635,14 @@ const colors = {
           },
           "color": "FFDB5B"
         },
+        "char.uimemory": {
+          "code": "uimemory",
+          "name": {
+            "ko": "우이(기억)",
+            "en": "Ui(Memory)"
+          },
+          "color": "BAE8BD"
+        },
         "char.laika": {
           "code": "laika",
           "name": {
@@ -746,6 +778,14 @@ const colors = {
             "en": "Aurora"
           },
           "color": "9CA3F3"
+        },
+        "char.coffe": {
+          "code": "coffe",
+          "name": {
+            "ko": "코페",
+            "en": "Coffe"
+          },
+          "color": "AC5343"
         }
       }
     },
@@ -908,6 +948,14 @@ const colors = {
             "en": "Vivi"
           },
           "color": "B8AFB1"
+        },
+        "char.vividivine": {
+          "code": "vividivine",
+          "name": {
+            "ko": "비비(신성)",
+            "en": "Vivi(Divine)"
+          },
+          "color": "74BCB6"
         },
         "char.neti": {
           "code": "neti",
